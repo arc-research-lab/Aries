@@ -78,7 +78,7 @@ private:
       if (auto intAttr = dyn_cast<IntegerAttr>(attr)){
         auto intSize = intAttr.getInt();
         if(intSize%packNum!=0){
-          llvm::outs() << "Invalid PLIO packing due to memory size\n";
+          llvm::errs() << "Invalid PLIO packing due to memory size\n";
           return false;
         }
         lastSize = intSize/packNum;
@@ -127,7 +127,7 @@ private:
             allocPairs.push_back(std::pair(newAllocOp, allocOp));
         }
         else{
-          llvm::outs() << "Memref not defined by AllocOp\n";
+          llvm::errs() << "Memref not defined by AllocOp\n";
           return false;
         }
       }else{ // Find the memref in the argument list

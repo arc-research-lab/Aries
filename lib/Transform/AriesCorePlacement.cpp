@@ -848,7 +848,7 @@ private:
     auto indexType = builder.getIndexType();
     unsigned rowStart = rowOffset;
     if(rowStart%2!=0){
-      llvm::outs() << "Algorithm requires rowOffset is a even number\n";
+      llvm::errs() << "Algorithm requires rowOffset is a even number\n";
       return false;
     }
     unsigned realRowNum = std::floor((rowNum-rowStart)/2);

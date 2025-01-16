@@ -26,7 +26,7 @@ private:
     std::string filedir = pathName + inputfileName;
     llvm::ErrorOr<std::unique_ptr<llvm::MemoryBuffer>> fileOrErr = llvm::MemoryBuffer::getFile(filedir);
     if (std::error_code ec = fileOrErr.getError()) {
-      llvm::outs() << "Could not open input file: " << filedir << "\n";
+      llvm::errs() << "Could not open input file: " << filedir << "\n";
       return false;
     }
     llvm::MemoryBuffer *inputBuffer = fileOrErr->get();
@@ -37,7 +37,7 @@ private:
     content.split(splitContents, "//_aries_split_//");
 
     if(splitContents.size()%2!=1){
-      llvm::outs() << "The number of the spliter is wrong\n";
+      llvm::errs() << "The number of the spliter is wrong\n";
       return false;
     }
 
@@ -55,7 +55,7 @@ private:
         std::error_code ec;
         llvm::raw_fd_ostream outputFile(outdir, ec);
         if (ec) {
-          llvm::outs() << "Could not open output file: " << outdir << "\n";
+          llvm::errs() << "Could not open output file: " << outdir << "\n";
           return false;
         }
         outputFile << splitContents[i];

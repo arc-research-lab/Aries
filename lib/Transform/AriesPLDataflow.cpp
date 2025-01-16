@@ -48,12 +48,12 @@ private:
         unsigned numDim = ubMap.getNumDims();
         unsigned numSym = ubMap.getNumSymbols();
         if (ubMap.getNumResults() != 1){
-          llvm::outs() << "Doesn't support affineMap with multi results\n";
+          llvm::errs() << "Doesn't support affineMap with multi results\n";
           return;
         }
         auto expr = dyn_cast<AffineBinaryOpExpr>(ubMap.getResult(0));
         if (!expr || expr.getKind() != AffineExprKind::CeilDiv){
-          llvm::outs() << "Besides constant upperbound, only support ceildiv\n";
+          llvm::errs() << "Besides constant upperbound, only support ceildiv\n";
           return;
         }
         // Extract the divisor and symbol

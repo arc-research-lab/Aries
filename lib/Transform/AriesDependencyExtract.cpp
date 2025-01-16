@@ -122,7 +122,7 @@ private:
                         || srcStrides != dstStrides)
             continue;
           if(opIndex>0){
-            llvm::outs() 
+            llvm::errs() 
                 << "More than one flow dependencies found\n";
             return false;
           }
@@ -149,7 +149,7 @@ private:
                  !=  srcOffsets.end())
                 continue;
               if(bandIndex>1){
-                llvm::outs() 
+                llvm::errs() 
                   << "More than two non-single parallel loops lead"
                   << "to a flow dependency\n";
                 return false;

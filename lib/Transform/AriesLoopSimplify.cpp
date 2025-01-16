@@ -48,7 +48,7 @@ private:
         getNestedLoopBand(calleeFuncOp.getBody(), band);
 
         if (failed(checkIfHyperRectangular(band))){
-          llvm::outs() << "Not recutangular nested loops!\n";
+          llvm::errs() << "Not recutangular nested loops!\n";
           return WalkResult::interrupt();
         }
 
@@ -61,7 +61,7 @@ private:
           AffineMap map;
           getTripCountMapAndOperands(forOp, &map, &operands);
           if (!map.isSingleConstant()){
-            llvm::outs() << "Involve loops with non-consant trip count!\n";
+            llvm::errs() << "Involve loops with non-consant trip count!\n";
             return WalkResult::interrupt();
           }
 
@@ -73,7 +73,7 @@ private:
           // Current only support For loops with single arguments
           auto blockArgs = forOp.getBody()->getArguments();
           if (blockArgs.size()!=1){
-            llvm::outs() << "The number of block arguments of the forOp" 
+            llvm::errs() << "The number of block arguments of the forOp" 
                          << " doesn't euqal to 1!\n" ;
             return WalkResult::interrupt();
           }

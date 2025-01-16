@@ -131,7 +131,7 @@ private:
           }
           // If the memref argument with dynamic size is not annotated
           if(!flag){
-            llvm::outs() << "Find dynamic memref arguments not annotated\n";
+            llvm::errs() << "Find dynamic memref arguments not annotated\n";
             return false;
           }
         }
@@ -286,7 +286,7 @@ private:
       arg.setType(newType);
       unsigned packNum;
       if(!getPacksize(typeAttrs, width, i, packNum, idxs)){
-        llvm::outs() << "Find dynamic memref not in the arguments\n";
+        llvm::errs() << "Find dynamic memref not in the arguments\n";
         return false;
       }
       // Update the affine.load/affine.store that uses the arg
@@ -308,7 +308,7 @@ private:
             return false;
           }
         }else{
-          llvm::outs() << "Argument with dynamic size is used by other ops\n";
+          llvm::errs() << "Argument with dynamic size is used by other ops\n";
           return false;
         }
       }

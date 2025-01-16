@@ -280,7 +280,7 @@ private:
           getTripCountMapAndOperands(loop, &map, &foroperands);
           auto tripCount = map.getSingleConstantResult();
           if (!tripCount){
-            llvm::outs() << "Involve loops with non-consant trip count!\n";
+            llvm::errs() << "Involve loops with non-consant trip count!\n";
             return WalkResult::interrupt();
           }
           auto size = sizes[dim];
@@ -493,7 +493,7 @@ private:
       // Create dma op to load data from external mem to L2 buffer
       // Replace IOPush: Send data from L2 buffer to L1 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
-      auto dmaOp = builder.create<DmaOp>(loc, src,      offsets,      sizes,      strides,
+      auto dmaOp = builder.create<DmaOp>(loc, src, offsets, sizes, strides,
                             allocOp, localOffsets, localSizes, localStrides);
       auto attr = iopushOp->getAttr("type");
       dmaOp->setAttr("type", attr);
@@ -557,7 +557,7 @@ private:
       auto applyop = dyn_cast<AffineApplyOp>(definedOp);
       auto it = llvm::find(applyops, applyop);
       if (it == applyops.end()){
-        llvm::outs() << "IOpushOp/IOpopOp involves offset not"
+        llvm::errs() << "IOpushOp/IOpopOp involves offset not"
                      << "defined by AffineApplyOp & ConstantOp\n";
         return WalkResult::interrupt();
       }
@@ -708,7 +708,7 @@ private:
               auto addOp = builder.create<arith::AddIOp>(loc, sliceL, sliceR);
               builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, addOp);
             }else{
-              llvm::outs() << "Find IOPop marked by non-float/int type\n";
+              llvm::errs() << "Find IOPop marked by non-float/int type\n";
               return WalkResult::interrupt();
             }
           }
@@ -1367,7 +1367,7 @@ private:
         plForOp = forOp;
     });
     if(!plForOp){
-      llvm::outs() << "Array_Partition loop not found\n";
+      llvm::errs() << "Array_Partition loop not found\n";
       return false;
     }
     SmallVector<AffineForOp, 6> band;
@@ -1381,9 +1381,10 @@ private:
     (void)pm.run(plFunc);
 
     if(!AllocL2Buffer(builder, plFunc, plForOp, band)){
-      llvm::outs() << "Alloc L2 buffer failed\n";
+      llvm::errs() << "Alloc L2 buffer failed\n";
       return false;
     }
+    return true;
     // Tranverse the IOPushOps/IOPopOps and convert them to affine load/store
     if(!ConvertIODMAToAffine(builder, plFunc, plForOp))
       return false;
@@ -1395,7 +1396,7 @@ private:
     (void)pm.run(plFunc);
     // Permute loops in order to potentially increase the burst length
     if(!loopPermutation(plForOp)){
-      llvm::outs() << "Loop permutation failed\n";
+      llvm::errs() << "Loop permutation failed\n";
       return false;
     }
     // Tranverse all the outer point dma loops(involve L3 mem) and change the

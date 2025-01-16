@@ -79,7 +79,7 @@ private:
         unsigned depth = it - band.begin();
         if(depth != (unsigned)(band.size()-1)){ // If not, update the expr
           if(coeff%packNum!=0){
-            llvm::outs() << "Invalid AXI packing, size not dividable\n";
+            llvm::errs() << "Invalid AXI packing, size not dividable\n";
             return false;
           }
           auto newCoeff = (int64_t)(coeff / packNum);
@@ -87,7 +87,7 @@ private:
         }else{ // If used by the innermost loop, update the upperbound && record
           auto upbound = loop.getConstantUpperBound();
           if(upbound%packNum!=0){
-            llvm::outs() << "Invalid AXI packing, loop bound not dividable\n";
+            llvm::errs() << "Invalid AXI packing, loop bound not dividable\n";
             return false;
           }
           auto newBound = (int64_t)(upbound/packNum);
@@ -185,14 +185,24 @@ private:
     auto loMap = AffineMap::get(1, 0, loExpr);
     SmallVector<Value, 1> loOperands = {forOp.getInductionVar()};
     auto loVal = builder.create<AffineApplyOp>(loc, loMap, loOperands);
-    auto slice = builder.create<GetIntSliceOp>(loc, elemType, newResult,
+    GetIntSliceOp slice;
+    Value valToGet;
+    if(auto floatType = dyn_cast<FloatType>(elemType)){
+      auto intType = IntegerType::get(builder.getContext(), typeWidth);
+      slice = builder.create<GetIntSliceOp>(loc, intType, newResult, 
+                                            hiVal, loVal);
+      valToGet = builder.create<arith::BitcastOp>(loc, elemType, slice);
+    }else{
+      slice = builder.create<GetIntSliceOp>(loc, elemType, newResult,
                                                hiVal, loVal);
+      valToGet = slice.getResult();
+    }
     // Move the use into the AffineForOp
     SmallVector<Operation*, 4> users;
     for(auto use: result.getUsers()){
       use->moveBefore(forYiledOp);
     }
-    result.replaceAllUsesWith(slice);
+    result.replaceAllUsesWith(valToGet);
     // Create StoreOp to new Alloc after original read
     builder.setInsertionPointAfter(read);
     builder.create<AffineStoreOp>(loc, result, allocOp, zeroValues);
@@ -265,6 +275,7 @@ private:
     builder.setInsertionPoint(forYiledOp);
     // Move definingOp of val inside forOp
     auto val = write.getValueToStore();
+    auto valType = val.getType();
     auto defineOp = val.getDefiningOp();
     if(defineOp)
       defineOp->moveBefore(forYiledOp);
@@ -278,7 +289,15 @@ private:
     auto loMap = AffineMap::get(1, 0, loExpr);
     SmallVector<Value, 1> loOperands = {forOp.getInductionVar()};
     auto loVal = builder.create<AffineApplyOp>(loc, loMap, loOperands);
-    builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, val);
+    Value valToSet;
+    if(auto floatType = dyn_cast<FloatType>(valType)){ 
+      auto width = floatType.getWidth();
+      auto intType = IntegerType::get(builder.getContext(), width);                                      
+      valToSet = builder.create<arith::BitcastOp>(loc, intType, val);
+    }else{
+      valToSet = val;
+    }
+    builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, valToSet);
     // Create AffineStoeOp to store temp to wider stream/allocOp
     builder.setInsertionPointAfter(forOp);
     builder.create<AffineStoreOp>(loc, temp, allocOp, zeroValues);
@@ -435,7 +454,7 @@ private:
                 }
                 pairVec.push_back(newTuple);
              }else{
-                llvm::outs() << "Operand of callOp is not defined by CastOp\n";
+                llvm::errs() << "Operand of callOp is not defined by CastOp\n";
                 return false;
              }
           }
@@ -499,7 +518,7 @@ private:
       }else{//TODO::Deal with other defining operation here
         if(auto castOp = dyn_cast<CastOp>(op)){
           if(idx<0){
-            llvm::outs() << "Source of castOp is not in the arg list\n";
+            llvm::errs() << "Source of castOp is not in the arg list\n";
             return;
           }
           auto arg = func.getArgument(idx); 
