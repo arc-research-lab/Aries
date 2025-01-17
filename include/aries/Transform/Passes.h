@@ -126,6 +126,7 @@ std::unique_ptr<Pass> createAriesMemCopyPass();
 std::unique_ptr<Pass> createAriesDependencyExtractPass();
 std::unique_ptr<Pass> createAriesFuncUnrollPass();
 std::unique_ptr<Pass> createAriesLocalDataForwardPass();
+std::unique_ptr<Pass> createAriesL2BufferCreatePass();
 std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass();
 std::unique_ptr<Pass> createAriesBroadcastToForwardingPass();
 std::unique_ptr<Pass> createAriesDMAToIOPass();

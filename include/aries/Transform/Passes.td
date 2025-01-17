@@ -101,6 +101,15 @@ def AriesLocalDataForward : Pass<"aries-local-data-forward"> {
   let constructor = "mlir::aries::createAriesLocalDataForwardPass()";
 }
 
+def AriesL2BufferCreate : Pass<"aries-l2-buffer-create"> {
+  let summary = "Create L2 buffer";
+  let description = [{
+    This pass extracts the L2 buffer after AIE array has been unrolled.
+  }];
+  let constructor = "mlir::aries::createAriesL2BufferCreatePass()";
+  let dependentDialects = ["mlir::memref::MemRefDialect"];
+}
+
 def AriesKernelInterfaceCreate : Pass<"aries-kernel-interface-create"> {
   let summary = "Create new kenrel with interface compatable with ADF kernels";
   let description = [{

@@ -8,6 +8,7 @@ add_mlir_library(MLIRAriesPasses
     AriesDependencyExtract.cpp
     AriesFuncUnroll.cpp
     AriesLocalDataForward.cpp
+    AriesL2BufferCreate.cpp
     AriesKernelInterfaceCreate.cpp
     AriesBroadcastToForwarding.cpp
     AriesDMAToIO.cpp
