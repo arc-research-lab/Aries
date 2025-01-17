@@ -29,12 +29,20 @@ public:
     RowOffset=opts.OptRowOffset;
     ColGap = opts.OptColGap;
     CoreAlgo=opts.OptCoreAlgo;
+    EnablePL = opts.OptEnablePL;
+    EnableAIE2 = opts.OptEnableAIE2;
   }
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());
-  
-    if (!CorePlacement(mod))
-      signalPassFailure();
+    
+    if(!EnablePL && EnableAIE2){
+      if (!NPUCorePlacement(mod))
+        signalPassFailure();
+    }else{
+      if (!CorePlacement(mod))
+        signalPassFailure();
+    }
+    
   }
 
 private:
@@ -138,8 +146,10 @@ private:
       }
       unsigned col = colStart + std::floor(pid / (float)height);
       unsigned row = rowStart + pid % height;
-      if((col > colNum-1) || (row > rowNum-1))
+      if((col > colNum-1) || (row > rowNum-1)){
+        llvm::errs() << "Placement exceeds array boundary";
         return WalkResult::interrupt();
+      }
       auto colAttr = builder.getIntegerAttr(indexType, col);
       auto rowAttr = builder.getIntegerAttr(indexType, row);
       auto arrayAttr = builder.getArrayAttr({colAttr, rowAttr});
@@ -823,8 +833,10 @@ private:
       unsigned pid = remi + kSize * height + quot * (KSize + colGap) * height;
       unsigned col = colStart + std::floor(pid / (float)height);
       unsigned row = rowStart + pid % height;
-      if((col > colNum-1) || (row > rowNum-1))
+      if((col > colNum-1) || (row > rowNum-1)){
+        llvm::errs() << "Placement exceeds array boundary";
         return WalkResult::interrupt();
+      }
       auto colAttr = builder.getIntegerAttr(indexType, col);
       auto rowAttr = builder.getIntegerAttr(indexType, row);
       auto arrayAttr = builder.getArrayAttr({colAttr, rowAttr});
@@ -951,8 +963,10 @@ private:
                      + quot * (KSize) * height * 2;
       unsigned col = colStart + std::floor(pid / (float)(height*2));
       unsigned row = rowStart + pid % (height*2);
-      if((col > colNum-1) || (row > rowNum-1))
+      if((col > colNum-1) || (row > rowNum-1)){
+        llvm::errs() << "Placement exceeds array boundary";
         return WalkResult::interrupt();
+      }
       auto colAttr = builder.getIntegerAttr(indexType, col);
       auto rowAttr = builder.getIntegerAttr(indexType, row);
       auto arrayAttr = builder.getArrayAttr({colAttr, rowAttr});
@@ -965,8 +979,10 @@ private:
       else if(kSize == halfKSize-1)
         order = 3;
       if(!bufPlacement(builder, callOp, colNum, rowNum, bankNum, col, row, 1,
-                       order, DMAINCnt, DMAOUTCnt, bufOffsets))
+                       order, DMAINCnt, DMAOUTCnt, bufOffsets)){
+        llvm::errs() << "Buffer placement failed";
         return WalkResult::interrupt();
+      }
       return WalkResult::advance();
     });
     if(result == WalkResult::interrupt())
@@ -1001,20 +1017,107 @@ private:
 
       if(CoreAlgo == 0){
         if(!placementNaive0(builder, func, colNum, rowNum, colOffset, rowOffset,
-                            KSize, JSize, ISize))
+                            KSize, JSize, ISize)){
+          llvm::errs() << "Placement0 failed";
           return WalkResult::interrupt();
+        }
       }else if(CoreAlgo == 1){
         if(!placementNaive1(builder, func, colNum, rowNum, colOffset, rowOffset,
-                            colGap, KSize, JSize, ISize))
+                            colGap, KSize, JSize, ISize)){
+          llvm::errs() << "Placement1 failed";
           return WalkResult::interrupt();
+        }
       }else{
         if(!placementNaive2(builder, func, colNum, rowNum, colOffset, rowOffset,
-                            KSize, JSize, ISize))
-        return WalkResult::interrupt();
+                            KSize, JSize, ISize)){
+          llvm::errs() << "Placement2 failed";
+          return WalkResult::interrupt();
+        }
       }
       return WalkResult::advance();
     });
     if(flag == WalkResult::interrupt())
+      return false;
+    return true;
+  }
+
+  bool NPUPlacement0(OpBuilder builder, CellOp cell, 
+                     const unsigned colNum, const unsigned rowNum, 
+                     unsigned colOffset, unsigned rowOffset,
+                     unsigned dim0, unsigned dim1){
+    auto indexType = builder.getIndexType();
+    auto result = cell.walk([&](CallOp call){
+      if(!call->hasAttr("adf.kernel"))
+        return WalkResult::advance();
+      if(!call->hasAttr("ivs")){
+        return WalkResult::interrupt();
+      }
+      auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
+      call->removeAttr("ivs");
+      // Check if there are reduction loops need to be placed
+      SmallVector<unsigned, 3> ivIdeices;
+      for(auto attr : ivArrayAttr){
+        auto intAttr = dyn_cast<IntegerAttr>(attr);
+        ivIdeices.push_back((unsigned)intAttr.getInt());
+      }
+      unsigned col = ivIdeices[dim0] + colOffset;
+      unsigned row = ivIdeices[dim1] + rowOffset;
+      if((col > colNum-1) || (row > rowNum-1)){
+        llvm::errs() << "Placement exceeds array boundary";
+        return WalkResult::interrupt();
+      }
+      auto colAttr = builder.getIntegerAttr(indexType, col);
+      auto rowAttr = builder.getIntegerAttr(indexType, row);
+      auto arrayAttr = builder.getArrayAttr({colAttr, rowAttr});
+      call->setAttr("col, row", arrayAttr);
+      return WalkResult::advance();
+    });
+    if (result == WalkResult::interrupt())
+      return false;
+    return true;
+  }
+
+  bool NPUCorePlacement (ModuleOp mod) {
+    auto builder = OpBuilder(mod);
+    unsigned colNum = ColNum;
+    unsigned rowNum = RowNum;
+    unsigned colOffset = ColOffset;
+    unsigned rowOffset = RowOffset;
+
+    auto flag = mod.walk([&](CellOp cell){
+      if(!cell->hasAttr("tripCount"))
+        return WalkResult::advance();
+      auto arrayAttr = dyn_cast<ArrayAttr>(cell->getAttr("tripCount"));
+      SmallVector<unsigned, 3> tripCounts;
+      for(unsigned i=0; i < 3; i++){
+        auto attr = arrayAttr[i];
+        auto intAttr = dyn_cast<IntegerAttr>(attr);
+        tripCounts.push_back((unsigned)intAttr.getInt());
+      }
+      // Here we need to identify the KSize, which assume should be innermost
+      // but don't care about the order of ISize and JSize
+      unsigned dim0, dim1;
+      if(tripCounts[0] == 1){
+        dim0 = 1;
+        dim1 = 2;
+      }else if(tripCounts[1] == 1){
+        dim0 = 0;
+        dim1 = 2;
+      }else if(tripCounts[2] == 1){
+        dim0 = 0;
+        dim1 = 1;
+      }else{
+        llvm::errs() << "Current only support 2D logic array for NPU\n";
+        return WalkResult::interrupt();
+      }
+      if(!NPUPlacement0(builder, cell, colNum, rowNum, colOffset, rowOffset,
+                        dim0, dim1)){
+        llvm::errs() << "NPUPlacement0 failed\n";
+        return WalkResult::interrupt();
+      }
+      return WalkResult::advance();
+    });
+    if (flag == WalkResult::interrupt())
       return false;
     return true;
   }
