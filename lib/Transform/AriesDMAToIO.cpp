@@ -240,14 +240,12 @@ private:
           return WalkResult::advance();
         }
         builder.setInsertionPoint(op);
-        auto port 
-             = builder.create<CreateGraphIOOp>(loc, portIn, portName);
+        auto port = builder.create<CreateGraphIOOp>(loc, portIn, portName);
         builder.setInsertionPointAfter(port);
         if(flag_config==1)
           builder.create<ConfigPLIOOp>(loc, port, pliofreq);
         else if(flag_config==2)
           builder.create<ConfigGMIOOp>(loc, port, portburst, gmiobw);
-        auto dst = port.getResult();
         SmallVector<Value> src_offsets=op.getSrcOffsets();
         SmallVector<Value> src_sizes=op.getSrcSizes();
         SmallVector<Value> src_strides=op.getSrcStrides();
@@ -263,7 +261,7 @@ private:
           return WalkResult::interrupt();
         builder.setInsertionPoint(newOp);
         auto iopushOp = builder.create<IOPushOp>(loc, DmaSrc, src_offsets,
-                                                 src_sizes, src_strides, dst);
+                                                 src_sizes, src_strides, port);
         auto elementType = srcType.getElementType();
         auto elementTypeAttr = TypeAttr::get(elementType);
         iopushOp->setAttr("type", elementTypeAttr);
@@ -276,8 +274,7 @@ private:
           return WalkResult::advance();
         }
         builder.setInsertionPoint(op);
-        auto port 
-             = builder.create<CreateGraphIOOp>(loc,portOut,portName);
+        auto port = builder.create<CreateGraphIOOp>(loc, portOut, portName);
         builder.setInsertionPointAfter(port);
         if(flag_config==1)
           builder.create<ConfigPLIOOp>(loc, port, pliofreq);
@@ -425,6 +422,52 @@ private:
     return success();
   }
 
+  LogicalResult AIE2DMAToIO(OpBuilder builder, FuncOp func){
+    auto loc = builder.getUnknownLoc();
+    auto context = builder.getContext();
+    auto flag = func.walk([&](DmaOp op){
+      auto srcDMA = op.getSrc();
+      auto srcType = dyn_cast<MemRefType>(srcDMA.getType());
+      auto srcSpace = srcType.getMemorySpaceAsInt();
+      auto dstDMA = op.getDst();
+      auto dstType = dyn_cast<MemRefType>(dstDMA.getType());
+      auto dstSpace = dstType.getMemorySpaceAsInt();
+      auto portName = GraphIOName::GMIO;
+      if(!srcSpace && dstSpace == (int)MemorySpace::L2){
+        auto portIn = PortType::get(context, PortDir::In);
+        builder.setInsertionPoint(op);
+        auto port = builder.create<CreateGraphIOOp>(loc, portIn, portName);
+        SmallVector<Value> src_offsets=op.getSrcOffsets();
+        SmallVector<Value> src_sizes=op.getSrcSizes();
+        SmallVector<Value> src_strides=op.getSrcStrides();
+        builder.setInsertionPoint(op);
+        auto newOp = builder.create<ConnectOp>(loc, port, dstDMA);
+        builder.setInsertionPoint(newOp);
+        builder.create<IOPushOp>(loc, srcDMA, src_offsets, src_sizes, 
+                                 src_strides, port);
+        op.erase();
+        return WalkResult::advance();
+      }else if(srcSpace == (int)MemorySpace::L2 && !dstSpace){
+        auto portOut = PortType::get(context, PortDir::Out);
+        builder.setInsertionPoint(op);
+        auto port = builder.create<CreateGraphIOOp>(loc, portOut, portName);
+        SmallVector<Value> dst_offsets=op.getDstOffsets();
+        SmallVector<Value> dst_sizes=op.getDstSizes();
+        SmallVector<Value> dst_strides=op.getDstStrides();
+        builder.setInsertionPoint(op);
+        auto newOp = builder.create<ConnectOp>(loc, srcDMA, port);
+        builder.setInsertionPointAfter(newOp);
+        builder.create<IOPopOp>(loc, port, dstDMA, dst_offsets, 
+                                dst_sizes, dst_strides);
+        op.erase();
+      }
+      return WalkResult::advance();
+    });
+    if (flag == WalkResult::interrupt())
+      return failure();
+    return success();
+  }
+
   bool DMAToIO (ModuleOp mod) {
     auto builder = OpBuilder(mod);
     // Tranverse all the adf.func
@@ -435,15 +478,24 @@ private:
       auto attrPLIO = builder.getBoolAttr(false);
       if(PortType=="GMIO" || PortType=="gmio"){
         attrGMIO = builder.getBoolAttr(true);
+        func->setAttr("gmio",attrGMIO);
+        if (failed(LowerDMAToIO(builder, mod, func, PortType, PortWidth, 
+                                PLIOFreq, PortBurst, GMIOBW)))
+          return false;
       }else if(PortType=="PLIO" || PortType=="plio"){
         attrPLIO = builder.getBoolAttr(true);
+        func->setAttr("plio",attrPLIO);
+        if (failed(LowerDMAToIO(builder, mod, func, PortType, PortWidth, 
+                                PLIOFreq, PortBurst, GMIOBW)))
+          return false;
+      }else if(PortType=="PORT" || PortType=="port"){
+        if (failed(LowerDMAToIO(builder, mod, func, PortType, PortWidth, 
+                                PLIOFreq, PortBurst, GMIOBW)))
+          return false;
+      }else if(PortType=="AIE2_GMIO" || PortType=="aie2_gmio"){
+        if(failed(AIE2DMAToIO(builder, func)))
+          return false;
       }
-      func->setAttr("gmio",attrGMIO);
-      func->setAttr("plio",attrPLIO);
-
-      if (failed(LowerDMAToIO(builder, mod, func, PortType, PortWidth, PLIOFreq, 
-                              PortBurst, GMIOBW)))
-        return false;
 
       MLIRContext &context = getContext();
       RewritePatternSet patterns(&context);

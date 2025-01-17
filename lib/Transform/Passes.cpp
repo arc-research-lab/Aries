@@ -27,6 +27,7 @@ void mlir::aries::registerAriesPassPipeline() {
     pm.addPass(createAriesFuncUnrollPass());
     pm.addPass(createAriesLocalDataForwardPass());
     pm.addPass(createAriesL2BufferCreatePass());
+    pm.addPass(createAriesL2BufferCreatePass(opts));
     pm.addPass(createAriesKernelInterfaceCreatePass());
     pm.addPass(createAriesBroadcastToForwardingPass());
     pm.addPass(createAriesDMAToIOPass());

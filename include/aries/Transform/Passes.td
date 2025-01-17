@@ -108,6 +108,10 @@ def AriesL2BufferCreate : Pass<"aries-l2-buffer-create"> {
   }];
   let constructor = "mlir::aries::createAriesL2BufferCreatePass()";
   let dependentDialects = ["mlir::memref::MemRefDialect"];
+  let options = [
+    Option<"EnablePL", "en-pl", "bool", /*default=*/"true",
+           "Enable programmable logic(PL) or not">
+  ];
 }
 
 def AriesKernelInterfaceCreate : Pass<"aries-kernel-interface-create"> {

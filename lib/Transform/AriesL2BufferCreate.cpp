@@ -25,6 +25,10 @@ namespace {
 struct AriesL2BufferCreate 
       : public AriesL2BufferCreateBase<AriesL2BufferCreate> {
 public:
+  AriesL2BufferCreate() = default;
+  AriesL2BufferCreate(const AriesOptions &opts) {
+    EnablePL = opts.OptEnablePL;
+  }
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());
     if (!L2BufferCreate(mod))
@@ -32,6 +36,12 @@ public:
   }
 
 private:
+  // Now L2 buffer will be aligned. This pass will transpose any high 
+  // dimensional array block accesses to be aligned in the L2 level. e.g.
+  // x _ _ _
+  // _ x _ _     ---->    x x x x (Each _ or x is a recutangular block)
+  // _ _ x _
+  // _ _ _ x
   WalkResult dmaProcess(OpBuilder builder, FuncOp func, DmaOp dmaOp, 
                         SmallVector<AffineForOp, 6>& band){
     auto loc = builder.getUnknownLoc();
@@ -92,26 +102,26 @@ private:
     // The size of the L2 buffer = loop tripcount  * L1 size
     auto outerloop = band[0];
     SmallVector<int64_t, 4> bufSizes; // Record the size of the L2 buffer
-    SmallVector<unsigned, 4> loopIndices; // Record the loop depth
+    SmallVector<unsigned, 4> loopIndices; // Index of the non-repetitive loops 
     SmallVector<AffineApplyOp, 4> applyOps; // Record the applyOps
-    SmallVector<SmallVector<int, 4>, 4> tileIdxs; // Index of loops not in band
+    SmallVector<int, 4> tileIdx; // Index of loops in band
     unsigned rank = offsets.size();
+    auto totalCount = 1;
     for (unsigned dim=0; dim < rank; dim++){
       auto offset = offsets[dim];
       auto sizeInt = sizesInt[dim];
+      if(dim!=rank-1)
+        bufSizes.push_back(sizeInt);
       auto defineOp = offset.getDefiningOp();
       if(!defineOp){
         llvm::errs() << "Offset not defined by any operantions!\n";
         return WalkResult::interrupt();
       }
       if(dyn_cast<arith::ConstantOp>(defineOp)){
-        auto sizeInt = sizesInt[dim];
-        bufSizes.push_back(sizeInt);
+        continue;
       }else if(auto applyOp = dyn_cast<AffineApplyOp>(defineOp)){
         applyOps.push_back(applyOp);
         auto operands = applyOp.getOperands();
-        SmallVector<int, 4> tileIdx;
-        auto totalCount = 1;
         for (unsigned i = 0; i < operands.size(); i++){
           auto operand = operands[i];
           auto loop = getForInductionVarOwner(operand);
@@ -125,6 +135,7 @@ private:
             auto itId = llvm::find(loopIndices, index);
             if (itId == loopIndices.end())
               loopIndices.push_back(index);
+            tileIdx.push_back(index);
             SmallVector<Value, 4> foroperands;
             AffineMap map;
             getTripCountMapAndOperands(loop, &map, &foroperands);
@@ -134,17 +145,15 @@ private:
               return WalkResult::interrupt();
             }
             totalCount = totalCount * tripCount;
-          }else{ // Record the index of operands not in point-loops
-            tileIdx.push_back(i);
           }
         }
-        bufSizes.push_back(totalCount*sizeInt);
-        tileIdxs.push_back(tileIdx);
       }else{
         llvm::errs() << "Offset defined by unsupported operations\n";
         return WalkResult::interrupt();
       }
     }
+    auto lastSizeInt = sizesInt[rank-1];
+    bufSizes.push_back(totalCount*lastSizeInt);
     // Allocate L2 buffer before the outer point loop
     builder.setInsertionPoint(outerloop);
     auto allocOp 
@@ -153,6 +162,8 @@ private:
                                    (int)MemorySpace::L2));
     // Create L2 Stride = 1
     auto indexType = builder.getIndexType();
+    auto zeroAttr = builder.getIntegerAttr(indexType, 0);
+    auto zeroValue = builder.create<arith::ConstantOp>(loc,indexType,zeroAttr);
     auto oneAttr = builder.getIntegerAttr(indexType, 1);
     auto oneValue = builder.create<arith::ConstantOp>(loc,indexType,oneAttr);
     SmallVector<Value> L2Strides;
@@ -168,6 +179,9 @@ private:
       builder.setInsertionPointAfter(outerloop);
 
     // Create new loops for L3 -> L2 dma
+    if(!EnablePL){
+      llvm::sort(loopIndices);
+    }
     for (auto loopIndex : loopIndices){
       auto loop = band[loopIndex];
       auto newDMAForOp
@@ -187,6 +201,8 @@ private:
     SmallVector<Value, 4> L3Applys;
     SmallVector<Value, 4> oriL2Applys;
     SmallVector<Value, 4> newL2Applys;
+    SmallVector<Value, 4> ivs;
+    SmallVector<int64_t, 4> tripCnts;
     for (unsigned i = 0; i < applyOps.size(); i++){
       auto applyOp = applyOps[i];
       builder.setInsertionPoint(newInnerDMAYiled);
@@ -195,40 +211,39 @@ private:
       // Clone AffineApplyOps for L3 memory
       auto L3ApplyOp = dyn_cast<AffineApplyOp>(clonedOp);
       L3Applys.push_back(L3ApplyOp.getResult());
+      
       // Create AffineApplyOps for L2 memory
-      // Set the co-efficients of non-point loops to zero
-      auto map = applyOp.getAffineMap();
-      auto operands = applyOp.getOperands();
-      auto expr = map.getResult(0);
-      auto dimSize = map.getNumDims();
-      auto symSize = map.getNumSymbols();
-      // flattened form [dims, symbols, locals, constant]
-      llvm::SmallVector<int64_t> flattenedExpr;
-      if (failed(getFlattenedAffineExpr(expr, dimSize,
-                                        symSize, &flattenedExpr))){
-        return WalkResult::interrupt();
+      // The last dim of offset of L2 mem is defined by the loops that involve 
+      // in the original offset. It should be constructed from the innermost(i0) 
+      // loop to the outermost(e.g., i3). (i0 + i1 * I0 + ..) * size 
+      if(i==rank-1){
+        for(int idx=band.size()-1; idx>=0; idx--){
+          auto itLoop = llvm::find(tileIdx, idx);
+          if(itLoop != tileIdx.end()){
+            auto loop = band[idx];
+            SmallVector<Value, 4> foroperands;
+            AffineMap map;
+            getTripCountMapAndOperands(loop, &map, &foroperands); 
+            auto tripCount = map.getSingleConstantResult();
+            ivs.push_back(loop.getInductionVar());
+            tripCnts.push_back(tripCount);
+          }
+        }
+        AffineExpr newExpr = builder.getAffineDimExpr(0);
+        for(unsigned j = 1; j < ivs.size(); j++){
+          newExpr = newExpr + tripCnts[j-1] * builder.getAffineDimExpr(j);
+        }
+        auto newMap = AffineMap::get(ivs.size(), 0, newExpr);
+        // Create L2ApplyOps in both new loops and original loops
+        auto newL2ApplyOp = builder.create<AffineApplyOp>(loc, newMap, ivs);
+        newL2Applys.push_back(newL2ApplyOp.getResult());
+        builder.setInsertionPoint(applyOp);
+        auto oriL2ApplyOp = builder.create<AffineApplyOp>(loc, newMap, ivs);
+        oriL2Applys.push_back(oriL2ApplyOp.getResult());
+      }else{
+        newL2Applys.push_back(zeroValue);
+        oriL2Applys.push_back(zeroValue);
       }
-      auto tileIdx = tileIdxs[i];
-      for(auto id : tileIdx){
-        flattenedExpr[id]=0;
-      }
-      // Build the new AffineExpr and map for L2 memory
-      auto constantTerm = flattenedExpr[flattenedExpr.size()-1];
-      auto newExpr = builder.getAffineConstantExpr(constantTerm);
-      for (unsigned j = 0; j < dimSize; ++j) {
-        newExpr = newExpr + flattenedExpr[j] * builder.getAffineDimExpr(j);
-      }
-      for (unsigned j = 0; j < symSize; ++j) {
-        auto pos = j + dimSize;
-        newExpr = newExpr + flattenedExpr[pos] * builder.getAffineSymbolExpr(j);
-      }
-      auto newMap = AffineMap::get(dimSize, symSize, newExpr);
-      // Create L2ApplyOps in both new loops and original loops
-      auto newL2ApplyOp = builder.create<AffineApplyOp>(loc, newMap, operands);
-      newL2Applys.push_back(newL2ApplyOp.getResult());
-      builder.setInsertionPoint(applyOp);
-      auto oriL2ApplyOp = builder.create<AffineApplyOp>(loc, newMap, operands);
-      oriL2Applys.push_back(oriL2ApplyOp.getResult());
     }
     if(load_flag){ // Create L3 -> L2 DmaOp, L2 -> L1 DamOp
       builder.setInsertionPoint(newInnerDMAYiled);
@@ -319,6 +334,10 @@ namespace aries {
 
 std::unique_ptr<Pass> createAriesL2BufferCreatePass() {
   return std::make_unique<AriesL2BufferCreate>();
+}
+
+std::unique_ptr<Pass> createAriesL2BufferCreatePass(const AriesOptions &opts) {
+  return std::make_unique<AriesL2BufferCreate>(opts);
 }
 
 } // namespace aries
