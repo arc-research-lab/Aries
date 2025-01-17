@@ -139,7 +139,7 @@ private:
 
       // Materialize Push/Pop of GMIO
       auto boolGMIO = func->getAttr("gmio");
-      if(dyn_cast<BoolAttr>(boolGMIO).getValue()){
+      if(boolGMIO && dyn_cast<BoolAttr>(boolGMIO).getValue()){
         GMIOPushOpProcess(builder, func, endlaunchCell);
         GMIOPopOpProcess(builder, func, endlaunchCell);
       }

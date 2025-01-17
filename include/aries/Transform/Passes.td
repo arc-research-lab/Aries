@@ -177,7 +177,11 @@ def AriesCorePlacement : Pass<"aries-core-placement"> {
     Option<"ColGap", "core-gap", "int64_t", /*default=*/"0",
            "Specify the gap between columns to improve corner cases">,
     Option<"CoreAlgo", "core-algo", "int64_t", /*default=*/"0",
-           "Specify the algorithm for core placement 0:vertical,1:horizontally">
+           "Specify an algorithm for core placement 0:vertical,1:horizontally">,
+    Option<"EnablePL", "en-pl", "bool", /*default=*/"true",
+           "Enable programmable logic(PL) or not">,
+    Option<"EnableAIE2", "en-aie2", "bool", /*default=*/"false",
+           "Enable AIE2 architecture or not">
   ];
 }
 

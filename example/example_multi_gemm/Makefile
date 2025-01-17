@@ -6,7 +6,7 @@ PROJECT_AIE_PATH=${PROJECT_PATH}/aie
 PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
 TEMPLATE_PATH = ..
-EN_PL = 1
+EN_PL = "true"
 PLIOWidth = 128
 AXIWidth = 512
 ColNum = 50
@@ -33,7 +33,7 @@ L3_2=1
 BUFF_0=1#1:BRAM 0:URAM
 BUFF_1=1
 BUFF_2=0
-ifeq ($(EN_PL),1)
+ifeq ($(EN_PL), "true")
 	IOType=PLIO
 else
 	IOType=GMIO
@@ -211,7 +211,7 @@ ${PROJECT_AIE_PATH}/temp.cpp: ${PROJECT_PATH}/${FUNC}.adf.mlir
 		-emit-aries-kernels
 
 copyplhost:
-ifeq ($(EN_PL),1)
+ifeq ($(EN_PL), "true")
 	mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}
 	mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}
 	mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}

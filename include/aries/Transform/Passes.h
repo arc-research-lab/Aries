@@ -38,7 +38,7 @@ struct AriesOptions : public PassPipelineOptions<AriesOptions> {
       *this, "l3-tile-sizes", llvm::cl::ZeroOrMore,
       llvm::cl::desc("Specify a list of L3 loop tile sizes")};
   
-  /// Configure the L2bufferCreate pass.
+  /// Configure the L2bufferCreate/CorePlacement pass.
   Option<bool> OptEnablePL{
       *this, "en-pl", llvm::cl::init(true), llvm::cl::desc(
       "Enable programmable logic(PL) or not")};
@@ -79,6 +79,9 @@ struct AriesOptions : public PassPipelineOptions<AriesOptions> {
   Option<int64_t> OptCoreAlgo{
       *this, "core-algo", llvm::cl::init(0), llvm::cl::desc(
       "Specify the algorithm for core placement 0:vertical,1:horizontally")};
+  Option<bool> OptEnableAIE2{
+      *this, "en-aie2", llvm::cl::init(false), llvm::cl::desc(
+      "Enable AIE2 architecture or not")};
   
   /// Configure the IOPlacement pass.
   Option<int64_t> OptFirstCol{
