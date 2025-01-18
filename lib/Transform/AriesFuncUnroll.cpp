@@ -40,15 +40,15 @@ private:
       SmallVector<AffineForOp, 6> band;
       getNestedLoopBand(cellOp.getBody(), band, true);
       SmallVector<Attribute, 3> tripCountList;
+      SmallVector<unsigned, 3> indexList; //Record loop with tripcount>1
       auto indexType = builder.getIndexType();
       auto zeroAttr = builder.getIntegerAttr(indexType, 0);
       auto oneAttr = builder.getIntegerAttr(indexType, 1);
       //Start from the innermost loop
-      unsigned index = 0;
-      SmallVector<unsigned, 3> indexList;
       bool flowFull = false;
-      for (auto loop: band) {
+      for (unsigned index=0; index < band.size(); index++) {
         // Keep the tripCount info after unrolling
+        auto loop = band[index];
         auto tripCount = getConstantTripCount(loop);
         if(!tripCount.has_value())
           return false;
@@ -58,7 +58,6 @@ private:
           tripCountList.push_back(tripCountAttr);
           indexList.push_back(index);
         }
-        index++;
         // Unroll reduction loop
         if (loop->getAttr("flow")){
           auto annotateFn = [](unsigned i, Operation *op, OpBuilder builder) {
@@ -70,7 +69,7 @@ private:
               else if(auto attr = dmaop->getAttr("read"))
                 dmaop->setAttr("read", valueAttr);
             }else if (auto callop = dyn_cast<CallOp>(op)){
-              // Mark kernel in the reduction chain to modify the kernel interface 
+              // Mark kernel in the reduction chain to update kernel interface
               callop->setAttr("kernel", valueAttr);
               // Mark each loop iteration info for placement
               if(auto attr = callop->getAttr("ivs")){
@@ -88,6 +87,7 @@ private:
               }
             }
           };
+          // loopUnrollFull won't mark the loops with tripcount = 1 
           if (failed(loopUnrollFull(loop, annotateFn)))
             return false;
           if(flowFull){ // Only support one reduction loop
@@ -120,7 +120,7 @@ private:
               }
             }
           };
-
+          // loopUnrollFull won't mark the loops with tripcount = 1 
           if (failed(loopUnrollFull(loop, annotateFn)))
             return false;
         }
@@ -128,25 +128,24 @@ private:
       // Identify the loops that has tripcounts > 1, and complete the three dims
       // for core placement
       int listSize = (int)tripCountList.size();
-      bool midFlag = false; // Decide if insert single tripcount loop info to mid
-      if(listSize>3)
+      SmallVector<Attribute, 3> newTripCounts;
+      if(listSize>3){
+        llvm::errs() << "Only 3D logic array is supported\n";
         return false;
-      else{
-        if(listSize<=1){
-          for(int i = 0; i < (3-listSize); i++)
-            tripCountList.push_back(oneAttr);
-        }else if(listSize==2){ //listSize=2
-          unsigned diff = indexList[1] - indexList[0];
-          auto lastElem = tripCountList[1];
-          tripCountList.pop_back();
-          tripCountList.push_back(oneAttr);
-          tripCountList.push_back(lastElem);
-          if(diff>1)
-            midFlag =true;
+      }else{
+        unsigned id=0;
+        for(unsigned idx=0; idx<3; idx++){
+          auto it = llvm::find(indexList, idx);
+          if (it != indexList.end()){
+            auto attr = tripCountList[id++];
+            newTripCounts.push_back(attr);
+          }else{
+            newTripCounts.push_back(oneAttr);
+          }
         }
       }
       // Mark the tripCount info for placement
-      auto arrayAttr = builder.getArrayAttr(tripCountList);
+      auto arrayAttr = builder.getArrayAttr(newTripCounts);
       cellOp->setAttr("tripCount", arrayAttr);
       // Add a name for each function call
       llvm::SmallVector<std::pair<StringRef, unsigned>, 4> calleeCounts;
@@ -162,29 +161,22 @@ private:
             call->setAttr("adf.kernel",builder.getUnitAttr());
             found = true;
             // Fill the ivs attributes to three if needed
-            if(listSize<3){
-              SmallVector<Attribute, 3> newAttrList;
-              auto arrayAttr = call->getAttr("ivs");
-              if(!arrayAttr)
-                for(int i = 0; i < (3-listSize); i++)
-                  newAttrList.push_back(zeroAttr);
-              else{
-                auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
-                if(midFlag){
-                  newAttrList.push_back(ivArrayAttr[0]);
-                  newAttrList.push_back(zeroAttr);
-                  newAttrList.push_back(ivArrayAttr[1]);
+            SmallVector<Attribute, 3> newAttrList;
+            if(auto arrayAttr = call->getAttr("ivs")){
+              auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
+              unsigned id=0;
+              for(unsigned idx=0; idx<3; idx++){
+                auto it = llvm::find(indexList, idx);
+                if (it != indexList.end()){
+                  auto attr = ivArrayAttr[id++];
+                  newAttrList.push_back(attr);
                 }else{
-                  if(ivArrayAttr)
-                    for (auto oldAttr : ivArrayAttr)
-                      newAttrList.push_back(oldAttr);
-                  for(int i = 0; i < (3-listSize); i++)
-                    newAttrList.push_back(zeroAttr);
+                  newAttrList.push_back(zeroAttr);
                 }
               }
-              auto newArrayAttr = builder.getArrayAttr(newAttrList);
-              call->setAttr("ivs", newArrayAttr);
             }
+            auto newArrayAttr = builder.getArrayAttr(newAttrList);
+            call->setAttr("ivs", newArrayAttr);
             break;
           }
         }
@@ -194,29 +186,22 @@ private:
           call->setAttr(calleeName,valueAttr);
           call->setAttr("adf.kernel",builder.getUnitAttr());
           // Fill the ivs attributes to three if needed
-          if(listSize<3){
-            SmallVector<Attribute, 3> newAttrList;
-            auto arrayAttr = call->getAttr("ivs");
-            if(!arrayAttr)
-              for(int i = 0; i < (3-listSize); i++)
-                newAttrList.push_back(zeroAttr);
-            else{
-              auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
-              if(midFlag){
-                newAttrList.push_back(ivArrayAttr[0]);
-                newAttrList.push_back(zeroAttr);
-                newAttrList.push_back(ivArrayAttr[1]);
+          SmallVector<Attribute, 3> newAttrList;
+          if(auto arrayAttr = call->getAttr("ivs")){
+            auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
+            unsigned id=0;
+            for(unsigned idx=0; idx<3; idx++){
+              auto it = llvm::find(indexList, idx);
+              if (it != indexList.end()){
+                auto attr = ivArrayAttr[id++];
+                newAttrList.push_back(attr);
               }else{
-                if(ivArrayAttr)
-                  for (auto oldAttr : ivArrayAttr)
-                    newAttrList.push_back(oldAttr);
-                for(int i = 0; i < (3-listSize); i++)
-                  newAttrList.push_back(zeroAttr);
+                newAttrList.push_back(zeroAttr);
               }
             }
-            auto newArrayAttr = builder.getArrayAttr(newAttrList);
-            call->setAttr("ivs", newArrayAttr);
           }
+          auto newArrayAttr = builder.getArrayAttr(newAttrList);
+          call->setAttr("ivs", newArrayAttr);
         }
       });
     }

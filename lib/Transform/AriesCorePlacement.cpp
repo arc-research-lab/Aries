@@ -147,7 +147,7 @@ private:
       unsigned col = colStart + std::floor(pid / (float)height);
       unsigned row = rowStart + pid % height;
       if((col > colNum-1) || (row > rowNum-1)){
-        llvm::errs() << "Placement exceeds array boundary";
+        llvm::errs() << "Placement exceeds array boundary\n";
         return WalkResult::interrupt();
       }
       auto colAttr = builder.getIntegerAttr(indexType, col);
