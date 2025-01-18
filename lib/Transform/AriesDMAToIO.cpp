@@ -433,10 +433,12 @@ private:
       auto dstType = dyn_cast<MemRefType>(dstDMA.getType());
       auto dstSpace = dstType.getMemorySpaceAsInt();
       auto portName = GraphIOName::GMIO;
+      auto portburst = PortBurst::BurstNULL;
       if(!srcSpace && dstSpace == (int)MemorySpace::L2){
-        auto portIn = PortType::get(context, PortDir::In);
+        auto portIn = GMIOType::get(context, PortDir::In);
         builder.setInsertionPoint(op);
         auto port = builder.create<CreateGraphIOOp>(loc, portIn, portName);
+        builder.create<ConfigGMIOOp>(loc, port, portburst, 0);
         SmallVector<Value> src_offsets=op.getSrcOffsets();
         SmallVector<Value> src_sizes=op.getSrcSizes();
         SmallVector<Value> src_strides=op.getSrcStrides();
@@ -448,9 +450,10 @@ private:
         op.erase();
         return WalkResult::advance();
       }else if(srcSpace == (int)MemorySpace::L2 && !dstSpace){
-        auto portOut = PortType::get(context, PortDir::Out);
+        auto portOut = GMIOType::get(context, PortDir::Out);
         builder.setInsertionPoint(op);
         auto port = builder.create<CreateGraphIOOp>(loc, portOut, portName);
+        builder.create<ConfigGMIOOp>(loc, port, portburst, 0);
         SmallVector<Value> dst_offsets=op.getDstOffsets();
         SmallVector<Value> dst_sizes=op.getDstSizes();
         SmallVector<Value> dst_strides=op.getDstStrides();
