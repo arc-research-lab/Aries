@@ -162,9 +162,7 @@ private:
             found = true;
             // Fill the ivs attributes to three if needed
             SmallVector<Attribute, 3> newAttrList;
-            llvm::outs() << "Enter here0\n";
             if(auto arrayAttr = call->getAttr("ivs")){
-              llvm::outs() << "Enter here2\n";
               auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
               unsigned id=0;
               for(unsigned idx=0; idx<3; idx++){
@@ -173,7 +171,6 @@ private:
                   auto attr = ivArrayAttr[id++];
                   newAttrList.push_back(attr);
                 }else{
-                  llvm::outs() << "Enter here\n";
                   newAttrList.push_back(zeroAttr);
                 }
               }
