@@ -12,6 +12,6 @@ namespace {
 } // namespace
 
 
-void mlir::aries::adf::registerConvertToADFPasses() {
+void mlir::aries::adf::registerConversionPasses() {
   registerPasses();
 }

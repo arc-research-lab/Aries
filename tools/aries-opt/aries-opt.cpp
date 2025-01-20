@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
     mlir::registerAllPasses();
     mlir::aries::registerAriesPasses();
-    mlir::aries::adf::registerConvertToADFPasses();
+    mlir::aries::adf::registerConversionPasses();
 
     xilinx::AIE::registerAIEPasses();
     xilinx::aievec::registerAIEVecPasses();
