@@ -1041,12 +1041,12 @@ private:
     return true;
   }
 
-  bool NPUPlacement0(OpBuilder builder, CellOp cell, 
+  bool NPUPlacement0(OpBuilder builder, FuncOp func, 
                      const unsigned colNum, const unsigned rowNum, 
                      unsigned colOffset, unsigned rowOffset,
                      unsigned dim0, unsigned dim1){
     auto indexType = builder.getIndexType();
-    auto result = cell.walk([&](CallOp call){
+    auto result = func.walk([&](CallOp call){
       if(!call->hasAttr("adf.kernel"))
         return WalkResult::advance();
       if(!call->hasAttr("ivs")){
@@ -1083,11 +1083,10 @@ private:
     unsigned rowNum = RowNum;
     unsigned colOffset = ColOffset;
     unsigned rowOffset = RowOffset;
-
-    auto flag = mod.walk([&](CellOp cell){
-      if(!cell->hasAttr("tripCount"))
+    auto flag = mod.walk([&](FuncOp func){
+      if(!func->hasAttr("adf.cell") || !func->hasAttr("tripCount"))
         return WalkResult::advance();
-      auto arrayAttr = dyn_cast<ArrayAttr>(cell->getAttr("tripCount"));
+      auto arrayAttr = dyn_cast<ArrayAttr>(func->getAttr("tripCount"));
       SmallVector<unsigned, 3> tripCounts;
       for(unsigned i=0; i < 3; i++){
         auto attr = arrayAttr[i];
@@ -1110,7 +1109,7 @@ private:
         llvm::errs() << "Current only support 2D logic array for NPU\n";
         return WalkResult::interrupt();
       }
-      if(!NPUPlacement0(builder, cell, colNum, rowNum, colOffset, rowOffset,
+      if(!NPUPlacement0(builder, func, colNum, rowNum, colOffset, rowOffset,
                         dim0, dim1)){
         llvm::errs() << "NPUPlacement0 failed\n";
         return WalkResult::interrupt();

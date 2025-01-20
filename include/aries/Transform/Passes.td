@@ -160,6 +160,12 @@ def AriesADFCellCreate : Pass<"aries-adf-cell-create"> {
     This pass create the adf cell with input arguments and output values.
   }];
   let constructor = "mlir::aries::createAriesADFCellCreatePass()";
+  let options = [
+    Option<"EnablePL", "en-pl", "bool", /*default=*/"true",
+           "Enable programmable logic(PL) or not">,
+    Option<"EnableAIE2", "en-aie2", "bool", /*default=*/"false",
+           "Enable AIE2 architecture or not">
+  ];
 }
 
 def AriesCorePlacement : Pass<"aries-core-placement"> {
@@ -203,7 +209,11 @@ def AriesIOPlacement : Pass<"aries-io-placement"> {
     Option<"ChalOut", "chal-out", "int64_t", /*default=*/"3",
            "Specify the output PLIO channel in each shim">,
     Option<"EnableIOCons", "iocons", "bool", /*default=*/"false",
-           "Enable limiting the IO used in a shim for certain PLIOs">
+           "Enable limiting the IO used in a shim for certain PLIOs">,
+    Option<"EnablePL", "en-pl", "bool", /*default=*/"true",
+           "Enable programmable logic(PL) or not">,
+    Option<"EnableAIE2", "en-aie2", "bool", /*default=*/"false",
+           "Enable AIE2 architecture or not">
   ];
 }
 

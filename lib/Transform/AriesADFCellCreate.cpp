@@ -15,13 +15,165 @@ namespace {
 
 struct AriesADFCellCreate : public AriesADFCellCreateBase<AriesADFCellCreate> {
 public:
+  AriesADFCellCreate() = default;
+  AriesADFCellCreate(const AriesOptions &opts) {
+    EnablePL = opts.OptEnablePL;
+    EnableAIE2 = opts.OptEnableAIE2;
+  }
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());
-    if (!ADFCellCreate(mod))
-      signalPassFailure();
+
+    if(!EnablePL && EnableAIE2){
+      if (!NPUCellCreate(mod))
+        signalPassFailure();
+    }else{
+      if (!ADFCellCreate(mod))
+        signalPassFailure();
+    }
   }
 
 private:
+  void OpCollect(AffineForOp arrayForOp, 
+                 SmallVector<Operation*> &TopOps, 
+                 SmallVector<Operation*> &topGraphOps, 
+                 SmallVector<Operation*> &GraphOps, 
+                 SmallVector<IOPopOp> &IOPopOps, 
+                 SmallVector<Value> &ArgIns){
+    arrayForOp.walk([&](Operation *op){
+      if(dyn_cast<ConfigPLIOOp>(op) ||dyn_cast<ConfigGMIOOp>(op) || 
+         dyn_cast<BufferOp>(op) || dyn_cast<ConnectOp>(op))
+        topGraphOps.push_back(op);
+      else if(dyn_cast<LaunchCellOp>(op))
+        GraphOps.push_back(op);
+      else if(auto graphio = dyn_cast<CreateGraphIOOp>(op)){
+        TopOps.push_back(op);
+        ArgIns.push_back(graphio.getResult());
+      }else if(auto iopopOp = dyn_cast<IOPopOp>(op))
+        IOPopOps.push_back(iopopOp);
+      else
+        TopOps.push_back(op);
+    });
+  }
+
+  // For NPU, the AIE array can not be viewed as a graph triggered automatically
+  // like the ADF Graph in Vitis flow.
+  // A differtent cell creating function is needed to include all the control
+  // logics in the cell as well.
+  bool NPUCellCreate (ModuleOp mod) {
+    auto builder = OpBuilder(mod);
+    auto loc = builder.getUnknownLoc();
+    for (auto func : mod.getOps<FuncOp>()) {
+      if(!func->hasAttr("adf.func"))
+        continue;
+      AffineForOp arrayForOp;   
+      func.walk([&](AffineForOp forOp){
+        if(forOp->hasAttr("Array_Partition"))
+          arrayForOp = forOp;
+      });
+      if(!arrayForOp)
+        continue;
+      SmallVector<AffineForOp, 6> band;
+      getLoopBandFromInnermost(arrayForOp, band);
+      // Create new point loops that need to move the LaunchCell op to
+      SmallVector<AffineForOp, 4> newLoops;
+      auto outerLoop = band[0];
+      builder.setInsertionPointAfter(outerLoop);
+      for (auto loop : band){
+        auto newDMAForOp
+             = builder.create<AffineForOp>(loc,
+                                           loop.getLowerBoundOperands(),
+                                           loop.getLowerBoundMap(),
+                                           loop.getUpperBoundOperands(),
+                                           loop.getUpperBoundMap());
+        newLoops.push_back(newDMAForOp);
+        builder.setInsertionPointToStart(newDMAForOp.getBody());
+      }
+      auto newOuterLoop = newLoops[0];
+      auto newInnerLoop = newLoops[newLoops.size()-1];
+      auto newInnerYiled = newInnerLoop.getBody()->getTerminator();
+
+      // Clone Const op into for loop
+      // TODO:: May need to change launchcell to an isolated region later
+      SmallVector<Value, 4> oldConsts;
+      SmallVector<Value, 4> newConsts;
+      for (auto constOp : func.getOps<arith::ConstantOp>()){
+        auto newConst = constOp.clone();
+        builder.setInsertionPoint(newInnerYiled);
+        builder.insert(newConst);
+        oldConsts.push_back(constOp.getResult());
+        newConsts.push_back(newConst.getResult());
+      }
+
+      // Find the LaunchCellOp
+      LaunchCellOp LaunchCell = getFirstOpOfType<LaunchCellOp>(func.getBody());
+      if(!LaunchCell)
+        return true;
+      SmallVector<Operation*> TopOps; // Ops remain in the adf.func (unused now)
+      SmallVector<Operation*> topGraphOps; // Ops defined in adf.cell
+      SmallVector<Operation*> GraphOps; // Other Ops in adf.cell
+      SmallVector<IOPopOp> IOPopOps; // unused now
+      SmallVector<Value> ArgIns;
+      OpCollect(arrayForOp, TopOps, topGraphOps, GraphOps, IOPopOps, ArgIns); 
+
+      builder.setInsertionPoint(func);
+      auto funcName = "adf_" + LaunchCell.getCallee().str();
+      auto funcType 
+           = builder.getFunctionType(ValueRange(ArgIns), ValueRange());
+      auto newfunc = builder.create<FuncOp>(loc, funcName, funcType);
+      newfunc->setAttr("adf.cell",builder.getUnitAttr());
+      if(auto attr = LaunchCell->getAttr("tripCount"))
+        if(auto arrayAttr = dyn_cast<ArrayAttr>(attr))
+          newfunc->setAttr("tripCount", arrayAttr);
+      auto destBlock = newfunc.addEntryBlock();
+      builder.setInsertionPointToEnd(destBlock);
+      auto returnOp = builder.create<ReturnOp>(loc);
+
+      // Create call op of the adf.cell func
+      builder.setInsertionPoint(LaunchCell);
+      auto callop = builder.create<CallOp>(loc, newfunc, ValueRange(ArgIns));
+      callop->setAttr("adf.cell", builder.getUnitAttr());
+
+      // Move graph ops that need to appear upfront to adf.cell
+      for (Operation *op : topGraphOps) {
+        op->moveBefore(returnOp);
+      }
+      // Move other graph ops inside the loop nest first
+      for (Operation *op : GraphOps) {
+        op->moveBefore(newInnerYiled);
+      }
+      // Replace the loop variant in newInnerDMALoop
+      for (unsigned i = 0; i < band.size(); i++) {
+        auto oldVi = band[i].getInductionVar();
+        auto newVi = newLoops[i].getInductionVar();
+        oldVi.replaceUsesWithIf(newVi,[&](OpOperand &use){
+            return newInnerLoop->isProperAncestor(use.getOwner());
+        });
+      }
+      // Replace the constOp newInnerDMALoop
+      for (unsigned i = 0; i < newConsts.size(); i++) {
+        auto oldCons = oldConsts[i];
+        auto newCons = newConsts[i];
+        oldCons.replaceUsesWithIf(newCons,[&](OpOperand &use){
+            return newInnerLoop->isProperAncestor(use.getOwner());
+        });
+      }
+      // Move the new loop nest into adf.cell func
+      newOuterLoop->moveBefore(returnOp);
+
+      // Update the references in the newfunc after move
+      auto num_arg = destBlock->getNumArguments();
+      for (unsigned i = 0; i < num_arg; ++i) {
+        auto sourceArg = ArgIns[i];
+        auto destArg = destBlock->getArgument(i);
+        sourceArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
+            return newfunc->isProperAncestor(use.getOwner());
+        });
+      }     
+    }
+    return true;
+  }
+
+
   void OpCollect(CellOp cellop, 
                  SmallVector<Operation*> &TopOps, 
                  SmallVector<Operation*> &topGraphOps, 
@@ -47,7 +199,6 @@ private:
   bool ADFCellCreate (ModuleOp mod) {
     auto builder = OpBuilder(mod);
     auto loc = builder.getUnknownLoc();
-
     for (auto func : mod.getOps<FuncOp>()) {
       if(!func->hasAttr("adf.func"))
         continue;
@@ -112,11 +263,11 @@ private:
       // Update the references in the newfunc after move
       auto num_arg = destBlock->getNumArguments();
       for (unsigned i = 0; i < num_arg; ++i) {
-          auto sourceArg = ArgIns[i];
-          auto destArg = destBlock->getArgument(i);
-          sourceArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
-              return newfunc->isProperAncestor(use.getOwner());
-          });
+        auto sourceArg = ArgIns[i];
+        auto destArg = destBlock->getArgument(i);
+        sourceArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
+            return newfunc->isProperAncestor(use.getOwner());
+        });
       }
 
       //Create WaitLaunchCellOp after all the IOwait
@@ -148,7 +299,6 @@ private:
         op->moveBefore(&entryBlock, entryBlock.begin());
       });
     }
-
     return true;
   }
 
@@ -162,6 +312,10 @@ namespace aries {
 
 std::unique_ptr<Pass> createAriesADFCellCreatePass() {
   return std::make_unique<AriesADFCellCreate>();
+}
+
+std::unique_ptr<Pass> createAriesADFCellCreatePass(const AriesOptions &opts) {
+  return std::make_unique<AriesADFCellCreate>(opts);
 }
 
 } // namespace aries

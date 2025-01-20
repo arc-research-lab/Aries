@@ -436,30 +436,42 @@ private:
       auto portburst = PortBurst::BurstNULL;
       if(!srcSpace && dstSpace == (int)MemorySpace::L2){
         auto portIn = GMIOType::get(context, PortDir::In);
-        builder.setInsertionPoint(op);
+        auto dstDefineOp = dstDMA.getDefiningOp();
+        if(dstDefineOp){
+          builder.setInsertionPointAfter(dstDefineOp);
+        }else{
+          llvm::errs() << "Find L2 memory not created by other Op\n";
+          return WalkResult::interrupt();
+        }
         auto port = builder.create<CreateGraphIOOp>(loc, portIn, portName);
+        builder.setInsertionPointAfter(port);
+        builder.create<ConnectOp>(loc, port, dstDMA);
         builder.create<ConfigGMIOOp>(loc, port, portburst, 0);
         SmallVector<Value> src_offsets=op.getSrcOffsets();
         SmallVector<Value> src_sizes=op.getSrcSizes();
         SmallVector<Value> src_strides=op.getSrcStrides();
         builder.setInsertionPoint(op);
-        auto newOp = builder.create<ConnectOp>(loc, port, dstDMA);
-        builder.setInsertionPoint(newOp);
         builder.create<IOPushOp>(loc, srcDMA, src_offsets, src_sizes, 
                                  src_strides, port);
         op.erase();
         return WalkResult::advance();
       }else if(srcSpace == (int)MemorySpace::L2 && !dstSpace){
         auto portOut = GMIOType::get(context, PortDir::Out);
-        builder.setInsertionPoint(op);
+        auto srcDefineOp = srcDMA.getDefiningOp();
+        if(srcDefineOp){
+          builder.setInsertionPointAfter(srcDefineOp);
+        }else{
+          llvm::errs() << "Find L2 memory not created by other Op\n";
+          return WalkResult::interrupt();
+        }
         auto port = builder.create<CreateGraphIOOp>(loc, portOut, portName);
+        builder.setInsertionPointAfter(port);
+        builder.create<ConnectOp>(loc, srcDMA, port);
         builder.create<ConfigGMIOOp>(loc, port, portburst, 0);
         SmallVector<Value> dst_offsets=op.getDstOffsets();
         SmallVector<Value> dst_sizes=op.getDstSizes();
         SmallVector<Value> dst_strides=op.getDstStrides();
         builder.setInsertionPoint(op);
-        auto newOp = builder.create<ConnectOp>(loc, srcDMA, port);
-        builder.setInsertionPointAfter(newOp);
         builder.create<IOPopOp>(loc, port, dstDMA, dst_offsets, 
                                 dst_sizes, dst_strides);
         op.erase();

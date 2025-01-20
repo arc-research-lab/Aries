@@ -42,7 +42,8 @@ private:
   // _ x _ _     ---->    x x x x (Each _ or x is a recutangular block)
   // _ _ x _
   // _ _ _ x
-  WalkResult dmaProcess(OpBuilder builder, FuncOp func, DmaOp dmaOp, 
+  WalkResult dmaProcess(OpBuilder builder, FuncOp func, DmaOp dmaOp,
+                        unsigned& loadIdx, unsigned& storeIdx,
                         SmallVector<AffineForOp, 6>& band){
     auto loc = builder.getUnknownLoc();
     auto src = dmaOp.getSrc();
@@ -166,10 +167,15 @@ private:
     auto zeroValue = builder.create<arith::ConstantOp>(loc,indexType,zeroAttr);
     auto oneAttr = builder.getIntegerAttr(indexType, 1);
     auto oneValue = builder.create<arith::ConstantOp>(loc,indexType,oneAttr);
-    SmallVector<Value> L2Strides;
+    SmallVector<Value> L2Strides, L2StridesL1;
     for(unsigned i=0; i< rank; i++)
       L2Strides.push_back(oneValue);
-    
+    builder.setInsertionPoint(dmaOp);
+    auto zeroValL1 = builder.create<arith::ConstantOp>(loc,indexType,zeroAttr);
+    auto oneValL1 = builder.create<arith::ConstantOp>(loc,indexType,oneAttr);
+    for(unsigned i=0; i< rank; i++)
+      L2StridesL1.push_back(oneValL1);
+
     // Load data from external mem to L2 buffer
     // Create loops for DMA Ops
     SmallVector<AffineForOp, 4> newDMALoops;
@@ -195,6 +201,7 @@ private:
     }
     
     // Clone and create AffineApplyOps for L3 and L2 memory respectively
+    auto newOuterDMALoop = newDMALoops[0];
     auto newInnerDMALoop = newDMALoops[newDMALoops.size()-1];
     auto newInnerDMAYiled = newInnerDMALoop.getBody()->getTerminator();
     
@@ -242,7 +249,7 @@ private:
         oriL2Applys.push_back(oriL2ApplyOp.getResult());
       }else{
         newL2Applys.push_back(zeroValue);
-        oriL2Applys.push_back(zeroValue);
+        oriL2Applys.push_back(zeroValL1);
       }
     }
     if(load_flag){ // Create L3 -> L2 DmaOp, L2 -> L1 DamOp
@@ -250,15 +257,19 @@ private:
       builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
                                  allocOp, newL2Applys, srcSizes, L2Strides);
       builder.setInsertionPoint(dmaOp);
-      builder.create<DmaOp>(loc, allocOp, oriL2Applys, srcSizes, L2Strides,
+      builder.create<DmaOp>(loc, allocOp, oriL2Applys, srcSizes, L2StridesL1,
                                  dst, dstOffsets, dstSizes, dstStrides);
+      auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
+      newOuterDMALoop->setAttr("load", loadAttr);
     }else{ // Create L1 -> L2 DmaOp, L2 -> L3 DamOp
       builder.setInsertionPoint(newInnerDMAYiled);
       builder.create<DmaOp>(loc, allocOp, newL2Applys, dstSizes, L2Strides,
                                  dst, dstOffsets, dstSizes, dstStrides);
       builder.setInsertionPoint(dmaOp);
       builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
-                                 allocOp, oriL2Applys, dstSizes, L2Strides);
+                                 allocOp, oriL2Applys, dstSizes, L2StridesL1);
+      auto storeAttr = builder.getIntegerAttr(indexType, storeIdx++);
+      newOuterDMALoop->setAttr("store", storeAttr);
     }
     // Replace the loop variant in newInnerDMALoop
     for (unsigned i = 0; i < loopIndices.size(); i++) {
@@ -285,6 +296,7 @@ private:
   // array partitioning loops
   bool L2BufferCreate (ModuleOp mod) {
     auto builder = OpBuilder(mod);
+    auto loc = builder.getUnknownLoc();
     for (auto func : mod.getOps<FuncOp>()) {
       if(!func->hasAttr("adf.func"))
         continue;
@@ -311,13 +323,37 @@ private:
           return false;
         }
       }
+      unsigned loadIdx = 0;
+      unsigned storeIdx = 0;
       auto flag = arrayForOp.walk([&](DmaOp dmaOp){
-        auto result = dmaProcess(builder, func, dmaOp, band);
+        auto result = dmaProcess(builder, func, dmaOp, loadIdx, storeIdx, band);
         dmaOp.erase();
         return result;
       });
       if (flag == WalkResult::interrupt()) 
         return false;
+
+      // Create LaunchCellOp to the outerloop and move all the operations
+      // outside the cellOp
+      // Find the CellOp
+      CellOp cellOp = getFirstOpOfType<CellOp>(func.getBody());
+      if(!cellOp)
+        return true;
+      auto& cellBlock = cellOp.getRegion().front();
+      for (auto &op: llvm::make_early_inc_range(cellBlock)){
+        if(!dyn_cast<EndCellOp>(op))
+          op.moveBefore(cellOp);
+      }
+      auto outerLoop = band[0];
+      builder.setInsertionPoint(outerLoop);
+      auto cellLaunch = builder.create<LaunchCellOp>(loc, cellOp.getCellName());
+      Block *cellLaunchBlock = builder.createBlock(&cellLaunch.getRegion());
+      builder.setInsertionPointToEnd(cellLaunchBlock);
+      auto endLaunchCell = builder.create<EndLaunchCellOp>(loc);
+      outerLoop->moveBefore(endLaunchCell);
+      auto attr = cellOp->getAttr("tripCount");
+      cellLaunch->setAttr("tripCount", attr);
+      cellOp.erase();
       if (failed(pm.run(func))) {
         return false;
       }

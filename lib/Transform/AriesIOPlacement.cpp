@@ -29,15 +29,87 @@ public:
     ChalIn=opts.OptChalIn;
     ChalOut=opts.OptChalOut;
     EnableIOCons=opts.OptEnableIOCons;
+    EnablePL = opts.OptEnablePL;
+    EnableAIE2 = opts.OptEnableAIE2;
   }
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());
-  
-    if (!IOPlacement(mod))
-      signalPassFailure();
+    if(!EnablePL && EnableAIE2){
+      if (!NPUIOPlacement(mod))
+        signalPassFailure();
+    }else{
+      if (!IOPlacement(mod))
+        signalPassFailure();
+    }
   }
 
 private:
+  bool findCorePlace(Operation* use, Value io, bool& inDir, 
+                     ArrayAttr& corePlaceAttr){
+    auto connectOp = dyn_cast<ConnectOp>(use);
+    auto src = connectOp.getSrc();
+    auto dst = connectOp.getDst();
+    CallOp call;
+    if(src!=io){
+      auto defineOp = src.getDefiningOp();
+      // For NPU, currently the output won't be returned
+      if(dyn_cast<BufferOp>(defineOp)){
+        for(auto use : src.getUsers()){
+          if(!dyn_cast<DmaOp>(use))
+            continue;
+          auto dmaOp = dyn_cast<DmaOp>(use);
+          auto srcDma = dmaOp.getSrc();
+          bool break_flag = false;
+          for(auto user : srcDma.getUsers()){
+            if(!dyn_cast<CallOp>(user)){
+              continue;
+            }else{
+              call = dyn_cast<CallOp>(user);
+              inDir = false;
+              break_flag = true;
+              break;
+            }
+          }
+          if(break_flag)
+            break;
+        }
+      }else if(dyn_cast<CallOp>(defineOp)){
+        call = dyn_cast<CallOp>(defineOp);
+        inDir = false;
+      }else{
+        return false;
+      }
+    }else{
+      bool break_flag = false;
+      for(auto valUse : dst.getUsers()){
+        if(auto dmaOp = dyn_cast<DmaOp>(valUse)){
+          auto dstDma = dmaOp.getDst();
+          for(auto user : dstDma.getUsers()){
+            if(!dyn_cast<CallOp>(user)){
+              continue;
+            }else{
+              call = dyn_cast<CallOp>(user);
+              inDir = true;
+              break_flag = true;
+              break;
+            }
+          }
+        }
+        if(break_flag)
+          break;
+        if(!dyn_cast<CallOp>(valUse))
+          continue;
+        call = dyn_cast<CallOp>(valUse);
+        inDir = true;
+        break;
+      }
+    }
+    if(!call)
+      return false;
+    corePlaceAttr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
+    return true;
+  }
+
   bool checkValidChal(unsigned& col, unsigned& chl, int arrayIndex,
                       unsigned colFirst, bool enable, 
                       std::vector<int>& tileChannel){
@@ -122,6 +194,68 @@ private:
     }
     return true;
   }
+
+  bool NPUIOPlacement (ModuleOp mod) {
+    auto builder = OpBuilder(mod);
+    auto indexType = builder.getIndexType();
+    unsigned colFirst = FirstCol;
+    unsigned numTile = NumShim;
+    unsigned midLine = MidLine;
+    unsigned numInChl = ChalIn;
+    unsigned numOutChl = ChalOut;
+    std::vector<int> tileInChl(numTile, numInChl-1);
+    std::vector<int> tileOutChl(numTile, numOutChl-1);
+    auto flag = mod.walk([&](FuncOp func){
+      if(!func->hasAttr("adf.cell"))
+        return WalkResult::advance();
+      for(auto configOp : func.getOps<ConfigGMIOOp>()){
+        SmallVector<unsigned, 4> corePlace;
+        SmallVector<int, 4> broadPos;
+        auto gmio = configOp.getGmio();
+        int disToMid = 0;
+        int cnt = 0;
+        bool inDir;
+        for(auto use : gmio.getUsers()){
+          if(!dyn_cast<ConnectOp>(use))
+            continue;
+          ArrayAttr corePlaceAttr;
+          if(!findCorePlace(use, gmio, inDir, corePlaceAttr))
+            return WalkResult::interrupt();
+          auto colAttr = corePlaceAttr[0];
+          auto intAttr = dyn_cast<IntegerAttr>(colAttr);
+          int colCore = intAttr.getInt();
+          broadPos.push_back(colCore);
+          disToMid += colCore-midLine;
+          cnt++;
+        }
+        if(cnt == 0)
+          return WalkResult::advance();
+        unsigned col;
+        unsigned chl;
+        int avgToMid = std::ceil(disToMid/(float)cnt);
+        unsigned startPos = avgToMid + midLine;
+        bool enable = false;
+        if(inDir){
+          if(!findPlacement(colFirst, numTile, startPos, midLine, enable, 
+                            col, chl, tileInChl))
+            return WalkResult::interrupt();
+        }else{
+          if(!findPlacement(colFirst, numTile, startPos, midLine, enable, 
+                            col, chl, tileOutChl))
+            return WalkResult::interrupt();
+        }
+        auto colAttr = builder.getIntegerAttr(indexType, col);
+        auto chlAttr = builder.getIntegerAttr(indexType, chl);
+        auto arrayAttr = builder.getArrayAttr({colAttr, chlAttr});
+        configOp->setAttr("col, chl", arrayAttr);
+      } 
+      return WalkResult::advance();
+    });
+    if(flag == WalkResult::interrupt())
+      return false;
+    return true;
+  }
+  
   bool IOPlacement (ModuleOp mod) {
     auto builder = OpBuilder(mod);
     auto indexType = builder.getIndexType();
@@ -154,28 +288,9 @@ private:
         for(auto use : plio.getUsers()){
           if(!dyn_cast<ConnectOp>(use))
             continue;
-          auto connectOp = dyn_cast<ConnectOp>(use);
-          auto src = connectOp.getSrc();
-          auto dst = connectOp.getDst();
-          CallOp call;
-          if(src!=plio){
-            auto defineOp = src.getDefiningOp();
-            if(!defineOp || !dyn_cast<CallOp>(defineOp))
-              return WalkResult::interrupt();
-            inDir = false;
-            call = dyn_cast<CallOp>(defineOp);
-          }else{
-            for(auto valUse : dst.getUsers()){
-              if(!dyn_cast<CallOp>(valUse))
-                continue;
-              call = dyn_cast<CallOp>(valUse);
-              inDir = true;
-              break;
-            }
-          }
-          if(!call)
+          ArrayAttr corePlaceAttr;
+          if(!findCorePlace(use, plio, inDir, corePlaceAttr))
             return WalkResult::interrupt();
-          auto corePlaceAttr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
           auto colAttr = corePlaceAttr[0];
           auto intAttr = dyn_cast<IntegerAttr>(colAttr);
           int colCore = intAttr.getInt();
