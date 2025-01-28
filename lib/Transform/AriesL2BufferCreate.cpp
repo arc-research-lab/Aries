@@ -43,7 +43,7 @@ private:
   // _ _ x _
   // _ _ _ x
   WalkResult dmaProcess(OpBuilder builder, FuncOp func, DmaOp dmaOp,
-                        unsigned& loadIdx, unsigned& storeIdx,
+                        unsigned& loadIdx, unsigned& storeIdx, unsigned& cnt,
                         SmallVector<AffineForOp, 6>& band){
     auto loc = builder.getUnknownLoc();
     auto src = dmaOp.getSrc();
@@ -157,10 +157,11 @@ private:
     bufSizes.push_back(totalCount*lastSizeInt);
     // Allocate L2 buffer before the outer point loop
     builder.setInsertionPoint(outerloop);
+    auto bufName = "L2_buf" + std::to_string(cnt++);
     auto allocOp 
          = builder.create<BufferOp>(loc, MemRefType::get(bufSizes,
                                    type.getElementType(), AffineMap(),
-                                   (int)MemorySpace::L2));
+                                   (int)MemorySpace::L2), bufName);
     // Create L2 Stride = 1
     auto indexType = builder.getIndexType();
     auto zeroAttr = builder.getIntegerAttr(indexType, 0);
@@ -254,13 +255,20 @@ private:
     }
     if(load_flag){ // Create L3 -> L2 DmaOp, L2 -> L1 DamOp
       builder.setInsertionPoint(newInnerDMAYiled);
-      builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
-                                 allocOp, newL2Applys, srcSizes, L2Strides);
+      auto oldDma = builder.create<DmaOp>(loc, 
+                                    src, srcOffsets, srcSizes, srcStrides,
+                                    allocOp, newL2Applys, srcSizes, L2Strides);
       builder.setInsertionPoint(dmaOp);
-      builder.create<DmaOp>(loc, allocOp, oriL2Applys, srcSizes, L2StridesL1,
-                                 dst, dstOffsets, dstSizes, dstStrides);
+      auto newDma = builder.create<DmaOp>(loc, 
+                                    allocOp, oriL2Applys, srcSizes, L2StridesL1,
+                                    dst, dstOffsets, dstSizes, dstStrides);
       auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
       newOuterDMALoop->setAttr("load", loadAttr);
+      if(dmaOp->hasAttr("initialize")){
+        oldDma->setAttr("initialize", builder.getUnitAttr());
+        newDma->setAttr("initialize", builder.getUnitAttr());
+        newOuterDMALoop->setAttr("initialize", builder.getUnitAttr());
+      }
     }else{ // Create L1 -> L2 DmaOp, L2 -> L3 DamOp
       builder.setInsertionPoint(newInnerDMAYiled);
       builder.create<DmaOp>(loc, allocOp, newL2Applys, dstSizes, L2Strides,
@@ -325,8 +333,10 @@ private:
       }
       unsigned loadIdx = 0;
       unsigned storeIdx = 0;
+      unsigned cnt = 0;
       auto flag = arrayForOp.walk([&](DmaOp dmaOp){
-        auto result = dmaProcess(builder, func, dmaOp, loadIdx, storeIdx, band);
+        auto result = dmaProcess(builder, func, dmaOp, 
+                                 loadIdx, storeIdx, cnt, band);
         dmaOp.erase();
         return result;
       });

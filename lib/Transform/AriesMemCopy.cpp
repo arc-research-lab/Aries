@@ -75,8 +75,11 @@ private:
                = builder.create<AllocOp>(loc, MemRefType::get(type.getShape(),
                                          type.getElementType(), AffineMap(),
                                          (int)mlir::aries::adf::MemorySpace::L1));
-          if (isRead(calleeFuncOp,index))
-            builder.create<CopyOp>(loc, argOperand, allocOp);
+          if (isRead(calleeFuncOp,index)){
+            auto copyOp = builder.create<CopyOp>(loc, argOperand, allocOp);
+            if(isWrite(calleeFuncOp,index))
+              copyOp->setAttr("initialize", builder.getUnitAttr());
+          }
           builder.setInsertionPointAfter(caller);
           //Copy the allocation back if it is touched in the callee
           if (isWrite(calleeFuncOp,index))
