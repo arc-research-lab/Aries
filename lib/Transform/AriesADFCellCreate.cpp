@@ -5,6 +5,7 @@
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
 #include "aries/Dialect/ADF/ADFDialect.h"
+#include "mlir/Dialect/Affine/LoopUtils.h"
 
 using namespace mlir;
 using namespace aries;
@@ -36,15 +37,12 @@ private:
   void OpCollect(AffineForOp arrayForOp, 
                  SmallVector<Operation*> &TopOps, 
                  SmallVector<Operation*> &topGraphOps, 
-                 SmallVector<Operation*> &GraphOps, 
                  SmallVector<IOPopOp> &IOPopOps, 
                  SmallVector<Value> &ArgIns){
     arrayForOp.walk([&](Operation *op){
       if(dyn_cast<ConfigPLIOOp>(op) ||dyn_cast<ConfigGMIOOp>(op) || 
          dyn_cast<BufferOp>(op) || dyn_cast<ConnectOp>(op))
         topGraphOps.push_back(op);
-      else if(dyn_cast<LaunchCellOp>(op))
-        GraphOps.push_back(op);
       else if(auto graphio = dyn_cast<CreateGraphIOOp>(op)){
         TopOps.push_back(op);
         ArgIns.push_back(graphio.getResult());
@@ -53,6 +51,35 @@ private:
       else
         TopOps.push_back(op);
     });
+  }
+
+  // This function moves the launchCellOp to the innermost new loop
+  // Then unroll the loops inside launchCell region
+  // Create new launchCellOp and move outerLoop inside launchCellOp
+  bool processCell(OpBuilder builder, LaunchCellOp& LaunchCell, 
+                   LaunchCellOp& newLaunch, AffineForOp outerLoop, 
+                   Operation* terminator){
+    //auto loc = builder.getUnknownLoc();
+    LaunchCell->moveBefore(terminator);
+    auto forOp = getFirstOpOfType<AffineForOp>(LaunchCell.getBody());
+    SmallVector<AffineForOp, 6> band;
+    getNestedLoops(band, forOp);
+    for(auto loop : band)
+      if(failed(loopUnrollFull(loop)))
+        return false;
+    auto& entryBlock = LaunchCell.getBody().front();
+    for(auto& op: llvm::make_early_inc_range(entryBlock)){
+      if(!dyn_cast<EndLaunchCellOp>(op))
+        op.moveBefore(LaunchCell);
+    }
+    newLaunch = dyn_cast<LaunchCellOp>(LaunchCell->clone());
+    auto& newBlock = newLaunch.getBody().front();
+    auto endOp = newBlock.getTerminator();
+    builder.setInsertionPoint(outerLoop);
+    builder.insert(newLaunch);
+    outerLoop->moveBefore(endOp);
+    LaunchCell.erase();
+    return true;
   }
 
   // For NPU, the AIE array can not be viewed as a graph triggered automatically
@@ -85,6 +112,8 @@ private:
                                            loop.getLowerBoundMap(),
                                            loop.getUpperBoundOperands(),
                                            loop.getUpperBoundMap());
+        if(auto attr = loop->hasAttr("reduction"))
+          newDMAForOp->setAttr("reduction", builder.getUnitAttr());
         newLoops.push_back(newDMAForOp);
         builder.setInsertionPointToStart(newDMAForOp.getBody());
       }
@@ -92,28 +121,15 @@ private:
       auto newInnerLoop = newLoops[newLoops.size()-1];
       auto newInnerYiled = newInnerLoop.getBody()->getTerminator();
 
-      // Clone Const op into for loop
-      // TODO:: May need to change launchcell to an isolated region later
-      SmallVector<Value, 4> oldConsts;
-      SmallVector<Value, 4> newConsts;
-      for (auto constOp : func.getOps<arith::ConstantOp>()){
-        auto newConst = constOp.clone();
-        builder.setInsertionPoint(newInnerYiled);
-        builder.insert(newConst);
-        oldConsts.push_back(constOp.getResult());
-        newConsts.push_back(newConst.getResult());
-      }
-
       // Find the LaunchCellOp
       LaunchCellOp LaunchCell = getFirstOpOfType<LaunchCellOp>(func.getBody());
       if(!LaunchCell)
         return true;
       SmallVector<Operation*> TopOps; // Ops remain in the adf.func (unused now)
       SmallVector<Operation*> topGraphOps; // Ops defined in adf.cell
-      SmallVector<Operation*> GraphOps; // Other Ops in adf.cell
       SmallVector<IOPopOp> IOPopOps; // unused now
       SmallVector<Value> ArgIns;
-      OpCollect(arrayForOp, TopOps, topGraphOps, GraphOps, IOPopOps, ArgIns); 
+      OpCollect(arrayForOp, TopOps, topGraphOps, IOPopOps, ArgIns); 
 
       builder.setInsertionPoint(func);
       auto funcName = "adf_" + LaunchCell.getCallee().str();
@@ -137,10 +153,12 @@ private:
       for (Operation *op : topGraphOps) {
         op->moveBefore(returnOp);
       }
-      // Move other graph ops inside the loop nest first
-      for (Operation *op : GraphOps) {
-        op->moveBefore(newInnerYiled);
-      }
+      // Process LaunchCellOp
+      LaunchCellOp newLaunch;
+      if(!processCell(builder, LaunchCell, newLaunch, newOuterLoop, 
+                      newInnerYiled))
+        return false;
+
       // Replace the loop variant in newInnerDMALoop
       for (unsigned i = 0; i < band.size(); i++) {
         auto oldVi = band[i].getInductionVar();
@@ -149,16 +167,30 @@ private:
             return newInnerLoop->isProperAncestor(use.getOwner());
         });
       }
+
+      // Clone Const op into for loop
+      // TODO:: May need to change launchcell to an isolated region later
+      SmallVector<Value, 4> oldConsts;
+      SmallVector<Value, 4> newConsts;
+      auto& newBlock = newLaunch.getBody().front();
+      for (auto constOp : func.getOps<arith::ConstantOp>()){
+        auto newConst = constOp.clone();
+        builder.setInsertionPointToStart(&newBlock);
+        builder.insert(newConst);
+        oldConsts.push_back(constOp.getResult());
+        newConsts.push_back(newConst.getResult());
+      }
+
       // Replace the constOp newInnerDMALoop
       for (unsigned i = 0; i < newConsts.size(); i++) {
         auto oldCons = oldConsts[i];
         auto newCons = newConsts[i];
         oldCons.replaceUsesWithIf(newCons,[&](OpOperand &use){
-            return newInnerLoop->isProperAncestor(use.getOwner());
+            return newLaunch->isProperAncestor(use.getOwner());
         });
       }
-      // Move the new loop nest into adf.cell func
-      newOuterLoop->moveBefore(returnOp);
+      // // Move the new loop nest into adf.cell func
+      newLaunch->moveBefore(returnOp);
 
       // Update the references in the newfunc after move
       auto num_arg = destBlock->getNumArguments();
