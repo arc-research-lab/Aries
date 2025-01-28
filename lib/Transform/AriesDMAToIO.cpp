@@ -445,7 +445,9 @@ private:
         }
         auto port = builder.create<CreateGraphIOOp>(loc, portIn, portName);
         builder.setInsertionPointAfter(port);
-        builder.create<ConnectOp>(loc, port, dstDMA);
+        auto conncetOp = builder.create<ConnectOp>(loc, port, dstDMA);
+        if(op->hasAttr("initialize"))
+          conncetOp->setAttr("initialize", builder.getUnitAttr());
         builder.create<ConfigGMIOOp>(loc, port, portburst, 0);
         SmallVector<Value> src_offsets=op.getSrcOffsets();
         SmallVector<Value> src_sizes=op.getSrcSizes();

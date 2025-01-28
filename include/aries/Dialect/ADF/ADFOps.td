@@ -210,9 +210,9 @@ def BufferOp : ADF_Op<"buffer.create", []> {
       %buffer0 = adf.buffer.create() : memref<32x32xi32>
     ```
   }];
-
+  let arguments = (ins FlatSymbolRefAttr:$symbol);
   let results = (outs AnyMemRef:$buffer);
-  let assemblyFormat = " `(``)` attr-dict `:` type(results)";
+  let assemblyFormat = " $symbol `(``)` attr-dict `:` type(results)";
   let hasCanonicalizer = 1;
 }
 

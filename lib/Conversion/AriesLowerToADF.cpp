@@ -17,6 +17,9 @@ using namespace mlir::affine;
 
 struct AllocConvert : public OpConversionPattern<AllocOp> {
   using OpConversionPattern<AllocOp>::OpConversionPattern;
+  unsigned& cnt;
+  AllocConvert(MLIRContext *context, unsigned& cnt)
+        : OpConversionPattern<AllocOp>(context), cnt(cnt){}
   LogicalResult matchAndRewrite(
       AllocOp op, OpAdaptor adaptor,
       ConversionPatternRewriter &rewriter) const override {
@@ -26,7 +29,8 @@ struct AllocConvert : public OpConversionPattern<AllocOp> {
     if (!memSpace || !dyn_cast<IntegerAttr>(memSpace))
       return failure();
     if (memrefType.getMemorySpaceAsInt() == (int)MemorySpace::L1){
-      rewriter.replaceOpWithNewOp<BufferOp>(op, op.getType());
+      auto bufName = "L1_buf" + std::to_string(cnt++);
+      rewriter.replaceOpWithNewOp<BufferOp>(op, op.getType(), bufName);
       return success();
     }else
       return failure();
@@ -152,8 +156,12 @@ struct CopyConvert : public OpConversionPattern<CopyOp> {
       }
     }
 
-    rewriter.replaceOpWithNewOp<DmaOp>(op,src,src_offsets,src_sizes,src_strides,
-                                       dst,dst_offsets,dst_sizes,dst_strides);
+    auto dmaOp = rewriter.replaceOpWithNewOp<DmaOp>(op, 
+                                      src, src_offsets, src_sizes, src_strides,
+                                      dst, dst_offsets, dst_sizes, dst_strides);
+    if(op->hasAttr("initialize"))
+      dmaOp->setAttr("initialize", rewriter.getUnitAttr());
+
     return success();
   }
 };
@@ -242,13 +250,14 @@ private:
       MLIRContext *context = func->getContext();
       RewritePatternSet patterns(context);
       unsigned index = 0;
+      unsigned cnt = 0;
       ConversionTarget target(*context);
       target.addIllegalOp<AffineParallelOp>();
       target.addIllegalOp<DeallocOp>();
       target.addIllegalOp<CopyOp>();
       target.addIllegalOp<SubViewOp>();
       patterns.add<AffineParallelConvert>(patterns.getContext(),index);
-      patterns.add<AllocConvert>(patterns.getContext());
+      patterns.add<AllocConvert>(patterns.getContext(), cnt);
       patterns.add<DeallocConvert>(patterns.getContext());
       patterns.add<CopyConvert>(patterns.getContext());
       patterns.add<SubViewConvert>(patterns.getContext());

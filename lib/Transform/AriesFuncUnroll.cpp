@@ -212,6 +212,17 @@ private:
           call->setAttr("ivs", newArrayAttr);
         }
       });
+      // Deal with the L1 Buffers that has the same symbol
+      llvm::StringMap<int> symbolCounts;
+      func.walk([&](BufferOp buffer){
+        auto sybmol = buffer.getSymbol();
+        int &count = symbolCounts[sybmol];
+        if (count > 0) {
+          std::string newSymbol = sybmol.str() + "_" + std::to_string(count);
+          buffer.setSymbol(newSymbol);
+        }
+        count++;
+      });
     }
     return true;
   }
