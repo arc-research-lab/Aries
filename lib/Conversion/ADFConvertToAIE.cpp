@@ -180,6 +180,21 @@ struct DmaConvert : public OpConversionPattern<DmaOp> {
       auto objSubview = rewriter.create<ObjectFifoSubviewAccessOp>(
                         loc, dstMemType, objACQ.getSubview(), zeroAttr);
       rewriter.create<CallOp>(loc, funcOp, ValueRange{objSubview});
+      // Replace the use of the buffer
+      adf::BufferOp buffer;
+      device.walk([&](adf::BufferOp bufferOp) {
+        // Check if the symbol name matches.
+        if (bufferOp.getSymbol() == objectName) {
+          buffer = bufferOp;
+          return WalkResult::interrupt();
+        }
+        return WalkResult::advance();
+      });
+      auto buf = buffer.getResult();
+      buf.replaceUsesWithIf(objSubview.getResult(), [&](OpOperand &use){
+        bool flag = !(dyn_cast<DmaOp>(use.getOwner()));
+        return flag;
+      });
       rewriter.eraseOp(op);
     }else{
       auto stringAttr = StringAttr::get(context, objFIFOName);
@@ -200,16 +215,45 @@ struct DmaConvert : public OpConversionPattern<DmaOp> {
         rewriter.setInsertionPointAfter(redLoop);
         rewriter.create<ObjectFifoReleaseOp>(loc, ObjectFifoPort::Produce, 
                                              objFIFOName, 1);
+        rewriter.eraseOp(op);
       }else{
         rewriter.setInsertionPoint(op);
         auto acqType = AIEObjectFifoSubviewType::get(memrefType);
         auto objACQ = rewriter.create<ObjectFifoAcquireOp>(
                       loc, acqType, ObjectFifoPort::Consume, objFIFOName, 1);
-        rewriter.create<ObjectFifoSubviewAccessOp>(loc, memrefType, 
-                                                 objACQ.getSubview(), zeroAttr);
+        auto objSubview = rewriter.create<ObjectFifoSubviewAccessOp>(
+                          loc, memrefType, objACQ.getSubview(), zeroAttr);
+        auto forOp = op->getParentOfType<AffineForOp>();
+        auto& block = forOp.getRegion().front();
+        auto terminator = block.getTerminator();
+        rewriter.setInsertionPoint(terminator);
+        rewriter.create<ObjectFifoReleaseOp>(loc, ObjectFifoPort::Consume, 
+                                             objFIFOName, 1);
+        // Replace the use of the buffer
+        adf::BufferOp buffer;
+        device.walk([&](adf::BufferOp bufferOp) {
+          // Check if the symbol name matches.
+          if (bufferOp.getSymbol().str() == objFIFOName) {
+            buffer = bufferOp;
+            return WalkResult::interrupt();
+          }
+          return WalkResult::advance();
+        });
+        buffer.getResult().replaceAllUsesWith(objSubview.getResult());
         rewriter.eraseOp(op);
       }
     }
+    return success();
+  }
+};
+
+struct BufferConvert : public OpConversionPattern<adf::BufferOp> {
+  using OpConversionPattern<adf::BufferOp>::OpConversionPattern;
+  LogicalResult matchAndRewrite(
+      adf::BufferOp op, OpAdaptor adaptor,
+      ConversionPatternRewriter &rewriter) const override {
+    
+    rewriter.eraseOp(op);
     return success();
   }
 };
@@ -480,7 +524,7 @@ private:
     }
   }
 
-  bool ADFtoAIE(OpBuilder builder, DeviceOp device,
+  bool ADFtoAIE(OpBuilder builder, DeviceOp& device,
                 DenseMap<Value, std::pair<Value, std::string>>& memMap,
                 DenseMap<CallOp, Value>& coreMap){
     MLIRContext *context = device->getContext();
@@ -490,7 +534,11 @@ private:
     patterns.add<ConnectConvert>(patterns.getContext(), memMap);
     patterns.add<CellLaunchConvert>(patterns.getContext(), coreMap);
     patterns.add<DmaConvert>(patterns.getContext(), memMap);
+    patterns.add<BufferConvert>(patterns.getContext());
+    target.addLegalOp<ObjectFifoAcquireOp>();
+    target.addLegalOp<ObjectFifoSubviewAccessOp>();
     target.addLegalDialect<FuncDialect>();
+    target.addLegalDialect<AffineDialect>();
     target.addLegalDialect<AIEDialect>();
     target.addLegalDialect<AIEXDialect>();
     if (failed(applyPartialConversion(device, target, std::move(patterns))))
