@@ -1041,6 +1041,63 @@ private:
     return true;
   }
 
+  void createBufLoc(OpBuilder builder, BufferOp buffer,
+                    unsigned col, unsigned row){
+    auto loc = builder.getUnknownLoc();
+    auto indexType = builder.getIndexType();
+    auto colAttr = builder.getIntegerAttr(indexType, col);
+    auto rowAttr = builder.getIntegerAttr(indexType, row);
+    auto zeroAttr = builder.getIntegerAttr(indexType, 0);
+    builder.setInsertionPoint(buffer);
+    auto colVal = builder.create<arith::ConstantOp>(loc, colAttr);
+    auto rowVal = builder.create<arith::ConstantOp>(loc, rowAttr);
+    auto zeroVal = builder.create<arith::ConstantOp>(loc, zeroAttr);
+    builder.setInsertionPointAfter(buffer);
+    builder.create<BuffLocOp>(loc, buffer, colVal, rowVal, zeroVal, zeroVal);
+  }
+
+  void NPUbufPlacement(OpBuilder builder, FuncOp func){
+    func.walk([&](BufferOp buffer){
+      auto buf = buffer.getResult();
+      auto memType = dyn_cast<MemRefType>(buf.getType());
+      auto space = memType.getMemorySpace();
+      if(auto intSpaceAttr = dyn_cast<IntegerAttr>(space)){
+        auto intSpace = intSpaceAttr.getInt();
+        if(intSpace == (int)MemorySpace::L2){
+          for(auto use : buf.getUsers()){
+            if(auto dmaOp = dyn_cast<DmaOp>(use)){
+              auto src = dmaOp.getSrc();
+              auto dst = dmaOp.getDst();
+              Value L1buf =src ;
+              if(src == buf){
+                L1buf = dst;
+              }
+              for(auto useOp : L1buf.getUsers()){
+                if(auto call = dyn_cast<CallOp>(useOp)){
+                  auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
+                  unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
+                  createBufLoc(builder, buffer, colInt, 1);
+                  break;
+                }
+              }
+              break;
+            }
+          }
+        }else{
+          for(auto useOp : buf.getUsers()){
+            if(auto call = dyn_cast<CallOp>(useOp)){
+              auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
+              unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
+              unsigned rowInt = dyn_cast<IntegerAttr>(attr[1]).getInt();
+              createBufLoc(builder, buffer, colInt, rowInt);
+              break;
+            }
+          }
+        }
+      }
+    });
+  }
+
   bool NPUPlacement0(OpBuilder builder, FuncOp func, 
                      const unsigned colNum, const unsigned rowNum, 
                      unsigned colOffset, unsigned rowOffset,
@@ -1074,6 +1131,7 @@ private:
     });
     if (result == WalkResult::interrupt())
       return false;
+    NPUbufPlacement(builder, func);
     return true;
   }
 

@@ -53,7 +53,9 @@ private:
     if(src!=io){
       auto defineOp = src.getDefiningOp();
       // For NPU, currently the output won't be returned
-      if(dyn_cast<BufferOp>(defineOp)){
+      if(!defineOp){
+        return false;
+      }else if(auto buf = dyn_cast<BufferOp>(defineOp)){
         for(auto use : src.getUsers()){
           if(!dyn_cast<DmaOp>(use))
             continue;
