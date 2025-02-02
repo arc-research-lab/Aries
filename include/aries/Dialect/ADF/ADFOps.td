@@ -389,7 +389,7 @@ def IOWriteOp: ADF_Op<"io.write", []> {
       : (f32, , !adf.plio<In>)
     ```
   }];
-  let arguments = (ins AnyType:$src, PLIOType:$dst);
+  let arguments = (ins AnyType:$src, GraphIOType:$dst);
   let assemblyFormat = [{
     `(` $src  `,` $dst `)`  attr-dict `:` `(` type($src) `,` type($dst) `)`
   }];
@@ -407,7 +407,7 @@ def IOReadOp: ADF_Op<"io.read", []> {
       : (!adf.plio<In>, f32)
     ```
   }];
-  let arguments = (ins PLIOType:$src);
+  let arguments = (ins GraphIOType:$src);
   let results = (outs AnyType:$result);
   let assemblyFormat = [{
     `(` $src  `)`  attr-dict `:` functional-type($src, results)

@@ -48,8 +48,6 @@ private:
         ArgIns.push_back(graphio.getResult());
       }else if(auto iopopOp = dyn_cast<IOPopOp>(op))
         IOPopOps.push_back(iopopOp);
-      else
-        TopOps.push_back(op);
     });
   }
 
@@ -125,12 +123,17 @@ private:
       LaunchCellOp LaunchCell = getFirstOpOfType<LaunchCellOp>(func.getBody());
       if(!LaunchCell)
         return true;
-      SmallVector<Operation*> TopOps; // Ops remain in the adf.func (unused now)
+      SmallVector<Operation*> TopOps; // GraphIO Op need to define in top
       SmallVector<Operation*> topGraphOps; // Ops defined in adf.cell
       SmallVector<IOPopOp> IOPopOps; // unused now
       SmallVector<Value> ArgIns;
       OpCollect(arrayForOp, TopOps, topGraphOps, IOPopOps, ArgIns); 
 
+      // Move GraphIOs to the start of the adf.func Op
+      auto& entryBlock = func.getRegion().front();
+      for (Operation *op : TopOps) {
+        op->moveBefore(&entryBlock, entryBlock.begin());
+      }
       builder.setInsertionPoint(func);
       auto funcName = "adf_" + LaunchCell.getCallee().str();
       auto funcType 
