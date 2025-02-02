@@ -4,10 +4,14 @@
 #include "aie/Dialect/AIE/IR/AIEDialect.h"
 #include "aie/Dialect/AIEX/IR/AIEXDialect.h"
 #include "mlir/Transforms/DialectConversion.h"
+#include "mlir/Dialect/Affine/LoopUtils.h"
+#include "mlir/Dialect/Affine/Analysis/LoopAnalysis.h"
 #include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/Arith/IR/Arith.h"
 #include "mlir/Dialect/Affine/IR/AffineOps.h"
+#include "mlir/Pass/PassManager.h"
+#include "mlir/Transforms/Passes.h"
 
 using namespace mlir;
 using namespace aries;
@@ -291,156 +295,6 @@ private:
     });
   }
 
-  // Keep a specific callOp and delete the unused callOp, DmaOp, connectOp
-  void removeOps(LaunchCellOp cellLaunch, IntegerAttr attr){
-    // First traverse find the specific CallOp
-    CallOp call;
-    cellLaunch.walk([&](CallOp op){
-      auto callName = op.getCallee();
-      auto intAttr = dyn_cast<IntegerAttr>(op->getAttr(callName));
-      if(intAttr.getInt() == attr.getInt()){
-        call = op;
-        return WalkResult::interrupt();
-      }
-      return WalkResult::advance();
-    });
-    auto oprands = call.getOperands();
-    auto results = call.getResults();
-    cellLaunch.walk([&](Operation* op){
-      if(dyn_cast<DmaOp>(op) || dyn_cast<adf::ConnectOp>(op)){
-        Value src, dst;
-        if(auto dmaOp = dyn_cast<DmaOp>(op)){
-          src = dmaOp.getSrc();
-          dst = dmaOp.getDst();
-        }else{
-          auto connect = dyn_cast<adf::ConnectOp>(op);
-          src = connect.getSrc();
-          dst = connect.getDst();
-        }
-        auto it0 = llvm::find(oprands, src);
-        auto it1 = llvm::find(oprands, dst);
-        auto it2 = llvm::find(results, src);
-        auto it3 = llvm::find(results, dst);
-        // If op not used in operands and results then erase it
-        if(it0 == oprands.end() && it1 == oprands.end() &&
-           it2 == results.end() && it3 == results.end())
-          op->erase();
-      }else if(auto newCall = dyn_cast<CallOp>(op)){
-        if(newCall != call)
-          op->erase();
-      }
-    });
-  }
-
-  // 1) Remove tripCount attr of cellLauchOp
-  // 2) Split callOp in cellLauchOp to difference cellLauchOps
-  void splitCores(OpBuilder builder, DeviceOp device){
-    auto loc = builder.getUnknownLoc();
-    auto context = builder.getContext();
-    for (auto cellLaunch: 
-              llvm::make_early_inc_range(device.getOps<LaunchCellOp>())){
-      cellLaunch->removeAttr("tripCount");
-      cellLaunch.walk([&](CallOp call){
-        builder.setInsertionPoint(cellLaunch);
-        auto callName = call.getCallee();
-        if(!call->hasAttr("adf.kernel"))
-          return WalkResult::advance();
-        auto intAttr = dyn_cast<IntegerAttr>(call->getAttr(callName));
-        auto newLaunch = dyn_cast<LaunchCellOp>(cellLaunch->clone());
-        auto strAttr = StringAttr::get(context, callName);
-        newLaunch->setAttr("callName", strAttr);
-        builder.insert(newLaunch);
-        removeOps(newLaunch, intAttr);
-        auto& entryBlock = newLaunch.getRegion().front();
-        builder.setInsertionPointToStart(&entryBlock);
-        auto infinteLoop = builder.create<AffineForOp>(loc, 0, UINT_MAX, 1);
-        auto forblock = infinteLoop.getBody();
-        auto forYiledOp = dyn_cast<AffineYieldOp>(forblock->getTerminator()); 
-        for(auto& op : llvm::make_early_inc_range(newLaunch.getOps())){
-          if(auto loop = dyn_cast<AffineForOp>(op)){
-            if( loop!= infinteLoop)
-              op.moveBefore(forYiledOp);
-          }else if(!dyn_cast<EndLaunchCellOp>(op)){
-            op.moveBefore(forYiledOp);
-          }
-        }
-        return WalkResult::advance();
-      });
-      cellLaunch.erase();
-    }
-  }
-
-  // Create and record tileOp for shim, mem-tile and cores
-  void recordMap(OpBuilder builder, DeviceOp device,
-                 DenseMap<Value, std::pair<Value, std::string>>& memMap,
-                 DenseMap<CallOp, Value>& coreMap){
-    auto loc = builder.getUnknownLoc();
-    auto& entryBlock = device.getRegion().front();
-    builder.setInsertionPointToStart(&entryBlock);
-    SmallVector<std::tuple<Value, int32_t, int32_t>, 4> tileLocs;
-    device.walk([&](BuffLocOp bufLoc){
-      Value buf = bufLoc.getBuffer();
-      auto buffOp = dyn_cast<adf::BufferOp>(buf.getDefiningOp());
-      auto col = bufLoc.getCol();
-      auto constCol = dyn_cast<arith::ConstantOp>(col.getDefiningOp());
-      int32_t colInt = dyn_cast<IntegerAttr>(constCol.getValue()).getInt();
-      auto row = bufLoc.getRow();
-      auto constRow = dyn_cast<arith::ConstantOp>(row.getDefiningOp());
-      int32_t rowInt = dyn_cast<IntegerAttr>(constRow.getValue()).getInt();
-      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
-                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
-        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
-      });
-      if(it != tileLocs.end()){
-        memMap[buf].first = std::get<0>(*it);
-        memMap[buf].second = buffOp.getSymbol();
-      }else{
-        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
-        memMap[buf].first = tile.getResult();
-        memMap[buf].second = buffOp.getSymbol();
-        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
-      }
-      bufLoc.erase();
-    });
-    device.walk([&](ConfigGMIOOp configOp){
-      auto gmio = configOp.getGmio();
-      auto attr = dyn_cast<ArrayAttr>(configOp->getAttr("col, chl"));
-      auto colAttr = attr[0];
-      int32_t colInt = dyn_cast<IntegerAttr>(colAttr).getInt();
-      int32_t rowInt = 0;
-      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
-                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
-        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
-      });
-      if(it != tileLocs.end())
-        memMap[gmio].first = std::get<0>(*it);
-      else{
-        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
-        memMap[gmio].first = tile.getResult();
-        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
-      }
-      configOp.erase();
-    });
-    device.walk([&](CallOp call){
-      auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
-      auto colAttr = attr[0];
-      auto rowAttr = attr[1];
-      int32_t colInt = dyn_cast<IntegerAttr>(colAttr).getInt();
-      int32_t rowInt = dyn_cast<IntegerAttr>(rowAttr).getInt();
-      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
-                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
-        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
-      });
-      if(it != tileLocs.end())
-        coreMap[call] = std::get<0>(*it);
-      else{
-        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
-        coreMap[call] = tile.getResult();
-        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
-      }
-    });
-  }
-
   // Tranverse each operands of adf.cell calls and create a newIO before endOp
   void createNewIO(OpBuilder builder, CallOp call, EndOp endOp,
                    unsigned &inCnt, unsigned &outCnt,
@@ -524,7 +378,358 @@ private:
     }
   }
 
-  bool ADFtoAIE(OpBuilder builder, DeviceOp& device,
+  // Keep a specific callOp and delete the unused callOp, DmaOp, connectOp
+  void removeOps(LaunchCellOp cellLaunch, IntegerAttr attr){
+    // First traverse find the specific CallOp
+    CallOp call;
+    cellLaunch.walk([&](CallOp op){
+      auto callName = op.getCallee();
+      auto intAttr = dyn_cast<IntegerAttr>(op->getAttr(callName));
+      if(intAttr.getInt() == attr.getInt()){
+        call = op;
+        return WalkResult::interrupt();
+      }
+      return WalkResult::advance();
+    });
+    auto oprands = call.getOperands();
+    auto results = call.getResults();
+    cellLaunch.walk([&](Operation* op){
+      if(dyn_cast<DmaOp>(op) || dyn_cast<adf::ConnectOp>(op)){
+        Value src, dst;
+        if(auto dmaOp = dyn_cast<DmaOp>(op)){
+          src = dmaOp.getSrc();
+          dst = dmaOp.getDst();
+        }else{
+          auto connect = dyn_cast<adf::ConnectOp>(op);
+          src = connect.getSrc();
+          dst = connect.getDst();
+        }
+        auto it0 = llvm::find(oprands, src);
+        auto it1 = llvm::find(oprands, dst);
+        auto it2 = llvm::find(results, src);
+        auto it3 = llvm::find(results, dst);
+        // If op not used in operands and results then erase it
+        if(it0 == oprands.end() && it1 == oprands.end() &&
+           it2 == results.end() && it3 == results.end())
+          op->erase();
+      }else if(auto newCall = dyn_cast<CallOp>(op)){
+        if(newCall != call)
+          op->erase();
+      }
+    });
+  }
+
+  // 1) Remove tripCount attr of cellLauchOp
+  // 2) Split callOp in cellLauchOp to difference cellLauchOps
+  void splitCores(OpBuilder builder, DeviceOp device){
+    auto loc = builder.getUnknownLoc();
+    auto context = builder.getContext();
+    for (auto cellLaunch: 
+              llvm::make_early_inc_range(device.getOps<LaunchCellOp>())){
+      cellLaunch->removeAttr("tripCount");
+      cellLaunch.walk([&](CallOp call){
+        builder.setInsertionPoint(cellLaunch);
+        auto callName = call.getCallee();
+        if(!call->hasAttr("adf.kernel"))
+          return WalkResult::advance();
+        auto intAttr = dyn_cast<IntegerAttr>(call->getAttr(callName));
+        auto newLaunch = dyn_cast<LaunchCellOp>(cellLaunch->clone());
+        auto strAttr = StringAttr::get(context, callName);
+        newLaunch->setAttr("callName", strAttr);
+        builder.insert(newLaunch);
+        removeOps(newLaunch, intAttr);
+        auto& entryBlock = newLaunch.getRegion().front();
+        builder.setInsertionPointToStart(&entryBlock);
+        auto infinteLoop = builder.create<AffineForOp>(loc, 0, UINT_MAX, 1);
+        auto forblock = infinteLoop.getBody();
+        auto forYiledOp = dyn_cast<AffineYieldOp>(forblock->getTerminator()); 
+        for(auto& op : llvm::make_early_inc_range(newLaunch.getOps())){
+          if(auto loop = dyn_cast<AffineForOp>(op)){
+            if( loop!= infinteLoop)
+              op.moveBefore(forYiledOp);
+          }else if(!dyn_cast<EndLaunchCellOp>(op)){
+            op.moveBefore(forYiledOp);
+          }
+        }
+        return WalkResult::advance();
+      });
+      cellLaunch.erase();
+    }
+  }
+
+  bool findADFFunc(DeviceOp device, FuncOp& adfFunc){
+    device.walk([&](FuncOp func){
+      if(func->hasAttr("adf.func")){
+        adfFunc = func;
+        return WalkResult::interrupt();
+      }
+      return WalkResult::advance();
+    });
+    if(!adfFunc)
+      return false;
+    return true;
+  }
+
+  // 1) Eliminate the output initialization loops
+  // 2) Move store to outside of the reduction loop
+  // 3) Unroll the loops within the array partitioning loop
+  bool unrollDMA1(OpBuilder builder, FuncOp adfFunc){
+    AffineForOp arrayForOp;   
+    adfFunc.walk([&](AffineForOp forOp){
+      if(forOp->hasAttr("Array_Partition"))
+        arrayForOp = forOp;
+    });
+    if(arrayForOp){
+      for (auto forOp : llvm::make_early_inc_range(
+                        arrayForOp.getOps<AffineForOp>())){
+        if(forOp->hasAttr("initialize"))
+          forOp.erase();
+        else if(forOp->hasAttr("store")){
+          forOp->moveAfter(arrayForOp);
+          SmallVector<AffineForOp, 6> band;
+          getNestedLoops(band, forOp);
+          for(auto loop: band){
+            if (failed(loopUnrollFull(loop)))
+              return false;
+          }
+        }else{
+          SmallVector<AffineForOp, 6> band;
+          getNestedLoops(band, forOp);
+          for(auto loop: band){
+            if (failed(loopUnrollFull(loop)))
+              return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  // 1) Eliminate the output initialization loops
+  // 2) Unroll the loops that has tripCount = 1
+  bool unrollDMA(OpBuilder builder, FuncOp adfFunc){
+    AffineForOp arrayForOp;   
+    auto flag = adfFunc.walk([&](AffineForOp forOp){
+      if(forOp->hasAttr("initialize"))
+        forOp.erase();
+      else{
+        auto tripCount = getConstantTripCount(forOp);
+        if(tripCount.has_value() && tripCount == 1)
+          if (failed(loopUnrollFull(forOp)))
+            return WalkResult::interrupt();
+      }
+      return WalkResult::advance();
+    });
+    if(flag == WalkResult::interrupt())
+      return false;
+    PassManager pm(&getContext());
+    pm.addPass(createCSEPass());
+    pm.addPass(createCanonicalizerPass());
+    if (failed(pm.run(adfFunc)))
+      signalPassFailure();
+    return true;
+  }
+
+  // Convert adf.io.push/pop that moves data between memrefs and ios to 
+  // affine load&store
+  WalkResult ConvertIOToAffine(OpBuilder builder, Operation* op,  bool iopush){
+    auto loc = builder.getUnknownLoc();
+    IOPushOp iopushOp;
+    IOPopOp iopopOp;
+    Value src, dst;
+    SmallVector<Value> offsets;
+    SmallVector<Value> sizes;
+    MemRefType type;
+    if(iopush){
+      iopushOp = dyn_cast<IOPushOp>(op);
+      src = iopushOp.getSrc();
+      type = dyn_cast<MemRefType>(src.getType());
+      dst = iopushOp.getDst();
+      offsets = iopushOp.getSrcOffsets();
+      sizes = iopushOp.getSrcSizes();
+      builder.setInsertionPoint(iopushOp);
+    }else{
+      iopopOp = dyn_cast<IOPopOp>(op);
+      src = iopopOp.getSrc();
+      dst = iopopOp.getDst();
+      type = dyn_cast<MemRefType>(dst.getType());
+      offsets = iopopOp.getDstOffsets();
+      sizes = iopopOp.getDstSizes();
+      builder.setInsertionPoint(iopopOp);
+    }
+    auto elementType = type.getElementType();
+    // Create for loops for IOPush/Pop Ops
+    SmallVector<AffineForOp, 4> newIOLoops;
+    auto rank = offsets.size();
+    for(unsigned i = 0; i < rank; i++){
+      auto size = sizes[i];
+      auto constantSize = dyn_cast<arith::ConstantOp>(size.getDefiningOp());
+      if(!constantSize)
+        return WalkResult::interrupt();
+      auto sizeAttr = dyn_cast<IntegerAttr>(constantSize.getValue());
+      auto sizeInt = sizeAttr.getInt();
+      auto newIOForOp 
+           = builder.create<AffineForOp>(loc, 0, sizeInt, 1);
+      newIOLoops.push_back(newIOForOp);
+      builder.setInsertionPointToStart(newIOForOp.getBody());
+    }
+    // Get the access operands of affine load/store
+    auto newInnerIOLoop = newIOLoops[newIOLoops.size()-1];
+    auto newInnerIOYiled = newInnerIOLoop.getBody()->getTerminator();
+    auto d0 = builder.getAffineDimExpr(0);
+    auto d1 = builder.getAffineDimExpr(1);
+    // new map is var * stride + offset (stride is assumed to be 1)
+    auto map = AffineMap::get(2, 0, d0 + d1, builder.getContext());
+    SmallVector<Value> newApplyopIOs;
+    for(unsigned i = 0; i < rank; i++){
+      SmallVector<Value, 2> applyOperands;
+      auto newIOLoop = newIOLoops[i];
+      auto var = newIOLoop.getInductionVar();
+      auto offset = offsets[i];
+      applyOperands.push_back(var);
+      applyOperands.push_back(offset);
+      builder.setInsertionPoint(newInnerIOYiled);
+      auto newApplyopIO=builder.create<AffineApplyOp>(loc, map, applyOperands);
+      newApplyopIOs.push_back(newApplyopIO);
+    }if(iopush){
+      auto loadOp = builder.create<AffineLoadOp>(loc, src, newApplyopIOs);
+      builder.create<IOWriteOp>(loc, loadOp, dst);
+    }else{
+      auto result = builder.create<IOReadOp>(loc, elementType, src);
+      builder.create<AffineStoreOp>(loc, result, dst, newApplyopIOs);
+    }
+    return WalkResult::advance();
+  }
+
+  // Materialize IOPush/IOPop to affine.load and affine.store
+  bool processIO(OpBuilder builder, FuncOp adfFunc){
+    auto flag = adfFunc.walk([&](Operation* op){
+      WalkResult result;
+      if(dyn_cast<IOPushOp>(op)){
+        result = ConvertIOToAffine(builder, op, true);
+        op->erase();
+      }else if(dyn_cast<IOPopOp>(op)){
+        result = ConvertIOToAffine(builder, op, false);
+        op->erase();
+      }else{
+        result = WalkResult::advance();
+      }
+      return result;
+    });
+    if (flag == WalkResult::interrupt()) 
+      return false;
+    // Canonicalize the affine.applys and the affine maps
+    PassManager pm(&getContext());
+    pm.addPass(createCSEPass());
+    pm.addPass(createCanonicalizerPass());
+    if (failed(pm.run(adfFunc)))
+      signalPassFailure();
+    return true;
+  }
+
+  // Create aiex.runtime_sequence with deviceOp
+  // Move all the operations in func.func makred by adf.func to runtime_sequence
+  void createSeq(OpBuilder builder, FuncOp adfFunc, EndOp endOp,
+                 RuntimeSequenceOp & seqOp){
+    auto loc = builder.getUnknownLoc();
+    auto& srcBlock = adfFunc.getRegion().front();
+    builder.setInsertionPoint(endOp);
+    StringAttr empty_attr;
+    seqOp = builder.create<RuntimeSequenceOp>(loc, empty_attr);
+    seqOp.getBody().push_back(new Block);
+    auto& destBlock = seqOp.getRegion().front();
+    for (auto arg : srcBlock.getArguments()) {
+      destBlock.addArgument(arg.getType(), arg.getLoc());
+    }
+    for (auto &op : llvm::make_early_inc_range(srcBlock)) {
+      if (isa<func::ReturnOp>(op))
+        continue;
+      op.moveBefore(&destBlock, destBlock.end());
+    }
+    // Update the references in the newfunc after move
+    auto argNum = destBlock.getNumArguments();
+    for (unsigned i = 0; i < argNum; ++i) {
+      auto srcArg = srcBlock.getArgument(i);
+      auto destArg = destBlock.getArgument(i);
+      srcArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
+          return seqOp->isProperAncestor(use.getOwner());
+      });
+    }
+    adfFunc.erase();
+  }
+
+  // Create and record tileOp for shim, mem-tile and cores
+  void recordMap(OpBuilder builder, DeviceOp device,
+                 DenseMap<Value, std::pair<Value, std::string>>& memMap,
+                 DenseMap<CallOp, Value>& coreMap){
+    auto loc = builder.getUnknownLoc();
+    auto& entryBlock = device.getRegion().front();
+    builder.setInsertionPointToStart(&entryBlock);
+    SmallVector<std::tuple<Value, int32_t, int32_t>, 4> tileLocs;
+    device.walk([&](BuffLocOp bufLoc){
+      Value buf = bufLoc.getBuffer();
+      auto buffOp = dyn_cast<adf::BufferOp>(buf.getDefiningOp());
+      auto col = bufLoc.getCol();
+      auto constCol = dyn_cast<arith::ConstantOp>(col.getDefiningOp());
+      int32_t colInt = dyn_cast<IntegerAttr>(constCol.getValue()).getInt();
+      auto row = bufLoc.getRow();
+      auto constRow = dyn_cast<arith::ConstantOp>(row.getDefiningOp());
+      int32_t rowInt = dyn_cast<IntegerAttr>(constRow.getValue()).getInt();
+      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
+                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
+        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
+      });
+      if(it != tileLocs.end()){
+        memMap[buf].first = std::get<0>(*it);
+        memMap[buf].second = buffOp.getSymbol();
+      }else{
+        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
+        memMap[buf].first = tile.getResult();
+        memMap[buf].second = buffOp.getSymbol();
+        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
+      }
+      bufLoc.erase();
+    });
+    device.walk([&](ConfigGMIOOp configOp){
+      auto gmio = configOp.getGmio();
+      auto attr = dyn_cast<ArrayAttr>(configOp->getAttr("col, chl"));
+      auto colAttr = attr[0];
+      int32_t colInt = dyn_cast<IntegerAttr>(colAttr).getInt();
+      int32_t rowInt = 0;
+      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
+                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
+        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
+      });
+      if(it != tileLocs.end())
+        memMap[gmio].first = std::get<0>(*it);
+      else{
+        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
+        memMap[gmio].first = tile.getResult();
+        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
+      }
+      configOp.erase();
+    });
+    device.walk([&](CallOp call){
+      auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
+      auto colAttr = attr[0];
+      auto rowAttr = attr[1];
+      int32_t colInt = dyn_cast<IntegerAttr>(colAttr).getInt();
+      int32_t rowInt = dyn_cast<IntegerAttr>(rowAttr).getInt();
+      auto it = llvm::find_if(tileLocs, [&colInt, &rowInt](
+                            const std::tuple<Value, int32_t, int32_t>& tileLoc){
+        return std::get<1>(tileLoc) == colInt && std::get<2>(tileLoc) == rowInt;
+      });
+      if(it != tileLocs.end())
+        coreMap[call] = std::get<0>(*it);
+      else{
+        auto tile = builder.create<TileOp>(loc, colInt, rowInt);
+        coreMap[call] = tile.getResult();
+        tileLocs.push_back(std::tuple(tile, colInt, rowInt));
+      }
+    });
+  }
+
+  bool ADFtoAIE(OpBuilder builder, DeviceOp& device, RuntimeSequenceOp seqOp,
                 DenseMap<Value, std::pair<Value, std::string>>& memMap,
                 DenseMap<CallOp, Value>& coreMap){
     MLIRContext *context = device->getContext();
@@ -550,14 +755,22 @@ private:
     auto builder = OpBuilder(mod);
     DeviceOp device;
     EndOp endOp;
+    RuntimeSequenceOp seqOp;
+    FuncOp adfFunc;
     createDevice(mod, builder, device, endOp);
     liftCell(builder, device, endOp);
     splitCores(builder, device);
+    if(!findADFFunc(device, adfFunc))
+      return false;
+    if(!unrollDMA(builder, adfFunc))
+      return false;
+    processIO(builder, adfFunc);
+    createSeq(builder, adfFunc, endOp, seqOp);
     // Record tiles of shim, L1 and L2 mem, tile = memMap[buf/shim].first
     DenseMap<Value, std::pair<Value, std::string>> memMap;
     DenseMap<CallOp, Value> coreMap;
     recordMap(builder, device, memMap, coreMap);
-    if(!ADFtoAIE(builder, device, memMap, coreMap))
+    if(!ADFtoAIE(builder, device, seqOp, memMap, coreMap))
       return false;
     return true;
   }
