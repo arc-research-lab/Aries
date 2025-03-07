@@ -22,6 +22,7 @@ ChalOut = {{placement[9]}}
 CoreAlgo = {{placeAlgo[0]}}
 EnableIOCons = "{{placeAlgo[1]}}"
 Link_file = {{linkFile}}
+AIEUnroll = {{aieUnroll}}
 {% for i in range(dim) -%}
 {% set paraSize = parallel[i] -%}
 {% set l2Size = l2buffer[i] -%}
@@ -58,7 +59,7 @@ copyFile:
 
 
 ARIES_OPTIONS=  tile-func-name=${FUNC}
-ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${en-newtiling}
+ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${EN_Tiling}
 ARIES_OPTIONS+= port-type=${IOType}
 ARIES_OPTIONS+= plio-width=${PLIOWidth}
 ARIES_OPTIONS+= en-pl=${EN_PL} en-aie2=${EN_AIE2}
@@ -112,7 +113,7 @@ ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_unrol
 		--canonicalize
 ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 	aries-opt -o $@ $< \
-		--affine-loop-unroll="unroll-factor=8" \
+		--affine-loop-unroll="unroll-factor=${AIEUnroll}" \
 		--canonicalize
 
 kernel_file_split: kernel_cc
