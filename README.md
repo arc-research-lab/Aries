@@ -6,7 +6,6 @@ Ph.D. Students: Jinming Zhuang (Student Lead), Shaojie Xiang (Student Lead), Hon
 
 # ARIES: An Agile MLIR-Based Compilation Flow for Reconfigurable Devices with AI Engines (FPGA'25)
 
-# ARIES
 ## Installation Guide
 
 ### Prerequisites

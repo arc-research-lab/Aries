@@ -1,4 +1,4 @@
-cd ${PRO_PATH}
+PRO_PATH=$PWD
 LLVM_DIR=`realpath ${1:-"$PWD/externals/llvm-project"}`
 CMAKE=`realpath ${2:-"$PWD/aries/bin/cmake"}`
 BUILD_DIR=build
