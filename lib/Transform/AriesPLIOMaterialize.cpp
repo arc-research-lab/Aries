@@ -492,7 +492,9 @@ private:
       // Replace IOPush: Send data from L2 buffer to L1 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
       auto dmaOp = builder.create<DmaOp>(loc, src, offsets, sizes, strides,
-                            allocOp, localOffsets, localSizes, localStrides);
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        allocOp, localOffsets, localSizes, localStrides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
       auto attr = iopushOp->getAttr("type");
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);
@@ -503,8 +505,10 @@ private:
       // Create dma op to store data from L2 buffer to external mem
       // Replace IOPop: Receive data from L1 buffer to L2 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
-      auto dmaOp = builder.create<DmaOp>(loc,allocOp, localOffsets, localSizes, 
-                                  localStrides, dst, offsets, sizes, strides);
+      auto dmaOp = builder.create<DmaOp>(loc,allocOp, localOffsets, localSizes,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(), 
+                        localStrides, dst, offsets, sizes, strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
       auto attr = iopopOp->getAttr("type");
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);

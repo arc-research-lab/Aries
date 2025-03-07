@@ -302,8 +302,10 @@ private:
     if(opType == 0){ //DmaBroadcastOp
       builder.setInsertionPoint(newInnerDMAYiled);
       auto oldDma = builder.create<DmaOp>(loc, 
-                                    src, srcOffsets, srcSizes, srcStrides,
-                                    allocOp, newL2Applys, srcSizes, L2Strides);
+                        src, srcOffsets, srcSizes, srcStrides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        allocOp, newL2Applys, srcSizes, L2Strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
       for(auto dst: dsts){
         auto defineOp = dst.getDefiningOp();
         builder.setInsertionPointAfter(defineOp);
@@ -323,12 +325,16 @@ private:
       if(load_flag){ // Create L3 -> L2 DmaOp, L2 -> L1 DamOp
         builder.setInsertionPoint(newInnerDMAYiled);
         auto oldDma = builder.create<DmaOp>(loc, 
-                                    src, srcOffsets, srcSizes, srcStrides,
-                                    allocOp, newL2Applys, srcSizes, L2Strides);
+                        src, srcOffsets, srcSizes, srcStrides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        allocOp, newL2Applys, srcSizes, L2Strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
         builder.setInsertionPoint(op);
         auto newDma = builder.create<DmaOp>(loc, 
-                                    allocOp, oriL2Applys, srcSizes, L2StridesL1,
-                                    dst, dstOffsets, dstSizes, dstStrides);
+                        allocOp, oriL2Applys, srcSizes, L2StridesL1,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        dst, dstOffsets, dstSizes, dstStrides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
         auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
         newOuterDMALoop->setAttr("load", loadAttr);
         if(op->hasAttr("initialize")){
@@ -339,10 +345,14 @@ private:
       }else{ // Create L1 -> L2 DmaOp, L2 -> L3 DamOp
         builder.setInsertionPoint(newInnerDMAYiled);
         builder.create<DmaOp>(loc, allocOp, newL2Applys, dstSizes, L2Strides,
-                                   dst, dstOffsets, dstSizes, dstStrides);
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        dst, dstOffsets, dstSizes, dstStrides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
         builder.setInsertionPoint(op);
         builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
-                                   allocOp, oriL2Applys, dstSizes, L2StridesL1);
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        allocOp, oriL2Applys, dstSizes, L2StridesL1,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
         auto storeAttr = builder.getIntegerAttr(indexType, storeIdx++);
         newOuterDMALoop->setAttr("store", storeAttr);
       }

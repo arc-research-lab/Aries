@@ -157,8 +157,10 @@ struct CopyConvert : public OpConversionPattern<CopyOp> {
     }
 
     auto dmaOp = rewriter.replaceOpWithNewOp<DmaOp>(op, 
-                                      src, src_offsets, src_sizes, src_strides,
-                                      dst, dst_offsets, dst_sizes, dst_strides);
+                        src, src_offsets, src_sizes, src_strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        dst, dst_offsets, dst_sizes, dst_strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
     if(op->hasAttr("initialize"))
       dmaOp->setAttr("initialize", rewriter.getUnitAttr());
 

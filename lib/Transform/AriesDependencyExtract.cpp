@@ -110,6 +110,10 @@ private:
         auto dstOffsets = dmaWrite.getDstOffsets();
         auto dstSizes   = dmaWrite.getDstSizes(); 
         auto dstStrides = dmaWrite.getDstStrides();
+        auto dstTiles = dmaWrite.getDstTiles();
+        auto dstDims = dmaWrite.getDstDims();
+        auto dstSteps = dmaWrite.getDstSteps();
+        auto dstWraps = dmaWrite.getDstWraps();
         for (auto dmaRead : dmaOps){
           if (IsWrite(dmaRead))
             continue;
@@ -117,9 +121,14 @@ private:
           auto srcOffsets = dmaRead.getSrcOffsets();
           auto srcSizes = dmaRead.getSrcSizes(); 
           auto srcStrides = dmaRead.getSrcStrides();
-          if(src != dst || srcOffsets != dstOffsets 
-                        || srcSizes   != dstSizes
-                        || srcStrides != dstStrides)
+          auto srcTiles = dmaWrite.getSrcTiles();
+          auto srcDims  = dmaWrite.getSrcDims();
+          auto srcSteps = dmaWrite.getSrcSteps();
+          auto srcWraps = dmaWrite.getSrcWraps();
+          if(src != dst || srcOffsets != dstOffsets || srcSizes != dstSizes
+                        || srcStrides != dstStrides || srcTiles != dstTiles
+                        || srcDims  != dstDims || srcSteps != dstSteps
+                        || srcWraps != dstWraps)
             continue;
           if(opIndex>0){
             llvm::errs() 

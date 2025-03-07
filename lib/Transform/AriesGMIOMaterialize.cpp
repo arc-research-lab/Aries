@@ -62,8 +62,10 @@ private:
       dealloc->setAttr("gmio",builder.getUnitAttr());
       builder.setInsertionPoint(op);
       auto dmaOp = builder.create<DmaOp>(
-                            loc, src, src_offsets, src_sizes, src_strides,
-                            newMem, ValueRange(), ValueRange(), ValueRange());
+                        loc, src, src_offsets, src_sizes, src_strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        newMem, ValueRange(), ValueRange(), ValueRange(),
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
       dmaOp->setAttr("in",builder.getUnitAttr());
       builder.setInsertionPoint(op);
       builder.create<IOPushOp>(loc, newMem, 
@@ -110,7 +112,9 @@ private:
       builder.setInsertionPointAfter(iowaitOp);
       auto dmaOp = builder.create<DmaOp>(
                         loc, newMem, ValueRange(), ValueRange(), ValueRange(),
-                        dst, dst_offsets, dst_sizes, dst_strides);
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        dst, dst_offsets, dst_sizes, dst_strides,
+                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
       dmaOp->setAttr("out",builder.getUnitAttr());
       builder.setInsertionPoint(endlaunchCell);
       auto dealloc = builder.create<DeallocOp>(loc,newMem);

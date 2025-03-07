@@ -316,6 +316,8 @@ private:
       }
       index++;
     }
+    if(!finalLoop)
+      return;
     for(auto forOp : forOps)
       forOp->moveAfter(finalLoop);
     // Initialize output buffer as zero
