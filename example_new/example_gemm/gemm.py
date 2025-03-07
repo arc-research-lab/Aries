@@ -5,19 +5,22 @@ aries_path = cur_dir + "/../../"
 sys.path.append(aries_path)
 from newfrontend import *
 
-@task_kernel(external_path="kernel_mm/aie_fp32_v0", para = [32,32,32])
-def kernel_gemm(TileA: float32[32, 32], 
-                TileB: float32[32, 32], 
-                TileC: float32[32, 32]):
-    for i0 in range(0, 32):
-        for j0 in range(0, 32):
-            for k0 in range(0, 32):
+# GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
+I, J, K = 2816, 3072, 8192
+TI, TJ, TK = 32, 32, 32
+
+@task_kernel(external_path="kernel_mm/aie_fp32_v0", para = [TI, TJ, TK])
+def kernel_gemm(TileA: float32[TI, TK], 
+                TileB: float32[TK, TJ], 
+                TileC: float32[TI, TJ]):
+    for i0 in range(0, TI):
+        for j0 in range(0, TJ):
+            for k0 in range(0, TK):
                 TileC[i0, j0] += TileA[i0, k0] * TileB[k0, j0]
 
 @task_tile(False) # Not run it on CPU
-def gemm(A: float32[2816, 8192], B: float32[8192, 3072], C: float32[2816, 3072], **kwargs):
+def gemm(A: float32[I, K], B: float32[K, J], C: float32[I, J], **kwargs):
     i, j, k = aries.tile_ranks(**kwargs)
-    TI, TJ, TK = aries.tile_sizes(**kwargs)
 
     # Compute tile slices for multiple dimensions
     ti = aries.arange(i*TI, (i+1)*TI)  # I tile range
@@ -35,9 +38,7 @@ def gemm(A: float32[2816, 8192], B: float32[8192, 3072], C: float32[2816, 3072],
     aries.store(L1_C, C, (ti, tj))
 
 @task_top()
-def top(A: float32[2816, 8192], B: float32[8192, 3072], C: float32[2816, 3072]):
-    I, J, K = 2816, 3072, 8192
-    TI, TJ, TK = 32, 32, 32
+def top(A: float32[I, K], B: float32[K, J], C: float32[I, J]):
     grid = (I // TI, J // TJ, K // TK)  # 2D grid
     tile_size = (TI, TJ, TK)  # 2D tile size
     gemm_task = gemm[grid, tile_size](A, B, C)
@@ -46,13 +47,12 @@ def top(A: float32[2816, 8192], B: float32[8192, 3072], C: float32[2816, 3072]):
 # Set the project dir and template dir
 prj_dir= cur_dir + '/my_project'
 temp_dir= aries_path + '/templates'
-module = locals()
+module = sys.modules[__name__]
     
 # Test with 2D array
-I, J, K = 2816, 3072, 8192
 A = np.random.rand(I, K).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
-C = np.random.rand(I, J).astype(np.float32)
+C = np.zeros(I, J).astype(np.float32)
 gemm_task = top(A, B, C)
 sch = Schedule(gemm_task)
 sch.parallel(gemm_task, [11, 8, 4])

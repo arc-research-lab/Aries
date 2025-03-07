@@ -37,10 +37,9 @@ class TaskTileWrapper:
             self.grid_dims = (self.grid_dims,)
         
         # Generate all tile index combinations (e.g., (i, j) for a 2D grid)
-        tile_indices = itertools.product(*(range(g) for g in self.grid_dims))
         call_kwargs['TSizes'] = self.tile_sizes  # Add tuple of sizes
         if self.run:
-            for idx in tile_indices:
+            for idx in itertools.product(*(range(g) for g in self.grid_dims)):
                 call_kwargs['IVs'] = idx  # Add tuple of indices
                 self.func(*call_args, **call_kwargs)
         instance = TaskInstance(self.func, self.grid_dims, self.tile_sizes, 

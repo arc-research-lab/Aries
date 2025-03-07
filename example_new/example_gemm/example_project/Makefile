@@ -57,7 +57,7 @@ copyFile:
 
 
 ARIES_OPTIONS=  tile-func-name=${FUNC}
-ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${en-newtiling}
+ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${EN_Tiling}
 ARIES_OPTIONS+= port-type=${IOType}
 ARIES_OPTIONS+= plio-width=${PLIOWidth}
 ARIES_OPTIONS+= en-pl=${EN_PL} en-aie2=${EN_AIE2}

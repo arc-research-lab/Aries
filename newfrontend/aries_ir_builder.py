@@ -3,6 +3,7 @@ import astor
 import inspect
 import sympy as sp
 import subprocess
+import types
 from pathlib import Path
 from .gen_template import *
 from .aries_decorators import TaskTileWrapper, TaskKernelWrapper, TaskTopWrapper
@@ -53,22 +54,24 @@ class MLIRGenerator(ast.NodeVisitor):
         typeName = self.get_type_name(val)
         return typeName
     
-    def get_elewidth(self, dtype: str) -> int:
-        if dtype.startswith("int"):
-            return int(dtype[3:])
-        elif dtype.startswith("float"):
-            return int(dtype[5:])
-        elif dtype.startswith("i"):
-            return int(dtype[1:])
-        elif dtype.startswith("f"):
-            return int(dtype[1:])
-        raise ValueError(f"Invalid dtype: {dtype}")
+    def normalize_type(self, dtype):
+        if dtype == 'float':
+            return 'float32'
+        if dtype == 'int':
+            return 'int32'
+        return dtype
         
     def get_eletype_name(self, arg):
         ty = self.valType[arg][0]
         if(ty == "float32"):
           return "f32"
         elif(ty == "int32"):
+          return "i32"
+        elif(ty == "double"):
+          return "f64"
+        elif(ty == "float"):
+          return "f32"
+        elif(ty == "int"):
           return "i32"
         elif(ty == "int16"):
           return "i16"
@@ -189,6 +192,12 @@ class MLIRGenerator(ast.NodeVisitor):
         else:
             self.mlir_func_code.append(" " * self.indent + code)
     
+    def emit_cons(self, value, type = "index"):
+        varName = "c" + str(int(float(value)))
+        result = self.add_var_name("temp", varName)
+        self.emit(f"{result} = arith.constant {value} : {type}")
+        return result
+    
     def emitMap(self, code):
         self.mlir_map_code.append(code)
     
@@ -294,7 +303,6 @@ class TileMLIRGenerator(MLIRGenerator):
         strides = []
         srcMemName = None
         dstMemName = None
-        name_cnt = 0
         srcMemName = call.args[0].id
         if is_load:
             idx = 1
@@ -307,6 +315,40 @@ class TileMLIRGenerator(MLIRGenerator):
             for elt in call.args[idx].elts:
                 offsets, sizes, strides = self.DmaInfo(elt, offsets, sizes, strides)
         return offsets, sizes, strides, srcMemName, dstMemName
+    
+    def TransInfo(self, arg0, arg1, tiles, dims, steps, wraps):
+        for elt in arg0.elts:
+            result = self.emit_cons(elt.value)
+            tiles.append(result)
+        # In case the transpose info is not in a 2d list
+        if isinstance(arg1.elts[0], ast.Constant): 
+            result = self.emit_cons(arg1.elts[0].value)
+            dims.append(result)
+            result = self.emit_cons(arg1.elts[1].value)
+            steps.append(result)
+            result = self.emit_cons(arg1.elts[2].value)
+            wraps.append(result)
+        else:
+          for eltList in arg1.elts:
+              result = self.emit_cons(eltList.elts[0].value)
+              dims.append(result)
+              result = self.emit_cons(eltList.elts[1].value)
+              steps.append(result)
+              result = self.emit_cons(eltList.elts[2].value)
+              wraps.append(result)
+        return tiles, dims, steps, wraps
+    
+    def getTransInfo(self, call, is_load = False):
+        tiles = []
+        dims = []
+        steps = []
+        wraps = []
+        argLen = len(call.args)
+        if is_load and argLen==4:
+            tiles, dims, steps, wraps = self.TransInfo(call.args[2], call.args[3], tiles, dims, steps, wraps) 
+        elif not is_load and argLen == 5:
+            tiles, dims, steps, wraps = self.TransInfo(call.args[3], call.args[4], tiles, dims, steps, wraps)    
+        return tiles, dims, steps, wraps
     
     def visit_Assign(self, node):
         assert len(node.targets) == 1
@@ -325,7 +367,8 @@ class TileMLIRGenerator(MLIRGenerator):
                 srcType = self.get_type_name(srcMemName)
                 dstMem = self.get_var_name(dstMemName)
                 dstType = self.get_type_name(dstMemName)
-                self.emit(f"adf.dma({srcMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}], {dstMem}[] [] []) : ({srcType} , {dstType})")  
+                tiles, dims, steps, wraps = self.getTransInfo(call, True)
+                self.emit(f"adf.dma({srcMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}] [{' ,'.join(tiles)}] [{' ,'.join(dims)}] [{' ,'.join(steps)}] [{' ,'.join(wraps)}], {dstMem}[] [] [] [] [] [] []) : ({srcType} , {dstType})")  
                 return
             
             elif node.value.func.attr == 'buffer':
@@ -353,6 +396,7 @@ class TileMLIRGenerator(MLIRGenerator):
                 self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
                 self.emit(f"{', '.join(argTypes)}) -> ()", True)
             elif isinstance(node.value.func, ast.Attribute):
+                assert node.value.func.value.id == 'aries'
                 if node.value.func.attr == 'store':
                     call = node.value
                     offsets, sizes, strides, srcMemName, dstMemName = self.getDmaInfo(call)
@@ -360,7 +404,8 @@ class TileMLIRGenerator(MLIRGenerator):
                     srcType = self.get_type_name(srcMemName)
                     dstMem = self.get_var_name(dstMemName)
                     dstType = self.get_type_name(dstMemName)
-                    self.emit(f"adf.dma({srcMem}[] [] [], {dstMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}]) : ({srcType} , {dstType})")  
+                    tiles, dims, steps, wraps = self.getTransInfo(call)
+                    self.emit(f"adf.dma({srcMem}[] [] [] [] [] [] [], {dstMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}] [{' ,'.join(tiles)}] [{' ,'.join(dims)}] [{' ,'.join(steps)}] [{' ,'.join(wraps)}]) : ({srcType} , {dstType})")  
                     return
                 
 # =========== Emitter for task kernel ===========
@@ -392,8 +437,8 @@ class KernelMLIRGenerator(MLIRGenerator):
                 raise KeyError(f"Variable '{node.id}' is not declared.")
         elif isinstance(node, ast.BinOp):
             # If it's a BinOp, recursively check the types of the left and right operands
-            left_type = self.get_type(node.left)
-            right_type = self.get_type(node.right)
+            left_type = self.normalize_type(self.get_type(node.left))
+            right_type = self.normalize_type(self.get_type(node.right))
             # Check that the types of the left and right operands are compatible
             if left_type != right_type:
                 raise TypeError(f"Type mismatch: {left_type} and {right_type} are not compatible.")
@@ -441,10 +486,12 @@ class KernelMLIRGenerator(MLIRGenerator):
             formatted_value = value
         else:
             raise NotImplementedError(f"Unsupported operand type: {node.func.id}")
-        varName = "c" + str(value)
-        result = self.add_var_name("temp", varName)
         type = self.add_type_name("temp", node.func.id)
-        self.emit(f"{result} = arith.constant {formatted_value} : {type}")
+        result = self.emit_cons(formatted_value, type)
+        # varName = "c" + str(value)
+        # result = self.add_var_name("temp", varName)
+        # type = self.add_type_name("temp", node.func.id)
+        # self.emit(f"{result} = arith.constant {formatted_value} : {type}")
         return result
     
     def visit_BinOp(self, node):
@@ -453,8 +500,8 @@ class KernelMLIRGenerator(MLIRGenerator):
         rhs = self.visit(node.right)
         
         # Retrieve types from stored values
-        lhs_type = self.get_type(node.left)
-        rhs_type = self.get_type(node.right)
+        lhs_type = self.normalize_type(self.get_type(node.left))
+        rhs_type = self.normalize_type(self.get_type(node.right))
         assert lhs_type == rhs_type, f"Type mismatch: {lhs_type} vs {rhs_type}"
         
         result = self.add_var_name("temp")
@@ -568,6 +615,26 @@ class TopMLIRGenerator(MLIRGenerator):
                     argTypes.append(self.get_type_name(arg.id))
                 self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
                 self.emit(f"{', '.join(argTypes)}) -> ()", True)     
+
+class ConstantPropagation(ast.NodeTransformer):
+    """Propagate the global constant to the wrapper functions"""
+    def __init__(self, constants= {}):
+        self.constant_mapping = constants
+        self.funcs = []
+    
+    def visit_FunctionDef(self, node):
+        # Assume there's only one decorator for each func
+        if node.decorator_list:
+            decorator_id = node.decorator_list[0].func.id
+            if decorator_id in ('task_kernel', 'task_top', 'task_tile'):
+                self.funcs.append(node)
+                self.generic_visit(node) 
+
+    def visit_Name(self, node):
+        # Replace variable names in constant_mapping with their corresponding values
+        if node.id in self.constant_mapping:
+            return ast.Constant(value=self.constant_mapping[node.id], kind=None)
+        return node
 
 class TileToLoop(ast.NodeTransformer):
     """Transform tile ranks to loops"""
@@ -799,6 +866,7 @@ class preKernel(ast.NodeVisitor):
 class Schedule:
     def __init__(self, *tasks):
         self.tasks = tasks
+        self.constants = {}
         self.subName = "project"
         self.mlir_func_code = []
         self.mlir_map_code = [] # AffineMap should be defined outside of Module
@@ -810,27 +878,22 @@ class Schedule:
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = 0
+        self.AIEUnroll = 8
         self.linkPath = ""
         self.paraList = []
         self.funName = ""
         self.device = ""
-        
-    # A helper function to collect funcs from the given module
-    def collect_func(self, module):
-        funcs= []
-        top_func_flag = False # Can only have one top function
-        for _, obj in module.items():
-            if isinstance(obj, TaskKernelWrapper):
-                funcs.append(obj.func)
-            elif isinstance(obj, TaskTileWrapper):
-                funcs.append(obj.func)
-            elif isinstance(obj, TaskTopWrapper):
-                if top_func_flag == False:
-                    top_func_flag = True
-                    funcs.append(obj.func)
-                else:
-                    raise TypeError("Can only has one TaskTopWrapper")
-        return funcs
+    
+    # A helper function to collect constant values given module
+    def collect_constant(self, module):
+        for name, value in vars(module).items():
+            if callable(value) and isinstance(value, (TaskKernelWrapper, TaskTileWrapper, TaskTopWrapper)):
+                break  # Stop once encountering a decorated function
+              
+            if (not callable(value)  # Exclude functions and methods
+                and not isinstance(value, (types.ModuleType, type))  # Exclude modules and classes
+                and isinstance(value, (int, float))):  # Include only primitive constants
+                self.constants[name] = value
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -845,8 +908,19 @@ class Schedule:
         if len(instance.paraList) != 0:
             self.paraList = instance.paraList
         self.funName = instance.funcName
-        
+    
+    def constant_propagation(self, module):
+        """Propagate the global constant to the function_wappers"""
+        self.collect_constant(module) # Collect the constants
+        source_code = inspect.getsource(module)
+        parsed_ast = ast.parse(source_code)
+        ins_propagate = ConstantPropagation(self.constants)
+        tree = ins_propagate.visit(parsed_ast)
+        ast.fix_missing_locations(tree)
+        return ins_propagate.funcs
+    
     def task_tile_emit(self, func_name, parsed_ast):
+        # print("Parsed New AST 0", ast.dump(parsed_ast, indent=4))
         task = None
         # TODOs: Now assumes tasks has unique funcs 
         for task_temp in self.tasks:
@@ -891,10 +965,8 @@ class Schedule:
         # print(func_code)
     
     def code_emit(self, module, prj_dir):
-        funcs = self.collect_func(module)
-        for func in funcs:
-            source_code = inspect.getsource(func)
-            parsed_ast = ast.parse(source_code)
+        funcs = self.constant_propagation(module)
+        for parsed_ast in funcs:
             decorator_id = None
             func_name = None
             # Identify the decorators
@@ -930,10 +1002,14 @@ class Schedule:
     def genAriesMake(self, prj_dir, temp_dir):
         task = self.tasks[0]
         func = task.func.__name__
-        paraSize = self.paraSize[task]
-        l2Size = self.l2Size[task]
-        bufSel = self.bufSel[task]
-        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, self.placement, self.placeAlgo, self.linkFile, bufSel)
+        paraSize = self.paraSize.get(task, [1] * len(task.grid_dims))
+        l2Size = self.l2Size.get(task, [1] * len(task.grid_dims))
+        bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+        if task in self.taskIdxMap:
+          self.AIEUnroll = 8
+        else:
+          self.AIEUnroll = 1
+        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, self.placement, self.placeAlgo, self.linkFile, self.AIEUnroll, bufSel)
     
     def genKernel(self, prj_dir, temp_dir):
         if self.linkFile!=0:

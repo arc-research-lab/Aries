@@ -6,23 +6,25 @@ sys.path.append(aries_path)
 from newfrontend import *
 
 # TTMc: D[i0, j0, k0] += A[i0, l0, m0] * B[l0, j0] * C[m0, k0]
-@task_kernel(external_path="kernel_ttmc/aie_fp32", para = [2,16,16,16,32])
-def kernel_ttmc(TileA: float32[2, 16, 32],
-                TileB: float32[16, 16],
-                TileC: float32[32, 16],
-                TileD: float32[2, 16, 16]):
-    for i0 in range(0, 2):
-        for j0 in range(0, 16):
-            for k0 in range(0, 16):
-                  for l0 in range(0, 16):
-                      for m0 in range(0, 32):
+I, J, K, L, M = 4, 512, 768, 1024, 4096
+TI, TJ, TK, TL, TM = 2, 16, 16, 16, 32
+
+@task_kernel(external_path="kernel_ttmc/aie_fp32", para = [TI, TJ, TK, TL, TM])
+def kernel_ttmc(TileA: float32[TI, TL, TM],
+                TileB: float32[TL, TJ],
+                TileC: float32[TM, TK],
+                TileD: float32[TI, TJ, TK]):
+    for i0 in range(0, TI):
+        for j0 in range(0, TJ):
+            for k0 in range(0, TK):
+                  for l0 in range(0, TL):
+                      for m0 in range(0, TM):
                         TileD[i0, j0, k0] += TileA[i0, l0, m0] * TileB[l0, j0] * TileC[m0, k0]
 
 @task_tile(False) # Not run it on CPU
-def ttmc(A: float32[4, 1024, 4096], B: float32[1024, 512], 
-         C: float32[4096, 768],    D: float32[4, 512, 768], **kwargs):
+def ttmc(A: float32[I, L, M], B: float32[L, J], 
+         C: float32[M, K],    D: float32[I, J, K], **kwargs):
     i, j, k, l, m = aries.tile_ranks(**kwargs)
-    TI, TJ, TK, TL, TM = aries.tile_sizes(**kwargs)
 
     # Compute tile slices for multiple dimensions
     ti = aries.arange(i*TI, (i+1)*TI)  # I tile range
@@ -46,8 +48,6 @@ def ttmc(A: float32[4, 1024, 4096], B: float32[1024, 512],
 @task_top()
 def top(A: float32[4, 1024, 4096], B: float32[1024, 512], 
         C: float32[4096, 768],     D: float32[4, 512, 768]):
-    I, J, K, L, M = 4, 512, 768, 1024, 4096
-    TI, TJ, TK, TL, TM = 2, 16, 16, 16, 32
     grid, size = (I//TI, J//TJ, K//TK, L//TL, M//TM), (TI, TJ, TK, TL, TM)
     ttmc_task = ttmc[grid, size](A, B, C, D)
     return ttmc_task
@@ -55,14 +55,13 @@ def top(A: float32[4, 1024, 4096], B: float32[1024, 512],
 # Set the project dir and template dir
 prj_dir= cur_dir + '/my_project'
 temp_dir= aries_path + '/templates'
-module = locals()
+module = sys.modules[__name__]
     
 # Test with 2D array
-I, J, K, L, M = 4, 512, 768, 1024, 4096
 A = np.random.rand(I, L, M).astype(np.float32)
 B = np.random.rand(L, J).astype(np.float32)
 C = np.random.rand(M, K).astype(np.float32)
-D = np.random.rand(I, J, K).astype(np.float32)
+D = np.zeros(I, J, K).astype(np.float32)
 ttmc_task = top(A, B, C, D)
 sch = Schedule(ttmc_task)
 sch.parallel(ttmc_task, [1, 8, 12, 1, 2])
