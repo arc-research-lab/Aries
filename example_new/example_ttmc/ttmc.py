@@ -61,7 +61,7 @@ module = sys.modules[__name__]
 A = np.random.rand(I, L, M).astype(np.float32)
 B = np.random.rand(L, J).astype(np.float32)
 C = np.random.rand(M, K).astype(np.float32)
-D = np.zeros(I, J, K).astype(np.float32)
+D = np.zeros((I, J, K)).astype(np.float32)
 ttmc_task = top(A, B, C, D)
 sch = Schedule(ttmc_task)
 sch.parallel(ttmc_task, [1, 8, 12, 1, 2])

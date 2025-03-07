@@ -59,7 +59,7 @@ module = sys.modules[__name__]
 A = np.random.rand(I, K, L).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
 C = np.random.rand(L, J).astype(np.float32)
-D = np.zeros(I, J).astype(np.float32)
+D = np.zeros((I, J)).astype(np.float32)
 mttkrp_task = top(A, B, C, D)
 sch = Schedule(mttkrp_task)
 sch.parallel(mttkrp_task, [8, 12, 1, 2])
