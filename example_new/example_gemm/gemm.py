@@ -52,7 +52,7 @@ module = sys.modules[__name__]
 # Test with 2D array
 A = np.random.rand(I, K).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
-C = np.zeros(I, J).astype(np.float32)
+C = np.zeros((I, J)).astype(np.float32)
 gemm_task = top(A, B, C)
 sch = Schedule(gemm_task)
 sch.parallel(gemm_task, [11, 8, 4])
