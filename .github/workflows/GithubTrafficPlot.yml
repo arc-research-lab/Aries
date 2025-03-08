@@ -2,7 +2,7 @@ name: TrafficPlot Auto Generation
 
 on:
   schedule:
-    - cron: '0 0 8,16,24 * *'  # Runs on the 8th, 15th and 24th of every month at 00:00 UTC
+    - cron: '0 0 1,8,16,24 * *'  # Runs on the 1st, 8th, 16th and 24th of every month at 00:00 UTC
   workflow_dispatch:  # Allow manual triggering of workflows
 jobs:
   generate_image:
