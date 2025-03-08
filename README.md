@@ -75,3 +75,29 @@ source aries/bin/activate
 ```sh
 cd example_new
 ```
+
+## Publications
+For more details, please refer to our [FPGA'25 paper (Best paper nominee)](https://dl.acm.org/doi/10.1145/3706628.3708870). Please use the following bibtex to cite ARIES:
+```bibtex
+@inproceedings{aries2025fpga,
+author = {Zhuang, Jinming and Xiang, Shaojie and Chen, Hongzheng and Zhang, Niansong and Yang, Zhuoping and Mao, Tony and Zhang, Zhiru and Zhou, Peipei},
+title = {ARIES: An Agile MLIR-Based Compilation Flow for Reconfigurable Devices with AI Engines},
+year = {2025},
+isbn = {9798400713965},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3706628.3708870},
+doi = {10.1145/3706628.3708870},
+booktitle = {Proceedings of the 2025 ACM/SIGDA International Symposium on Field Programmable Gate Arrays},
+pages = {92–102},
+numpages = {11},
+keywords = {aie architecture, compiler, hardware accelerator, mlir},
+location = {Monterey, CA, USA},
+series = {FPGA '25}
+}
+```
+
+## 🚀 Thank You for Using ARIES! ! !
+### Your support and growing engagement inspire us to continually improve and enhance ARIES project.
+
+<img src="./assets/Aries_traffic_plot.png" width="600" />
