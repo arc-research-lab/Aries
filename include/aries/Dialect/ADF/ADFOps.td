@@ -313,14 +313,24 @@ def DmaBroadcastOp: ADF_Op<"dma.broadcast", [AttrSizedOperandSegments]> {
         Variadic<Index>:$src_offsets,
         Variadic<Index>:$src_sizes,
         Variadic<Index>:$src_strides,
+        Variadic<Index>:$src_tiles,
+        Variadic<Index>:$src_dims,
+        Variadic<Index>:$src_steps,
+        Variadic<Index>:$src_wraps,
         Variadic<AnyMemRef>:$dst,
         Variadic<Index>:$dst_offsets,
         Variadic<Index>:$dst_sizes,
-        Variadic<Index>:$dst_strides
+        Variadic<Index>:$dst_strides,
+        Variadic<Index>:$dst_tiles,
+        Variadic<Index>:$dst_dims,
+        Variadic<Index>:$dst_steps,
+        Variadic<Index>:$dst_wraps
   );
   let assemblyFormat = [{
-    `(` $src `[` ($src_offsets^)? `]``[` ($src_sizes^)? `]``[` ($src_strides^)? `]` `,`
-        `{` $dst `}` `[` ($dst_offsets^)? `]``[` ($dst_sizes^)? `]``[` ($dst_strides^)? `]` `)`  attr-dict `:`
+    `(` $src `[` ($src_offsets^)? `]``[` ($src_sizes^)? `]``[` ($src_strides^)? `]`
+             `[` ($src_tiles^)? `]``[` ($src_dims^)? `]``[` ($src_steps^)? `]` `[` ($src_wraps^)? `]` `,`
+      `{` $dst `}` `[` ($dst_offsets^)? `]``[` ($dst_sizes^)? `]``[` ($dst_strides^)? `]` 
+             `[` ($dst_tiles^)? `]``[` ($dst_dims^)? `]``[` ($dst_steps^)? `]` `[` ($dst_wraps^)? `]``)`  attr-dict `:`
     `(` type($src) `,` type($dst) `)`
   }];
 }

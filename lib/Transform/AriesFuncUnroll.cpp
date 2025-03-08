@@ -136,10 +136,13 @@ private:
         llvm::errs() << "Only 3D logic array is supported\n";
         return false;
       }else{
-        // If no reduction then add zero before else append zero behind
-        if(!hasRedLoop)
+        // If no reduction then add one before else append one behind
+        int unroll_loop = 3;
+        if(!hasRedLoop){
           newTripCounts.push_back(oneAttr);
-        for(int idx=0; idx<3; idx++){
+          unroll_loop--;
+        }
+        for(int idx=0; idx < unroll_loop; idx++){
           if(idx < listSize){
             auto attr = tripCountList[idx];
             newTripCounts.push_back(attr);
@@ -168,9 +171,13 @@ private:
             SmallVector<Attribute, 3> newAttrList;
             if(auto arrayAttr = call->getAttr("ivs")){
               auto ivArrayAttr = dyn_cast<ArrayAttr>(call->getAttr("ivs"));
-              if(!hasRedLoop)
+              // If no reduction then add zero before else append zero behind
+              int unroll_loop = 3;
+              if(!hasRedLoop){
                 newAttrList.push_back(zeroAttr);
-              for(int idx=0; idx<3; idx++){
+                unroll_loop--;
+              }
+              for(int idx=0; idx<unroll_loop; idx++){
                 if(idx < listSize){
                   auto attr = ivArrayAttr[idx];
                   newAttrList.push_back(attr);
@@ -197,9 +204,12 @@ private:
           SmallVector<Attribute, 3> newAttrList;
           if(auto arrayAttr = call->getAttr("ivs")){
             auto ivArrayAttr = dyn_cast<ArrayAttr>(arrayAttr);
-            if(!hasRedLoop)
+            int unroll_loop = 3;
+            if(!hasRedLoop){
               newAttrList.push_back(zeroAttr);
-            for(int idx=0; idx<3; idx++){
+              unroll_loop--;
+            }
+            for(int idx=0; idx<unroll_loop; idx++){
               if(idx < listSize){
                 auto attr = ivArrayAttr[idx];
                 newAttrList.push_back(attr);
@@ -217,8 +227,10 @@ private:
         }
       });
       // Deal with the L1 Buffers that has the same symbol
+      SmallVector<BufferOp> buffers;
       llvm::StringMap<int> symbolCounts;
       func.walk([&](BufferOp buffer){
+        buffers.push_back(buffer);
         auto sybmol = buffer.getSymbol();
         int &count = symbolCounts[sybmol];
         if (count > 0) {
@@ -227,6 +239,12 @@ private:
         }
         count++;
       });
+      // Move all the buffers together at top
+      Operation * insertionPoint = buffers[0];
+      for (auto buffer : buffers) {
+        buffer->moveAfter(insertionPoint);
+        insertionPoint = buffer; // Maintain order
+      }
     }
     return true;
   }

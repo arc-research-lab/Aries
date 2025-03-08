@@ -44,13 +44,14 @@ private:
       });
       // Record the index of dmaOps that has the same source
       SmallVector<DmaOp, 6> eraseOps;
-      auto dmaNum = dmaOps.size();
+      auto dmaNum = dmaOps.size(); 
       for(unsigned i = 0; i < dmaNum; i++){
         auto dma0 = dmaOps[i];
         auto it = llvm::find(eraseOps, dma0);
         if(it != eraseOps.end())
           continue;
-        auto lastDmaOp = dma0;
+        // auto lastDmaOp = dma0;
+        auto firstDmaOp = dma0;
         SmallVector<Value, 6> dsts;
         dsts.push_back(dma0.getDst());
         for (unsigned j = i+1; j < dmaNum; j++) {
@@ -59,7 +60,7 @@ private:
               dma0.getSrcOffsets() == dma1.getSrcOffsets() &&
               dma0.getSrcSizes() == dma1.getSrcSizes() &&
               dma0.getSrcStrides() == dma1.getSrcStrides()){
-            lastDmaOp = dma1;
+            // lastDmaOp = dma1;
             eraseOps.push_back(dma1);
             dsts.push_back(dma1.getDst());
           }
@@ -69,14 +70,22 @@ private:
           continue;
         eraseOps.push_back(dma0);
         // Create DmaBroadcastOp
-        builder.setInsertionPoint(lastDmaOp);
-        builder.create<DmaBroadcastOp>(loc, lastDmaOp.getSrc(),
-                                       lastDmaOp.getSrcOffsets(), 
-                                       lastDmaOp.getSrcSizes(),
-                                       lastDmaOp.getSrcStrides(), 
-                                       dsts, lastDmaOp.getDstOffsets(),
-                                       lastDmaOp.getDstSizes(),
-                                       lastDmaOp.getDstStrides());
+        builder.setInsertionPoint(dmaOps[0]);
+        builder.create<DmaBroadcastOp>(loc, firstDmaOp.getSrc(),
+                                       firstDmaOp.getSrcOffsets(), 
+                                       firstDmaOp.getSrcSizes(),
+                                       firstDmaOp.getSrcStrides(),
+                                       firstDmaOp.getSrcTiles(),
+                                       firstDmaOp.getSrcDims(),
+                                       firstDmaOp.getSrcSteps(),
+                                       firstDmaOp.getSrcWraps(),
+                                       dsts, firstDmaOp.getDstOffsets(),
+                                       firstDmaOp.getDstSizes(),
+                                       firstDmaOp.getDstStrides(),
+                                       firstDmaOp.getDstTiles(),
+                                       firstDmaOp.getDstDims(),
+                                       firstDmaOp.getDstSteps(),
+                                       firstDmaOp.getDstWraps());
       }
       // Erase the DmaOps
       for(auto op: llvm::make_early_inc_range(eraseOps))
