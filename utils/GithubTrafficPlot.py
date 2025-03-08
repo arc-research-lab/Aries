@@ -11,7 +11,7 @@ import matplotlib.dates as mdates
 import seaborn as sns
 
 
-def write_data(traffic_data, data_file_path):
+def write_data(traffic_data, data_file_path, data_file_path1):
     
     csv_columns = ["Date", "Clones", "Views"]
 
@@ -48,11 +48,14 @@ def write_data(traffic_data, data_file_path):
         else:
             df = pd.concat([df, pd.DataFrame([[date, clones, views]], columns=csv_columns)], ignore_index=True)
 
-
     df = df.sort_values("Date")
-
-
     df.to_csv(data_file_path, index=False)
+    
+    # Write summery stats
+    total_clones = df["Clones"].sum()
+    total_views = df["Views"].sum()
+    summary_df = pd.DataFrame([["Total", total_clones, total_views]], columns=csv_columns)
+    summary_df.to_csv(data_file_path1, index=False)
 
 
 """
@@ -218,7 +221,8 @@ def run_gitratra(token, data_folder, repositories_file_path):
     update_repo(repo, traffic_data)
     print_summary(traffic_data)
     data_file = os.path.join(data_folder, f"{repo_name}.csv")
-    write_data(traffic_data, data_file)
+    data_file1 = os.path.join(data_folder, f"{repo_name}_sum.csv")
+    write_data(traffic_data, data_file, data_file1)
     ReadPlot(repo_name, data_file)
 
 def print_error_syntax():
