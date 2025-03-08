@@ -2,7 +2,9 @@ from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 import re
 
-def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size, placement, placeAlgo, linkFile, aieUnroll, bufSel):
+def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size, 
+                   placement, placeAlgo, linkFile, aieUnroll, bufSel,
+                   ioWidth, en_pl, en_aie2):
     environment = Environment(loader=FileSystemLoader(template_dir))
     file_name = 'Makefile_ARIES'
     template = environment.get_template(file_name)
@@ -23,6 +25,9 @@ def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size, place
         aieUnroll = aieUnroll,
         numBuf = numBuf,
         bufSel = bufSel,
+        ioWidth = ioWidth,
+        en_pl = en_pl,
+        en_aie2 = en_aie2,
         template_dir = template_dir
     )
     with open(filename, mode="w", encoding="utf-8") as message:

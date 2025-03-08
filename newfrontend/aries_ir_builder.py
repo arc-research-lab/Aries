@@ -879,6 +879,9 @@ class Schedule:
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = 0
         self.AIEUnroll = 8
+        self.ioWidth = 128
+        self.en_pl = "true"
+        self.en_aie2 = "false"
         self.linkPath = ""
         self.paraList = []
         self.funName = ""
@@ -899,7 +902,7 @@ class Schedule:
         instance = preKernel()
         instance.visit(parsed_ast)
         if instance.cntIn <= 2:
-            self.placeAlgo = [1, "false"]
+            self.placeAlgo = [1, "false"] # CoreAlgo, EnableIOCons
         else:
             self.placeAlgo = [2, "true"]
         if instance.externPath != None:
@@ -1009,7 +1012,10 @@ class Schedule:
           self.AIEUnroll = 8
         else:
           self.AIEUnroll = 1
-        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, self.placement, self.placeAlgo, self.linkFile, self.AIEUnroll, bufSel)
+        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
+                       self.placement, self.placeAlgo, self.linkFile, 
+                       self.AIEUnroll, bufSel, self.ioWidth, self.en_pl,
+                       self.en_aie2)
     
     def genKernel(self, prj_dir, temp_dir):
         if self.linkFile!=0:
@@ -1029,8 +1035,15 @@ class Schedule:
     
     def to(self, device):
         if device == "VCK190" or device == "vck190":
-          self.device = "vck190"
-          self.placement= [50, 8, 0, 0, 0, 6, 39, 24, 3, 3]
+            self.device = "vck190"
+            # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
+            self.placement= [50, 8, 0, 0, 0, 6, 39, 24, 3, 3]
+        elif device == "NPU" or device == "npu":
+            self.device = "npu"
+            self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
+            self.ioWidth = 32
+            self.en_pl = "false"
+            self.en_aie2 = "true"
     
     def folder_create(self, sub_dir):
         if Path(sub_dir).exists():
