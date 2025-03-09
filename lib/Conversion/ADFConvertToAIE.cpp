@@ -146,6 +146,198 @@ struct CellLaunchConvert : public OpConversionPattern<LaunchCellOp> {
   }
 };
 
+void getConsVal(SmallVector<Value> vals, SmallVectorImpl<int64_t>& valInts){
+  for (unsigned i=0; i< vals.size(); i++){
+    auto val = vals[i];
+    auto defineOp = val.getDefiningOp();
+    if(!defineOp || !dyn_cast<arith::ConstantOp>(defineOp))
+      llvm::errs() << "Find non-constant val\n";
+    auto constOp = dyn_cast<arith::ConstantOp>(defineOp);
+    auto intAttr = dyn_cast<IntegerAttr>(constOp.getValue());
+    if(!intAttr)
+      llvm::errs() << "Find non-int val\n";
+    valInts[i] = intAttr.getInt();
+  }
+}
+
+// This is a helper function to get the serialized data access including
+// From dmaOps and broadcastDmaOps
+static void getDmaInfo(Operation* op, bool& toStream, 
+              SmallVector<int64_t>& dmaSizes, SmallVector<int64_t>& dmaStrides){
+  Value src, dst;
+  SmallVector<Value>  srcOffsets;
+  SmallVector<Value>  srcSizes  ;
+  SmallVector<Value>  srcStrides;
+  SmallVector<Value>  srcTiles  ;
+  SmallVector<Value>  srcDims   ;
+  SmallVector<Value>  srcSteps  ;
+  SmallVector<Value>  srcWraps  ;
+  SmallVector<Value>  dstOffsets;
+  SmallVector<Value>  dstSizes  ;
+  SmallVector<Value>  dstStrides;
+  SmallVector<Value>  dstTiles  ;
+  SmallVector<Value>  dstDims   ;
+  SmallVector<Value>  dstSteps  ;
+  SmallVector<Value>  dstWraps  ;
+  if(auto dmaOp = dyn_cast<DmaOp>(op)){
+    src = dmaOp.getSrc();
+    dst = dmaOp.getDst();
+    srcOffsets = dmaOp.getSrcOffsets();
+    srcSizes   = dmaOp.getSrcSizes();
+    srcStrides = dmaOp.getSrcStrides();
+    srcTiles   = dmaOp.getSrcTiles();
+    srcDims    = dmaOp.getSrcDims();
+    srcSteps   = dmaOp.getSrcSteps();
+    srcWraps   = dmaOp.getSrcWraps();
+    dstOffsets = dmaOp.getDstOffsets();
+    dstSizes   = dmaOp.getDstSizes();
+    dstStrides = dmaOp.getDstStrides();
+    dstTiles   = dmaOp.getDstTiles();
+    dstDims    = dmaOp.getDstDims();
+    dstSteps   = dmaOp.getDstSteps();
+    dstWraps   = dmaOp.getDstWraps();
+  }else if(auto broadcast = dyn_cast<adf::DmaBroadcastOp>(op)){
+    src = broadcast.getSrc();
+    dst = broadcast.getDst()[0];
+    srcOffsets = broadcast.getSrcOffsets();
+    srcSizes   = broadcast.getSrcSizes();
+    srcStrides = broadcast.getSrcStrides();
+    srcTiles   = broadcast.getSrcTiles();
+    srcDims    = broadcast.getSrcDims();
+    srcSteps   = broadcast.getSrcSteps();
+    srcWraps   = broadcast.getSrcWraps();
+    dstOffsets = broadcast.getDstOffsets();
+    dstSizes   = broadcast.getDstSizes();
+    dstStrides = broadcast.getDstStrides();
+    dstTiles   = broadcast.getDstTiles();
+    dstDims    = broadcast.getDstDims();
+    dstSteps   = broadcast.getDstSteps();
+    dstWraps   = broadcast.getDstWraps();
+  }
+  
+  // Clarify the catagories based on slicing informations
+  bool srcPre = !srcOffsets.empty();
+  bool srcPst = !srcTiles.empty();
+  bool dstPre = !dstOffsets.empty();
+  bool dstPst = !dstTiles.empty();
+  auto srcMemRef = dyn_cast<MemRefType>(src.getType());
+  auto srcShape = srcMemRef.getShape();
+  auto dstMemRef = dyn_cast<MemRefType>(dst.getType());
+  auto dstShape = dstMemRef.getShape();
+  auto rank = srcMemRef.getRank();
+  SmallVector<int64_t> Offsets(rank, 1);
+  SmallVector<int64_t> Sizes  (rank, 1);
+  SmallVector<int64_t> Strides(rank, 1);
+  SmallVector<int64_t> Tiles  (rank, 1);
+  SmallVector<int64_t> Dims   (rank, 1);
+  SmallVector<int64_t> Steps  (rank, 1);
+  SmallVector<int64_t> Wraps  (rank, 1);
+  SmallVector<int64_t> Shapes;
+  // Only support one side has true to make sure one direction data slicing
+  if((srcPre || srcPst) && (dstPre || dstPst)){
+    llvm::errs() << "Bi-direction data slicing between src and dst is found\n";
+  }else if(!srcPre && !srcPst && !dstPre && !dstPst){
+    return;
+  }else if(srcPre){
+    getConsVal(srcOffsets, Offsets);
+    getConsVal(srcSizes  , Sizes  );
+    getConsVal(srcStrides, Strides);
+    getConsVal(srcTiles  , Tiles  );
+    getConsVal(srcDims   , Dims   );
+    getConsVal(srcSteps  , Steps  );
+    getConsVal(srcWraps  , Wraps  );
+    for (auto shape: srcShape)
+      Shapes.push_back(shape);
+    toStream = true;
+  }else{
+    getConsVal(dstOffsets, Offsets);
+    getConsVal(dstSizes  , Sizes  );
+    getConsVal(dstStrides, Strides);
+    getConsVal(dstTiles  , Tiles  );
+    getConsVal(dstDims   , Dims   );
+    getConsVal(dstSteps  , Steps  );
+    getConsVal(dstWraps  , Wraps  );
+    for (auto shape: dstShape)
+      Shapes.push_back(shape);
+    toStream = false;
+  }
+  // Only support Offset=0
+  for(auto offset : Offsets){
+    if(offset !=0){
+      llvm::errs() << "Find non-zero offset\n";
+    }
+  }
+  // Store the final sizes and strides for DMA instructions
+  // Initialize dmaSizes and dmaStrides as 1
+  for(auto i=0; i < rank*2; i++){
+    dmaSizes.push_back(1);
+    dmaStrides.push_back(1);
+  }
+  // For the pre part only stride is utilized
+  for (auto i=0; i < rank; i++){
+    dmaSizes[i] = Tiles[i];
+    dmaStrides[i] = Strides[i];
+    for(auto j=0; j < i; j++)
+      dmaStrides[i] = dmaStrides[i] * Shapes[rank-1-j];
+    auto dim = Dims[i];
+    dmaSizes[i+rank] = Wraps[dim];
+    dmaStrides[i+rank] = Steps[i];
+    for(auto j=0; j < (rank-1-dim); j++)
+      dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[rank-1-j];
+  }
+  // Remove sizes = 1 and the corresponding strides as this loop
+  // is unnecessary
+  // Iterate in reverse to safely erase elements
+  for (int i = dmaSizes.size() - 1; i >= 0; --i) {
+    if (dmaSizes[i] == 1) {
+      dmaSizes.erase(dmaSizes.begin() + i);
+      dmaStrides.erase(dmaStrides.begin() + i);
+    }
+  }
+  // llvm::outs() << "dmaSizes is: ";
+  // for(auto i=0; i < dmaSizes.size(); i++){
+  //   llvm::outs() << dmaSizes[i] << ", ";
+  // }
+  // llvm::outs() << "\ndmaStrides is: ";
+  // for(auto i=0; i < dmaStrides.size(); i++){
+  //   llvm::outs() << dmaStrides[i] << ", ";
+  // }
+  // llvm::outs() << "\n";
+}
+
+static void createObjFifo(ConversionPatternRewriter &rewriter, bool toStream,
+      StringAttr stringAttr, Value srcTile, ValueRange dstTiles,
+      IntegerAttr depthAttr, xilinx::AIE::AIEObjectFifoType objType,
+      SmallVector<int64_t> dmaSizes, SmallVector<int64_t> dmaStrides, 
+      ObjectFifoCreateOp& objOp){
+  auto loc = rewriter.getUnknownLoc();
+  auto context = rewriter.getContext();
+  if (dmaSizes.empty())
+    objOp = rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
+                                                dstTiles, depthAttr, objType);
+  SmallVector<BDDimLayoutAttr> bdLayoutArrayAttr;
+  int length = dmaSizes.size();
+  for(int i=length-1; i>= 0; i--){
+    uint32_t size = dmaSizes[i];
+    uint32_t stride = dmaStrides[i];
+    auto bdlayoutAttr = BDDimLayoutAttr::get(context, size, stride);
+    bdLayoutArrayAttr.push_back(bdlayoutAttr);
+  }
+  BDDimLayoutArrayAttr emptyToStream = BDDimLayoutArrayAttr::get(context, {});
+  BDDimLayoutArrayArrayAttr emptyFromStream 
+                  = BDDimLayoutArrayArrayAttr::get(context, emptyToStream);
+  BDDimLayoutArrayAttr dimensionsToStream 
+                  = BDDimLayoutArrayAttr::get(context, bdLayoutArrayAttr);
+  BDDimLayoutArrayArrayAttr dimensionsFromStream 
+                  = BDDimLayoutArrayArrayAttr::get(context, dimensionsToStream);
+  if(toStream)
+    objOp = rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
+            dstTiles, depthAttr, objType, dimensionsToStream, emptyFromStream);  
+  else
+    objOp = rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
+            dstTiles, depthAttr, objType, emptyToStream, dimensionsFromStream);
+}
+
 struct DmaConvert : public OpConversionPattern<DmaOp> {
   using OpConversionPattern<DmaOp>::OpConversionPattern;
   DenseMap<Value, std::pair<Value, std::string>>& memMap;
@@ -214,9 +406,12 @@ struct DmaConvert : public OpConversionPattern<DmaOp> {
     auto stringAttr = StringAttr::get(context, objFIFOName);
     auto objType = AIEObjectFifoType::get(memrefType);
     rewriter.setInsertionPoint(coreOp);
-    rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
-                                        ValueRange{dstTile}, 
-                                        depthAttr, objType);
+    bool toStream;
+    ObjectFifoCreateOp objOp;
+    SmallVector<int64_t> dmaSizes, dmaStrides;
+    getDmaInfo(op, toStream, dmaSizes, dmaStrides);
+    createObjFifo(rewriter, toStream, stringAttr, srcTile, ValueRange{dstTile},
+                  depthAttr, objType, dmaSizes, dmaStrides, objOp);
     auto srcName = srcDefOp.getSymbol();
     auto dstName = dstDefOp.getSymbol();
     auto srcAttr = SymbolRefAttr::get(context, srcName);
@@ -370,20 +565,25 @@ struct DmaBroadcastConvert : public OpConversionPattern<DmaBroadcastOp> {
       }
     }
     auto stringAttr = StringAttr::get(context, objFIFOName);
+    bool toStream;
+    ObjectFifoCreateOp objOp;
+    SmallVector<int64_t> dmaSizes, dmaStrides;
     if(objfifo){
       SmallVector<Value, 4> consumeTiles = objfifo.getConsumerTiles();
       consumeTiles.push_back(dstTile);
       rewriter.setInsertionPoint(objfifo);
-      auto objOp = rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
-                                          consumeTiles, depthAttr, objType);
+      getDmaInfo(op, toStream, dmaSizes, dmaStrides);
+      createObjFifo(rewriter, toStream, stringAttr, srcTile, consumeTiles,
+                    depthAttr, objType, dmaSizes, dmaStrides, objOp);
       auto strAttr = objfifo->getAttr("srcName");
       objOp->setAttr("srcName", strAttr);
       objfifo.erase();
     }else{
       rewriter.setInsertionPoint(coreOp);
-      auto objOp = rewriter.create<ObjectFifoCreateOp>(loc, stringAttr, srcTile, 
-                                          ValueRange{dstTile}, 
-                                          depthAttr, objType);
+      getDmaInfo(op, toStream, dmaSizes, dmaStrides);
+      auto dstTiles = ValueRange{dstTile};
+      createObjFifo(rewriter, toStream, stringAttr, srcTile, dstTiles,
+                    depthAttr, objType, dmaSizes, dmaStrides, objOp);
       auto strAttr = StringAttr::get(context, srcName);
       objOp->setAttr("srcName", strAttr);
       auto srcAttr = SymbolRefAttr::get(context, srcName);
@@ -1335,6 +1535,40 @@ private:
     return true;
   }
 
+  // This function walks through the objectfifo.link marked by {reverse}
+  // Need to move the dimensionsFromStream attribute from the dst objFifo
+  // to the dimensionsToStream of the src objectFifo
+  // Now only support one src and one dst
+  void revertOutLink(OpBuilder builder, DeviceOp device){
+    device.walk([&](ObjectFifoLinkOp fifoLinkOp){
+      if(!fifoLinkOp->hasAttr("reverse"))
+        return WalkResult::advance();
+      fifoLinkOp->removeAttr("reverse");
+      auto fifoIn = fifoLinkOp.getFifoIns()[0];
+      auto inName = dyn_cast<SymbolRefAttr>(fifoIn).getRootReference().str();
+      auto fifoOut = fifoLinkOp.getFifoOuts()[0];
+      auto outName = dyn_cast<SymbolRefAttr>(fifoOut).getRootReference().str();
+      auto objSrc = device.lookupSymbol<ObjectFifoCreateOp>(inName);
+      auto objDst = device.lookupSymbol<ObjectFifoCreateOp>(outName);
+      auto dimensionsFromStreams 
+                  = objSrc.getDimensionsFromStreamPerConsumerAttr();
+      if(dimensionsFromStreams.size()==0)
+        return WalkResult::advance();
+      auto dimensionsFromStream = dimensionsFromStreams[0];
+      objSrc.setDimensionsFromStreamPerConsumer({});
+      objDst.setDimensionsToStream(dimensionsFromStream);
+      return WalkResult::advance();
+    });
+  }
+
+  // Remove the unused ConstantOp
+  void moveConst(DeviceOp device){
+    device.walk([&](arith::ConstantOp constOp){
+      if(constOp.getResult().getUsers().empty())
+        constOp.erase();
+    });
+  }
+
   bool ConvertToAIE(ModuleOp mod) {
     auto builder = OpBuilder(mod);
     DeviceOp device;
@@ -1363,6 +1597,8 @@ private:
     recordMap(builder, device, memMap, coreMap);
     if(!ADFtoAIE(builder, device, seqOp, memMap, coreMap))
       return false;
+    revertOutLink(builder, device);
+    moveConst(device);
     return true;
   }
 
