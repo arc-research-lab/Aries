@@ -9,7 +9,7 @@ from newfrontend import *
 I, J, K, L = 64, 6144, 768, 2048
 TI, TJ, TK, TL = 2, 32, 16, 32
 
-@task_kernel(external_path="kernel_mttkrp/aie_fp32", para = [TI, TJ, TK, TL])
+@task_kernel(external_path="aie1/adf/kernel_mttkrp/aie_fp32", para = [TI, TJ, TK, TL])
 def kernel_mttkrp(TileA: float32[TI, TK, TL],
                   TileB: float32[TK, TJ],
                   TileC: float32[TL, TJ],

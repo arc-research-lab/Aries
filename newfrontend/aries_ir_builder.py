@@ -489,13 +489,14 @@ class KernelMLIRGenerator(MLIRGenerator):
                 memrefs.append(f"%{arg}: {typeName}")
             else:
                 raise ValueError(f"Argument {arg} not found in valType.")
-        if self.device == "npu":
-            self.emit(f"func.func private @{func_name}({', '.join(memrefs)})")
-            return
-        elif self.func_attr is None:
+        if self.func_attr is None:
             self.emit(f"func.func @{func_name}({', '.join(memrefs)}) {{")
         else:
-            self.emit(f"func.func @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}} {{")
+            if self.device == "npu":
+                self.emit(f"func.func private @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}}")
+                return
+            else:
+                self.emit(f"func.func @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}} {{")
 
         self.indent += 2
         self.generic_visit(node)

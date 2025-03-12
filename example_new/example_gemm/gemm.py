@@ -9,7 +9,7 @@ from newfrontend import *
 I, J, K = 2816, 3072, 8192
 TI, TJ, TK = 32, 32, 32
 
-@task_kernel(external_path="kernel_mm/aie_fp32_v0", para = [TI, TJ, TK])
+@task_kernel(external_path="aie1/adf/kernel_mm/aie_fp32_v0", para = [TI, TJ, TK])
 def kernel_gemm(TileA: float32[TI, TK], 
                 TileB: float32[TK, TJ], 
                 TileC: float32[TI, TJ]):

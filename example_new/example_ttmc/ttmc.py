@@ -9,7 +9,7 @@ from newfrontend import *
 I, J, K, L, M = 4, 512, 768, 1024, 4096
 TI, TJ, TK, TL, TM = 2, 16, 16, 16, 32
 
-@task_kernel(external_path="kernel_ttmc/aie_fp32", para = [TI, TJ, TK, TL, TM])
+@task_kernel(external_path="aie1/adf/kernel_ttmc/aie_fp32", para = [TI, TJ, TK, TL, TM])
 def kernel_ttmc(TileA: float32[TI, TL, TM],
                 TileB: float32[TL, TJ],
                 TileC: float32[TM, TK],
