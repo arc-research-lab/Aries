@@ -32,6 +32,11 @@ public:
     auto mod = dyn_cast<ModuleOp>(getOperation());
     if (!DMAToIO(mod))
       signalPassFailure();
+    PassManager pm(&getContext());
+    pm.addPass(createCSEPass());
+    pm.addPass(createCanonicalizerPass());
+    if (failed(pm.run(mod)))
+      signalPassFailure();
   }
 
 private:
