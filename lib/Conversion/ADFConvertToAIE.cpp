@@ -294,15 +294,6 @@ static void getDmaInfo(Operation* op, bool& toStream,
       dmaStrides.erase(dmaStrides.begin() + i);
     }
   }
-  // llvm::outs() << "dmaSizes is: ";
-  // for(auto i=0; i < dmaSizes.size(); i++){
-  //   llvm::outs() << dmaSizes[i] << ", ";
-  // }
-  // llvm::outs() << "\ndmaStrides is: ";
-  // for(auto i=0; i < dmaStrides.size(); i++){
-  //   llvm::outs() << dmaStrides[i] << ", ";
-  // }
-  // llvm::outs() << "\n";
 }
 
 static void createObjFifo(ConversionPatternRewriter &rewriter, bool toStream,
@@ -1569,6 +1560,22 @@ private:
     });
   }
 
+  // Link the core with the private function marked by adf.kernel
+  void linkCore(DeviceOp device){
+    for (auto coreOp : device.getOps<xilinx::AIE::CoreOp>()){
+      coreOp.walk([&](func::CallOp caller){
+        auto funcName = caller.getCallee();
+        auto callee = device.lookupSymbol<FuncOp>(funcName);
+        if (callee->hasAttr("adf.kernel") && callee.isPrivate()){
+          auto linkName = funcName.str() + ".o";
+          coreOp.setLinkWith(linkName);
+          return WalkResult::interrupt();
+        }
+        return WalkResult::advance();
+      });
+    }
+  }
+
   bool ConvertToAIE(ModuleOp mod) {
     auto builder = OpBuilder(mod);
     DeviceOp device;
@@ -1599,6 +1606,7 @@ private:
       return false;
     revertOutLink(builder, device);
     moveConst(device);
+    linkCore(device);
     return true;
   }
 
