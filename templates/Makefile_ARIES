@@ -7,8 +7,6 @@ PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
 TEMPLATE_PATH = {{template_dir}}
 
-PLIOWidth = 128
-AXIWidth = 512
 ColNum = {{placement[0]}}
 RowNum = {{placement[1]}}
 ColOffset = {{placement[2]}} 
@@ -38,8 +36,10 @@ BUFF_{{i}} = {{sel}}
 {% endfor -%}
 # 1:BRAM, 0:URAM
 buf_sel = {% for i in range(numBuf) -%}${BUFF_{{i}}}{% if not loop.last %},{% endif %}{% endfor %}
-EN_PL = "true"
-EN_AIE2 = "false"
+PLIOWidth = {{ioWidth}}
+AXIWidth = 512
+EN_PL = "{{en_pl}}"
+EN_AIE2 = "{{en_aie2}}"
 EN_SERIAL = "false"
 ifeq ($(EN_AIE2), "true")
 	IOType=AIE2_GMIO

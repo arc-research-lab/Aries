@@ -46,22 +46,25 @@ void mlir::aries::registerAriesPassPipeline() {
     
     // Perform local optimizations
     pm.addPass(createAriesDMAToIOPass(opts));
-    pm.addPass(mlir::createCanonicalizerPass());
     pm.addPass(createAriesADFCellCreatePass(opts));
     pm.addPass(createAriesCorePlacementPass(opts));
     pm.addPass(createAriesIOPlacementPass(opts));
-    pm.addPass(createAriesGMIOMaterializePass());
-    pm.addPass(createAriesPLIOMaterializePass(opts));
-    pm.addPass(createAriesAXIPackingPass(opts));
-    pm.addPass(createAriesPLDataflowPass());
-    pm.addPass(mlir::createCanonicalizerPass());
-    pm.addPass(createAriesBurstDetectionPass());
-    pm.addPass(createAriesFuncEliminatePass());
-    pm.addPass(createAriesPLDoubleBufferPass());
-    pm.addPass(mlir::createCanonicalizerPass());
-    if(opts.OptEnableSerial){
-      pm.addPass(createAriesPLSerializePass());
+    if(opts.OptEnablePL){
+      pm.addPass(createAriesGMIOMaterializePass());
+      pm.addPass(createAriesPLIOMaterializePass(opts));
+      pm.addPass(createAriesAXIPackingPass(opts));
+      pm.addPass(createAriesPLDataflowPass());
       pm.addPass(mlir::createCanonicalizerPass());
+      pm.addPass(createAriesBurstDetectionPass());
+      pm.addPass(createAriesFuncEliminatePass());
+      pm.addPass(createAriesPLDoubleBufferPass());
+      pm.addPass(mlir::createCanonicalizerPass());
+      if(opts.OptEnableSerial){
+        pm.addPass(createAriesPLSerializePass());
+        pm.addPass(mlir::createCanonicalizerPass());
+      }
+    }else{
+      pm.addPass(createADFConvertToAIEPass());
     }
   });
 }

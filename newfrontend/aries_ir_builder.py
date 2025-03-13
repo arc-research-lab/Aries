@@ -410,9 +410,10 @@ class TileMLIRGenerator(MLIRGenerator):
                 
 # =========== Emitter for task kernel ===========
 class KernelMLIRGenerator(MLIRGenerator):
-    def __init__(self, dmaInfo, map_cnt=0):
+    def __init__(self, dmaInfo, map_cnt=0, device="versal"):
         super().__init__(dmaInfo, map_cnt, "adf.kernel")
         self.is_assign = False
+        self.device = device
         
     def get_type(self, node):
         """Retrieve the type of a variable or constant."""
@@ -473,6 +474,36 @@ class KernelMLIRGenerator(MLIRGenerator):
         else:
             raise NotImplementedError(f"Unsupported operand type: {operand_type}")
     
+    def visit_FunctionDef(self, node):
+        # Add types for each arg
+        self.addArgType(node)
+        
+        # Process the function definition and arguments
+        func_name = node.name
+        args = [arg.arg for arg in node.args.args]
+        # Get annotation types
+        memrefs = []
+        for arg in args:
+            if arg in self.valType:
+                typeName = self.get_type_name(arg)
+                memrefs.append(f"%{arg}: {typeName}")
+            else:
+                raise ValueError(f"Argument {arg} not found in valType.")
+        if self.func_attr is None:
+            self.emit(f"func.func @{func_name}({', '.join(memrefs)}) {{")
+        else:
+            if self.device == "npu":
+                self.emit(f"func.func private @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}}")
+                return
+            else:
+                self.emit(f"func.func @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}} {{")
+
+        self.indent += 2
+        self.generic_visit(node)
+        self.emit("return")
+        self.indent -= 2
+        self.emit("} ")
+    
     def visit_Call(self, node):
         if self.is_assign == False:
             return
@@ -488,10 +519,6 @@ class KernelMLIRGenerator(MLIRGenerator):
             raise NotImplementedError(f"Unsupported operand type: {node.func.id}")
         type = self.add_type_name("temp", node.func.id)
         result = self.emit_cons(formatted_value, type)
-        # varName = "c" + str(value)
-        # result = self.add_var_name("temp", varName)
-        # type = self.add_type_name("temp", node.func.id)
-        # self.emit(f"{result} = arith.constant {formatted_value} : {type}")
         return result
     
     def visit_BinOp(self, node):
@@ -879,6 +906,9 @@ class Schedule:
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = 0
         self.AIEUnroll = 8
+        self.ioWidth = 128
+        self.en_pl = "true"
+        self.en_aie2 = "false"
         self.linkPath = ""
         self.paraList = []
         self.funName = ""
@@ -899,7 +929,7 @@ class Schedule:
         instance = preKernel()
         instance.visit(parsed_ast)
         if instance.cntIn <= 2:
-            self.placeAlgo = [1, "false"]
+            self.placeAlgo = [1, "false"] # CoreAlgo, EnableIOCons
         else:
             self.placeAlgo = [2, "true"]
         if instance.externPath != None:
@@ -952,7 +982,7 @@ class Schedule:
     def task_kernel_emit(self, parsed_ast):
         # print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
         self.link_kernel_info(parsed_ast)
-        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
+        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.device).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
@@ -1009,7 +1039,10 @@ class Schedule:
           self.AIEUnroll = 8
         else:
           self.AIEUnroll = 1
-        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, self.placement, self.placeAlgo, self.linkFile, self.AIEUnroll, bufSel)
+        gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
+                       self.placement, self.placeAlgo, self.linkFile, 
+                       self.AIEUnroll, bufSel, self.ioWidth, self.en_pl,
+                       self.en_aie2)
     
     def genKernel(self, prj_dir, temp_dir):
         if self.linkFile!=0:
@@ -1029,8 +1062,15 @@ class Schedule:
     
     def to(self, device):
         if device == "VCK190" or device == "vck190":
-          self.device = "vck190"
-          self.placement= [50, 8, 0, 0, 0, 6, 39, 24, 3, 3]
+            self.device = "vck190"
+            # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
+            self.placement= [50, 8, 0, 0, 0, 6, 39, 24, 3, 3]
+        elif device == "NPU" or device == "npu":
+            self.device = "npu"
+            self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
+            self.ioWidth = 32
+            self.en_pl = "false"
+            self.en_aie2 = "true"
     
     def folder_create(self, sub_dir):
         if Path(sub_dir).exists():

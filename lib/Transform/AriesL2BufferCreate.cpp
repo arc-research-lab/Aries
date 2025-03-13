@@ -45,15 +45,25 @@ private:
     auto srcOffsets = broadcast.getSrcOffsets();
     auto srcSizes   = broadcast.getSrcSizes();
     auto srcStrides = broadcast.getSrcStrides();
+    auto srcTiles   = broadcast.getSrcTiles();
+    auto srcDims    = broadcast.getSrcDims();
+    auto srcSteps   = broadcast.getSrcSteps();
+    auto srcWraps   = broadcast.getSrcWraps();
     auto dstOffsets = broadcast.getDstOffsets();
     auto dstSizes   = broadcast.getDstSizes();
     auto dstStrides = broadcast.getDstStrides();
+    auto dstTiles   = broadcast.getDstTiles();
+    auto dstDims    = broadcast.getDstDims();
+    auto dstSteps   = broadcast.getDstSteps();
+    auto dstWraps   = broadcast.getDstWraps();
     for(auto dst: dsts){
-      auto defineOp = dst.getDefiningOp();
-      builder.setInsertionPointAfter(defineOp);
+      //auto defineOp = dst.getDefiningOp();
+      builder.setInsertionPointAfter(broadcast);
       auto newDma = builder.create<DmaBroadcastOp>(loc, 
                                     src, srcOffsets, srcSizes, srcStrides,
-                                    dst, dstOffsets, dstSizes, dstStrides);
+                                    srcTiles, srcDims, srcSteps, srcWraps,
+                                    dst, dstOffsets, dstSizes, dstStrides,
+                                    dstTiles, dstDims, dstSteps, dstWraps);
       if(broadcast->hasAttr("initialize"))
         newDma->setAttr("initialize", builder.getUnitAttr());
     }
@@ -70,17 +80,33 @@ private:
     SmallVector<Value, 3> srcOffsets;
     SmallVector<Value, 3> srcSizes;
     SmallVector<Value, 3> srcStrides;
+    SmallVector<Value, 3> srcTiles;
+    SmallVector<Value, 3> srcDims ;
+    SmallVector<Value, 3> srcSteps;
+    SmallVector<Value, 3> srcWraps;
     SmallVector<Value, 3> dstOffsets;
     SmallVector<Value, 3> dstSizes;
     SmallVector<Value, 3> dstStrides;
+    SmallVector<Value, 3> dstTiles;
+    SmallVector<Value, 3> dstDims ;
+    SmallVector<Value, 3> dstSteps;
+    SmallVector<Value, 3> dstWraps;
     int opType;
     if(auto broadcast = dyn_cast<DmaBroadcastOp>(op)){
       srcOffsets = broadcast.getSrcOffsets();
       srcSizes   = broadcast.getSrcSizes();
       srcStrides = broadcast.getSrcStrides();
+      srcTiles   = broadcast.getSrcTiles();
+      srcDims    = broadcast.getSrcDims();
+      srcSteps   = broadcast.getSrcSteps();
+      srcWraps   = broadcast.getSrcWraps();
       dstOffsets = broadcast.getDstOffsets();
       dstSizes   = broadcast.getDstSizes();
       dstStrides = broadcast.getDstStrides();
+      dstTiles   = broadcast.getDstTiles();
+      dstDims    = broadcast.getDstDims();
+      dstSteps   = broadcast.getDstSteps();
+      dstWraps   = broadcast.getDstWraps();
       src = broadcast.getSrc();
       dsts = broadcast.getDst();
       srcType = dyn_cast<MemRefType>(src.getType());
@@ -90,9 +116,17 @@ private:
       srcOffsets = dmaOp.getSrcOffsets();
       srcSizes   = dmaOp.getSrcSizes();
       srcStrides = dmaOp.getSrcStrides();
+      srcTiles   = dmaOp.getSrcTiles();
+      srcDims    = dmaOp.getSrcDims();
+      srcSteps   = dmaOp.getSrcSteps();
+      srcWraps   = dmaOp.getSrcWraps();
       dstOffsets = dmaOp.getDstOffsets();
       dstSizes   = dmaOp.getDstSizes();
       dstStrides = dmaOp.getDstStrides();
+      dstTiles   = dmaOp.getDstTiles();
+      dstDims    = dmaOp.getDstDims();
+      dstSteps   = dmaOp.getDstSteps();
+      dstWraps   = dmaOp.getDstWraps();
       src = dmaOp.getSrc();
       dst = dmaOp.getDst();
       srcType = dyn_cast<MemRefType>(src.getType());
@@ -307,11 +341,13 @@ private:
                         allocOp, newL2Applys, srcSizes, L2Strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       for(auto dst: dsts){
-        auto defineOp = dst.getDefiningOp();
-        builder.setInsertionPointAfter(defineOp);
-        auto newBroadCast = builder.create<DmaBroadcastOp>(loc, 
-                                  allocOp, oriL2Applys, srcSizes, L2StridesL1,
-                                  dst, dstOffsets, dstSizes, dstStrides);
+        //auto defineOp = dst.getDefiningOp();
+        builder.setInsertionPointAfter(op);
+        auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
+                        allocOp, oriL2Applys, srcSizes, L2StridesL1,
+                        srcTiles, srcDims, srcSteps, srcWraps,
+                        dst, dstOffsets, dstSizes, dstStrides,
+                        dstTiles, dstDims, dstSteps, dstWraps);
         if(op->hasAttr("initialize"))
           newBroadCast->setAttr("initialize", builder.getUnitAttr());
       }
@@ -332,9 +368,9 @@ private:
         builder.setInsertionPoint(op);
         auto newDma = builder.create<DmaOp>(loc, 
                         allocOp, oriL2Applys, srcSizes, L2StridesL1,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        srcTiles, srcDims, srcSteps, srcWraps,
                         dst, dstOffsets, dstSizes, dstStrides,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
+                        dstTiles, dstDims, dstSteps, dstWraps);
         auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
         newOuterDMALoop->setAttr("load", loadAttr);
         if(op->hasAttr("initialize")){
@@ -350,9 +386,9 @@ private:
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
         builder.setInsertionPoint(op);
         builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                        srcTiles, srcDims, srcSteps, srcWraps,
                         allocOp, oriL2Applys, dstSizes, L2StridesL1,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange());
+                        dstTiles, dstDims, dstSteps, dstWraps);
         auto storeAttr = builder.getIntegerAttr(indexType, storeIdx++);
         newOuterDMALoop->setAttr("store", storeAttr);
       }

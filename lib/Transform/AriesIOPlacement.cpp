@@ -5,6 +5,8 @@
 #include "mlir/Dialect/Affine/Utils.h"
 #include "mlir/Dialect/Affine/LoopUtils.h"
 #include "mlir/Dialect/Affine/Analysis/LoopAnalysis.h"
+#include "mlir/Pass/PassManager.h"
+#include "mlir/Transforms/Passes.h"
 #include "llvm/Support/Debug.h"
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
@@ -41,6 +43,11 @@ public:
       if (!IOPlacement(mod))
         signalPassFailure();
     }
+    PassManager pm(&getContext());
+    pm.addPass(createCSEPass());
+    pm.addPass(createCanonicalizerPass());
+    if (failed(pm.run(mod)))
+      signalPassFailure();
   }
 
 private:
