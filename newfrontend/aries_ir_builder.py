@@ -2,7 +2,8 @@ import ast
 import astor
 import inspect
 import sympy as sp
-import subprocess
+import numpy as np
+import subprocess, os
 import types
 from pathlib import Path
 from .gen_template import *
@@ -28,9 +29,10 @@ class MLIRGenerator(ast.NodeVisitor):
         self.func_attr = func_attr
 
     ## -- Variable & Type Management -- ##
-    def add_var_name(self, val, name=""):
+    def add_var_name(self, val, name="", en_prefix=True):
         if(name != ""):
-            name = "%" + name
+            if en_prefix:
+              name = "%" + name
             if(self.valNameCnt.get(name, 0) > 0):
                 valNameStr = name + "_" + str(self.valNameCnt[name])
                 self.valNameCnt[name] += 1
@@ -643,11 +645,262 @@ class TopMLIRGenerator(MLIRGenerator):
                 self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
                 self.emit(f"{', '.join(argTypes)}) -> ()", True)     
 
+class HostArgCollect(ast.NodeVisitor):
+    def __init__(self):
+        self.args = []
+        self.dtypes = [] # (type, shape)
+        self.outIdxs = []
+    
+    def convertType(self, type):
+        if type == "float32":
+            return "float"
+        elif type == "float64":
+            return "double"
+        elif type == "int32":
+            return "int"
+        elif type == "int16":
+            return "int16_t"
+        elif type == "int8":
+            return "int8_t"
+        else:
+            return type
+    
+    def visit_FunctionDef(self, node):
+        # Get the type and shape of all the arguments
+        for arg in node.args.args:
+            self.args.append(arg.arg)
+            if arg.annotation:
+                ty = arg.annotation
+                type = self.convertType(ty.value.id)
+                if isinstance(ty, ast.Subscript):
+                    # Extract shape
+                    if isinstance(ty.slice, ast.Tuple):
+                        shape = [constant.value for constant in ty.slice.elts]
+                        self.dtypes.append((type, shape))
+                    else:
+                        shape = [ty.slice.value]
+                        self.dtypes.append((type, shape))
+                else:
+                    assert False, "Unspported argument type found in host!"
+        
+        # Detect the output arguments
+        for subnode in node.body:
+            if isinstance(subnode, ast.Return):
+                if isinstance(subnode.value, ast.Tuple):
+                    for outArg in subnode.value.elts:
+                        if outArg.id in self.args:
+                          index = self.args.index(outArg.id)
+                          self.outIdxs.append(index)
+
+npu_host_header = """
+//===----------------------------------------------------------------------===//
+//
+// Automatically generated file for NPU test.cpp
+//
+//===----------------------------------------------------------------------===//
+#include <boost/program_options.hpp>
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+
+#include "xrt/xrt_bo.h"
+#include "xrt/xrt_device.h"
+#include "xrt/xrt_kernel.h"
+
+#include "test_utils.h"
+
+namespace po = boost::program_options;
+
+int main(int argc, const char *argv[]) {
+
+  // Program arguments parser
+  po::options_description desc("Allowed options");
+  po::variables_map vm;
+  test_utils::add_default_options(desc);
+
+  test_utils::parse_options(argc, argv, desc, vm);
+  int verbosity = vm["verbosity"].as<int>();
+  int do_verify = vm["verify"].as<bool>();
+  int n_iterations = vm["iters"].as<int>();
+  int n_warmup_iterations = vm["warmup"].as<int>();
+  int trace_size = vm["trace_sz"].as<int>();
+
+  // Load instruction
+  std::vector<uint32_t> instr_v =
+      test_utils::load_instr_sequence(vm["instr"].as<std::string>());
+  if (verbosity >= 1)
+    std::cout << "Sequence instr count: " << instr_v.size() << "\\n";
+
+  // Get a device handle
+  unsigned int device_index = 0;
+  auto device = xrt::device(device_index);
+
+  // Load the xclbin
+  if (verbosity >= 1)
+    std::cout << "Loading xclbin: " << vm["xclbin"].as<std::string>() << "\\n";
+  auto xclbin = xrt::xclbin(vm["xclbin"].as<std::string>());
+
+  if (verbosity >= 1)
+    std::cout << "Kernel opcode: " << vm["kernel"].as<std::string>() << "\\n";
+  std::string Node = vm["kernel"].as<std::string>();
+
+  // Get the kernel from the xclbin
+  auto xkernels = xclbin.get_kernels();
+  auto xkernel = *std::find_if(xkernels.begin(), xkernels.end(),
+                               [Node, verbosity](xrt::xclbin::kernel &k) {
+                                 auto name = k.get_name();
+                                 if (verbosity >= 1) {
+                                   std::cout << "Name: " << name << std::endl;
+                                 }
+                                 return name.rfind(Node, 0) == 0;
+                               });
+  auto kernelName = xkernel.get_name();
+
+  // Register the xclbin
+  if (verbosity >= 1)
+    std::cout << "Registering xclbin: " << vm["xclbin"].as<std::string>()
+              << "\\n";
+  device.register_xclbin(xclbin);
+
+  // Get a hardware context
+  if (verbosity >= 1)
+    std::cout << "Getting hardware context.\\n";
+  xrt::hw_context context(device, xclbin.get_uuid());
+
+  // Get a kernel handle
+  if (verbosity >= 1)
+    std::cout << "Getting handle to kernel:" << kernelName << "\\n";
+  auto kernel = xrt::kernel(context, kernelName);
+
+  // Initialize input/ output buffer
+  auto bo_instr = xrt::bo(device, instr_v.size() * sizeof(int),
+                          XCL_BO_FLAGS_CACHEABLE, kernel.group_id(1));
+  void *bufInstr = bo_instr.map<void *>();
+  memcpy(bufInstr, instr_v.data(), instr_v.size() * sizeof(int));
+"""
+
+
+class HostCPPGenerator:
+    def __init__(self, device, args, dtypes, outIdxs):
+        self.device = device
+        self.args = args
+        self.dtypes = dtypes
+        self.outIdxs = outIdxs # (type, shape)
+        self.code = []
+        self.group = 0 # group_id 3-7 works for host buffer
+        self.indent = 2
+        
+    def emit(self, code, same_line=False):
+        if same_line:
+            self.code[-1] = self.code[-1] + code
+        else:
+            self.code.append(" " * self.indent + code)
+
+    
+    def emitNPUHost(self):
+        self.emit(npu_host_header)
+        num_arg = len(self.args)
+        for i in range(num_arg):
+            arg = self.args[i]
+            dtype, shape = self.dtypes[i]
+            size = np.prod(shape)
+            self.emit(f"// Read data from files")
+            self.emit(f'std::ifstream ifile{i}("data{i}.sim");')
+            self.emit(f"if (!ifile{i}.is_open()) {{")
+            self.indent +=2
+            self.emit('std::cerr << "Error: Could not open input file.\\n";')
+            self.emit('return 1;')
+            self.indent -=2
+            self.emit('}')
+            self.emit(f"std::vector<{dtype}> srcVec{i};")
+            self.emit(f"for (int i = 0; i < {size}; i++) {{")
+            self.indent +=2
+            self.emit(f"{dtype} num;")
+            self.emit(f"ifile{i} >> num;")
+            self.emit(f"srcVec{i}.push_back(num);")
+            self.indent -=2
+            self.emit("}")
+            group_id =  0
+            self.emit(f"auto bo_{arg} = xrt::bo(device, {size} * sizeof({dtype}),")
+            self.indent +=20
+            self.emit(f"XRT_BO_FLAGS_HOST_ONLY, kernel.group_id({group_id}));")
+            self.indent -=20
+            if i not in self.outIdxs:
+                self.emit(f"// Initialized buffer")
+                self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
+                self.emit(f"memcpy(buf{arg}, srcVec{i}.data(), (srcVec{i}.size() * sizeof({dtype})));\n")
+        self.emit(f"// Sync input from host to device")
+        for i in range(num_arg):
+            if i in self.outIdxs:
+                continue
+            arg = self.args[i]
+            self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_TO_DEVICE);")
+        self.emit("if (verbosity >= 1){")
+        self.indent +=2
+        self.emit('std::cout << "Running Kernel.\\n";')
+        self.indent -=2
+        self.emit("}\n")
+        self.emit("double kernel_time_in_sec = 0;")
+        self.emit( "std::chrono::duration<double> kernel_time(0);")
+        self.emit("auto kernel_start = std::chrono::high_resolution_clock::now();")
+        self.emit("unsigned int opcode = 3;")
+        xrt_bos = ", ".join([f"bo_{self.args[i]}" for i in range(num_arg)])
+        self.emit(f"auto run = kernel(opcode, bo_instr, instr_v.size(), {xrt_bos});")
+        self.emit("run.wait();")
+        self.emit("auto kernel_end = std::chrono::high_resolution_clock::now();")
+        self.emit("kernel_time = std::chrono::duration<double>(kernel_end - kernel_start);")
+        self.emit("kernel_time_in_sec = kernel_time.count();")
+        self.emit('std::cout << "NPU execution time: " << kernel_time_in_sec << "s\\n";\n')
+        self.emit(f"// Sync output from device to host")
+        for i in range(num_arg):
+            if i not in self.outIdxs:
+                continue
+            arg = self.args[i]
+            dtype, shape = self.dtypes[i]
+            size = np.prod(shape)
+            self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_FROM_DEVICE);")
+            self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
+        
+        self.emit(f"int errorCount = 0;")
+        for i in range(num_arg):
+            if i not in self.outIdxs:
+                continue
+            arg = self.args[i]
+            dtype, shape = self.dtypes[i]
+            self.emit(f"if(do_verify){{")
+            self.indent +=2
+            self.emit(f"for (int i = 0; i < {size}; i++) {{")
+            self.indent +=2
+            self.emit(f"if(abs((float)(srcVec{i}[i])-buf{arg}[i])>=1e-4){{")
+            self.indent +=2
+            self.emit(f'printf("Error found srcVec{i}[%d]!=buf{arg}[%d], %f!=%f \\n", i, i, srcVec{i}[i], buf{arg}[i]);')
+            self.emit("errorCount++;")
+            self.indent -=2
+            self.emit("}")
+            self.indent -=2
+            self.emit("}")
+            self.indent -=2
+            self.emit("}\n")
+        
+        for i in range(num_arg):
+            self.emit(f"ifile{i}.close();")
+        self.indent -=2
+        self.emit("}\n")
+        
+    def build(self):
+        if self.device == "npu":
+            self.emitNPUHost()
+        return self.code
+
 class ConstantPropagation(ast.NodeTransformer):
     """Propagate the global constant to the wrapper functions"""
     def __init__(self, constants= {}):
         self.constant_mapping = constants
         self.funcs = []
+        self.topFunc = None
     
     def visit_FunctionDef(self, node):
         # Assume there's only one decorator for each func
@@ -656,6 +909,8 @@ class ConstantPropagation(ast.NodeTransformer):
             if decorator_id in ('task_kernel', 'task_top', 'task_tile'):
                 self.funcs.append(node)
                 self.generic_visit(node) 
+                if decorator_id == 'task_top':
+                    self.topFunc = node
 
     def visit_Name(self, node):
         # Replace variable names in constant_mapping with their corresponding values
@@ -911,6 +1166,8 @@ class Schedule:
         self.en_aie2 = "false"
         self.linkPath = ""
         self.paraList = []
+        self.funcs= []
+        self.topFunc = []
         self.funName = ""
         self.device = ""
     
@@ -947,7 +1204,8 @@ class Schedule:
         ins_propagate = ConstantPropagation(self.constants)
         tree = ins_propagate.visit(parsed_ast)
         ast.fix_missing_locations(tree)
-        return ins_propagate.funcs
+        self.funcs = ins_propagate.funcs
+        self.topFunc = ins_propagate.topFunc
     
     def task_tile_emit(self, func_name, parsed_ast):
         # print("Parsed New AST 0", ast.dump(parsed_ast, indent=4))
@@ -988,15 +1246,26 @@ class Schedule:
         # print(func_code)
     
     def task_top_emit(self, parsed_ast):
-        # print("Parsed Top  AST", ast.dump(parsed_ast, indent=4))
+        # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
         func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
     
-    def code_emit(self, module, prj_dir):
-        funcs = self.constant_propagation(module)
-        for parsed_ast in funcs:
+    def host_emit(self, sub_dir):
+        # Get the arguements
+        # print("Parsed Host AST", ast.dump(self.topFunc, indent=4))
+        instance = HostArgCollect()
+        instance.visit(self.topFunc)
+        temp_code = HostCPPGenerator(self.device, instance.args,instance.dtypes,instance.outIdxs).build()
+        host_code = "\n".join(filter(None, temp_code))
+        subprocess.run(f'mv *.sim {sub_dir}', shell=True)
+        host_file = sub_dir / "host/host.cpp" 
+        with open(host_file, "w") as file:
+            print(host_code, file=file)
+        
+    def code_emit(self, prj_dir):
+        for parsed_ast in self.funcs:
             decorator_id = None
             func_name = None
             # Identify the decorators
@@ -1072,25 +1341,41 @@ class Schedule:
             self.en_pl = "false"
             self.en_aie2 = "true"
     
-    def folder_create(self, sub_dir):
+    def folder_create(self, sub_dir, temp_dir):
         if Path(sub_dir).exists():
             print(f"Directory '{sub_dir}' already exists, skipping creation.")
         else:
             Path(sub_dir).mkdir(parents=True)
             print(f"Created directory: {sub_dir}")
+        for subdir in ["aie", "kernel", "host"]:
+            subdir_path = Path(sub_dir, subdir)
+            if subdir_path.exists():
+                print(f"Directory '{subdir_path}' already exists, skipping creation.")
+            else:
+                subdir_path.mkdir(parents=True)
+                print(f"Created directory: {subdir_path}")
+        makeDst = os.path.join(sub_dir, "Makefile")
         if self.device == "vck190":
-          for subdir in ["aie", "kernel", "host"]:
-              subdir_path = Path(sub_dir, subdir)
-              if subdir_path.exists():
-                  print(f"Directory '{subdir_path}' already exists, skipping creation.")
-              else:
-                  subdir_path.mkdir(parents=True)
-                  print(f"Created directory: {subdir_path}")
+            # Copy Makefile for Vitis Flow
+            if os.path.exists(makeDst):
+                print(f"Warning: {makeDst} already exists!")
+            else:
+              command = f"cp -r {temp_dir}/Makefile_VCK190 {makeDst}"
+              subprocess.run(command, shell=True, check=True)
+        elif self.device == "npu":
+            # Generate the NPU Makefile and Host Code here
+            if os.path.exists(makeDst):
+                print(f"Warning: {makeDst} already exists!")
+            else:
+              command = f"cp -r {temp_dir}/Makefile_NPU {makeDst}"
+              subprocess.run(command, shell=True, check=True)
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
-        self.folder_create(sub_dir)
-        self.code_emit(module, prj_dir)
+        self.folder_create(sub_dir, temp_dir)
+        self.constant_propagation(module)
+        self.code_emit(prj_dir)
+        self.host_emit(sub_dir)
         self.genAriesMake(prj_dir, temp_dir)
         self.genKernel(sub_dir, temp_dir)

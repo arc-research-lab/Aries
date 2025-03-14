@@ -1,4 +1,5 @@
 import itertools
+import numpy as np
 from typing import Any, Callable, Tuple
 
 # ================== Decorators ===================
@@ -69,8 +70,28 @@ def task_kernel(*, external_path=None, para = []):
 class TaskTopWrapper:
     def __init__(self, func: Callable):
         self.func = func
+
     def __call__(self, *call_args, **call_kwargs):
-        return self.func(*call_args, **call_kwargs)
+        result = self.func(*call_args, **call_kwargs)
+
+        # Ensure result is a tuple (handles cases where a single value is returned)
+        results = result if isinstance(result, tuple) else (result,)
+        
+        for i, arg in enumerate(call_args):
+            for value in results:
+                if id(value) == id(arg):
+                    arg = value
+                    break
+            np_arg = np.array(arg)
+            dtype = np_arg.dtype
+            if dtype == np.int8 or dtype == np.int16 or dtype == np.int32:
+                fmt = '%d'
+            elif dtype == np.float32 or dtype == np.float64:
+                fmt = '%.6f'
+            else:
+                fmt = '%s'
+            np.savetxt(f'data{i}.sim', np_arg, fmt=fmt)
+        return result
 
 def task_top():  
     """Decorator to wrap the function for top function."""
