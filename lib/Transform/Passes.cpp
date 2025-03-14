@@ -64,6 +64,8 @@ void mlir::aries::registerAriesPassPipeline() {
         pm.addPass(mlir::createCanonicalizerPass());
       }
     }else{
+      pm.addPass(mlir::createCanonicalizerPass());
+      pm.addPass(mlir::createCSEPass());
       pm.addPass(createADFConvertToAIEPass());
     }
   });

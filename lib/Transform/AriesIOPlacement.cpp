@@ -43,11 +43,6 @@ public:
       if (!IOPlacement(mod))
         signalPassFailure();
     }
-    PassManager pm(&getContext());
-    pm.addPass(createCSEPass());
-    pm.addPass(createCanonicalizerPass());
-    if (failed(pm.run(mod)))
-      signalPassFailure();
   }
 
 private:

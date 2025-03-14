@@ -49,14 +49,10 @@ else
 	IOType=GMIO
 endif
 
-all: copyFile pass translate copyplhost printcommand
+all: pass translate copyfile printcommand
 
 printcommand:
 	@echo "PLIOWidth=${PLIOWidth}, AXIWidth=${AXIWidth}, ColNum=${ColNum}, RowNum=${RowNum}, ColOffset=${ColOffset}, RowOffset=${RowOffset}, ColGap=${ColGap}, CoreAlgo=${CoreAlgo}, FirstCol=${FirstCol}, NumShim=${NumShim}, MidLine=${MidLine}, ChalIn=${ChalIn}, ChalOut=${ChalOut}, EnableIOCons=${EnableIOCons}, Link_file=${Link_file}, l1-tile-sizes=${L1_Tiling}, l2-tile-sizes=${L2_Tiling}, l3-tile-sizes=${L3_Tiling}, buf_sel=${buf_sel}, EN_PL=${EN_PL}, EN_AIE2=${EN_AIE2}, EN_SERIAL=${EN_SERIAL}, IOType=${IOType}" >${PROJECT_PATH}/command
-
-copyFile:
-	cp -r ${TEMPLATE_PATH}/Makefile_VCK190 ${PROJECT_PATH}/Makefile
-
 
 ARIES_OPTIONS=  tile-func-name=${FUNC}
 ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${EN_Tiling}
@@ -74,10 +70,20 @@ ${PROJECT_PATH}/${FUNC}.adf.mlir: ${MLIR}.mlir
 	aries-opt -o $@ $< \
 			-aries-pipeline="${ARIES_OPTIONS}"
 
-ifeq ($(Link_file),1)
-  translate: file_split
+ifeq ($(EN_PL),"true")
+  ifeq ($(EN_AIE2),"false")
+    ifeq ($(Link_file),1)
+  	  translate: file_split clean_temp
+  	else
+  	  translate: file_split clean_temp kernel_file_split clean_kernel_vec
+  	endif
+  else
+    # EN_AIE2 is not false
+    translate:
+  endif
 else
-  translate: file_split kernel_file_split clean_kernel_vec
+  # EN_PL is not true
+  translate:
 endif
 
 file_split: tempfile
@@ -89,11 +95,11 @@ ${PROJECT_AIE_PATH}/temp.cpp: ${PROJECT_PATH}/${FUNC}.adf.mlir
 	aries-translate -o $@ $< \
 		-emit-aries-kernels
 
-copyplhost:
+copyfile:
 ifeq ($(EN_PL), "true")
-	mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}
-	mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}
-	mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}
+{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/host.cpp ]; then mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}; fi
+{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/hls.cpp ]; then mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}; fi
+{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/system.cfg ]; then mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}; fi
 endif
 
 kernel_split: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
@@ -128,8 +134,11 @@ ${PROJECT_AIE_PATH}/temp.cc: ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 clean_kernel_vec:
 	rm -r ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 
+clean_temp:
+	rm -r ${PROJECT_AIE_PATH}/temp.cpp
+
 clean_translate:
-	rm -r ${PROJECT_AIE_PATH}/adf_graph.cpp ${PROJECT_AIE_PATH}/kernel.h ${PROJECT_AIE_PATH}/${KERNEL_NAME}.cc
+	rm -r ${PROJECT_AIE_PATH}/adf_graph.cpp ${PROJECT_AIE_PATH}/adf_kernel.h ${PROJECT_AIE_PATH}/adf_graph.h ${PROJECT_PATH}/kernel/hls.cpp ${PROJECT_PATH}/host/host.cpp ${PROJECT_PATH}/system.cfg
 
 clean_pass:
 	rm -r ${PROJECT_PATH}/${FUNC}.adf.mlir
