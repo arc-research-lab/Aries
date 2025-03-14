@@ -2497,10 +2497,21 @@ void ModuleEmitter::emitHostFunction(ModuleOp module, func::FuncOp func){
     func->emitError("has zero or more than one basic blocks.");
   std::string host_string0 = R"XXX(
 int main(int argc, char **argv) {
+  if(argc < 4) {
+    std::cout << "Need to provide xclbin(file name), device id (int) and verify(0 or 1)\n";
+    return 1;
+  }
   char* xclbinFilename = argv[1];
+  int deviceId, verify;
+  if (sscanf (argv[2], "%i", &deviceId) != 1) {
+    fprintf(stderr, "error - not an integer");
+  }
+  if (sscanf (argv[3], "%i", &verify) != 1) {
+    fprintf(stderr, "error - not an integer");
+  }
   
   // Open xclbin
-  auto device = xrt::device(0); //device index=0
+  auto device = xrt::device(deviceId); //device index=0
 	auto uuid = device.load_xclbin(xclbinFilename);
 	auto dhdl = xrtDeviceOpenFromXcl(device);
 
@@ -2571,10 +2582,35 @@ int main(int argc, char **argv) {
   os << "// Define arguments\n";
   unsigned indexIn = 0;
   unsigned indexOut = 0;
-  unsigned index = 0;
   SmallVector<Value, 4> outMems;
-  for (auto arg : func.getArguments()){
-    if(llvm::is_contained(outIndices, index)){
+  for (unsigned idx=0; idx < func.getNumArguments(); idx++){
+    auto arg = func.getArgument(idx);
+    auto srcVecName = "srcVec" + std::to_string(idx);
+    indent();
+    os << "std::vector<" << getTypeName(arg) << "> " << srcVecName << ";\n";
+    indent();
+    auto fileVarName = "ifile" + std::to_string(idx);
+    auto fileName = "\"data" + std::to_string(idx) + ".sim\"";
+    os << "std::ifstream " << fileVarName << ";\n";
+    indent();
+    os << "if(verify){\n";
+    addIndent();
+    indent();
+    os << fileVarName << ".open(" << fileName << ");\n";
+    indent();
+    os << "if (!" << fileVarName << ".is_open()){\n";
+    addIndent();
+    indent();
+    os << "std::cerr << \"Error: Could not open input file.\\n\";\n";
+    indent();
+    os << "return 1;\n";
+    reduceIndent();
+    indent();
+    os << "}\n";
+    reduceIndent();
+    indent();
+    os << "}\n";
+    if(llvm::is_contained(outIndices, idx)){
       auto memrefType = dyn_cast<MemRefType>(arg.getType());
       if (!memrefType)
         assert("Has non-mem output arguments.");
@@ -2602,15 +2638,45 @@ int main(int argc, char **argv) {
       indent();
       os << "auto " << inMapName    << " = "  << getName(arg)
          << ".map<" << getTypeName(arg)   << "*>();\n";
-      indent();
       // Initialize input arguments
+      indent();
+      os << "if(verify){\n";
+      addIndent();
+      indent();
       os << "for (unsigned i=0; i < " << size << "; i++){\n";
       addIndent();
       indent();
-      os << inMapName << "[i] = (" << getTypeName(arg) << ")(rand()%5);\n";
+      os << getTypeName(arg) << " num;\n";
+      indent();
+      os << fileVarName << ">> num;\n";
+      indent();
+      os << srcVecName << ".push_back(num);\n";
       reduceIndent();
       indent();
       os << "}\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      indent();
+      os << "else{\n";
+      addIndent();
+      indent();
+      os << "for (unsigned i=0; i < " << size << "; i++){\n";
+      addIndent();
+      indent();
+      os << getTypeName(arg) << " num = (" << getTypeName(arg) 
+         << ")(rand()%5);\n";
+      indent();
+      os << srcVecName << ".push_back(num);\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      indent();
+      os << "memcpy(" << inMapName << ", " << srcVecName << ".data(), "
+         << srcVecName << ".size() * sizeof(" << getTypeName(arg) << "));";
       // Sync input from host to device
       indent();
       os << getName(arg) << ".sync(XCL_BO_SYNC_BO_TO_DEVICE, " << size
@@ -2618,7 +2684,6 @@ int main(int argc, char **argv) {
     }else{
       emitValue(arg);
     }
-    index++;
   }
 
   // Define aie run handler
@@ -2683,7 +2748,56 @@ int main(int argc, char **argv) {
   }
   indent();
   os << "std::cout << \"Output buffer sync back finished\\n\";\n\n";
-
+  indent();
+  os << "int errorCount = 0;\n";
+  indent();
+  os << "if(verify){\n";
+  addIndent();
+  indent();
+  os << "std::cout << \"Start results verification\\n\";\n";
+  for (unsigned idx=0; idx < outMems.size(); idx++){
+    auto outMem = outMems[0];
+    auto index = outIndices[idx];
+    auto memrefType = dyn_cast<MemRefType>(outMem.getType());
+    auto size = memrefType.getNumElements();
+    auto srcVecName = "srcVec" + std::to_string(index);
+    std::string outMapName = "out_bomapped" + std::to_string(idx);
+    indent();
+    os << "for (unsigned i=0; i < " << size << "; i++){\n";
+    addIndent();
+    indent();
+    os << "if(abs((float)(" << srcVecName << "[i]-" << outMapName << "[i]"
+       << ")>=1e-4)){\n";
+    addIndent();
+    indent();
+    os << "printf(\"Error found " << srcVecName << "[%d]!=" 
+       << outMapName << "[%d], %f!=%f \", i, i, " << srcVecName << "[i], "
+       << outMapName << "[i]);\n";
+    indent();
+    os << "errorCount++;\n"; 
+    reduceIndent();
+    indent();
+    os << "}\n";
+    reduceIndent();
+    indent();
+    os << "}\n";
+  }
+  indent();
+  os << "if (errorCount)\n";
+  addIndent();
+  indent();
+  os << "printf(\"Test failed with %d errors\\n\", errorCount);\n";
+  reduceIndent();
+  indent();
+  os << "else\n";
+  addIndent();
+  indent();
+  os << "printf(\"TEST PASSED\\n\");\n";
+  reduceIndent();
+  reduceIndent();
+  indent();
+  os << "}\n";
+  
   indent();
   os << "std::cout << \"Host Run Finished!\\n\";\n"; 
   os << "  return 0;\n";
@@ -2817,6 +2931,8 @@ using namespace adf;
 #include <stdlib.h>
 #include <stdint.h>
 #include <iostream>
+#include <fstream>
+#include <cstring>
 #include <time.h>
 #include <vector>
 #include <math.h>
