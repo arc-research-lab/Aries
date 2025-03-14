@@ -2799,6 +2799,18 @@ int main(int argc, char **argv) {
   os << "}\n";
   
   indent();
+  os << "if(verify){\n";
+  addIndent();
+  for (unsigned idx=0; idx < func.getNumArguments(); idx++){
+    auto fileVarName = "ifile" + std::to_string(idx);
+    indent();
+    os << fileVarName << ".close();\n";
+  }
+  reduceIndent();
+  indent();
+  os << "}\n";
+
+  indent();
   os << "std::cout << \"Host Run Finished!\\n\";\n"; 
   os << "  return 0;\n";
   os << "}\n";
