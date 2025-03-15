@@ -162,6 +162,7 @@ void getConsVal(SmallVector<Value> vals, SmallVectorImpl<int64_t>& valInts){
 
 // This is a helper function to get the serialized data access including
 // From dmaOps and broadcastDmaOps
+// This describes L2 <--> L1 data layout transfer
 static void getDmaInfo(Operation* op, bool& toStream, 
               SmallVector<int64_t>& dmaSizes, SmallVector<int64_t>& dmaStrides){
   Value src, dst;
@@ -273,7 +274,7 @@ static void getDmaInfo(Operation* op, bool& toStream,
     dmaSizes.push_back(1);
     dmaStrides.push_back(1);
   }
-  // For the pre part only stride is utilized
+  // For the pre part(Offsets, Sizes, Strides) only stride is utilized
   for (auto i=0; i < rank; i++){
     dmaSizes[i] = Tiles[i];
     dmaStrides[i] = Strides[i];
@@ -285,6 +286,38 @@ static void getDmaInfo(Operation* op, bool& toStream,
     for(auto j=0; j < (rank-1-dim); j++)
       dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[rank-1-j];
   }
+  // This part could be useful for L2->L3
+  // else{
+  //   // This part aims to detranspose the data from tile to orginal row-major
+  //   /* e.g. [3,2], [[1, 2, 2], [0, 3, 1]] : [tile_size], [[dim,step,wrap],[...]]
+  //      1, 2, 5, 6,  9, 10          1, 2, 3, 4
+  //      3, 4, 7, 8, 11, 12     ->   5, 6, 7, 8
+  //                                  9,10,11,12 
+  //   */
+  //   // Cal the # elements within one tile
+  //   int tileSize=1;
+  //   for (auto i=0; i < rank; i++)
+  //     tileSize *= Tiles[i];
+  //   // For write, pre part is not utilized
+  //   for (auto i=0; i < rank; i++){
+  //     dmaSizes[i*2] = Tiles[i];
+  //     // array[dim=0,dim=1,dim=2], [i=2,i=1,i=0] need to traverse from inner dim
+  //     auto dim = rank-1-i;
+  //     auto it = llvm::find(Dims, dim);
+  //     if (it == Dims.end()){
+  //       llvm::errs() << "dim = " << dim << "not specified in transpose\n";
+  //     }
+  //     unsigned index = std::distance(Dims.begin(), it);
+  //     dmaSizes[index*2+1] = Wraps[index];
+  //     for (auto j=0; j < i; j++){
+  //       dmaStrides[i*2] = dmaStrides[i*2] * Tiles[j];
+  //     }
+  //     dmaStrides[index*2+1] = Steps[index];
+  //     for (auto j=0; j < index; j++){
+  //       dmaStrides[i*2+1] = dmaStrides[i*2+1] * Shapes[j];
+  //     }
+  //   }
+  // }
   // Remove sizes = 1 and the corresponding strides as this loop
   // is unnecessary
   // Iterate in reverse to safely erase elements
@@ -410,8 +443,7 @@ struct DmaConvert : public OpConversionPattern<DmaOp> {
     auto srcArray = ArrayAttr::get(context, {srcAttr});
     auto dstArray = ArrayAttr::get(context, {dstAttr});
     auto empty = ArrayAttr::get(context, {});
-    auto objLink = rewriter.create<ObjectFifoLinkOp>(
-                   loc, srcArray, dstArray, empty, empty);
+    rewriter.create<ObjectFifoLinkOp>(loc, srcArray, dstArray, empty, empty);
     if(store_flag){
       // For store operations now initialize the output buffer automatically
       // Create zero init callee at the beginning of deviceOp
@@ -459,10 +491,6 @@ struct DmaConvert : public OpConversionPattern<DmaOp> {
         bool flag = !(dyn_cast<DmaOp>(use.getOwner()));
         return flag;
       });
-      // Currently store (L1->L2->L3) is different than load
-      // In load, layout transform happens during L2->L1
-      // In store, layout transform happens during L2->L3 (instead of L1->L2)
-      objLink->setAttr("reverse", rewriter.getUnitAttr());
       if(!redLoop){
         rewriter.setInsertionPointAfter(call);
       }else{
@@ -1526,32 +1554,6 @@ private:
     return true;
   }
 
-  // This function walks through the objectfifo.link marked by {reverse}
-  // Need to move the dimensionsFromStream attribute from the dst objFifo
-  // to the dimensionsToStream of the src objectFifo
-  // Now only support one src and one dst
-  void revertOutLink(OpBuilder builder, DeviceOp device){
-    device.walk([&](ObjectFifoLinkOp fifoLinkOp){
-      if(!fifoLinkOp->hasAttr("reverse"))
-        return WalkResult::advance();
-      fifoLinkOp->removeAttr("reverse");
-      auto fifoIn = fifoLinkOp.getFifoIns()[0];
-      auto inName = dyn_cast<SymbolRefAttr>(fifoIn).getRootReference().str();
-      auto fifoOut = fifoLinkOp.getFifoOuts()[0];
-      auto outName = dyn_cast<SymbolRefAttr>(fifoOut).getRootReference().str();
-      auto objSrc = device.lookupSymbol<ObjectFifoCreateOp>(inName);
-      auto objDst = device.lookupSymbol<ObjectFifoCreateOp>(outName);
-      auto dimensionsFromStreams 
-                  = objSrc.getDimensionsFromStreamPerConsumerAttr();
-      if(dimensionsFromStreams.size()==0)
-        return WalkResult::advance();
-      auto dimensionsFromStream = dimensionsFromStreams[0];
-      objSrc.setDimensionsFromStreamPerConsumer({});
-      objDst.setDimensionsToStream(dimensionsFromStream);
-      return WalkResult::advance();
-    });
-  }
-
   // Remove the unused ConstantOp
   void moveConst(DeviceOp device){
     device.walk([&](arith::ConstantOp constOp){
@@ -1604,7 +1606,6 @@ private:
     recordMap(builder, device, memMap, coreMap);
     if(!ADFtoAIE(builder, device, seqOp, memMap, coreMap))
       return false;
-    revertOutLink(builder, device);
     moveConst(device);
     linkCore(device);
     return true;
