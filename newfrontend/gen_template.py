@@ -34,6 +34,23 @@ def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size,
         message.write(content)
         print(f"... wrote {filename}")
 
+def gen_make_npu(sub_dir, template_dir, kernel_dir, func, krlName, filename):
+    environment = Environment(loader=FileSystemLoader(template_dir))
+    file_name = 'Makefile_NPU'
+    template = environment.get_template(file_name)
+    file_dst = "Makefile"
+    dstName = sub_dir / file_dst
+    content = template.render(
+        kernel_dir = kernel_dir,
+        func = func,
+        krlName = krlName,
+        filename = filename
+        
+    )
+    with open(dstName, mode="w", encoding="utf-8") as message:
+        message.write(content)
+        print(f"... wrote {dstName}")
+    
 def gen_kernel(sub_dir, template_dir, kernel_dir, paraList, func_name=""):
     template_dir = Path(template_dir)
     kernel_dir = Path(kernel_dir)

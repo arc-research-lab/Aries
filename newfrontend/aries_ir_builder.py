@@ -823,7 +823,8 @@ class HostCPPGenerator:
             self.emit(f"srcVec{i}.push_back(num);")
             self.indent -=2
             self.emit("}")
-            group_id =  0
+            self.group = (self.group + 1) % 5
+            group_id =  self.group + 3
             self.emit(f"auto bo_{arg} = xrt::bo(device, {size} * sizeof({dtype}),")
             self.indent +=20
             self.emit(f"XRT_BO_FLAGS_HOST_ONLY, kernel.group_id({group_id}));")
@@ -833,11 +834,21 @@ class HostCPPGenerator:
                 self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
                 self.emit(f"memcpy(buf{arg}, srcVec{i}.data(), (srcVec{i}.size() * sizeof({dtype})));\n")
         self.emit(f"// Sync input from host to device")
+        self.emit(f"bo_instr.sync(XCL_BO_SYNC_BO_TO_DEVICE);")
         for i in range(num_arg):
             if i in self.outIdxs:
                 continue
             arg = self.args[i]
             self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_TO_DEVICE);")
+        self.emit('std::cout << "Warmup Kernel.\\n";')
+        self.emit(f"for (int i = 0; i < n_warmup_iterations; i++) {{")
+        self.indent +=2
+        self.emit("unsigned int opcode = 3;")
+        xrt_bos = ", ".join([f"bo_{self.args[i]}" for i in range(num_arg)])
+        self.emit(f"auto run = kernel(opcode, bo_instr, instr_v.size(), {xrt_bos});")
+        self.emit("run.wait();")
+        self.indent -=2
+        self.emit("}\n")
         self.emit("if (verbosity >= 1){")
         self.indent +=2
         self.emit('std::cout << "Running Kernel.\\n";')
@@ -846,13 +857,17 @@ class HostCPPGenerator:
         self.emit("double kernel_time_in_sec = 0;")
         self.emit( "std::chrono::duration<double> kernel_time(0);")
         self.emit("auto kernel_start = std::chrono::high_resolution_clock::now();")
+        self.emit(f"for (int i = 0; i < n_iterations; i++) {{")
+        self.indent +=2
         self.emit("unsigned int opcode = 3;")
         xrt_bos = ", ".join([f"bo_{self.args[i]}" for i in range(num_arg)])
         self.emit(f"auto run = kernel(opcode, bo_instr, instr_v.size(), {xrt_bos});")
         self.emit("run.wait();")
+        self.indent -=2
+        self.emit("}\n")
         self.emit("auto kernel_end = std::chrono::high_resolution_clock::now();")
         self.emit("kernel_time = std::chrono::duration<double>(kernel_end - kernel_start);")
-        self.emit("kernel_time_in_sec = kernel_time.count();")
+        self.emit("kernel_time_in_sec = kernel_time.count()/n_iterations;")
         self.emit('std::cout << "NPU execution time: " << kernel_time_in_sec << "s\\n";\n')
         self.emit(f"// Sync output from device to host")
         for i in range(num_arg):
@@ -864,6 +879,7 @@ class HostCPPGenerator:
             self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_FROM_DEVICE);")
             self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
         
+        fmt = '%d' if dtype.startswith("int") else '%f'
         self.emit(f"int errorCount = 0;")
         for i in range(num_arg):
             if i not in self.outIdxs:
@@ -876,7 +892,7 @@ class HostCPPGenerator:
             self.indent +=2
             self.emit(f"if(abs((float)(srcVec{i}[i])-buf{arg}[i])>=1e-4){{")
             self.indent +=2
-            self.emit(f'printf("Error found srcVec{i}[%d]!=buf{arg}[%d], %f!=%f \\n", i, i, srcVec{i}[i], buf{arg}[i]);')
+            self.emit(f'printf("Error found srcVec{i}[%d]!=buf{arg}[%d], {fmt}!={fmt} \\n", i, i, srcVec{i}[i], buf{arg}[i]);')
             self.emit("errorCount++;")
             self.indent -=2
             self.emit("}")
@@ -884,6 +900,15 @@ class HostCPPGenerator:
             self.emit("}")
             self.indent -=2
             self.emit("}\n")
+        
+        self.emit("if (errorCount)")
+        self.indent +=2
+        self.emit("printf(\"Test failed with %d errors\\n\", errorCount);")
+        self.indent -=2
+        self.emit("else");
+        self.indent +=2
+        self.emit("printf(\"TEST PASSED\\n\");");
+        self.indent -=2
         
         for i in range(num_arg):
             self.emit(f"ifile{i}.close();")
@@ -1167,6 +1192,7 @@ class Schedule:
         self.linkPath = ""
         self.paraList = []
         self.funcs= []
+        self.krlName = "" 
         self.topFunc = []
         self.funName = ""
         self.device = ""
@@ -1278,6 +1304,7 @@ class Schedule:
             if decorator_id is None:
                 continue
             if decorator_id == 'task_kernel':
+                self.krlName = func_name
                 self.task_kernel_emit(parsed_ast)
                 continue
             elif decorator_id == 'task_tile':
@@ -1304,7 +1331,7 @@ class Schedule:
         paraSize = self.paraSize.get(task, [1] * len(task.grid_dims))
         l2Size = self.l2Size.get(task, [1] * len(task.grid_dims))
         bufSel = self.bufSel.get(task, [0] * len(task.call_args))
-        if task in self.taskIdxMap:
+        if task in self.taskIdxMap: # If has reduction loop then unroll by 8
           self.AIEUnroll = 8
         else:
           self.AIEUnroll = 1
@@ -1313,9 +1340,27 @@ class Schedule:
                        self.AIEUnroll, bufSel, self.ioWidth, self.en_pl,
                        self.en_aie2)
     
-    def genKernel(self, prj_dir, temp_dir):
+    def genNPUMake(self, sub_dir, temp_dir):
+        task = self.tasks[0]
+        func = task.func.__name__
+        linkPath = Path(self.linkPath)
+        temp_dir = Path(temp_dir)
+        kernel_dir = temp_dir / linkPath.parent
+        last_dir = linkPath.name
+        filename = last_dir + ".cc"
+        krlName = self.krlName
+        gen_make_npu(sub_dir, temp_dir, kernel_dir, func, krlName, filename)
+    
+    def genKernel(self, sub_dir, temp_dir):
+        linkPath = Path(temp_dir) / self.linkPath
         if self.linkFile!=0:
-          gen_kernel(prj_dir, temp_dir, self.linkPath, self.paraList, self.funName)
+            if self.device == "vck190":
+                gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
+            elif self.device == "npu":
+                dst_dir = Path(sub_dir) / "aie"
+                fileName= str(linkPath) + ".cc"
+                command = f"cp -r {fileName} {dst_dir}"
+                subprocess.run(command, shell=True, check=True)
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor
@@ -1341,7 +1386,7 @@ class Schedule:
             self.en_pl = "false"
             self.en_aie2 = "true"
     
-    def folder_create(self, sub_dir, temp_dir):
+    def folder_create(self, sub_dir):
         if Path(sub_dir).exists():
             print(f"Directory '{sub_dir}' already exists, skipping creation.")
         else:
@@ -1354,6 +1399,8 @@ class Schedule:
             else:
                 subdir_path.mkdir(parents=True)
                 print(f"Created directory: {subdir_path}")
+    
+    def genPrjMake(self, sub_dir, temp_dir):
         makeDst = os.path.join(sub_dir, "Makefile")
         if self.device == "vck190":
             # Copy Makefile for Vitis Flow
@@ -1364,18 +1411,20 @@ class Schedule:
               subprocess.run(command, shell=True, check=True)
         elif self.device == "npu":
             # Generate the NPU Makefile and Host Code here
+            command = f"cp -r {temp_dir}/CMake/CMakeLists.txt {sub_dir}"
+            subprocess.run(command, shell=True, check=True)
             if os.path.exists(makeDst):
                 print(f"Warning: {makeDst} already exists!")
             else:
-              command = f"cp -r {temp_dir}/Makefile_NPU {makeDst}"
-              subprocess.run(command, shell=True, check=True)
+                self.genNPUMake(sub_dir, temp_dir)
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
-        self.folder_create(sub_dir, temp_dir)
+        self.folder_create(sub_dir)
         self.constant_propagation(module)
         self.code_emit(prj_dir)
         self.host_emit(sub_dir)
         self.genAriesMake(prj_dir, temp_dir)
+        self.genPrjMake(sub_dir, temp_dir)
         self.genKernel(sub_dir, temp_dir)

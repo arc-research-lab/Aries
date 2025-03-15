@@ -97,9 +97,9 @@ ${PROJECT_AIE_PATH}/temp.cpp: ${PROJECT_PATH}/${FUNC}.adf.mlir
 
 copyfile:
 ifeq ($(EN_PL), "true")
-{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/host.cpp ]; then mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}; fi
-{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/hls.cpp ]; then mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}; fi
-{{ '\t' }}@if [ -f ${PROJECT_AIE_PATH}/system.cfg ]; then mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}; fi
+	@if [ -f ${PROJECT_AIE_PATH}/host.cpp ]; then mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}; fi
+	@if [ -f ${PROJECT_AIE_PATH}/hls.cpp ]; then mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}; fi
+	@if [ -f ${PROJECT_AIE_PATH}/system.cfg ]; then mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}; fi
 endif
 
 kernel_split: ${PROJECT_PATH}/${KERNEL_NAME}.mlir

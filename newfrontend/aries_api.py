@@ -31,7 +31,7 @@ class aries:
         if not tile_shape and not transpose_params:
             array[slices] = AriesWrapper(data)
         elif tile_shape and transpose_params:
-            transposed_data = AriesWrapper(data).transpose(tile_shape, transpose_params)
+            transposed_data = AriesWrapper(data).retranspose(tile_shape, transpose_params)
             array[slices] = transposed_data
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
@@ -47,6 +47,19 @@ class aries:
     @staticmethod
     def tile_sizes(**kwargs):
         return kwargs.get('TSizes')
+      
+    @staticmethod
+    def gen_sim(arrs):
+        for i, arr in enumerate(arrs):
+            np_arg = np.array(arr)
+            dtype = np_arg.dtype
+            if dtype == np.int8 or dtype == np.int16 or dtype == np.int32:
+                fmt = '%d'
+            elif dtype == np.float32 or dtype == np.float64:
+                fmt = '%.6f'
+            else:
+                fmt = '%s'
+            np.savetxt(f'data{i}.sim', np_arg, fmt=fmt)
 
 class AriesWrapper:
     """A wrapper for NumPy arrays to support method chaining in `aries`."""
@@ -69,6 +82,50 @@ class AriesWrapper:
     def __repr__(self):
         """Helper function for printing."""
         return f"AriesWrapper({self.array.shape}, dtype={self.array.dtype})"
+    
+    def retranspose(self, tile_shape, transpose_params):
+        """
+        This function defines inverse operation compared with the transpose
+        """
+        if isinstance(transpose_params, list) and all(not isinstance(i, list) for i in transpose_params):
+            transpose_params = [transpose_params]  # Convert 1D list to 2D list by wrapping it
+        
+        assert len(tile_shape) == len(transpose_params), "Tile shape and transpose parameters must match dimensions."
+
+        # Get original shape
+        original_shape = self.array.shape
+        num_dims = len(original_shape)
+
+        # Validate that dimensions are within range
+        dims, strides, wraps = [], [], []
+        
+        for dim, stride, wrap in transpose_params:
+            assert 0 <= dim < num_dims, f"Invalid dimension {dim} for array with {num_dims} dimensions."
+            dims.append(dim)
+            strides.append(stride)
+            wraps.append(wrap)
+        
+        # Initialize reshaped array
+        reshaped_array = np.zeros_like(self.array)
+        array_1d = self.array.flatten()
+        tile_size = np.prod(tile_shape)
+        
+        reversed_wraps = wraps[::-1]
+        sorted_strides = [0] * num_dims
+        for idx, dim in enumerate(dims):
+            sorted_strides[dim] = strides[idx]
+        for idx, reversed_idx in enumerate(itertools.product(*(range(s) for s in reversed_wraps))):
+            # Convert the flattend tile from 1d to nd with shape = tile_shape
+            temp_tile = array_1d[idx*tile_size:(idx+1)*tile_size]
+            original_tile = temp_tile.reshape(tile_shape)
+            wrap_idx = reversed_idx[::-1]
+            sorted_warp_idx = [0] * num_dims
+            for idx, dim in enumerate(dims):
+                sorted_warp_idx[dim] = wrap_idx[idx]
+            pos = np.array(sorted_warp_idx) * np.array(sorted_strides)
+            slices = tuple(slice(start, start + size, 1) for start, size in zip(pos, tile_shape))
+            reshaped_array[slices] = original_tile
+        return reshaped_array
     
     def transpose(self, tile_shape, transpose_params):
         """
