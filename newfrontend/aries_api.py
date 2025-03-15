@@ -31,7 +31,7 @@ class aries:
         if not tile_shape and not transpose_params:
             array[slices] = AriesWrapper(data)
         elif tile_shape and transpose_params:
-            transposed_data = AriesWrapper(data).retranspose(tile_shape, transpose_params)
+            transposed_data = AriesWrapper(data).detranspose(tile_shape, transpose_params)
             array[slices] = transposed_data
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
@@ -83,7 +83,7 @@ class AriesWrapper:
         """Helper function for printing."""
         return f"AriesWrapper({self.array.shape}, dtype={self.array.dtype})"
     
-    def retranspose(self, tile_shape, transpose_params):
+    def detranspose(self, tile_shape, transpose_params):
         """
         This function defines inverse operation compared with the transpose
         """
