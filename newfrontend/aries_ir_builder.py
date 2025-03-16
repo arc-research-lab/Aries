@@ -1343,24 +1343,13 @@ class Schedule:
     def genNPUMake(self, sub_dir, temp_dir):
         task = self.tasks[0]
         func = task.func.__name__
-        linkPath = Path(self.linkPath)
         temp_dir = Path(temp_dir)
-        kernel_dir = temp_dir / linkPath.parent
-        last_dir = linkPath.name
-        filename = last_dir + ".cc"
         krlName = self.krlName
-        gen_make_npu(sub_dir, temp_dir, kernel_dir, func, krlName, filename)
+        gen_make_npu(sub_dir, temp_dir, func, krlName)
     
     def genKernel(self, sub_dir, temp_dir):
-        linkPath = Path(temp_dir) / self.linkPath
         if self.linkFile!=0:
-            if self.device == "vck190":
-                gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
-            elif self.device == "npu":
-                dst_dir = Path(sub_dir) / "aie"
-                fileName= str(linkPath) + ".cc"
-                command = f"cp -r {fileName} {dst_dir}"
-                subprocess.run(command, shell=True, check=True)
+            gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor
