@@ -2346,25 +2346,43 @@ void ModuleEmitter::emitKernelFunc(FuncOp func){
   std::string kernel_header = R"XXX(
 //===------------------------------------------------------------*- C++ -*-===//
 //
-// Automatically generated file for AIE kernel supported by Vitis Flow.
+// Automatically generated file for AIE kernel with pointers.
 //
 //===----------------------------------------------------------------------===//
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <type_traits>
 #include <aie_api/aie.hpp>
-#include <aie_api/aie_adf.hpp>
-#include <aie_api/utils.hpp>
-#include <adf/io_buffer/io_buffer.h>
-using namespace adf;
 
+static inline void
 )XXX";
   os << split_header;
   os << kernel_header;
-  if (failed(aries::emitAIEVecToCpp(func,/*aieml=*/false,/*vitis=*/true, 
-                                        /*enres=*/false, os)))
-    assert("AIE kernel function emitting failed\n");
+  
+  os << funcName << "(\n";
+  addIndent();
+
+  auto argNum = func.getNumArguments();
+  for(unsigned i = 0; i < argNum; i++){
+    indent();
+    auto arg = func.getArgument(i);
+    if (isa<ShapedType>(arg.getType()))
+      emitArrayDecl(arg, true);
+    else
+      emitValue(arg);
+    if (i != (argNum-1))
+      os << ",\n";
+  }
+  reduceIndent();
+  os << "\n){\n";
+  addIndent();
+  
+  emitBlock(func.getBody().front());
+
+  reduceIndent();
+  os << "}\n\n";
 }
 
 void ModuleEmitter::emitADFGraphFunction(FuncOp func) {
@@ -2982,21 +3000,13 @@ prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=EarlyBlockPlacement
       addCall(call);
     }
   });
-  // Generate the kernel header separately
-  os << kernel_header;
-  for (auto op : module.getOps<FuncOp>()) {
-    if(op->hasAttr("adf.kernel")){
-      emitKernelHeader(op);
-    }
-  }
-  os << kernel_tail;
 
   FuncOp topFunc;
   bool PL_FLAG = true;
+  bool en_gen = false;
   for (auto op : module.getOps<FuncOp>()) {
     if(op->hasAttr("adf.kernel")){
-      // Currently do nothing
-      // emitKernelFunc(op);
+      emitKernelFunc(op);
     }else if (op->hasAttr("adf.cell")){
       os << adfh_header;
       emitADFGraphFunction(op);
@@ -3008,12 +3018,24 @@ prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=EarlyBlockPlacement
       }
       emitHLSFunction(op);
     }else if(op->hasAttr("top_func")){
+      en_gen = true;
       topFunc = op;
       emitHLSFunction(op);
     }else if(op->hasAttr("top_host")){
       os << host_header;
       emitHostFunction(module,op);
     }
+  }
+
+  if(en_gen){
+    // Generate the kernel header separately
+    os << kernel_header;
+    for (auto op : module.getOps<FuncOp>()) {
+      if(op->hasAttr("adf.kernel")){
+        emitKernelHeader(op);
+      }
+    }
+    os << kernel_tail;
   }
 
   bool CONF_FLAG = true;

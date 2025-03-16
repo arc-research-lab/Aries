@@ -412,10 +412,10 @@ class TileMLIRGenerator(MLIRGenerator):
                 
 # =========== Emitter for task kernel ===========
 class KernelMLIRGenerator(MLIRGenerator):
-    def __init__(self, dmaInfo, map_cnt=0, device="versal"):
+    def __init__(self, dmaInfo, map_cnt=0, linkFile="true"):
         super().__init__(dmaInfo, map_cnt, "adf.kernel")
         self.is_assign = False
-        self.device = device
+        self.linkFile = linkFile
         
     def get_type(self, node):
         """Retrieve the type of a variable or constant."""
@@ -494,7 +494,7 @@ class KernelMLIRGenerator(MLIRGenerator):
         if self.func_attr is None:
             self.emit(f"func.func @{func_name}({', '.join(memrefs)}) {{")
         else:
-            if self.device == "npu":
+            if self.linkFile == "true":
                 self.emit(f"func.func private @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}}")
                 return
             else:
@@ -1184,7 +1184,7 @@ class Schedule:
         self.taskIdxMap = {} #Saves the reduction loops ids of a given task taskIdxMap[task] = ids
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
-        self.linkFile = 0
+        self.linkFile = "false"
         self.AIEUnroll = 8
         self.ioWidth = 128
         self.en_pl = "true"
@@ -1216,7 +1216,7 @@ class Schedule:
         else:
             self.placeAlgo = [2, "true"]
         if instance.externPath != None:
-            self.linkFile = 1
+            self.linkFile = "true"
             self.linkPath = instance.externPath
         if len(instance.paraList) != 0:
             self.paraList = instance.paraList
@@ -1266,7 +1266,7 @@ class Schedule:
     def task_kernel_emit(self, parsed_ast):
         # print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
         self.link_kernel_info(parsed_ast)
-        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.device).generate(parsed_ast)
+        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.linkFile).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
@@ -1348,7 +1348,7 @@ class Schedule:
         gen_make_npu(sub_dir, temp_dir, func, krlName)
     
     def genKernel(self, sub_dir, temp_dir):
-        if self.linkFile!=0:
+        if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
     def parallel(self, task, factor=[]):

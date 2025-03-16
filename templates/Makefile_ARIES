@@ -19,7 +19,7 @@ ChalIn = {{placement[8]}}
 ChalOut = {{placement[9]}}
 CoreAlgo = {{placeAlgo[0]}}
 EnableIOCons = "{{placeAlgo[1]}}"
-Link_file = {{linkFile}}
+EN_Link = "{{linkFile}}"
 AIEUnroll = {{aieUnroll}}
 {% for i in range(dim) -%}
 {% set paraSize = parallel[i] -%}
@@ -52,13 +52,14 @@ endif
 all: pass translate copyfile printcommand
 
 printcommand:
-	@echo "PLIOWidth=${PLIOWidth}, AXIWidth=${AXIWidth}, ColNum=${ColNum}, RowNum=${RowNum}, ColOffset=${ColOffset}, RowOffset=${RowOffset}, ColGap=${ColGap}, CoreAlgo=${CoreAlgo}, FirstCol=${FirstCol}, NumShim=${NumShim}, MidLine=${MidLine}, ChalIn=${ChalIn}, ChalOut=${ChalOut}, EnableIOCons=${EnableIOCons}, Link_file=${Link_file}, l1-tile-sizes=${L1_Tiling}, l2-tile-sizes=${L2_Tiling}, l3-tile-sizes=${L3_Tiling}, buf_sel=${buf_sel}, EN_PL=${EN_PL}, EN_AIE2=${EN_AIE2}, EN_SERIAL=${EN_SERIAL}, IOType=${IOType}" >${PROJECT_PATH}/command
+	@echo "PLIOWidth=${PLIOWidth}, AXIWidth=${AXIWidth}, ColNum=${ColNum}, RowNum=${RowNum}, ColOffset=${ColOffset}, RowOffset=${RowOffset}, ColGap=${ColGap}, CoreAlgo=${CoreAlgo}, FirstCol=${FirstCol}, NumShim=${NumShim}, MidLine=${MidLine}, ChalIn=${ChalIn}, ChalOut=${ChalOut}, EnableIOCons=${EnableIOCons}, EN_Link=${EN_Link}, l1-tile-sizes=${L1_Tiling}, l2-tile-sizes=${L2_Tiling}, l3-tile-sizes=${L3_Tiling}, buf_sel=${buf_sel}, EN_PL=${EN_PL}, EN_AIE2=${EN_AIE2}, EN_SERIAL=${EN_SERIAL}, IOType=${IOType}" >${PROJECT_PATH}/command
 
 ARIES_OPTIONS=  tile-func-name=${FUNC}
 ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${EN_Tiling}
 ARIES_OPTIONS+= port-type=${IOType}
 ARIES_OPTIONS+= plio-width=${PLIOWidth}
 ARIES_OPTIONS+= en-pl=${EN_PL} en-aie2=${EN_AIE2}
+ARIES_OPTIONS+= en-link=${EN_Link}
 ARIES_OPTIONS+= col-num=${ColNum} row-num=${RowNum} col-offset=${ColOffset} row-offset=${RowOffset} core-gap=${ColGap} core-algo=${CoreAlgo}
 ARIES_OPTIONS+= first-col=${FirstCol} num-shim=${NumShim} mid-line=${MidLine} chal-in=${ChalIn} chal-out=${ChalOut} iocons=${EnableIOCons}
 ARIES_OPTIONS+= buf-sels=${buf_sel}
@@ -72,7 +73,7 @@ ${PROJECT_PATH}/${FUNC}.adf.mlir: ${MLIR}.mlir
 
 ifeq ($(EN_PL),"true")
   ifeq ($(EN_AIE2),"false")
-    ifeq ($(Link_file),1)
+    ifeq ($(EN_Link), "true")
   	  translate: file_split clean_temp
   	else
   	  translate: file_split clean_temp kernel_file_split clean_kernel_vec
@@ -143,5 +144,4 @@ clean_translate:
 clean_pass:
 	rm -r ${PROJECT_PATH}/${FUNC}.adf.mlir
 
-clean:
-	rm -r ${PROJECT_PATH}
+clean: clean_pass clean_translate clean_temp clean_kernel_vec

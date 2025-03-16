@@ -18,10 +18,20 @@ namespace {
 struct AriesKernelInterfaceCreate 
       : public AriesKernelInterfaceCreateBase<AriesKernelInterfaceCreate> {
 public:
+  AriesKernelInterfaceCreate() = default;
+  AriesKernelInterfaceCreate(const AriesOptions &opts) {
+    EnableLink = opts.OptEnableLink;
+    EnablePL = opts.OptEnablePL;
+  }
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());
-    if (!KernelInterfaceCreate(mod))
-      signalPassFailure();
+    if(EnablePL)
+      if (!KernelInterfaceCreate(mod))
+        signalPassFailure();
+    // Need to change function call to private for NPU, since its already 
+    // generated
+    if(!EnablePL && !EnableLink)
+      linkKernel(mod);
   }
 
 private:
@@ -288,6 +298,18 @@ private:
     return true;
   }
 
+  // When kernel linking is specified, convert the adf.kernel to private func
+  void linkKernel(ModuleOp mod){
+    for(auto func : mod.getOps<FuncOp>()){
+      if (!func->hasAttr("adf.kernel"))
+        continue;
+      while (!func.getBody().empty()) {
+        func.getBody().front().erase();
+      }
+      func.setPrivate();
+    }
+  }
+
 };
 } // namespace
 
@@ -298,6 +320,11 @@ namespace aries {
 
 std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass() {
   return std::make_unique<AriesKernelInterfaceCreate>();
+}
+
+std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass(
+                      const AriesOptions &opts) {
+  return std::make_unique<AriesKernelInterfaceCreate>(opts);
 }
 
 } // namespace aries

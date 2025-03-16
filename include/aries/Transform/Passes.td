@@ -125,6 +125,12 @@ def AriesKernelInterfaceCreate : Pass<"aries-kernel-interface-create"> {
   }];
   let constructor = "mlir::aries::createAriesKernelInterfaceCreatePass()";
   let dependentDialects = ["mlir::memref::MemRefDialect"];
+  let options = [
+    Option<"EnableLink", "en-link", "bool", /*default=*/"true",
+           "Enable external kernel linking or not">,
+    Option<"EnablePL", "en-pl", "bool", /*default=*/"true",
+           "Enable programmable logic(PL) or not">
+  ];
 }
 
 def AriesBroadcastDetect : Pass<"aries-broadcast-detect"> {
