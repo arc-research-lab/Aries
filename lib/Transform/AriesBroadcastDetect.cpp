@@ -59,7 +59,11 @@ private:
           if (dma0.getSrc() == dma1.getSrc() &&
               dma0.getSrcOffsets() == dma1.getSrcOffsets() &&
               dma0.getSrcSizes() == dma1.getSrcSizes() &&
-              dma0.getSrcStrides() == dma1.getSrcStrides()){
+              dma0.getSrcStrides() == dma1.getSrcStrides() &&
+              dma0.getSrcTiles() == dma1.getSrcTiles() &&
+              dma0.getSrcDims() == dma1.getSrcDims() &&
+              dma0.getSrcSteps() == dma1.getSrcSteps()&&
+              dma0.getSrcWraps() == dma1.getSrcWraps()){
             // lastDmaOp = dma1;
             eraseOps.push_back(dma1);
             dsts.push_back(dma1.getDst());
@@ -70,7 +74,7 @@ private:
           continue;
         eraseOps.push_back(dma0);
         // Create DmaBroadcastOp
-        builder.setInsertionPoint(dmaOps[0]);
+        builder.setInsertionPoint(firstDmaOp);
         builder.create<DmaBroadcastOp>(loc, firstDmaOp.getSrc(),
                                        firstDmaOp.getSrcOffsets(), 
                                        firstDmaOp.getSrcSizes(),

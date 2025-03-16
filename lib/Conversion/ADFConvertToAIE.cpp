@@ -699,12 +699,36 @@ static bool getDMALayout(mlir::AffineMap map, MemRefType memType,
     }
     // Get offset by analyze the constant
     auto coeff = flattenedExpr[flattenedExpr.size()-1];
-    // Serialize the strides of current rank by multiplying the size of 
+    // Serialize the offsets of current rank by multiplying the size of 
     // the higher ranks
     for(unsigned j = i+1; j < rank; j++)
       coeff = coeff * shape[j];
     offsets[dmaDim-1] += coeff;
   }
+  // Post process only the last strides can be zero
+  unsigned cnt=0;
+  int zero_idx;
+  for (int i = dmaDim-1; i >=0; i--){
+    auto stride = strides[i];
+    auto size = sizes[i];
+    if(size==1 && stride == 0) //Assign a random non-zero number to stride
+      strides[i] = shape[0];
+    else if(size!=1 && stride == 0){
+      if(cnt > 0)
+        llvm::errs() << "NPU dma_memcpy_nd only support one zero stride\n";
+      zero_idx = i;
+      cnt++;
+    }
+    // Makesure the zero stride can be moved to the outer most pos
+    if(zero_idx && i<zero_idx && zero_idx!= 0){
+      if(size!=1)
+        llvm::errs() << "Find one zero stride and can't move outside\n";
+    }
+  }
+  sizes[0] = sizes[zero_idx];
+  strides[0] = strides[zero_idx];
+  sizes[zero_idx] = 1;
+  strides[zero_idx] = shape[0];
   return true;
 }
 
@@ -744,9 +768,9 @@ struct IOWriteConvert : public OpConversionPattern<adf::IOWriteOp> {
     auto operands = loadOp.getMapOperands();
     auto memType = loadOp.getMemRefType();
     auto mem = loadOp.getMemRef();
-    SmallVector<int64_t, 4> offsets(dmaDim, 0);
+    SmallVector<int64_t, dmaDim> offsets(dmaDim, 0);
     SmallVector<int64_t, dmaDim> sizes(numZeroLoop, 1);
-    SmallVector<int64_t, 4> strides(dmaDim, 0);
+    SmallVector<int64_t, dmaDim> strides(dmaDim, 0);
     if(!getDMALayout(map, memType, operands, nestedBand, offsets, sizes, 
                      strides, dmaDim, numZeroLoop))
       return failure();
@@ -815,9 +839,9 @@ struct IOReadConvert : public OpConversionPattern<adf::IOReadOp> {
     auto operands = storeOp.getMapOperands();
     auto memType = storeOp.getMemRefType();
     auto mem = storeOp.getMemRef();
-    SmallVector<int64_t, 4> offsets(dmaDim, 0);
+    SmallVector<int64_t, dmaDim> offsets(dmaDim, 0);
     SmallVector<int64_t, dmaDim> sizes(numZeroLoop, 1);
-    SmallVector<int64_t, 4> strides(dmaDim, 0);
+    SmallVector<int64_t, dmaDim> strides(dmaDim, 0);
     if(!getDMALayout(map, memType, operands, nestedBand, offsets, sizes, 
                      strides, dmaDim, numZeroLoop))
       return failure();
