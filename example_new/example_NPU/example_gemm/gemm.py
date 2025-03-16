@@ -6,7 +6,7 @@ sys.path.append(aries_path)
 from newfrontend import *
 
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
-I, J, K = 64, 64, 64
+I, J, K = 1024, 1024, 1024
 TI, TJ, TK = 64, 64, 64
 ii, ij, ik = 4, 4, 4
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
