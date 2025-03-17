@@ -412,9 +412,10 @@ class TileMLIRGenerator(MLIRGenerator):
                 
 # =========== Emitter for task kernel ===========
 class KernelMLIRGenerator(MLIRGenerator):
-    def __init__(self, dmaInfo, map_cnt=0, linkFile="true"):
+    def __init__(self, dmaInfo, map_cnt=0, device="vck190", linkFile="true"):
         super().__init__(dmaInfo, map_cnt, "adf.kernel")
         self.is_assign = False
+        self.device = device
         self.linkFile = linkFile
         
     def get_type(self, node):
@@ -494,7 +495,7 @@ class KernelMLIRGenerator(MLIRGenerator):
         if self.func_attr is None:
             self.emit(f"func.func @{func_name}({', '.join(memrefs)}) {{")
         else:
-            if self.linkFile == "true":
+            if self.device == "npu" and self.linkFile == "true":
                 self.emit(f"func.func private @{func_name}({', '.join(memrefs)}) attributes {{{self.func_attr}}}")
                 return
             else:
@@ -1266,7 +1267,7 @@ class Schedule:
     def task_kernel_emit(self, parsed_ast):
         # print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
         self.link_kernel_info(parsed_ast)
-        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.linkFile).generate(parsed_ast)
+        func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.device, self.linkFile).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
