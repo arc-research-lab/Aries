@@ -725,10 +725,12 @@ static bool getDMALayout(mlir::AffineMap map, MemRefType memType,
         llvm::errs() << "Find one zero stride and can't move outside\n";
     }
   }
-  sizes[0] = sizes[zero_idx];
-  strides[0] = strides[zero_idx];
-  sizes[zero_idx] = 1;
-  strides[zero_idx] = shape[0];
+  if(zero_idx){
+    sizes[0] = sizes[zero_idx];
+    strides[0] = strides[zero_idx];
+    sizes[zero_idx] = 1;
+    strides[zero_idx] = shape[0];
+  }
   return true;
 }
 
