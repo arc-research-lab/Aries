@@ -188,6 +188,8 @@ class MLIRGenerator(ast.NodeVisitor):
         
         if isinstance(loop_call, ast.Attribute) and loop_call.attr == "reduce_range":
             self.emit("}{reduction}")
+        elif isinstance(loop_call, ast.Name) and loop_call.id == "reduce_range":
+            self.emit("}{reduction}")
         else:
             self.emit("}")
     
@@ -1379,7 +1381,6 @@ class Schedule:
         # print(func_code)
     
     def task_top_emit(self, parsed_ast):
-        return
         # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
         func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
         self.mlir_func_code.append(func_code)

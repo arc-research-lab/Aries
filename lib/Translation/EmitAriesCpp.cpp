@@ -3006,7 +3006,8 @@ prop=run.impl_1.STEPS.PLACE_DESIGN.ARGS.DIRECTIVE=EarlyBlockPlacement
   bool en_gen = false;
   for (auto op : module.getOps<FuncOp>()) {
     if(op->hasAttr("adf.kernel")){
-      emitKernelFunc(op);
+      // Currently do nothing
+      // emitKernelFunc(op);
     }else if (op->hasAttr("adf.cell")){
       os << adfh_header;
       emitADFGraphFunction(op);
