@@ -3,7 +3,7 @@ import sys
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 aries_path = cur_dir + "/../../"
 sys.path.append(aries_path)
-from newfrontend import *
+from frontend import *
 
 # TTMc: D[i0, j0, k0] += A[i0, l0, m0] * B[l0, j0] * C[m0, k0]
 I, J, K, L, M = 4, 512, 768, 1024, 4096
