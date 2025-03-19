@@ -5,10 +5,8 @@ PROJECT_PATH=./project
 PROJECT_AIE_PATH=${PROJECT_PATH}/aie
 PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
-TEMPLATE_PATH = /home/arclab/research/Aries_Local/example_new/example_mttkrp/../..//templates
+TEMPLATE_PATH = /home/arclab/research/local_Aries/Aries/example_new/example_mttkrp/../..//templates
 
-PLIOWidth = 128
-AXIWidth = 512
 ColNum = 50
 RowNum = 8
 ColOffset = 0 
@@ -21,7 +19,8 @@ ChalIn = 3
 ChalOut = 3
 CoreAlgo = 2
 EnableIOCons = "true"
-Link_file = 1
+EN_Link = "true"
+AIEUnroll = 8
 L1_0 = 8
 L2_0 = 2
 L1_1 = 12
@@ -39,6 +38,8 @@ BUFF_2 = 0
 BUFF_3 = 1
 # 1:BRAM, 0:URAM
 buf_sel = ${BUFF_0},${BUFF_1},${BUFF_2},${BUFF_3}
+PLIOWidth = 128
+AXIWidth = 512
 EN_PL = "true"
 EN_AIE2 = "false"
 EN_SERIAL = "false"
@@ -50,20 +51,17 @@ else
 	IOType=GMIO
 endif
 
-all: copyFile pass translate copyplhost printcommand
+all: pass translate copyfile printcommand
 
 printcommand:
-	@echo "PLIOWidth=${PLIOWidth}, AXIWidth=${AXIWidth}, ColNum=${ColNum}, RowNum=${RowNum}, ColOffset=${ColOffset}, RowOffset=${RowOffset}, ColGap=${ColGap}, CoreAlgo=${CoreAlgo}, FirstCol=${FirstCol}, NumShim=${NumShim}, MidLine=${MidLine}, ChalIn=${ChalIn}, ChalOut=${ChalOut}, EnableIOCons=${EnableIOCons}, Link_file=${Link_file}, l1-tile-sizes=${L1_Tiling}, l2-tile-sizes=${L2_Tiling}, l3-tile-sizes=${L3_Tiling}, buf_sel=${buf_sel}, EN_PL=${EN_PL}, EN_AIE2=${EN_AIE2}, EN_SERIAL=${EN_SERIAL}, IOType=${IOType}" >${PROJECT_PATH}/command
-
-copyFile:
-	cp -r ${TEMPLATE_PATH}/Makefile_VCK190 ${PROJECT_PATH}/Makefile
-
+	@echo "PLIOWidth=${PLIOWidth}, AXIWidth=${AXIWidth}, ColNum=${ColNum}, RowNum=${RowNum}, ColOffset=${ColOffset}, RowOffset=${RowOffset}, ColGap=${ColGap}, CoreAlgo=${CoreAlgo}, FirstCol=${FirstCol}, NumShim=${NumShim}, MidLine=${MidLine}, ChalIn=${ChalIn}, ChalOut=${ChalOut}, EnableIOCons=${EnableIOCons}, EN_Link=${EN_Link}, l1-tile-sizes=${L1_Tiling}, l2-tile-sizes=${L2_Tiling}, l3-tile-sizes=${L3_Tiling}, buf_sel=${buf_sel}, EN_PL=${EN_PL}, EN_AIE2=${EN_AIE2}, EN_SERIAL=${EN_SERIAL}, IOType=${IOType}" >${PROJECT_PATH}/command
 
 ARIES_OPTIONS=  tile-func-name=${FUNC}
 ARIES_OPTIONS+= l1-tile-sizes=${L1_Tiling} l2-tile-sizes=${L2_Tiling} en-newtiling=${EN_Tiling}
 ARIES_OPTIONS+= port-type=${IOType}
 ARIES_OPTIONS+= plio-width=${PLIOWidth}
 ARIES_OPTIONS+= en-pl=${EN_PL} en-aie2=${EN_AIE2}
+ARIES_OPTIONS+= en-link=${EN_Link}
 ARIES_OPTIONS+= col-num=${ColNum} row-num=${RowNum} col-offset=${ColOffset} row-offset=${RowOffset} core-gap=${ColGap} core-algo=${CoreAlgo}
 ARIES_OPTIONS+= first-col=${FirstCol} num-shim=${NumShim} mid-line=${MidLine} chal-in=${ChalIn} chal-out=${ChalOut} iocons=${EnableIOCons}
 ARIES_OPTIONS+= buf-sels=${buf_sel}
@@ -75,10 +73,20 @@ ${PROJECT_PATH}/${FUNC}.adf.mlir: ${MLIR}.mlir
 	aries-opt -o $@ $< \
 			-aries-pipeline="${ARIES_OPTIONS}"
 
-ifeq ($(Link_file),1)
-  translate: file_split
+ifeq ($(EN_PL),"true")
+  ifeq ($(EN_AIE2),"false")
+    ifeq ($(EN_Link), "true")
+  	  translate: file_split clean_temp
+  	else
+  	  translate: file_split clean_temp kernel_file_split clean_kernel_vec
+  	endif
+  else
+    # EN_AIE2 is not false
+    translate:
+  endif
 else
-  translate: file_split kernel_file_split clean_kernel_vec
+  # EN_PL is not true
+  translate:
 endif
 
 file_split: tempfile
@@ -90,11 +98,11 @@ ${PROJECT_AIE_PATH}/temp.cpp: ${PROJECT_PATH}/${FUNC}.adf.mlir
 	aries-translate -o $@ $< \
 		-emit-aries-kernels
 
-copyplhost:
+copyfile:
 ifeq ($(EN_PL), "true")
-	mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}
-	mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}
-	mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}
+	@if [ -f ${PROJECT_AIE_PATH}/host.cpp ]; then mv ${PROJECT_AIE_PATH}/host.cpp ${PROJECT_Host_PATH}; fi
+	@if [ -f ${PROJECT_AIE_PATH}/hls.cpp ]; then mv ${PROJECT_AIE_PATH}/hls.cpp ${PROJECT_PL_PATH}; fi
+	@if [ -f ${PROJECT_AIE_PATH}/system.cfg ]; then mv ${PROJECT_AIE_PATH}/system.cfg ${PROJECT_PATH}; fi
 endif
 
 kernel_split: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
@@ -114,7 +122,7 @@ ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_unrol
 		--canonicalize
 ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 	aries-opt -o $@ $< \
-		--affine-loop-unroll="unroll-factor=8" \
+		--affine-loop-unroll="unroll-factor=${AIEUnroll}" \
 		--canonicalize
 
 kernel_file_split: kernel_cc
@@ -129,11 +137,13 @@ ${PROJECT_AIE_PATH}/temp.cc: ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 clean_kernel_vec:
 	rm -r ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 
+clean_temp:
+	rm -r ${PROJECT_AIE_PATH}/temp.cpp
+
 clean_translate:
-	rm -r ${PROJECT_AIE_PATH}/adf_graph.cpp ${PROJECT_AIE_PATH}/kernel.h ${PROJECT_AIE_PATH}/${KERNEL_NAME}.cc
+	rm -r ${PROJECT_AIE_PATH}/adf_graph.cpp ${PROJECT_AIE_PATH}/adf_kernel.h ${PROJECT_AIE_PATH}/adf_graph.h ${PROJECT_PATH}/kernel/hls.cpp ${PROJECT_PATH}/host/host.cpp ${PROJECT_PATH}/system.cfg
 
 clean_pass:
 	rm -r ${PROJECT_PATH}/${FUNC}.adf.mlir
 
-clean:
-	rm -r ${PROJECT_PATH}
+clean: clean_pass clean_translate clean_temp clean_kernel_vec

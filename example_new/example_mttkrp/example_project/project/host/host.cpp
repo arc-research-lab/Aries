@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <iostream>
+#include <fstream>
+#include <cstring>
 #include <time.h>
 #include <vector>
 #include <math.h>
@@ -27,10 +29,21 @@ using namespace std;
 
 
 int main(int argc, char **argv) {
+  if(argc < 4) {
+    std::cout << "Need to provide xclbin(file name), device id (int) and verify(0 or 1)\n";
+    return 1;
+  }
   char* xclbinFilename = argv[1];
+  int deviceId, verify;
+  if (sscanf (argv[2], "%i", &deviceId) != 1) {
+    fprintf(stderr, "error - not an integer");
+  }
+  if (sscanf (argv[3], "%i", &verify) != 1) {
+    fprintf(stderr, "error - not an integer");
+  }
   
   // Open xclbin
-  auto device = xrt::device(0); //device index=0
+  auto device = xrt::device(deviceId); //device index=0
 	auto uuid = device.load_xclbin(xclbinFilename);
 	auto dhdl = xrtDeviceOpenFromXcl(device);
 
@@ -38,27 +51,93 @@ int main(int argc, char **argv) {
   auto top_0= xrt::kernel(device, uuid, "top:{top_0}");
 
   // Define arguments
+  std::vector<float> srcVec0;
+  std::ifstream ifile0;
+  if(verify){
+    ifile0.open("data0.sim");
+    if (!ifile0.is_open()){
+      std::cerr << "Error: Could not open input file.\n";
+      return 1;
+    }
+  }
   auto in_bohdl0 = xrt::bo(device, 100663296 * sizeof(float), top_0.group_id(0));
   auto in_bomapped0 = in_bohdl0.map<float*>();
-  for (unsigned i=0; i < 100663296; i++){
-    in_bomapped0[i] = (float)(rand()%5);
+  if(verify){
+    for (unsigned i=0; i < 100663296; i++){
+      float num;
+      ifile0>> num;
+      srcVec0.push_back(num);
+    }
   }
-  in_bohdl0.sync(XCL_BO_SYNC_BO_TO_DEVICE, 100663296 * sizeof(float), 0);
+  else{
+    for (unsigned i=0; i < 100663296; i++){
+      float num = (float)(rand()%5);
+      srcVec0.push_back(num);
+    }
+  }
+  memcpy(in_bomapped0, srcVec0.data(), srcVec0.size() * sizeof(float));  in_bohdl0.sync(XCL_BO_SYNC_BO_TO_DEVICE, 100663296 * sizeof(float), 0);
 
+  std::vector<float> srcVec1;
+  std::ifstream ifile1;
+  if(verify){
+    ifile1.open("data1.sim");
+    if (!ifile1.is_open()){
+      std::cerr << "Error: Could not open input file.\n";
+      return 1;
+    }
+  }
   auto in_bohdl1 = xrt::bo(device, 4718592 * sizeof(float), top_0.group_id(0));
   auto in_bomapped1 = in_bohdl1.map<float*>();
-  for (unsigned i=0; i < 4718592; i++){
-    in_bomapped1[i] = (float)(rand()%5);
+  if(verify){
+    for (unsigned i=0; i < 4718592; i++){
+      float num;
+      ifile1>> num;
+      srcVec1.push_back(num);
+    }
   }
-  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 4718592 * sizeof(float), 0);
+  else{
+    for (unsigned i=0; i < 4718592; i++){
+      float num = (float)(rand()%5);
+      srcVec1.push_back(num);
+    }
+  }
+  memcpy(in_bomapped1, srcVec1.data(), srcVec1.size() * sizeof(float));  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 4718592 * sizeof(float), 0);
 
+  std::vector<float> srcVec2;
+  std::ifstream ifile2;
+  if(verify){
+    ifile2.open("data2.sim");
+    if (!ifile2.is_open()){
+      std::cerr << "Error: Could not open input file.\n";
+      return 1;
+    }
+  }
   auto in_bohdl2 = xrt::bo(device, 12582912 * sizeof(float), top_0.group_id(0));
   auto in_bomapped2 = in_bohdl2.map<float*>();
-  for (unsigned i=0; i < 12582912; i++){
-    in_bomapped2[i] = (float)(rand()%5);
+  if(verify){
+    for (unsigned i=0; i < 12582912; i++){
+      float num;
+      ifile2>> num;
+      srcVec2.push_back(num);
+    }
   }
-  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 12582912 * sizeof(float), 0);
+  else{
+    for (unsigned i=0; i < 12582912; i++){
+      float num = (float)(rand()%5);
+      srcVec2.push_back(num);
+    }
+  }
+  memcpy(in_bomapped2, srcVec2.data(), srcVec2.size() * sizeof(float));  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 12582912 * sizeof(float), 0);
 
+  std::vector<float> srcVec3;
+  std::ifstream ifile3;
+  if(verify){
+    ifile3.open("data3.sim");
+    if (!ifile3.is_open()){
+      std::cerr << "Error: Could not open input file.\n";
+      return 1;
+    }
+  }
   auto out_bohdl0 = xrt::bo(device, 393216 * sizeof(float), top_0.group_id(0));
   auto out_bomapped0 = out_bohdl0.map<float*>();
 
@@ -88,6 +167,26 @@ int main(int argc, char **argv) {
   out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 393216 * sizeof(float), 0);
   std::cout << "Output buffer sync back finished\n";
 
+  int errorCount = 0;
+  if(verify){
+    std::cout << "Start results verification\n";
+    for (unsigned i=0; i < 393216; i++){
+      if(abs((float)(srcVec3[i]-out_bomapped0[i])>=1e-4)){
+        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f ", i, i, srcVec3[i], out_bomapped0[i]);
+        errorCount++;
+      }
+    }
+    if (errorCount)
+      printf("Test failed with %d errors\n", errorCount);
+    else
+      printf("TEST PASSED\n");
+  }
+  if(verify){
+    ifile0.close();
+    ifile1.close();
+    ifile2.close();
+    ifile3.close();
+  }
   std::cout << "Host Run Finished!\n";
   return 0;
 }

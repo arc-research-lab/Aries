@@ -44,21 +44,21 @@ module {
               %v2 = affine.apply #map4(%m)
               %ctm_size = arith.constant 32 : index
               %ctm_stride = arith.constant 1 : index
-              adf.dma(%A[%v0 ,%v1 ,%v2] [%cti_size ,%ctl_size ,%ctm_size] [%cti_stride ,%ctl_stride ,%ctm_stride], %L1_A[] [] []) : (memref<4x1024x4096xf32> , memref<2x16x32xf32, 2>)
+              adf.dma(%A[%v0 ,%v1 ,%v2] [%cti_size ,%ctl_size ,%ctm_size] [%cti_stride ,%ctl_stride ,%ctm_stride] [] [] [] [], %L1_A[] [] [] [] [] [] []) : (memref<4x1024x4096xf32> , memref<2x16x32xf32, 2>)
               %v3 = affine.apply #map3(%l)
               %ctl_size_1 = arith.constant 16 : index
               %ctl_stride_1 = arith.constant 1 : index
               %v4 = affine.apply #map1(%j)
               %ctj_size = arith.constant 16 : index
               %ctj_stride = arith.constant 1 : index
-              adf.dma(%B[%v3 ,%v4] [%ctl_size_1 ,%ctj_size] [%ctl_stride_1 ,%ctj_stride], %L1_B[] [] []) : (memref<1024x512xf32> , memref<16x16xf32, 2>)
+              adf.dma(%B[%v3 ,%v4] [%ctl_size_1 ,%ctj_size] [%ctl_stride_1 ,%ctj_stride] [] [] [] [], %L1_B[] [] [] [] [] [] []) : (memref<1024x512xf32> , memref<16x16xf32, 2>)
               %v5 = affine.apply #map4(%m)
               %ctm_size_1 = arith.constant 32 : index
               %ctm_stride_1 = arith.constant 1 : index
               %v6 = affine.apply #map2(%k)
               %ctk_size = arith.constant 16 : index
               %ctk_stride = arith.constant 1 : index
-              adf.dma(%C[%v5 ,%v6] [%ctm_size_1 ,%ctk_size] [%ctm_stride_1 ,%ctk_stride], %L1_C[] [] []) : (memref<4096x768xf32> , memref<32x16xf32, 2>)
+              adf.dma(%C[%v5 ,%v6] [%ctm_size_1 ,%ctk_size] [%ctm_stride_1 ,%ctk_stride] [] [] [] [], %L1_C[] [] [] [] [] [] []) : (memref<4096x768xf32> , memref<32x16xf32, 2>)
               %v7 = affine.apply #map0(%i)
               %cti_size_1 = arith.constant 2 : index
               %cti_stride_1 = arith.constant 1 : index
@@ -68,7 +68,7 @@ module {
               %v9 = affine.apply #map2(%k)
               %ctk_size_1 = arith.constant 16 : index
               %ctk_stride_1 = arith.constant 1 : index
-              adf.dma(%D[%v7 ,%v8 ,%v9] [%cti_size_1 ,%ctj_size_1 ,%ctk_size_1] [%cti_stride_1 ,%ctj_stride_1 ,%ctk_stride_1], %L1_D[] [] []) : (memref<4x512x768xf32> , memref<2x16x16xf32, 2>)
+              adf.dma(%D[%v7 ,%v8 ,%v9] [%cti_size_1 ,%ctj_size_1 ,%ctk_size_1] [%cti_stride_1 ,%ctj_stride_1 ,%ctk_stride_1] [] [] [] [], %L1_D[] [] [] [] [] [] []) : (memref<4x512x768xf32> , memref<2x16x16xf32, 2>)
               func.call @kernel_ttmc(%L1_A, %L1_B, %L1_C, %L1_D) : (memref<2x16x32xf32, 2>, memref<16x16xf32, 2>, memref<32x16xf32, 2>, memref<2x16x16xf32, 2>) -> ()
               %v10 = affine.apply #map0(%i)
               %cti_size_2 = arith.constant 2 : index
@@ -79,7 +79,7 @@ module {
               %v12 = affine.apply #map2(%k)
               %ctk_size_2 = arith.constant 16 : index
               %ctk_stride_2 = arith.constant 1 : index
-              adf.dma(%L1_D[] [] [], %D[%v10 ,%v11 ,%v12] [%cti_size_2 ,%ctj_size_2 ,%ctk_size_2] [%cti_stride_2 ,%ctj_stride_2 ,%ctk_stride_2]) : (memref<2x16x16xf32, 2> , memref<4x512x768xf32>)
+              adf.dma(%L1_D[] [] [] [] [] [] [], %D[%v10 ,%v11 ,%v12] [%cti_size_2 ,%ctj_size_2 ,%ctk_size_2] [%cti_stride_2 ,%ctj_stride_2 ,%ctk_stride_2] [] [] [] []) : (memref<2x16x16xf32, 2> , memref<4x512x768xf32>)
             }{reduction}
           }{reduction}
         }
