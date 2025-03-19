@@ -14,27 +14,27 @@
 #include <adf/io_buffer/io_buffer.h>
 using namespace adf;
 
-const int h1={{paraList[0]}}; //i
-const int w2={{paraList[1]}}; //j
-const int w1={{paraList[2]}}; //k
-const int A_SIZE=h1*w1;
-const int B_SIZE=w1*w2;
-const int C_SIZE=h1*w2;
-const int boundary_i=h1/4;
-const int boundary_j=w2/8;
-const int boundary_k=w1/16-1;
+const int TI={{paraList[0]}}; //i
+const int TJ={{paraList[1]}}; //j
+const int TK={{paraList[2]}}; //k
+const int A_SIZE=TI*TK;
+const int B_SIZE=TK*TJ;
+const int C_SIZE=TI*TJ;
+const int boundary_i=TI/4;
+const int boundary_j=TJ/8;
+const int boundary_k=TK/16-1;
 const int judge_j = boundary_j-1;
-const int lhs_jump0= 8*h1;
-const int lhs_jump1= (w1/8-1)*(8*h1);
-const int lhs_jump2= (w1/8-1)*(8*h1)-32;
+const int lhs_jump0= 8*TI;
+const int lhs_jump1= (TK/8-1)*(8*TI);
+const int lhs_jump2= (TK/8-1)*(8*TI)-32;
 const int rhs_jump0= 32;
 const int rhs_jump1= -32;
-const int rhs_jump2= w1*w2-32;
+const int rhs_jump2= TK*TJ-32;
 const int out_jump0= 16;
-const int out_jump1= -(8*h1) + 16;
-const int out_jump2= (w2/8-1)*(8*h1) - 16;
+const int out_jump1= -(8*TI) + 16;
+const int out_jump2= (TJ/8-1)*(8*TI) - 16;
 
-// lhs[w1/8][h1][8] * lhs[w2/8][w1][8] = out[w2/8][h1][8]
+// lhs[TK/8][TI][8] * lhs[TJ/8][TK][8] = out[TJ/8][TI][8]
 // The basic block is 4*8*16 (i, j, k)
 // The SIDM parallelism is 2*8*8 (i, j, k)
 void {{dst_name}}(input_buffer<int8_t, adf::extents<A_SIZE>>& __restrict in0, input_buffer<int8_t, adf::extents<B_SIZE>>& __restrict in1, output_buffer<int8_t, adf::extents<C_SIZE>>& __restrict out0) {

@@ -14,25 +14,25 @@
 #include <adf/io_buffer/io_buffer.h>
 using namespace adf;
 
-const int h1={{paraList[0]}}; //i
-const int w2={{paraList[1]}}; //j
-const int w1={{paraList[2]}}; //k
-const int A_SIZE=h1*w1;
-const int B_SIZE=w1*w2;
-const int C_SIZE=h1*w2;
-const int boundary_i=h1/2;
-const int boundary_j=w2/16;
-const int boundary_k=w1/16-1;
+const int TI={{paraList[0]}}; //i
+const int TJ={{paraList[1]}}; //j
+const int TK={{paraList[2]}}; //k
+const int A_SIZE=TI*TK;
+const int B_SIZE=TK*TJ;
+const int C_SIZE=TI*TJ;
+const int boundary_i=TI/2;
+const int boundary_j=TJ/16;
+const int boundary_k=TK/16-1;
 const int judge_j = boundary_j-1;
-const int lhs_W1=w1;
-const int lhs_jump0=w1-8;
-const int lhs_jump1=2*w1-8;
-const int lhs_jump2=2*w1;
-const int rhs_W2=w2;
-const int rhs_jump0=(w1-1)*w2-16;
-const int rhs_jump1=-w2;
-const int out_jump0=w2-16;
-const int out_jump1=w2;
+const int lhs_TK=TK;
+const int lhs_jump0=TK-8;
+const int lhs_jump1=2*TK-8;
+const int lhs_jump2=2*TK;
+const int rhs_TJ=TJ;
+const int rhs_jump0=(TK-1)*TJ-16;
+const int rhs_jump1=-TJ;
+const int out_jump0=TJ-16;
+const int out_jump1=TJ;
 
 // Assumes all the operands are row-major
 // The basic block is 2*16*16 (i, j, k)
@@ -60,133 +60,133 @@ void {{dst_name}}(input_buffer<int16_t, adf::extents<A_SIZE>>& __restrict in0, i
 			{ 
         //////////// Vector Preload
         lhs0_v16 = lhs0_v16.insert(0, aie::load_v<8>(lhs));
-        lhs += lhs_W1;
+        lhs += lhs_TK;
         rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         lhs0_v16 = lhs0_v16.insert(1, aie::load_v<8>(lhs));
         lhs -= lhs_jump0;
         rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         ///////////// Calculate first 2*8*16
         acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 0, 0x0, 0x0, 1); // A[0,0-1] * B[0-1,0-15]
         lhs1_v16 = lhs1_v16.insert(0, aie::load_v<8>(lhs));
-        lhs += lhs_W1;
+        lhs += lhs_TK;
         rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 8, 0x0, 0x0, 1); // A[1,0-1] * B[0-1,0-15]
         lhs1_v16 = lhs1_v16.insert(1, aie::load_v<8>(lhs));
         lhs -= lhs_jump0;
         rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 2, 0x0, 0x0, 1); // A[0,2-3] * B[2-3,0-15]
         rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 10, 0x0, 0x0, 1); // A[1,2-3] * B[2-3,0-15]
         rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 4, 0x0, 0x0, 1); // A[0,4-5] * B[4-5,0-15]
         rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 12, 0x0, 0x0, 1); // A[1,4-5] * B[4-5,0-15]
         rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 6, 0x0, 0x0, 1); // A[0,6-7] * B[6-7,0-15]
         rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 14, 0x0, 0x0, 1); // A[1,6-7] * B[6-7,0-15]
         rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         //////////// Calculate second 2*8*16
         acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 0, 0x0, 0x0, 1); // A[0,8-9] * B[8-9,0-15]
         rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 8, 0x0, 0x0, 1); // A[1,8-9] * B[8-9,0-15]
         rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 2, 0x0, 0x0, 1); // A[0,10-11] * B[10-11,0-15]
         rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 10, 0x0, 0x0, 1); // A[1,10-11] * B[10-11,0-15]
         rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 4, 0x0, 0x0, 1); // A[0,12-13] * B[12-13,0-15]
         rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
         acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 12, 0x0, 0x0, 1); // A[1,12-13] * B[12-13,0-15]
         rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-        rhs += rhs_W2;
+        rhs += rhs_TJ;
 
         acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 6, 0x0, 0x0, 1); // A[0,14-15] * B[14-15,0-15]
         acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 14, 0x0, 0x0, 1); // A[1,14-15] * B[14-15,0-15]
       }
       // Last reduction iter
       lhs0_v16 = lhs0_v16.insert(0, aie::load_v<8>(lhs));
-      lhs += lhs_W1;
+      lhs += lhs_TK;
       rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       lhs0_v16 = lhs0_v16.insert(1, aie::load_v<8>(lhs));
       lhs -= lhs_jump0;
       rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       ///////////// Calculate first 2*8*16
       acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 0, 0x0, 0x0, 1); // A[0,0-1] * B[0-1,0-15]
       lhs1_v16 = lhs1_v16.insert(0, aie::load_v<8>(lhs));
-      lhs += lhs_W1;
+      lhs += lhs_TK;
       rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 8, 0x0, 0x0, 1); // A[1,0-1] * B[0-1,0-15]
       lhs1_v16 = lhs1_v16.insert(1, aie::load_v<8>(lhs));
       lhs -= lhs_jump1;
       rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 2, 0x0, 0x0, 1); // A[0,2-3] * B[2-3,0-15]
       rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 10, 0x0, 0x0, 1); // A[1,2-3] * B[2-3,0-15]
       rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 4, 0x0, 0x0, 1); // A[0,4-5] * B[4-5,0-15]
       rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 12, 0x0, 0x0, 1); // A[1,4-5] * B[4-5,0-15]
       rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 6, 0x0, 0x0, 1); // A[0,6-7] * B[6-7,0-15]
       rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs0_v16, 14, 0x0, 0x0, 1); // A[1,6-7] * B[6-7,0-15]
       rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       //////////// Calculate second 2*8*16
       acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 0, 0x0, 0x0, 1); // A[0,8-9] * B[8-9,0-15]
       rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 8, 0x0, 0x0, 1); // A[1,8-9] * B[8-9,0-15]
       rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       acc0 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 2, 0x0, 0x0, 1); // A[0,10-11] * B[10-11,0-15]
       rhs0_v32 = rhs0_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 10, 0x0, 0x0, 1); // A[1,10-11] * B[10-11,0-15]
       rhs0_v32 = rhs0_v32.insert(1, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
 
       acc0 = mac16(acc0, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 4, 0x0, 0x0, 1); // A[0,12-13] * B[12-13,0-15]
       rhs1_v32 = rhs1_v32.insert(0, aie::load_v<16>(rhs));
-      rhs += rhs_W2;
+      rhs += rhs_TJ;
       acc1 = mac16(acc1, rhs0_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 12, 0x0, 0x0, 1); // A[1,12-13] * B[12-13,0-15]
       rhs1_v32 = rhs1_v32.insert(1, aie::load_v<16>(rhs));
       rhs -= rhs_jump0;
@@ -194,7 +194,7 @@ void {{dst_name}}(input_buffer<int16_t, adf::extents<A_SIZE>>& __restrict in0, i
       aie::accum<acc48,16> acc2 = mac16(acc0, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 6, 0x0, 0x0, 1); // A[0,14-15] * B[14-15,0-15]
       aie::vector<int16,16> temp0 = srs(acc2, 0);
       aie::store_v(out, temp0);
-      out += w2;
+      out += TJ;
       aie::accum<acc48,16> acc3 = mac16(acc1, rhs1_v32, 0, 0x73727170, 0x77767574, 0x3120, lhs1_v16, 14, 0x0, 0x0, 1); // A[1,14-15] * B[14-15,0-15]
       aie::vector<int16,16> temp1 = srs(acc3, 0);
       aie::store_v(out, temp1);

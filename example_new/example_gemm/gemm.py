@@ -3,7 +3,7 @@ import sys
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 aries_path = cur_dir + "/../../"
 sys.path.append(aries_path)
-from newfrontend import *
+from frontend import *
 
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, J, K = 2816, 3072, 8192
@@ -54,6 +54,8 @@ A = np.random.rand(I, K).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
 C = np.zeros((I, J)).astype(np.float32)
 gemm_task = top(A, B, C)
+D = np.matmul(A, B)
+aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
 sch.parallel(gemm_task, [11, 8, 4])
 sch.l2buffer(gemm_task, [4, 6, 1])

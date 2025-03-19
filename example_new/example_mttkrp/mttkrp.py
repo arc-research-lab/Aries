@@ -3,7 +3,7 @@ import sys
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 aries_path = cur_dir + "/../../"
 sys.path.append(aries_path)
-from newfrontend import *
+from frontend import *
 
 # MTTKRP: D[i0, j0] += A[i0, k0, l0] * B[k0, j0] * C[l0, j0]
 I, J, K, L = 64, 6144, 768, 2048

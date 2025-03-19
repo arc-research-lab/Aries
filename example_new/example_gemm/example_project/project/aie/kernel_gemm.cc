@@ -14,22 +14,22 @@
 #include <adf/io_buffer/io_buffer.h>
 using namespace adf;
 
-const int h1=32; //i
-const int w2=32; //j
-const int w1=32; //k
-const int A_SIZE=h1*w1;
-const int B_SIZE=w1*w2;
-const int C_SIZE=h1*w2;
-const int boundary_i=h1/2;
-const int boundary_j=w2/8;
-const int boundary_k=w1/8-1;
+const int TI=32; //i
+const int TJ=32; //j
+const int TK=32; //k
+const int A_SIZE=TI*TK;
+const int B_SIZE=TK*TJ;
+const int C_SIZE=TI*TJ;
+const int boundary_i=TI/2;
+const int boundary_j=TJ/8;
+const int boundary_k=TK/8-1;
 const int judge_j = boundary_j-1;
-const int lhs_jump0=w1-4;
-const int lhs_jump1=2*w1-4;
+const int lhs_jump0=TK-4;
+const int lhs_jump1=2*TK-4;
 const int lhs_jump2=-4;
-const int rhs_jump0=(w1-1)*w2-8;
-const int rhs_jump1=w1*w2-8;
-const int out_jump0=w2-8;
+const int rhs_jump0=(TK-1)*TJ-8;
+const int rhs_jump1=TK*TJ-8;
+const int out_jump0=TJ-8;
 const int out_jump1=-8;
 
 // Assumes all the operands are row-major
@@ -63,7 +63,7 @@ void kernel_gemm(input_buffer<float, adf::extents<A_SIZE>>& __restrict in0, inpu
         jump_out = out_jump0;
       }
       aie::vector<float,8> acc0 = aie::load_v<8>(accin);
-      accin += w2;
+      accin += TJ;
 			aie::vector<float,8> acc1 = aie::load_v<8>(accin);
       accin -= jump_out;
       for (unsigned int k=0;k<boundary_k;k++)
@@ -72,52 +72,52 @@ void kernel_gemm(input_buffer<float, adf::extents<A_SIZE>>& __restrict in0, inpu
 			{ 
         //////////// Vector Preload
         lhs_v16 = lhs_v16.insert(0, aie::load_v<4>(lhs));
-        lhs += w1;
+        lhs += TK;
         rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         lhs_v16 = lhs_v16.insert(1, aie::load_v<4>(lhs));
         lhs -= lhs_jump0;
 
         ///////////// Calculate first 2*4*8
         acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 0, 0x0);
         lhs_v16 = lhs_v16.insert(2, aie::load_v<4>(lhs));
-        lhs += w1;
+        lhs += TK;
         rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 4, 0x0);
         lhs_v16 = lhs_v16.insert(3, aie::load_v<4>(lhs));
         lhs -= lhs_jump0;
 
         acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 1, 0x0);
         rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 5, 0x0);
 
         acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 2, 0x0);
         rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 6, 0x0);
 
         acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 3, 0x0);
         rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 7, 0x0);
 
 
         //////////// Calculate second 2*4*8
         acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 0, 0x0);
         rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 4, 0x0);
 
         acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 1, 0x0);
         rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 5, 0x0);
 
         acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 2, 0x0);
         rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-        rhs += w2;
+        rhs += TJ;
         acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 6, 0x0);
 
         acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 3, 0x0);
@@ -125,47 +125,47 @@ void kernel_gemm(input_buffer<float, adf::extents<A_SIZE>>& __restrict in0, inpu
       }
       // Last reduction iter
       lhs_v16 = lhs_v16.insert(0, aie::load_v<4>(lhs));
-      lhs += w1;
+      lhs += TK;
       rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       lhs_v16 = lhs_v16.insert(1, aie::load_v<4>(lhs));
       lhs -= lhs_jump0;
 
       ///////////// Calculate first 2*4*8
       acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 0, 0x0);
       lhs_v16 = lhs_v16.insert(2, aie::load_v<4>(lhs));
-      lhs += w1;
+      lhs += TK;
       rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 4, 0x0);
       lhs_v16 = lhs_v16.insert(3, aie::load_v<4>(lhs));
       lhs -= jump_lhs;
 
       acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 1, 0x0);
       rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 5, 0x0);
 
       acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 2, 0x0);
       rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(0), 6, 0x0);
 
       acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 3, 0x0);
       rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(0), 7, 0x0);
 
 
       //////////// Calculate second 2*4*8
       acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 0, 0x0);
       rhs_v16 = rhs_v16.insert(1, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 4, 0x0);
 
       acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 1, 0x0);
       rhs_v16 = rhs_v16.insert(0, aie::load_v<8>(rhs));
-      rhs += w2;
+      rhs += TJ;
       acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 5, 0x0);
 
       acc0 = fpmac(acc0, rhs_v16, 0, 0x76543210, lhs_v16.extract<8>(1), 2, 0x0);
@@ -175,7 +175,7 @@ void kernel_gemm(input_buffer<float, adf::extents<A_SIZE>>& __restrict in0, inpu
 
       acc0 = fpmac(acc0, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 3, 0x0);
       aie::store_v(out, acc0);
-      out += w2;
+      out += TJ;
       acc1 = fpmac(acc1, rhs_v16, 8, 0x76543210, lhs_v16.extract<8>(1), 7, 0x0);
       aie::store_v(out, acc1);
       out -= jump_out;

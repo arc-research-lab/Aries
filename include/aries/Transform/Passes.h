@@ -48,6 +48,11 @@ struct AriesOptions : public PassPipelineOptions<AriesOptions> {
       *this, "en-pl", llvm::cl::init(true), llvm::cl::desc(
       "Enable programmable logic(PL) or not")};
 
+  /// Configure the AriesKernelInterfaceCreate pass.
+  Option<bool> OptEnableLink{
+    *this, "en-link", llvm::cl::init(true), llvm::cl::desc(
+    "Enable external kernel linking or not")};
+
   /// Configure the DMAToIO pass.
   Option<std::string> OptPortType{
       *this, "port-type", llvm::cl::init("PLIO"),
@@ -147,6 +152,8 @@ std::unique_ptr<Pass> createAriesLocalDataForwardPass();
 std::unique_ptr<Pass> createAriesL2BufferCreatePass();
 std::unique_ptr<Pass> createAriesL2BufferCreatePass(const AriesOptions &opts);
 std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass();
+std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass(
+                      const AriesOptions &opts);
 std::unique_ptr<Pass> createAriesBroadcastDetectPass();
 std::unique_ptr<Pass> createAriesDMAToIOPass();
 std::unique_ptr<Pass> createAriesDMAToIOPass(const AriesOptions &opts);

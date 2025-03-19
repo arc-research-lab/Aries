@@ -36,10 +36,8 @@ void mlir::aries::registerAriesPassPipeline() {
     pm.addPass(createAriesDependencyExtractPass());
     pm.addPass(createAriesFuncUnrollPass());
     pm.addPass(createAriesLocalDataForwardPass());
-    
-    if(opts.OptEnablePL){
-      pm.addPass(createAriesKernelInterfaceCreatePass());
-    }else{
+    pm.addPass(createAriesKernelInterfaceCreatePass(opts));
+    if(!opts.OptEnablePL){
       pm.addPass(createAriesBroadcastDetectPass());
       pm.addPass(createAriesL2BufferCreatePass(opts));
     }
@@ -64,6 +62,8 @@ void mlir::aries::registerAriesPassPipeline() {
         pm.addPass(mlir::createCanonicalizerPass());
       }
     }else{
+      pm.addPass(mlir::createCanonicalizerPass());
+      pm.addPass(mlir::createCSEPass());
       pm.addPass(createADFConvertToAIEPass());
     }
   });
