@@ -261,3448 +261,3448 @@ module {
     adf.config.plio(%arg163, 250) {"col, chl" = [39 : index, 0 : index]} : <Out, 128>
     %0 = adf.buffer.create @L1_L1_A() : memref<32x32xf32, 2>
     %1 = adf.buffer.create @L1_L1_B() : memref<32x32xf32, 2>
+    %2 = adf.buffer.create @L1_L1_A_1() : memref<32x32xf32, 2>
+    %3 = adf.buffer.create @L1_L1_B_1() : memref<32x32xf32, 2>
+    %4 = adf.buffer.create @L1_L1_C_1() : memref<32x32xf32, 2>
+    %5 = adf.buffer.create @L1_L1_A_2() : memref<32x32xf32, 2>
+    %6 = adf.buffer.create @L1_L1_B_2() : memref<32x32xf32, 2>
+    %7 = adf.buffer.create @L1_L1_C_2() : memref<32x32xf32, 2>
+    %8 = adf.buffer.create @L1_L1_A_3() : memref<32x32xf32, 2>
+    %9 = adf.buffer.create @L1_L1_B_3() : memref<32x32xf32, 2>
+    %10 = adf.buffer.create @L1_L1_C_3() : memref<32x32xf32, 2>
+    %11 = adf.buffer.create @L1_L1_A_4() : memref<32x32xf32, 2>
+    %12 = adf.buffer.create @L1_L1_B_4() : memref<32x32xf32, 2>
+    %13 = adf.buffer.create @L1_L1_A_5() : memref<32x32xf32, 2>
+    %14 = adf.buffer.create @L1_L1_B_5() : memref<32x32xf32, 2>
+    %15 = adf.buffer.create @L1_L1_C_5() : memref<32x32xf32, 2>
+    %16 = adf.buffer.create @L1_L1_A_6() : memref<32x32xf32, 2>
+    %17 = adf.buffer.create @L1_L1_B_6() : memref<32x32xf32, 2>
+    %18 = adf.buffer.create @L1_L1_C_6() : memref<32x32xf32, 2>
+    %19 = adf.buffer.create @L1_L1_A_7() : memref<32x32xf32, 2>
+    %20 = adf.buffer.create @L1_L1_B_7() : memref<32x32xf32, 2>
+    %21 = adf.buffer.create @L1_L1_C_7() : memref<32x32xf32, 2>
+    %22 = adf.buffer.create @L1_L1_A_8() : memref<32x32xf32, 2>
+    %23 = adf.buffer.create @L1_L1_B_8() : memref<32x32xf32, 2>
+    %24 = adf.buffer.create @L1_L1_A_9() : memref<32x32xf32, 2>
+    %25 = adf.buffer.create @L1_L1_B_9() : memref<32x32xf32, 2>
+    %26 = adf.buffer.create @L1_L1_C_9() : memref<32x32xf32, 2>
+    %27 = adf.buffer.create @L1_L1_A_10() : memref<32x32xf32, 2>
+    %28 = adf.buffer.create @L1_L1_B_10() : memref<32x32xf32, 2>
+    %29 = adf.buffer.create @L1_L1_C_10() : memref<32x32xf32, 2>
+    %30 = adf.buffer.create @L1_L1_A_11() : memref<32x32xf32, 2>
+    %31 = adf.buffer.create @L1_L1_B_11() : memref<32x32xf32, 2>
+    %32 = adf.buffer.create @L1_L1_C_11() : memref<32x32xf32, 2>
+    %33 = adf.buffer.create @L1_L1_A_12() : memref<32x32xf32, 2>
+    %34 = adf.buffer.create @L1_L1_B_12() : memref<32x32xf32, 2>
+    %35 = adf.buffer.create @L1_L1_A_13() : memref<32x32xf32, 2>
+    %36 = adf.buffer.create @L1_L1_B_13() : memref<32x32xf32, 2>
+    %37 = adf.buffer.create @L1_L1_C_13() : memref<32x32xf32, 2>
+    %38 = adf.buffer.create @L1_L1_A_14() : memref<32x32xf32, 2>
+    %39 = adf.buffer.create @L1_L1_B_14() : memref<32x32xf32, 2>
+    %40 = adf.buffer.create @L1_L1_C_14() : memref<32x32xf32, 2>
+    %41 = adf.buffer.create @L1_L1_A_15() : memref<32x32xf32, 2>
+    %42 = adf.buffer.create @L1_L1_B_15() : memref<32x32xf32, 2>
+    %43 = adf.buffer.create @L1_L1_C_15() : memref<32x32xf32, 2>
+    %44 = adf.buffer.create @L1_L1_A_16() : memref<32x32xf32, 2>
+    %45 = adf.buffer.create @L1_L1_B_16() : memref<32x32xf32, 2>
+    %46 = adf.buffer.create @L1_L1_A_17() : memref<32x32xf32, 2>
+    %47 = adf.buffer.create @L1_L1_B_17() : memref<32x32xf32, 2>
+    %48 = adf.buffer.create @L1_L1_C_17() : memref<32x32xf32, 2>
+    %49 = adf.buffer.create @L1_L1_A_18() : memref<32x32xf32, 2>
+    %50 = adf.buffer.create @L1_L1_B_18() : memref<32x32xf32, 2>
+    %51 = adf.buffer.create @L1_L1_C_18() : memref<32x32xf32, 2>
+    %52 = adf.buffer.create @L1_L1_A_19() : memref<32x32xf32, 2>
+    %53 = adf.buffer.create @L1_L1_B_19() : memref<32x32xf32, 2>
+    %54 = adf.buffer.create @L1_L1_C_19() : memref<32x32xf32, 2>
+    %55 = adf.buffer.create @L1_L1_A_20() : memref<32x32xf32, 2>
+    %56 = adf.buffer.create @L1_L1_B_20() : memref<32x32xf32, 2>
+    %57 = adf.buffer.create @L1_L1_A_21() : memref<32x32xf32, 2>
+    %58 = adf.buffer.create @L1_L1_B_21() : memref<32x32xf32, 2>
+    %59 = adf.buffer.create @L1_L1_C_21() : memref<32x32xf32, 2>
+    %60 = adf.buffer.create @L1_L1_A_22() : memref<32x32xf32, 2>
+    %61 = adf.buffer.create @L1_L1_B_22() : memref<32x32xf32, 2>
+    %62 = adf.buffer.create @L1_L1_C_22() : memref<32x32xf32, 2>
+    %63 = adf.buffer.create @L1_L1_A_23() : memref<32x32xf32, 2>
+    %64 = adf.buffer.create @L1_L1_B_23() : memref<32x32xf32, 2>
+    %65 = adf.buffer.create @L1_L1_C_23() : memref<32x32xf32, 2>
+    %66 = adf.buffer.create @L1_L1_A_24() : memref<32x32xf32, 2>
+    %67 = adf.buffer.create @L1_L1_B_24() : memref<32x32xf32, 2>
+    %68 = adf.buffer.create @L1_L1_A_25() : memref<32x32xf32, 2>
+    %69 = adf.buffer.create @L1_L1_B_25() : memref<32x32xf32, 2>
+    %70 = adf.buffer.create @L1_L1_C_25() : memref<32x32xf32, 2>
+    %71 = adf.buffer.create @L1_L1_A_26() : memref<32x32xf32, 2>
+    %72 = adf.buffer.create @L1_L1_B_26() : memref<32x32xf32, 2>
+    %73 = adf.buffer.create @L1_L1_C_26() : memref<32x32xf32, 2>
+    %74 = adf.buffer.create @L1_L1_A_27() : memref<32x32xf32, 2>
+    %75 = adf.buffer.create @L1_L1_B_27() : memref<32x32xf32, 2>
+    %76 = adf.buffer.create @L1_L1_C_27() : memref<32x32xf32, 2>
+    %77 = adf.buffer.create @L1_L1_A_28() : memref<32x32xf32, 2>
+    %78 = adf.buffer.create @L1_L1_B_28() : memref<32x32xf32, 2>
+    %79 = adf.buffer.create @L1_L1_A_29() : memref<32x32xf32, 2>
+    %80 = adf.buffer.create @L1_L1_B_29() : memref<32x32xf32, 2>
+    %81 = adf.buffer.create @L1_L1_C_29() : memref<32x32xf32, 2>
+    %82 = adf.buffer.create @L1_L1_A_30() : memref<32x32xf32, 2>
+    %83 = adf.buffer.create @L1_L1_B_30() : memref<32x32xf32, 2>
+    %84 = adf.buffer.create @L1_L1_C_30() : memref<32x32xf32, 2>
+    %85 = adf.buffer.create @L1_L1_A_31() : memref<32x32xf32, 2>
+    %86 = adf.buffer.create @L1_L1_B_31() : memref<32x32xf32, 2>
+    %87 = adf.buffer.create @L1_L1_C_31() : memref<32x32xf32, 2>
+    %88 = adf.buffer.create @L1_L1_A_32() : memref<32x32xf32, 2>
+    %89 = adf.buffer.create @L1_L1_B_32() : memref<32x32xf32, 2>
+    %90 = adf.buffer.create @L1_L1_A_33() : memref<32x32xf32, 2>
+    %91 = adf.buffer.create @L1_L1_B_33() : memref<32x32xf32, 2>
+    %92 = adf.buffer.create @L1_L1_C_33() : memref<32x32xf32, 2>
+    %93 = adf.buffer.create @L1_L1_A_34() : memref<32x32xf32, 2>
+    %94 = adf.buffer.create @L1_L1_B_34() : memref<32x32xf32, 2>
+    %95 = adf.buffer.create @L1_L1_C_34() : memref<32x32xf32, 2>
+    %96 = adf.buffer.create @L1_L1_A_35() : memref<32x32xf32, 2>
+    %97 = adf.buffer.create @L1_L1_B_35() : memref<32x32xf32, 2>
+    %98 = adf.buffer.create @L1_L1_C_35() : memref<32x32xf32, 2>
+    %99 = adf.buffer.create @L1_L1_A_36() : memref<32x32xf32, 2>
+    %100 = adf.buffer.create @L1_L1_B_36() : memref<32x32xf32, 2>
+    %101 = adf.buffer.create @L1_L1_A_37() : memref<32x32xf32, 2>
+    %102 = adf.buffer.create @L1_L1_B_37() : memref<32x32xf32, 2>
+    %103 = adf.buffer.create @L1_L1_C_37() : memref<32x32xf32, 2>
+    %104 = adf.buffer.create @L1_L1_A_38() : memref<32x32xf32, 2>
+    %105 = adf.buffer.create @L1_L1_B_38() : memref<32x32xf32, 2>
+    %106 = adf.buffer.create @L1_L1_C_38() : memref<32x32xf32, 2>
+    %107 = adf.buffer.create @L1_L1_A_39() : memref<32x32xf32, 2>
+    %108 = adf.buffer.create @L1_L1_B_39() : memref<32x32xf32, 2>
+    %109 = adf.buffer.create @L1_L1_C_39() : memref<32x32xf32, 2>
+    %110 = adf.buffer.create @L1_L1_A_40() : memref<32x32xf32, 2>
+    %111 = adf.buffer.create @L1_L1_B_40() : memref<32x32xf32, 2>
+    %112 = adf.buffer.create @L1_L1_A_41() : memref<32x32xf32, 2>
+    %113 = adf.buffer.create @L1_L1_B_41() : memref<32x32xf32, 2>
+    %114 = adf.buffer.create @L1_L1_C_41() : memref<32x32xf32, 2>
+    %115 = adf.buffer.create @L1_L1_A_42() : memref<32x32xf32, 2>
+    %116 = adf.buffer.create @L1_L1_B_42() : memref<32x32xf32, 2>
+    %117 = adf.buffer.create @L1_L1_C_42() : memref<32x32xf32, 2>
+    %118 = adf.buffer.create @L1_L1_A_43() : memref<32x32xf32, 2>
+    %119 = adf.buffer.create @L1_L1_B_43() : memref<32x32xf32, 2>
+    %120 = adf.buffer.create @L1_L1_C_43() : memref<32x32xf32, 2>
+    %121 = adf.buffer.create @L1_L1_A_44() : memref<32x32xf32, 2>
+    %122 = adf.buffer.create @L1_L1_B_44() : memref<32x32xf32, 2>
+    %123 = adf.buffer.create @L1_L1_A_45() : memref<32x32xf32, 2>
+    %124 = adf.buffer.create @L1_L1_B_45() : memref<32x32xf32, 2>
+    %125 = adf.buffer.create @L1_L1_C_45() : memref<32x32xf32, 2>
+    %126 = adf.buffer.create @L1_L1_A_46() : memref<32x32xf32, 2>
+    %127 = adf.buffer.create @L1_L1_B_46() : memref<32x32xf32, 2>
+    %128 = adf.buffer.create @L1_L1_C_46() : memref<32x32xf32, 2>
+    %129 = adf.buffer.create @L1_L1_A_47() : memref<32x32xf32, 2>
+    %130 = adf.buffer.create @L1_L1_B_47() : memref<32x32xf32, 2>
+    %131 = adf.buffer.create @L1_L1_C_47() : memref<32x32xf32, 2>
+    %132 = adf.buffer.create @L1_L1_A_48() : memref<32x32xf32, 2>
+    %133 = adf.buffer.create @L1_L1_B_48() : memref<32x32xf32, 2>
+    %134 = adf.buffer.create @L1_L1_A_49() : memref<32x32xf32, 2>
+    %135 = adf.buffer.create @L1_L1_B_49() : memref<32x32xf32, 2>
+    %136 = adf.buffer.create @L1_L1_C_49() : memref<32x32xf32, 2>
+    %137 = adf.buffer.create @L1_L1_A_50() : memref<32x32xf32, 2>
+    %138 = adf.buffer.create @L1_L1_B_50() : memref<32x32xf32, 2>
+    %139 = adf.buffer.create @L1_L1_C_50() : memref<32x32xf32, 2>
+    %140 = adf.buffer.create @L1_L1_A_51() : memref<32x32xf32, 2>
+    %141 = adf.buffer.create @L1_L1_B_51() : memref<32x32xf32, 2>
+    %142 = adf.buffer.create @L1_L1_C_51() : memref<32x32xf32, 2>
+    %143 = adf.buffer.create @L1_L1_A_52() : memref<32x32xf32, 2>
+    %144 = adf.buffer.create @L1_L1_B_52() : memref<32x32xf32, 2>
+    %145 = adf.buffer.create @L1_L1_A_53() : memref<32x32xf32, 2>
+    %146 = adf.buffer.create @L1_L1_B_53() : memref<32x32xf32, 2>
+    %147 = adf.buffer.create @L1_L1_C_53() : memref<32x32xf32, 2>
+    %148 = adf.buffer.create @L1_L1_A_54() : memref<32x32xf32, 2>
+    %149 = adf.buffer.create @L1_L1_B_54() : memref<32x32xf32, 2>
+    %150 = adf.buffer.create @L1_L1_C_54() : memref<32x32xf32, 2>
+    %151 = adf.buffer.create @L1_L1_A_55() : memref<32x32xf32, 2>
+    %152 = adf.buffer.create @L1_L1_B_55() : memref<32x32xf32, 2>
+    %153 = adf.buffer.create @L1_L1_C_55() : memref<32x32xf32, 2>
+    %154 = adf.buffer.create @L1_L1_A_56() : memref<32x32xf32, 2>
+    %155 = adf.buffer.create @L1_L1_B_56() : memref<32x32xf32, 2>
+    %156 = adf.buffer.create @L1_L1_A_57() : memref<32x32xf32, 2>
+    %157 = adf.buffer.create @L1_L1_B_57() : memref<32x32xf32, 2>
+    %158 = adf.buffer.create @L1_L1_C_57() : memref<32x32xf32, 2>
+    %159 = adf.buffer.create @L1_L1_A_58() : memref<32x32xf32, 2>
+    %160 = adf.buffer.create @L1_L1_B_58() : memref<32x32xf32, 2>
+    %161 = adf.buffer.create @L1_L1_C_58() : memref<32x32xf32, 2>
+    %162 = adf.buffer.create @L1_L1_A_59() : memref<32x32xf32, 2>
+    %163 = adf.buffer.create @L1_L1_B_59() : memref<32x32xf32, 2>
+    %164 = adf.buffer.create @L1_L1_C_59() : memref<32x32xf32, 2>
+    %165 = adf.buffer.create @L1_L1_A_60() : memref<32x32xf32, 2>
+    %166 = adf.buffer.create @L1_L1_B_60() : memref<32x32xf32, 2>
+    %167 = adf.buffer.create @L1_L1_A_61() : memref<32x32xf32, 2>
+    %168 = adf.buffer.create @L1_L1_B_61() : memref<32x32xf32, 2>
+    %169 = adf.buffer.create @L1_L1_C_61() : memref<32x32xf32, 2>
+    %170 = adf.buffer.create @L1_L1_A_62() : memref<32x32xf32, 2>
+    %171 = adf.buffer.create @L1_L1_B_62() : memref<32x32xf32, 2>
+    %172 = adf.buffer.create @L1_L1_C_62() : memref<32x32xf32, 2>
+    %173 = adf.buffer.create @L1_L1_A_63() : memref<32x32xf32, 2>
+    %174 = adf.buffer.create @L1_L1_B_63() : memref<32x32xf32, 2>
+    %175 = adf.buffer.create @L1_L1_C_63() : memref<32x32xf32, 2>
+    %176 = adf.buffer.create @L1_L1_A_64() : memref<32x32xf32, 2>
+    %177 = adf.buffer.create @L1_L1_B_64() : memref<32x32xf32, 2>
+    %178 = adf.buffer.create @L1_L1_A_65() : memref<32x32xf32, 2>
+    %179 = adf.buffer.create @L1_L1_B_65() : memref<32x32xf32, 2>
+    %180 = adf.buffer.create @L1_L1_C_65() : memref<32x32xf32, 2>
+    %181 = adf.buffer.create @L1_L1_A_66() : memref<32x32xf32, 2>
+    %182 = adf.buffer.create @L1_L1_B_66() : memref<32x32xf32, 2>
+    %183 = adf.buffer.create @L1_L1_C_66() : memref<32x32xf32, 2>
+    %184 = adf.buffer.create @L1_L1_A_67() : memref<32x32xf32, 2>
+    %185 = adf.buffer.create @L1_L1_B_67() : memref<32x32xf32, 2>
+    %186 = adf.buffer.create @L1_L1_C_67() : memref<32x32xf32, 2>
+    %187 = adf.buffer.create @L1_L1_A_68() : memref<32x32xf32, 2>
+    %188 = adf.buffer.create @L1_L1_B_68() : memref<32x32xf32, 2>
+    %189 = adf.buffer.create @L1_L1_A_69() : memref<32x32xf32, 2>
+    %190 = adf.buffer.create @L1_L1_B_69() : memref<32x32xf32, 2>
+    %191 = adf.buffer.create @L1_L1_C_69() : memref<32x32xf32, 2>
+    %192 = adf.buffer.create @L1_L1_A_70() : memref<32x32xf32, 2>
+    %193 = adf.buffer.create @L1_L1_B_70() : memref<32x32xf32, 2>
+    %194 = adf.buffer.create @L1_L1_C_70() : memref<32x32xf32, 2>
+    %195 = adf.buffer.create @L1_L1_A_71() : memref<32x32xf32, 2>
+    %196 = adf.buffer.create @L1_L1_B_71() : memref<32x32xf32, 2>
+    %197 = adf.buffer.create @L1_L1_C_71() : memref<32x32xf32, 2>
+    %198 = adf.buffer.create @L1_L1_A_72() : memref<32x32xf32, 2>
+    %199 = adf.buffer.create @L1_L1_B_72() : memref<32x32xf32, 2>
+    %200 = adf.buffer.create @L1_L1_A_73() : memref<32x32xf32, 2>
+    %201 = adf.buffer.create @L1_L1_B_73() : memref<32x32xf32, 2>
+    %202 = adf.buffer.create @L1_L1_C_73() : memref<32x32xf32, 2>
+    %203 = adf.buffer.create @L1_L1_A_74() : memref<32x32xf32, 2>
+    %204 = adf.buffer.create @L1_L1_B_74() : memref<32x32xf32, 2>
+    %205 = adf.buffer.create @L1_L1_C_74() : memref<32x32xf32, 2>
+    %206 = adf.buffer.create @L1_L1_A_75() : memref<32x32xf32, 2>
+    %207 = adf.buffer.create @L1_L1_B_75() : memref<32x32xf32, 2>
+    %208 = adf.buffer.create @L1_L1_C_75() : memref<32x32xf32, 2>
+    %209 = adf.buffer.create @L1_L1_A_76() : memref<32x32xf32, 2>
+    %210 = adf.buffer.create @L1_L1_B_76() : memref<32x32xf32, 2>
+    %211 = adf.buffer.create @L1_L1_A_77() : memref<32x32xf32, 2>
+    %212 = adf.buffer.create @L1_L1_B_77() : memref<32x32xf32, 2>
+    %213 = adf.buffer.create @L1_L1_C_77() : memref<32x32xf32, 2>
+    %214 = adf.buffer.create @L1_L1_A_78() : memref<32x32xf32, 2>
+    %215 = adf.buffer.create @L1_L1_B_78() : memref<32x32xf32, 2>
+    %216 = adf.buffer.create @L1_L1_C_78() : memref<32x32xf32, 2>
+    %217 = adf.buffer.create @L1_L1_A_79() : memref<32x32xf32, 2>
+    %218 = adf.buffer.create @L1_L1_B_79() : memref<32x32xf32, 2>
+    %219 = adf.buffer.create @L1_L1_C_79() : memref<32x32xf32, 2>
+    %220 = adf.buffer.create @L1_L1_A_80() : memref<32x32xf32, 2>
+    %221 = adf.buffer.create @L1_L1_B_80() : memref<32x32xf32, 2>
+    %222 = adf.buffer.create @L1_L1_A_81() : memref<32x32xf32, 2>
+    %223 = adf.buffer.create @L1_L1_B_81() : memref<32x32xf32, 2>
+    %224 = adf.buffer.create @L1_L1_C_81() : memref<32x32xf32, 2>
+    %225 = adf.buffer.create @L1_L1_A_82() : memref<32x32xf32, 2>
+    %226 = adf.buffer.create @L1_L1_B_82() : memref<32x32xf32, 2>
+    %227 = adf.buffer.create @L1_L1_C_82() : memref<32x32xf32, 2>
+    %228 = adf.buffer.create @L1_L1_A_83() : memref<32x32xf32, 2>
+    %229 = adf.buffer.create @L1_L1_B_83() : memref<32x32xf32, 2>
+    %230 = adf.buffer.create @L1_L1_C_83() : memref<32x32xf32, 2>
+    %231 = adf.buffer.create @L1_L1_A_84() : memref<32x32xf32, 2>
+    %232 = adf.buffer.create @L1_L1_B_84() : memref<32x32xf32, 2>
+    %233 = adf.buffer.create @L1_L1_A_85() : memref<32x32xf32, 2>
+    %234 = adf.buffer.create @L1_L1_B_85() : memref<32x32xf32, 2>
+    %235 = adf.buffer.create @L1_L1_C_85() : memref<32x32xf32, 2>
+    %236 = adf.buffer.create @L1_L1_A_86() : memref<32x32xf32, 2>
+    %237 = adf.buffer.create @L1_L1_B_86() : memref<32x32xf32, 2>
+    %238 = adf.buffer.create @L1_L1_C_86() : memref<32x32xf32, 2>
+    %239 = adf.buffer.create @L1_L1_A_87() : memref<32x32xf32, 2>
+    %240 = adf.buffer.create @L1_L1_B_87() : memref<32x32xf32, 2>
+    %241 = adf.buffer.create @L1_L1_C_87() : memref<32x32xf32, 2>
+    %242 = adf.buffer.create @L1_L1_A_88() : memref<32x32xf32, 2>
+    %243 = adf.buffer.create @L1_L1_B_88() : memref<32x32xf32, 2>
+    %244 = adf.buffer.create @L1_L1_A_89() : memref<32x32xf32, 2>
+    %245 = adf.buffer.create @L1_L1_B_89() : memref<32x32xf32, 2>
+    %246 = adf.buffer.create @L1_L1_C_89() : memref<32x32xf32, 2>
+    %247 = adf.buffer.create @L1_L1_A_90() : memref<32x32xf32, 2>
+    %248 = adf.buffer.create @L1_L1_B_90() : memref<32x32xf32, 2>
+    %249 = adf.buffer.create @L1_L1_C_90() : memref<32x32xf32, 2>
+    %250 = adf.buffer.create @L1_L1_A_91() : memref<32x32xf32, 2>
+    %251 = adf.buffer.create @L1_L1_B_91() : memref<32x32xf32, 2>
+    %252 = adf.buffer.create @L1_L1_C_91() : memref<32x32xf32, 2>
+    %253 = adf.buffer.create @L1_L1_A_92() : memref<32x32xf32, 2>
+    %254 = adf.buffer.create @L1_L1_B_92() : memref<32x32xf32, 2>
+    %255 = adf.buffer.create @L1_L1_A_93() : memref<32x32xf32, 2>
+    %256 = adf.buffer.create @L1_L1_B_93() : memref<32x32xf32, 2>
+    %257 = adf.buffer.create @L1_L1_C_93() : memref<32x32xf32, 2>
+    %258 = adf.buffer.create @L1_L1_A_94() : memref<32x32xf32, 2>
+    %259 = adf.buffer.create @L1_L1_B_94() : memref<32x32xf32, 2>
+    %260 = adf.buffer.create @L1_L1_C_94() : memref<32x32xf32, 2>
+    %261 = adf.buffer.create @L1_L1_A_95() : memref<32x32xf32, 2>
+    %262 = adf.buffer.create @L1_L1_B_95() : memref<32x32xf32, 2>
+    %263 = adf.buffer.create @L1_L1_C_95() : memref<32x32xf32, 2>
+    %264 = adf.buffer.create @L1_L1_A_96() : memref<32x32xf32, 2>
+    %265 = adf.buffer.create @L1_L1_B_96() : memref<32x32xf32, 2>
+    %266 = adf.buffer.create @L1_L1_A_97() : memref<32x32xf32, 2>
+    %267 = adf.buffer.create @L1_L1_B_97() : memref<32x32xf32, 2>
+    %268 = adf.buffer.create @L1_L1_C_97() : memref<32x32xf32, 2>
+    %269 = adf.buffer.create @L1_L1_A_98() : memref<32x32xf32, 2>
+    %270 = adf.buffer.create @L1_L1_B_98() : memref<32x32xf32, 2>
+    %271 = adf.buffer.create @L1_L1_C_98() : memref<32x32xf32, 2>
+    %272 = adf.buffer.create @L1_L1_A_99() : memref<32x32xf32, 2>
+    %273 = adf.buffer.create @L1_L1_B_99() : memref<32x32xf32, 2>
+    %274 = adf.buffer.create @L1_L1_C_99() : memref<32x32xf32, 2>
+    %275 = adf.buffer.create @L1_L1_A_100() : memref<32x32xf32, 2>
+    %276 = adf.buffer.create @L1_L1_B_100() : memref<32x32xf32, 2>
+    %277 = adf.buffer.create @L1_L1_A_101() : memref<32x32xf32, 2>
+    %278 = adf.buffer.create @L1_L1_B_101() : memref<32x32xf32, 2>
+    %279 = adf.buffer.create @L1_L1_C_101() : memref<32x32xf32, 2>
+    %280 = adf.buffer.create @L1_L1_A_102() : memref<32x32xf32, 2>
+    %281 = adf.buffer.create @L1_L1_B_102() : memref<32x32xf32, 2>
+    %282 = adf.buffer.create @L1_L1_C_102() : memref<32x32xf32, 2>
+    %283 = adf.buffer.create @L1_L1_A_103() : memref<32x32xf32, 2>
+    %284 = adf.buffer.create @L1_L1_B_103() : memref<32x32xf32, 2>
+    %285 = adf.buffer.create @L1_L1_C_103() : memref<32x32xf32, 2>
+    %286 = adf.buffer.create @L1_L1_A_104() : memref<32x32xf32, 2>
+    %287 = adf.buffer.create @L1_L1_B_104() : memref<32x32xf32, 2>
+    %288 = adf.buffer.create @L1_L1_A_105() : memref<32x32xf32, 2>
+    %289 = adf.buffer.create @L1_L1_B_105() : memref<32x32xf32, 2>
+    %290 = adf.buffer.create @L1_L1_C_105() : memref<32x32xf32, 2>
+    %291 = adf.buffer.create @L1_L1_A_106() : memref<32x32xf32, 2>
+    %292 = adf.buffer.create @L1_L1_B_106() : memref<32x32xf32, 2>
+    %293 = adf.buffer.create @L1_L1_C_106() : memref<32x32xf32, 2>
+    %294 = adf.buffer.create @L1_L1_A_107() : memref<32x32xf32, 2>
+    %295 = adf.buffer.create @L1_L1_B_107() : memref<32x32xf32, 2>
+    %296 = adf.buffer.create @L1_L1_C_107() : memref<32x32xf32, 2>
+    %297 = adf.buffer.create @L1_L1_A_108() : memref<32x32xf32, 2>
+    %298 = adf.buffer.create @L1_L1_B_108() : memref<32x32xf32, 2>
+    %299 = adf.buffer.create @L1_L1_A_109() : memref<32x32xf32, 2>
+    %300 = adf.buffer.create @L1_L1_B_109() : memref<32x32xf32, 2>
+    %301 = adf.buffer.create @L1_L1_C_109() : memref<32x32xf32, 2>
+    %302 = adf.buffer.create @L1_L1_A_110() : memref<32x32xf32, 2>
+    %303 = adf.buffer.create @L1_L1_B_110() : memref<32x32xf32, 2>
+    %304 = adf.buffer.create @L1_L1_C_110() : memref<32x32xf32, 2>
+    %305 = adf.buffer.create @L1_L1_A_111() : memref<32x32xf32, 2>
+    %306 = adf.buffer.create @L1_L1_B_111() : memref<32x32xf32, 2>
+    %307 = adf.buffer.create @L1_L1_C_111() : memref<32x32xf32, 2>
+    %308 = adf.buffer.create @L1_L1_A_112() : memref<32x32xf32, 2>
+    %309 = adf.buffer.create @L1_L1_B_112() : memref<32x32xf32, 2>
+    %310 = adf.buffer.create @L1_L1_A_113() : memref<32x32xf32, 2>
+    %311 = adf.buffer.create @L1_L1_B_113() : memref<32x32xf32, 2>
+    %312 = adf.buffer.create @L1_L1_C_113() : memref<32x32xf32, 2>
+    %313 = adf.buffer.create @L1_L1_A_114() : memref<32x32xf32, 2>
+    %314 = adf.buffer.create @L1_L1_B_114() : memref<32x32xf32, 2>
+    %315 = adf.buffer.create @L1_L1_C_114() : memref<32x32xf32, 2>
+    %316 = adf.buffer.create @L1_L1_A_115() : memref<32x32xf32, 2>
+    %317 = adf.buffer.create @L1_L1_B_115() : memref<32x32xf32, 2>
+    %318 = adf.buffer.create @L1_L1_C_115() : memref<32x32xf32, 2>
+    %319 = adf.buffer.create @L1_L1_A_116() : memref<32x32xf32, 2>
+    %320 = adf.buffer.create @L1_L1_B_116() : memref<32x32xf32, 2>
+    %321 = adf.buffer.create @L1_L1_A_117() : memref<32x32xf32, 2>
+    %322 = adf.buffer.create @L1_L1_B_117() : memref<32x32xf32, 2>
+    %323 = adf.buffer.create @L1_L1_C_117() : memref<32x32xf32, 2>
+    %324 = adf.buffer.create @L1_L1_A_118() : memref<32x32xf32, 2>
+    %325 = adf.buffer.create @L1_L1_B_118() : memref<32x32xf32, 2>
+    %326 = adf.buffer.create @L1_L1_C_118() : memref<32x32xf32, 2>
+    %327 = adf.buffer.create @L1_L1_A_119() : memref<32x32xf32, 2>
+    %328 = adf.buffer.create @L1_L1_B_119() : memref<32x32xf32, 2>
+    %329 = adf.buffer.create @L1_L1_C_119() : memref<32x32xf32, 2>
+    %330 = adf.buffer.create @L1_L1_A_120() : memref<32x32xf32, 2>
+    %331 = adf.buffer.create @L1_L1_B_120() : memref<32x32xf32, 2>
+    %332 = adf.buffer.create @L1_L1_A_121() : memref<32x32xf32, 2>
+    %333 = adf.buffer.create @L1_L1_B_121() : memref<32x32xf32, 2>
+    %334 = adf.buffer.create @L1_L1_C_121() : memref<32x32xf32, 2>
+    %335 = adf.buffer.create @L1_L1_A_122() : memref<32x32xf32, 2>
+    %336 = adf.buffer.create @L1_L1_B_122() : memref<32x32xf32, 2>
+    %337 = adf.buffer.create @L1_L1_C_122() : memref<32x32xf32, 2>
+    %338 = adf.buffer.create @L1_L1_A_123() : memref<32x32xf32, 2>
+    %339 = adf.buffer.create @L1_L1_B_123() : memref<32x32xf32, 2>
+    %340 = adf.buffer.create @L1_L1_C_123() : memref<32x32xf32, 2>
+    %341 = adf.buffer.create @L1_L1_A_124() : memref<32x32xf32, 2>
+    %342 = adf.buffer.create @L1_L1_B_124() : memref<32x32xf32, 2>
+    %343 = adf.buffer.create @L1_L1_A_125() : memref<32x32xf32, 2>
+    %344 = adf.buffer.create @L1_L1_B_125() : memref<32x32xf32, 2>
+    %345 = adf.buffer.create @L1_L1_C_125() : memref<32x32xf32, 2>
+    %346 = adf.buffer.create @L1_L1_A_126() : memref<32x32xf32, 2>
+    %347 = adf.buffer.create @L1_L1_B_126() : memref<32x32xf32, 2>
+    %348 = adf.buffer.create @L1_L1_C_126() : memref<32x32xf32, 2>
+    %349 = adf.buffer.create @L1_L1_A_127() : memref<32x32xf32, 2>
+    %350 = adf.buffer.create @L1_L1_B_127() : memref<32x32xf32, 2>
+    %351 = adf.buffer.create @L1_L1_C_127() : memref<32x32xf32, 2>
+    %352 = adf.buffer.create @L1_L1_A_128() : memref<32x32xf32, 2>
+    %353 = adf.buffer.create @L1_L1_B_128() : memref<32x32xf32, 2>
+    %354 = adf.buffer.create @L1_L1_A_129() : memref<32x32xf32, 2>
+    %355 = adf.buffer.create @L1_L1_B_129() : memref<32x32xf32, 2>
+    %356 = adf.buffer.create @L1_L1_C_129() : memref<32x32xf32, 2>
+    %357 = adf.buffer.create @L1_L1_A_130() : memref<32x32xf32, 2>
+    %358 = adf.buffer.create @L1_L1_B_130() : memref<32x32xf32, 2>
+    %359 = adf.buffer.create @L1_L1_C_130() : memref<32x32xf32, 2>
+    %360 = adf.buffer.create @L1_L1_A_131() : memref<32x32xf32, 2>
+    %361 = adf.buffer.create @L1_L1_B_131() : memref<32x32xf32, 2>
+    %362 = adf.buffer.create @L1_L1_C_131() : memref<32x32xf32, 2>
+    %363 = adf.buffer.create @L1_L1_A_132() : memref<32x32xf32, 2>
+    %364 = adf.buffer.create @L1_L1_B_132() : memref<32x32xf32, 2>
+    %365 = adf.buffer.create @L1_L1_A_133() : memref<32x32xf32, 2>
+    %366 = adf.buffer.create @L1_L1_B_133() : memref<32x32xf32, 2>
+    %367 = adf.buffer.create @L1_L1_C_133() : memref<32x32xf32, 2>
+    %368 = adf.buffer.create @L1_L1_A_134() : memref<32x32xf32, 2>
+    %369 = adf.buffer.create @L1_L1_B_134() : memref<32x32xf32, 2>
+    %370 = adf.buffer.create @L1_L1_C_134() : memref<32x32xf32, 2>
+    %371 = adf.buffer.create @L1_L1_A_135() : memref<32x32xf32, 2>
+    %372 = adf.buffer.create @L1_L1_B_135() : memref<32x32xf32, 2>
+    %373 = adf.buffer.create @L1_L1_C_135() : memref<32x32xf32, 2>
+    %374 = adf.buffer.create @L1_L1_A_136() : memref<32x32xf32, 2>
+    %375 = adf.buffer.create @L1_L1_B_136() : memref<32x32xf32, 2>
+    %376 = adf.buffer.create @L1_L1_A_137() : memref<32x32xf32, 2>
+    %377 = adf.buffer.create @L1_L1_B_137() : memref<32x32xf32, 2>
+    %378 = adf.buffer.create @L1_L1_C_137() : memref<32x32xf32, 2>
+    %379 = adf.buffer.create @L1_L1_A_138() : memref<32x32xf32, 2>
+    %380 = adf.buffer.create @L1_L1_B_138() : memref<32x32xf32, 2>
+    %381 = adf.buffer.create @L1_L1_C_138() : memref<32x32xf32, 2>
+    %382 = adf.buffer.create @L1_L1_A_139() : memref<32x32xf32, 2>
+    %383 = adf.buffer.create @L1_L1_B_139() : memref<32x32xf32, 2>
+    %384 = adf.buffer.create @L1_L1_C_139() : memref<32x32xf32, 2>
+    %385 = adf.buffer.create @L1_L1_A_140() : memref<32x32xf32, 2>
+    %386 = adf.buffer.create @L1_L1_B_140() : memref<32x32xf32, 2>
+    %387 = adf.buffer.create @L1_L1_A_141() : memref<32x32xf32, 2>
+    %388 = adf.buffer.create @L1_L1_B_141() : memref<32x32xf32, 2>
+    %389 = adf.buffer.create @L1_L1_C_141() : memref<32x32xf32, 2>
+    %390 = adf.buffer.create @L1_L1_A_142() : memref<32x32xf32, 2>
+    %391 = adf.buffer.create @L1_L1_B_142() : memref<32x32xf32, 2>
+    %392 = adf.buffer.create @L1_L1_C_142() : memref<32x32xf32, 2>
+    %393 = adf.buffer.create @L1_L1_A_143() : memref<32x32xf32, 2>
+    %394 = adf.buffer.create @L1_L1_B_143() : memref<32x32xf32, 2>
+    %395 = adf.buffer.create @L1_L1_C_143() : memref<32x32xf32, 2>
+    %396 = adf.buffer.create @L1_L1_A_144() : memref<32x32xf32, 2>
+    %397 = adf.buffer.create @L1_L1_B_144() : memref<32x32xf32, 2>
+    %398 = adf.buffer.create @L1_L1_A_145() : memref<32x32xf32, 2>
+    %399 = adf.buffer.create @L1_L1_B_145() : memref<32x32xf32, 2>
+    %400 = adf.buffer.create @L1_L1_C_145() : memref<32x32xf32, 2>
+    %401 = adf.buffer.create @L1_L1_A_146() : memref<32x32xf32, 2>
+    %402 = adf.buffer.create @L1_L1_B_146() : memref<32x32xf32, 2>
+    %403 = adf.buffer.create @L1_L1_C_146() : memref<32x32xf32, 2>
+    %404 = adf.buffer.create @L1_L1_A_147() : memref<32x32xf32, 2>
+    %405 = adf.buffer.create @L1_L1_B_147() : memref<32x32xf32, 2>
+    %406 = adf.buffer.create @L1_L1_C_147() : memref<32x32xf32, 2>
+    %407 = adf.buffer.create @L1_L1_A_148() : memref<32x32xf32, 2>
+    %408 = adf.buffer.create @L1_L1_B_148() : memref<32x32xf32, 2>
+    %409 = adf.buffer.create @L1_L1_A_149() : memref<32x32xf32, 2>
+    %410 = adf.buffer.create @L1_L1_B_149() : memref<32x32xf32, 2>
+    %411 = adf.buffer.create @L1_L1_C_149() : memref<32x32xf32, 2>
+    %412 = adf.buffer.create @L1_L1_A_150() : memref<32x32xf32, 2>
+    %413 = adf.buffer.create @L1_L1_B_150() : memref<32x32xf32, 2>
+    %414 = adf.buffer.create @L1_L1_C_150() : memref<32x32xf32, 2>
+    %415 = adf.buffer.create @L1_L1_A_151() : memref<32x32xf32, 2>
+    %416 = adf.buffer.create @L1_L1_B_151() : memref<32x32xf32, 2>
+    %417 = adf.buffer.create @L1_L1_C_151() : memref<32x32xf32, 2>
+    %418 = adf.buffer.create @L1_L1_A_152() : memref<32x32xf32, 2>
+    %419 = adf.buffer.create @L1_L1_B_152() : memref<32x32xf32, 2>
+    %420 = adf.buffer.create @L1_L1_A_153() : memref<32x32xf32, 2>
+    %421 = adf.buffer.create @L1_L1_B_153() : memref<32x32xf32, 2>
+    %422 = adf.buffer.create @L1_L1_C_153() : memref<32x32xf32, 2>
+    %423 = adf.buffer.create @L1_L1_A_154() : memref<32x32xf32, 2>
+    %424 = adf.buffer.create @L1_L1_B_154() : memref<32x32xf32, 2>
+    %425 = adf.buffer.create @L1_L1_C_154() : memref<32x32xf32, 2>
+    %426 = adf.buffer.create @L1_L1_A_155() : memref<32x32xf32, 2>
+    %427 = adf.buffer.create @L1_L1_B_155() : memref<32x32xf32, 2>
+    %428 = adf.buffer.create @L1_L1_C_155() : memref<32x32xf32, 2>
+    %429 = adf.buffer.create @L1_L1_A_156() : memref<32x32xf32, 2>
+    %430 = adf.buffer.create @L1_L1_B_156() : memref<32x32xf32, 2>
+    %431 = adf.buffer.create @L1_L1_A_157() : memref<32x32xf32, 2>
+    %432 = adf.buffer.create @L1_L1_B_157() : memref<32x32xf32, 2>
+    %433 = adf.buffer.create @L1_L1_C_157() : memref<32x32xf32, 2>
+    %434 = adf.buffer.create @L1_L1_A_158() : memref<32x32xf32, 2>
+    %435 = adf.buffer.create @L1_L1_B_158() : memref<32x32xf32, 2>
+    %436 = adf.buffer.create @L1_L1_C_158() : memref<32x32xf32, 2>
+    %437 = adf.buffer.create @L1_L1_A_159() : memref<32x32xf32, 2>
+    %438 = adf.buffer.create @L1_L1_B_159() : memref<32x32xf32, 2>
+    %439 = adf.buffer.create @L1_L1_C_159() : memref<32x32xf32, 2>
+    %440 = adf.buffer.create @L1_L1_A_160() : memref<32x32xf32, 2>
+    %441 = adf.buffer.create @L1_L1_B_160() : memref<32x32xf32, 2>
+    %442 = adf.buffer.create @L1_L1_A_161() : memref<32x32xf32, 2>
+    %443 = adf.buffer.create @L1_L1_B_161() : memref<32x32xf32, 2>
+    %444 = adf.buffer.create @L1_L1_C_161() : memref<32x32xf32, 2>
+    %445 = adf.buffer.create @L1_L1_A_162() : memref<32x32xf32, 2>
+    %446 = adf.buffer.create @L1_L1_B_162() : memref<32x32xf32, 2>
+    %447 = adf.buffer.create @L1_L1_C_162() : memref<32x32xf32, 2>
+    %448 = adf.buffer.create @L1_L1_A_163() : memref<32x32xf32, 2>
+    %449 = adf.buffer.create @L1_L1_B_163() : memref<32x32xf32, 2>
+    %450 = adf.buffer.create @L1_L1_C_163() : memref<32x32xf32, 2>
+    %451 = adf.buffer.create @L1_L1_A_164() : memref<32x32xf32, 2>
+    %452 = adf.buffer.create @L1_L1_B_164() : memref<32x32xf32, 2>
+    %453 = adf.buffer.create @L1_L1_A_165() : memref<32x32xf32, 2>
+    %454 = adf.buffer.create @L1_L1_B_165() : memref<32x32xf32, 2>
+    %455 = adf.buffer.create @L1_L1_C_165() : memref<32x32xf32, 2>
+    %456 = adf.buffer.create @L1_L1_A_166() : memref<32x32xf32, 2>
+    %457 = adf.buffer.create @L1_L1_B_166() : memref<32x32xf32, 2>
+    %458 = adf.buffer.create @L1_L1_C_166() : memref<32x32xf32, 2>
+    %459 = adf.buffer.create @L1_L1_A_167() : memref<32x32xf32, 2>
+    %460 = adf.buffer.create @L1_L1_B_167() : memref<32x32xf32, 2>
+    %461 = adf.buffer.create @L1_L1_C_167() : memref<32x32xf32, 2>
+    %462 = adf.buffer.create @L1_L1_A_168() : memref<32x32xf32, 2>
+    %463 = adf.buffer.create @L1_L1_B_168() : memref<32x32xf32, 2>
+    %464 = adf.buffer.create @L1_L1_A_169() : memref<32x32xf32, 2>
+    %465 = adf.buffer.create @L1_L1_B_169() : memref<32x32xf32, 2>
+    %466 = adf.buffer.create @L1_L1_C_169() : memref<32x32xf32, 2>
+    %467 = adf.buffer.create @L1_L1_A_170() : memref<32x32xf32, 2>
+    %468 = adf.buffer.create @L1_L1_B_170() : memref<32x32xf32, 2>
+    %469 = adf.buffer.create @L1_L1_C_170() : memref<32x32xf32, 2>
+    %470 = adf.buffer.create @L1_L1_A_171() : memref<32x32xf32, 2>
+    %471 = adf.buffer.create @L1_L1_B_171() : memref<32x32xf32, 2>
+    %472 = adf.buffer.create @L1_L1_C_171() : memref<32x32xf32, 2>
+    %473 = adf.buffer.create @L1_L1_A_172() : memref<32x32xf32, 2>
+    %474 = adf.buffer.create @L1_L1_B_172() : memref<32x32xf32, 2>
+    %475 = adf.buffer.create @L1_L1_A_173() : memref<32x32xf32, 2>
+    %476 = adf.buffer.create @L1_L1_B_173() : memref<32x32xf32, 2>
+    %477 = adf.buffer.create @L1_L1_C_173() : memref<32x32xf32, 2>
+    %478 = adf.buffer.create @L1_L1_A_174() : memref<32x32xf32, 2>
+    %479 = adf.buffer.create @L1_L1_B_174() : memref<32x32xf32, 2>
+    %480 = adf.buffer.create @L1_L1_C_174() : memref<32x32xf32, 2>
+    %481 = adf.buffer.create @L1_L1_A_175() : memref<32x32xf32, 2>
+    %482 = adf.buffer.create @L1_L1_B_175() : memref<32x32xf32, 2>
+    %483 = adf.buffer.create @L1_L1_C_175() : memref<32x32xf32, 2>
+    %484 = adf.buffer.create @L1_L1_A_176() : memref<32x32xf32, 2>
+    %485 = adf.buffer.create @L1_L1_B_176() : memref<32x32xf32, 2>
+    %486 = adf.buffer.create @L1_L1_A_177() : memref<32x32xf32, 2>
+    %487 = adf.buffer.create @L1_L1_B_177() : memref<32x32xf32, 2>
+    %488 = adf.buffer.create @L1_L1_C_177() : memref<32x32xf32, 2>
+    %489 = adf.buffer.create @L1_L1_A_178() : memref<32x32xf32, 2>
+    %490 = adf.buffer.create @L1_L1_B_178() : memref<32x32xf32, 2>
+    %491 = adf.buffer.create @L1_L1_C_178() : memref<32x32xf32, 2>
+    %492 = adf.buffer.create @L1_L1_A_179() : memref<32x32xf32, 2>
+    %493 = adf.buffer.create @L1_L1_B_179() : memref<32x32xf32, 2>
+    %494 = adf.buffer.create @L1_L1_C_179() : memref<32x32xf32, 2>
+    %495 = adf.buffer.create @L1_L1_A_180() : memref<32x32xf32, 2>
+    %496 = adf.buffer.create @L1_L1_B_180() : memref<32x32xf32, 2>
+    %497 = adf.buffer.create @L1_L1_A_181() : memref<32x32xf32, 2>
+    %498 = adf.buffer.create @L1_L1_B_181() : memref<32x32xf32, 2>
+    %499 = adf.buffer.create @L1_L1_C_181() : memref<32x32xf32, 2>
+    %500 = adf.buffer.create @L1_L1_A_182() : memref<32x32xf32, 2>
+    %501 = adf.buffer.create @L1_L1_B_182() : memref<32x32xf32, 2>
+    %502 = adf.buffer.create @L1_L1_C_182() : memref<32x32xf32, 2>
+    %503 = adf.buffer.create @L1_L1_A_183() : memref<32x32xf32, 2>
+    %504 = adf.buffer.create @L1_L1_B_183() : memref<32x32xf32, 2>
+    %505 = adf.buffer.create @L1_L1_C_183() : memref<32x32xf32, 2>
+    %506 = adf.buffer.create @L1_L1_A_184() : memref<32x32xf32, 2>
+    %507 = adf.buffer.create @L1_L1_B_184() : memref<32x32xf32, 2>
+    %508 = adf.buffer.create @L1_L1_A_185() : memref<32x32xf32, 2>
+    %509 = adf.buffer.create @L1_L1_B_185() : memref<32x32xf32, 2>
+    %510 = adf.buffer.create @L1_L1_C_185() : memref<32x32xf32, 2>
+    %511 = adf.buffer.create @L1_L1_A_186() : memref<32x32xf32, 2>
+    %512 = adf.buffer.create @L1_L1_B_186() : memref<32x32xf32, 2>
+    %513 = adf.buffer.create @L1_L1_C_186() : memref<32x32xf32, 2>
+    %514 = adf.buffer.create @L1_L1_A_187() : memref<32x32xf32, 2>
+    %515 = adf.buffer.create @L1_L1_B_187() : memref<32x32xf32, 2>
+    %516 = adf.buffer.create @L1_L1_C_187() : memref<32x32xf32, 2>
+    %517 = adf.buffer.create @L1_L1_A_188() : memref<32x32xf32, 2>
+    %518 = adf.buffer.create @L1_L1_B_188() : memref<32x32xf32, 2>
+    %519 = adf.buffer.create @L1_L1_A_189() : memref<32x32xf32, 2>
+    %520 = adf.buffer.create @L1_L1_B_189() : memref<32x32xf32, 2>
+    %521 = adf.buffer.create @L1_L1_C_189() : memref<32x32xf32, 2>
+    %522 = adf.buffer.create @L1_L1_A_190() : memref<32x32xf32, 2>
+    %523 = adf.buffer.create @L1_L1_B_190() : memref<32x32xf32, 2>
+    %524 = adf.buffer.create @L1_L1_C_190() : memref<32x32xf32, 2>
+    %525 = adf.buffer.create @L1_L1_A_191() : memref<32x32xf32, 2>
+    %526 = adf.buffer.create @L1_L1_B_191() : memref<32x32xf32, 2>
+    %527 = adf.buffer.create @L1_L1_C_191() : memref<32x32xf32, 2>
+    %528 = adf.buffer.create @L1_L1_A_192() : memref<32x32xf32, 2>
+    %529 = adf.buffer.create @L1_L1_B_192() : memref<32x32xf32, 2>
+    %530 = adf.buffer.create @L1_L1_A_193() : memref<32x32xf32, 2>
+    %531 = adf.buffer.create @L1_L1_B_193() : memref<32x32xf32, 2>
+    %532 = adf.buffer.create @L1_L1_C_193() : memref<32x32xf32, 2>
+    %533 = adf.buffer.create @L1_L1_A_194() : memref<32x32xf32, 2>
+    %534 = adf.buffer.create @L1_L1_B_194() : memref<32x32xf32, 2>
+    %535 = adf.buffer.create @L1_L1_C_194() : memref<32x32xf32, 2>
+    %536 = adf.buffer.create @L1_L1_A_195() : memref<32x32xf32, 2>
+    %537 = adf.buffer.create @L1_L1_B_195() : memref<32x32xf32, 2>
+    %538 = adf.buffer.create @L1_L1_C_195() : memref<32x32xf32, 2>
+    %539 = adf.buffer.create @L1_L1_A_196() : memref<32x32xf32, 2>
+    %540 = adf.buffer.create @L1_L1_B_196() : memref<32x32xf32, 2>
+    %541 = adf.buffer.create @L1_L1_A_197() : memref<32x32xf32, 2>
+    %542 = adf.buffer.create @L1_L1_B_197() : memref<32x32xf32, 2>
+    %543 = adf.buffer.create @L1_L1_C_197() : memref<32x32xf32, 2>
+    %544 = adf.buffer.create @L1_L1_A_198() : memref<32x32xf32, 2>
+    %545 = adf.buffer.create @L1_L1_B_198() : memref<32x32xf32, 2>
+    %546 = adf.buffer.create @L1_L1_C_198() : memref<32x32xf32, 2>
+    %547 = adf.buffer.create @L1_L1_A_199() : memref<32x32xf32, 2>
+    %548 = adf.buffer.create @L1_L1_B_199() : memref<32x32xf32, 2>
+    %549 = adf.buffer.create @L1_L1_C_199() : memref<32x32xf32, 2>
+    %550 = adf.buffer.create @L1_L1_A_200() : memref<32x32xf32, 2>
+    %551 = adf.buffer.create @L1_L1_B_200() : memref<32x32xf32, 2>
+    %552 = adf.buffer.create @L1_L1_A_201() : memref<32x32xf32, 2>
+    %553 = adf.buffer.create @L1_L1_B_201() : memref<32x32xf32, 2>
+    %554 = adf.buffer.create @L1_L1_C_201() : memref<32x32xf32, 2>
+    %555 = adf.buffer.create @L1_L1_A_202() : memref<32x32xf32, 2>
+    %556 = adf.buffer.create @L1_L1_B_202() : memref<32x32xf32, 2>
+    %557 = adf.buffer.create @L1_L1_C_202() : memref<32x32xf32, 2>
+    %558 = adf.buffer.create @L1_L1_A_203() : memref<32x32xf32, 2>
+    %559 = adf.buffer.create @L1_L1_B_203() : memref<32x32xf32, 2>
+    %560 = adf.buffer.create @L1_L1_C_203() : memref<32x32xf32, 2>
+    %561 = adf.buffer.create @L1_L1_A_204() : memref<32x32xf32, 2>
+    %562 = adf.buffer.create @L1_L1_B_204() : memref<32x32xf32, 2>
+    %563 = adf.buffer.create @L1_L1_A_205() : memref<32x32xf32, 2>
+    %564 = adf.buffer.create @L1_L1_B_205() : memref<32x32xf32, 2>
+    %565 = adf.buffer.create @L1_L1_C_205() : memref<32x32xf32, 2>
+    %566 = adf.buffer.create @L1_L1_A_206() : memref<32x32xf32, 2>
+    %567 = adf.buffer.create @L1_L1_B_206() : memref<32x32xf32, 2>
+    %568 = adf.buffer.create @L1_L1_C_206() : memref<32x32xf32, 2>
+    %569 = adf.buffer.create @L1_L1_A_207() : memref<32x32xf32, 2>
+    %570 = adf.buffer.create @L1_L1_B_207() : memref<32x32xf32, 2>
+    %571 = adf.buffer.create @L1_L1_C_207() : memref<32x32xf32, 2>
+    %572 = adf.buffer.create @L1_L1_A_208() : memref<32x32xf32, 2>
+    %573 = adf.buffer.create @L1_L1_B_208() : memref<32x32xf32, 2>
+    %574 = adf.buffer.create @L1_L1_A_209() : memref<32x32xf32, 2>
+    %575 = adf.buffer.create @L1_L1_B_209() : memref<32x32xf32, 2>
+    %576 = adf.buffer.create @L1_L1_C_209() : memref<32x32xf32, 2>
+    %577 = adf.buffer.create @L1_L1_A_210() : memref<32x32xf32, 2>
+    %578 = adf.buffer.create @L1_L1_B_210() : memref<32x32xf32, 2>
+    %579 = adf.buffer.create @L1_L1_C_210() : memref<32x32xf32, 2>
+    %580 = adf.buffer.create @L1_L1_A_211() : memref<32x32xf32, 2>
+    %581 = adf.buffer.create @L1_L1_B_211() : memref<32x32xf32, 2>
+    %582 = adf.buffer.create @L1_L1_C_211() : memref<32x32xf32, 2>
+    %583 = adf.buffer.create @L1_L1_A_212() : memref<32x32xf32, 2>
+    %584 = adf.buffer.create @L1_L1_B_212() : memref<32x32xf32, 2>
+    %585 = adf.buffer.create @L1_L1_A_213() : memref<32x32xf32, 2>
+    %586 = adf.buffer.create @L1_L1_B_213() : memref<32x32xf32, 2>
+    %587 = adf.buffer.create @L1_L1_C_213() : memref<32x32xf32, 2>
+    %588 = adf.buffer.create @L1_L1_A_214() : memref<32x32xf32, 2>
+    %589 = adf.buffer.create @L1_L1_B_214() : memref<32x32xf32, 2>
+    %590 = adf.buffer.create @L1_L1_C_214() : memref<32x32xf32, 2>
+    %591 = adf.buffer.create @L1_L1_A_215() : memref<32x32xf32, 2>
+    %592 = adf.buffer.create @L1_L1_B_215() : memref<32x32xf32, 2>
+    %593 = adf.buffer.create @L1_L1_C_215() : memref<32x32xf32, 2>
+    %594 = adf.buffer.create @L1_L1_A_216() : memref<32x32xf32, 2>
+    %595 = adf.buffer.create @L1_L1_B_216() : memref<32x32xf32, 2>
+    %596 = adf.buffer.create @L1_L1_A_217() : memref<32x32xf32, 2>
+    %597 = adf.buffer.create @L1_L1_B_217() : memref<32x32xf32, 2>
+    %598 = adf.buffer.create @L1_L1_C_217() : memref<32x32xf32, 2>
+    %599 = adf.buffer.create @L1_L1_A_218() : memref<32x32xf32, 2>
+    %600 = adf.buffer.create @L1_L1_B_218() : memref<32x32xf32, 2>
+    %601 = adf.buffer.create @L1_L1_C_218() : memref<32x32xf32, 2>
+    %602 = adf.buffer.create @L1_L1_A_219() : memref<32x32xf32, 2>
+    %603 = adf.buffer.create @L1_L1_B_219() : memref<32x32xf32, 2>
+    %604 = adf.buffer.create @L1_L1_C_219() : memref<32x32xf32, 2>
+    %605 = adf.buffer.create @L1_L1_A_220() : memref<32x32xf32, 2>
+    %606 = adf.buffer.create @L1_L1_B_220() : memref<32x32xf32, 2>
+    %607 = adf.buffer.create @L1_L1_A_221() : memref<32x32xf32, 2>
+    %608 = adf.buffer.create @L1_L1_B_221() : memref<32x32xf32, 2>
+    %609 = adf.buffer.create @L1_L1_C_221() : memref<32x32xf32, 2>
+    %610 = adf.buffer.create @L1_L1_A_222() : memref<32x32xf32, 2>
+    %611 = adf.buffer.create @L1_L1_B_222() : memref<32x32xf32, 2>
+    %612 = adf.buffer.create @L1_L1_C_222() : memref<32x32xf32, 2>
+    %613 = adf.buffer.create @L1_L1_A_223() : memref<32x32xf32, 2>
+    %614 = adf.buffer.create @L1_L1_B_223() : memref<32x32xf32, 2>
+    %615 = adf.buffer.create @L1_L1_C_223() : memref<32x32xf32, 2>
+    %616 = adf.buffer.create @L1_L1_A_224() : memref<32x32xf32, 2>
+    %617 = adf.buffer.create @L1_L1_B_224() : memref<32x32xf32, 2>
+    %618 = adf.buffer.create @L1_L1_A_225() : memref<32x32xf32, 2>
+    %619 = adf.buffer.create @L1_L1_B_225() : memref<32x32xf32, 2>
+    %620 = adf.buffer.create @L1_L1_C_225() : memref<32x32xf32, 2>
+    %621 = adf.buffer.create @L1_L1_A_226() : memref<32x32xf32, 2>
+    %622 = adf.buffer.create @L1_L1_B_226() : memref<32x32xf32, 2>
+    %623 = adf.buffer.create @L1_L1_C_226() : memref<32x32xf32, 2>
+    %624 = adf.buffer.create @L1_L1_A_227() : memref<32x32xf32, 2>
+    %625 = adf.buffer.create @L1_L1_B_227() : memref<32x32xf32, 2>
+    %626 = adf.buffer.create @L1_L1_C_227() : memref<32x32xf32, 2>
+    %627 = adf.buffer.create @L1_L1_A_228() : memref<32x32xf32, 2>
+    %628 = adf.buffer.create @L1_L1_B_228() : memref<32x32xf32, 2>
+    %629 = adf.buffer.create @L1_L1_A_229() : memref<32x32xf32, 2>
+    %630 = adf.buffer.create @L1_L1_B_229() : memref<32x32xf32, 2>
+    %631 = adf.buffer.create @L1_L1_C_229() : memref<32x32xf32, 2>
+    %632 = adf.buffer.create @L1_L1_A_230() : memref<32x32xf32, 2>
+    %633 = adf.buffer.create @L1_L1_B_230() : memref<32x32xf32, 2>
+    %634 = adf.buffer.create @L1_L1_C_230() : memref<32x32xf32, 2>
+    %635 = adf.buffer.create @L1_L1_A_231() : memref<32x32xf32, 2>
+    %636 = adf.buffer.create @L1_L1_B_231() : memref<32x32xf32, 2>
+    %637 = adf.buffer.create @L1_L1_C_231() : memref<32x32xf32, 2>
+    %638 = adf.buffer.create @L1_L1_A_232() : memref<32x32xf32, 2>
+    %639 = adf.buffer.create @L1_L1_B_232() : memref<32x32xf32, 2>
+    %640 = adf.buffer.create @L1_L1_A_233() : memref<32x32xf32, 2>
+    %641 = adf.buffer.create @L1_L1_B_233() : memref<32x32xf32, 2>
+    %642 = adf.buffer.create @L1_L1_C_233() : memref<32x32xf32, 2>
+    %643 = adf.buffer.create @L1_L1_A_234() : memref<32x32xf32, 2>
+    %644 = adf.buffer.create @L1_L1_B_234() : memref<32x32xf32, 2>
+    %645 = adf.buffer.create @L1_L1_C_234() : memref<32x32xf32, 2>
+    %646 = adf.buffer.create @L1_L1_A_235() : memref<32x32xf32, 2>
+    %647 = adf.buffer.create @L1_L1_B_235() : memref<32x32xf32, 2>
+    %648 = adf.buffer.create @L1_L1_C_235() : memref<32x32xf32, 2>
+    %649 = adf.buffer.create @L1_L1_A_236() : memref<32x32xf32, 2>
+    %650 = adf.buffer.create @L1_L1_B_236() : memref<32x32xf32, 2>
+    %651 = adf.buffer.create @L1_L1_A_237() : memref<32x32xf32, 2>
+    %652 = adf.buffer.create @L1_L1_B_237() : memref<32x32xf32, 2>
+    %653 = adf.buffer.create @L1_L1_C_237() : memref<32x32xf32, 2>
+    %654 = adf.buffer.create @L1_L1_A_238() : memref<32x32xf32, 2>
+    %655 = adf.buffer.create @L1_L1_B_238() : memref<32x32xf32, 2>
+    %656 = adf.buffer.create @L1_L1_C_238() : memref<32x32xf32, 2>
+    %657 = adf.buffer.create @L1_L1_A_239() : memref<32x32xf32, 2>
+    %658 = adf.buffer.create @L1_L1_B_239() : memref<32x32xf32, 2>
+    %659 = adf.buffer.create @L1_L1_C_239() : memref<32x32xf32, 2>
+    %660 = adf.buffer.create @L1_L1_A_240() : memref<32x32xf32, 2>
+    %661 = adf.buffer.create @L1_L1_B_240() : memref<32x32xf32, 2>
+    %662 = adf.buffer.create @L1_L1_A_241() : memref<32x32xf32, 2>
+    %663 = adf.buffer.create @L1_L1_B_241() : memref<32x32xf32, 2>
+    %664 = adf.buffer.create @L1_L1_C_241() : memref<32x32xf32, 2>
+    %665 = adf.buffer.create @L1_L1_A_242() : memref<32x32xf32, 2>
+    %666 = adf.buffer.create @L1_L1_B_242() : memref<32x32xf32, 2>
+    %667 = adf.buffer.create @L1_L1_C_242() : memref<32x32xf32, 2>
+    %668 = adf.buffer.create @L1_L1_A_243() : memref<32x32xf32, 2>
+    %669 = adf.buffer.create @L1_L1_B_243() : memref<32x32xf32, 2>
+    %670 = adf.buffer.create @L1_L1_C_243() : memref<32x32xf32, 2>
+    %671 = adf.buffer.create @L1_L1_A_244() : memref<32x32xf32, 2>
+    %672 = adf.buffer.create @L1_L1_B_244() : memref<32x32xf32, 2>
+    %673 = adf.buffer.create @L1_L1_A_245() : memref<32x32xf32, 2>
+    %674 = adf.buffer.create @L1_L1_B_245() : memref<32x32xf32, 2>
+    %675 = adf.buffer.create @L1_L1_C_245() : memref<32x32xf32, 2>
+    %676 = adf.buffer.create @L1_L1_A_246() : memref<32x32xf32, 2>
+    %677 = adf.buffer.create @L1_L1_B_246() : memref<32x32xf32, 2>
+    %678 = adf.buffer.create @L1_L1_C_246() : memref<32x32xf32, 2>
+    %679 = adf.buffer.create @L1_L1_A_247() : memref<32x32xf32, 2>
+    %680 = adf.buffer.create @L1_L1_B_247() : memref<32x32xf32, 2>
+    %681 = adf.buffer.create @L1_L1_C_247() : memref<32x32xf32, 2>
+    %682 = adf.buffer.create @L1_L1_A_248() : memref<32x32xf32, 2>
+    %683 = adf.buffer.create @L1_L1_B_248() : memref<32x32xf32, 2>
+    %684 = adf.buffer.create @L1_L1_A_249() : memref<32x32xf32, 2>
+    %685 = adf.buffer.create @L1_L1_B_249() : memref<32x32xf32, 2>
+    %686 = adf.buffer.create @L1_L1_C_249() : memref<32x32xf32, 2>
+    %687 = adf.buffer.create @L1_L1_A_250() : memref<32x32xf32, 2>
+    %688 = adf.buffer.create @L1_L1_B_250() : memref<32x32xf32, 2>
+    %689 = adf.buffer.create @L1_L1_C_250() : memref<32x32xf32, 2>
+    %690 = adf.buffer.create @L1_L1_A_251() : memref<32x32xf32, 2>
+    %691 = adf.buffer.create @L1_L1_B_251() : memref<32x32xf32, 2>
+    %692 = adf.buffer.create @L1_L1_C_251() : memref<32x32xf32, 2>
+    %693 = adf.buffer.create @L1_L1_A_252() : memref<32x32xf32, 2>
+    %694 = adf.buffer.create @L1_L1_B_252() : memref<32x32xf32, 2>
+    %695 = adf.buffer.create @L1_L1_A_253() : memref<32x32xf32, 2>
+    %696 = adf.buffer.create @L1_L1_B_253() : memref<32x32xf32, 2>
+    %697 = adf.buffer.create @L1_L1_C_253() : memref<32x32xf32, 2>
+    %698 = adf.buffer.create @L1_L1_A_254() : memref<32x32xf32, 2>
+    %699 = adf.buffer.create @L1_L1_B_254() : memref<32x32xf32, 2>
+    %700 = adf.buffer.create @L1_L1_C_254() : memref<32x32xf32, 2>
+    %701 = adf.buffer.create @L1_L1_A_255() : memref<32x32xf32, 2>
+    %702 = adf.buffer.create @L1_L1_B_255() : memref<32x32xf32, 2>
+    %703 = adf.buffer.create @L1_L1_C_255() : memref<32x32xf32, 2>
+    %704 = adf.buffer.create @L1_L1_A_256() : memref<32x32xf32, 2>
+    %705 = adf.buffer.create @L1_L1_B_256() : memref<32x32xf32, 2>
+    %706 = adf.buffer.create @L1_L1_A_257() : memref<32x32xf32, 2>
+    %707 = adf.buffer.create @L1_L1_B_257() : memref<32x32xf32, 2>
+    %708 = adf.buffer.create @L1_L1_C_257() : memref<32x32xf32, 2>
+    %709 = adf.buffer.create @L1_L1_A_258() : memref<32x32xf32, 2>
+    %710 = adf.buffer.create @L1_L1_B_258() : memref<32x32xf32, 2>
+    %711 = adf.buffer.create @L1_L1_C_258() : memref<32x32xf32, 2>
+    %712 = adf.buffer.create @L1_L1_A_259() : memref<32x32xf32, 2>
+    %713 = adf.buffer.create @L1_L1_B_259() : memref<32x32xf32, 2>
+    %714 = adf.buffer.create @L1_L1_C_259() : memref<32x32xf32, 2>
+    %715 = adf.buffer.create @L1_L1_A_260() : memref<32x32xf32, 2>
+    %716 = adf.buffer.create @L1_L1_B_260() : memref<32x32xf32, 2>
+    %717 = adf.buffer.create @L1_L1_A_261() : memref<32x32xf32, 2>
+    %718 = adf.buffer.create @L1_L1_B_261() : memref<32x32xf32, 2>
+    %719 = adf.buffer.create @L1_L1_C_261() : memref<32x32xf32, 2>
+    %720 = adf.buffer.create @L1_L1_A_262() : memref<32x32xf32, 2>
+    %721 = adf.buffer.create @L1_L1_B_262() : memref<32x32xf32, 2>
+    %722 = adf.buffer.create @L1_L1_C_262() : memref<32x32xf32, 2>
+    %723 = adf.buffer.create @L1_L1_A_263() : memref<32x32xf32, 2>
+    %724 = adf.buffer.create @L1_L1_B_263() : memref<32x32xf32, 2>
+    %725 = adf.buffer.create @L1_L1_C_263() : memref<32x32xf32, 2>
+    %726 = adf.buffer.create @L1_L1_A_264() : memref<32x32xf32, 2>
+    %727 = adf.buffer.create @L1_L1_B_264() : memref<32x32xf32, 2>
+    %728 = adf.buffer.create @L1_L1_A_265() : memref<32x32xf32, 2>
+    %729 = adf.buffer.create @L1_L1_B_265() : memref<32x32xf32, 2>
+    %730 = adf.buffer.create @L1_L1_C_265() : memref<32x32xf32, 2>
+    %731 = adf.buffer.create @L1_L1_A_266() : memref<32x32xf32, 2>
+    %732 = adf.buffer.create @L1_L1_B_266() : memref<32x32xf32, 2>
+    %733 = adf.buffer.create @L1_L1_C_266() : memref<32x32xf32, 2>
+    %734 = adf.buffer.create @L1_L1_A_267() : memref<32x32xf32, 2>
+    %735 = adf.buffer.create @L1_L1_B_267() : memref<32x32xf32, 2>
+    %736 = adf.buffer.create @L1_L1_C_267() : memref<32x32xf32, 2>
+    %737 = adf.buffer.create @L1_L1_A_268() : memref<32x32xf32, 2>
+    %738 = adf.buffer.create @L1_L1_B_268() : memref<32x32xf32, 2>
+    %739 = adf.buffer.create @L1_L1_A_269() : memref<32x32xf32, 2>
+    %740 = adf.buffer.create @L1_L1_B_269() : memref<32x32xf32, 2>
+    %741 = adf.buffer.create @L1_L1_C_269() : memref<32x32xf32, 2>
+    %742 = adf.buffer.create @L1_L1_A_270() : memref<32x32xf32, 2>
+    %743 = adf.buffer.create @L1_L1_B_270() : memref<32x32xf32, 2>
+    %744 = adf.buffer.create @L1_L1_C_270() : memref<32x32xf32, 2>
+    %745 = adf.buffer.create @L1_L1_A_271() : memref<32x32xf32, 2>
+    %746 = adf.buffer.create @L1_L1_B_271() : memref<32x32xf32, 2>
+    %747 = adf.buffer.create @L1_L1_C_271() : memref<32x32xf32, 2>
+    %748 = adf.buffer.create @L1_L1_A_272() : memref<32x32xf32, 2>
+    %749 = adf.buffer.create @L1_L1_B_272() : memref<32x32xf32, 2>
+    %750 = adf.buffer.create @L1_L1_A_273() : memref<32x32xf32, 2>
+    %751 = adf.buffer.create @L1_L1_B_273() : memref<32x32xf32, 2>
+    %752 = adf.buffer.create @L1_L1_C_273() : memref<32x32xf32, 2>
+    %753 = adf.buffer.create @L1_L1_A_274() : memref<32x32xf32, 2>
+    %754 = adf.buffer.create @L1_L1_B_274() : memref<32x32xf32, 2>
+    %755 = adf.buffer.create @L1_L1_C_274() : memref<32x32xf32, 2>
+    %756 = adf.buffer.create @L1_L1_A_275() : memref<32x32xf32, 2>
+    %757 = adf.buffer.create @L1_L1_B_275() : memref<32x32xf32, 2>
+    %758 = adf.buffer.create @L1_L1_C_275() : memref<32x32xf32, 2>
+    %759 = adf.buffer.create @L1_L1_A_276() : memref<32x32xf32, 2>
+    %760 = adf.buffer.create @L1_L1_B_276() : memref<32x32xf32, 2>
+    %761 = adf.buffer.create @L1_L1_A_277() : memref<32x32xf32, 2>
+    %762 = adf.buffer.create @L1_L1_B_277() : memref<32x32xf32, 2>
+    %763 = adf.buffer.create @L1_L1_C_277() : memref<32x32xf32, 2>
+    %764 = adf.buffer.create @L1_L1_A_278() : memref<32x32xf32, 2>
+    %765 = adf.buffer.create @L1_L1_B_278() : memref<32x32xf32, 2>
+    %766 = adf.buffer.create @L1_L1_C_278() : memref<32x32xf32, 2>
+    %767 = adf.buffer.create @L1_L1_A_279() : memref<32x32xf32, 2>
+    %768 = adf.buffer.create @L1_L1_B_279() : memref<32x32xf32, 2>
+    %769 = adf.buffer.create @L1_L1_C_279() : memref<32x32xf32, 2>
+    %770 = adf.buffer.create @L1_L1_A_280() : memref<32x32xf32, 2>
+    %771 = adf.buffer.create @L1_L1_B_280() : memref<32x32xf32, 2>
+    %772 = adf.buffer.create @L1_L1_A_281() : memref<32x32xf32, 2>
+    %773 = adf.buffer.create @L1_L1_B_281() : memref<32x32xf32, 2>
+    %774 = adf.buffer.create @L1_L1_C_281() : memref<32x32xf32, 2>
+    %775 = adf.buffer.create @L1_L1_A_282() : memref<32x32xf32, 2>
+    %776 = adf.buffer.create @L1_L1_B_282() : memref<32x32xf32, 2>
+    %777 = adf.buffer.create @L1_L1_C_282() : memref<32x32xf32, 2>
+    %778 = adf.buffer.create @L1_L1_A_283() : memref<32x32xf32, 2>
+    %779 = adf.buffer.create @L1_L1_B_283() : memref<32x32xf32, 2>
+    %780 = adf.buffer.create @L1_L1_C_283() : memref<32x32xf32, 2>
+    %781 = adf.buffer.create @L1_L1_A_284() : memref<32x32xf32, 2>
+    %782 = adf.buffer.create @L1_L1_B_284() : memref<32x32xf32, 2>
+    %783 = adf.buffer.create @L1_L1_A_285() : memref<32x32xf32, 2>
+    %784 = adf.buffer.create @L1_L1_B_285() : memref<32x32xf32, 2>
+    %785 = adf.buffer.create @L1_L1_C_285() : memref<32x32xf32, 2>
+    %786 = adf.buffer.create @L1_L1_A_286() : memref<32x32xf32, 2>
+    %787 = adf.buffer.create @L1_L1_B_286() : memref<32x32xf32, 2>
+    %788 = adf.buffer.create @L1_L1_C_286() : memref<32x32xf32, 2>
+    %789 = adf.buffer.create @L1_L1_A_287() : memref<32x32xf32, 2>
+    %790 = adf.buffer.create @L1_L1_B_287() : memref<32x32xf32, 2>
+    %791 = adf.buffer.create @L1_L1_C_287() : memref<32x32xf32, 2>
+    %792 = adf.buffer.create @L1_L1_A_288() : memref<32x32xf32, 2>
+    %793 = adf.buffer.create @L1_L1_B_288() : memref<32x32xf32, 2>
+    %794 = adf.buffer.create @L1_L1_A_289() : memref<32x32xf32, 2>
+    %795 = adf.buffer.create @L1_L1_B_289() : memref<32x32xf32, 2>
+    %796 = adf.buffer.create @L1_L1_C_289() : memref<32x32xf32, 2>
+    %797 = adf.buffer.create @L1_L1_A_290() : memref<32x32xf32, 2>
+    %798 = adf.buffer.create @L1_L1_B_290() : memref<32x32xf32, 2>
+    %799 = adf.buffer.create @L1_L1_C_290() : memref<32x32xf32, 2>
+    %800 = adf.buffer.create @L1_L1_A_291() : memref<32x32xf32, 2>
+    %801 = adf.buffer.create @L1_L1_B_291() : memref<32x32xf32, 2>
+    %802 = adf.buffer.create @L1_L1_C_291() : memref<32x32xf32, 2>
+    %803 = adf.buffer.create @L1_L1_A_292() : memref<32x32xf32, 2>
+    %804 = adf.buffer.create @L1_L1_B_292() : memref<32x32xf32, 2>
+    %805 = adf.buffer.create @L1_L1_A_293() : memref<32x32xf32, 2>
+    %806 = adf.buffer.create @L1_L1_B_293() : memref<32x32xf32, 2>
+    %807 = adf.buffer.create @L1_L1_C_293() : memref<32x32xf32, 2>
+    %808 = adf.buffer.create @L1_L1_A_294() : memref<32x32xf32, 2>
+    %809 = adf.buffer.create @L1_L1_B_294() : memref<32x32xf32, 2>
+    %810 = adf.buffer.create @L1_L1_C_294() : memref<32x32xf32, 2>
+    %811 = adf.buffer.create @L1_L1_A_295() : memref<32x32xf32, 2>
+    %812 = adf.buffer.create @L1_L1_B_295() : memref<32x32xf32, 2>
+    %813 = adf.buffer.create @L1_L1_C_295() : memref<32x32xf32, 2>
+    %814 = adf.buffer.create @L1_L1_A_296() : memref<32x32xf32, 2>
+    %815 = adf.buffer.create @L1_L1_B_296() : memref<32x32xf32, 2>
+    %816 = adf.buffer.create @L1_L1_A_297() : memref<32x32xf32, 2>
+    %817 = adf.buffer.create @L1_L1_B_297() : memref<32x32xf32, 2>
+    %818 = adf.buffer.create @L1_L1_C_297() : memref<32x32xf32, 2>
+    %819 = adf.buffer.create @L1_L1_A_298() : memref<32x32xf32, 2>
+    %820 = adf.buffer.create @L1_L1_B_298() : memref<32x32xf32, 2>
+    %821 = adf.buffer.create @L1_L1_C_298() : memref<32x32xf32, 2>
+    %822 = adf.buffer.create @L1_L1_A_299() : memref<32x32xf32, 2>
+    %823 = adf.buffer.create @L1_L1_B_299() : memref<32x32xf32, 2>
+    %824 = adf.buffer.create @L1_L1_C_299() : memref<32x32xf32, 2>
+    %825 = adf.buffer.create @L1_L1_A_300() : memref<32x32xf32, 2>
+    %826 = adf.buffer.create @L1_L1_B_300() : memref<32x32xf32, 2>
+    %827 = adf.buffer.create @L1_L1_A_301() : memref<32x32xf32, 2>
+    %828 = adf.buffer.create @L1_L1_B_301() : memref<32x32xf32, 2>
+    %829 = adf.buffer.create @L1_L1_C_301() : memref<32x32xf32, 2>
+    %830 = adf.buffer.create @L1_L1_A_302() : memref<32x32xf32, 2>
+    %831 = adf.buffer.create @L1_L1_B_302() : memref<32x32xf32, 2>
+    %832 = adf.buffer.create @L1_L1_C_302() : memref<32x32xf32, 2>
+    %833 = adf.buffer.create @L1_L1_A_303() : memref<32x32xf32, 2>
+    %834 = adf.buffer.create @L1_L1_B_303() : memref<32x32xf32, 2>
+    %835 = adf.buffer.create @L1_L1_C_303() : memref<32x32xf32, 2>
+    %836 = adf.buffer.create @L1_L1_A_304() : memref<32x32xf32, 2>
+    %837 = adf.buffer.create @L1_L1_B_304() : memref<32x32xf32, 2>
+    %838 = adf.buffer.create @L1_L1_A_305() : memref<32x32xf32, 2>
+    %839 = adf.buffer.create @L1_L1_B_305() : memref<32x32xf32, 2>
+    %840 = adf.buffer.create @L1_L1_C_305() : memref<32x32xf32, 2>
+    %841 = adf.buffer.create @L1_L1_A_306() : memref<32x32xf32, 2>
+    %842 = adf.buffer.create @L1_L1_B_306() : memref<32x32xf32, 2>
+    %843 = adf.buffer.create @L1_L1_C_306() : memref<32x32xf32, 2>
+    %844 = adf.buffer.create @L1_L1_A_307() : memref<32x32xf32, 2>
+    %845 = adf.buffer.create @L1_L1_B_307() : memref<32x32xf32, 2>
+    %846 = adf.buffer.create @L1_L1_C_307() : memref<32x32xf32, 2>
+    %847 = adf.buffer.create @L1_L1_A_308() : memref<32x32xf32, 2>
+    %848 = adf.buffer.create @L1_L1_B_308() : memref<32x32xf32, 2>
+    %849 = adf.buffer.create @L1_L1_A_309() : memref<32x32xf32, 2>
+    %850 = adf.buffer.create @L1_L1_B_309() : memref<32x32xf32, 2>
+    %851 = adf.buffer.create @L1_L1_C_309() : memref<32x32xf32, 2>
+    %852 = adf.buffer.create @L1_L1_A_310() : memref<32x32xf32, 2>
+    %853 = adf.buffer.create @L1_L1_B_310() : memref<32x32xf32, 2>
+    %854 = adf.buffer.create @L1_L1_C_310() : memref<32x32xf32, 2>
+    %855 = adf.buffer.create @L1_L1_A_311() : memref<32x32xf32, 2>
+    %856 = adf.buffer.create @L1_L1_B_311() : memref<32x32xf32, 2>
+    %857 = adf.buffer.create @L1_L1_C_311() : memref<32x32xf32, 2>
+    %858 = adf.buffer.create @L1_L1_A_312() : memref<32x32xf32, 2>
+    %859 = adf.buffer.create @L1_L1_B_312() : memref<32x32xf32, 2>
+    %860 = adf.buffer.create @L1_L1_A_313() : memref<32x32xf32, 2>
+    %861 = adf.buffer.create @L1_L1_B_313() : memref<32x32xf32, 2>
+    %862 = adf.buffer.create @L1_L1_C_313() : memref<32x32xf32, 2>
+    %863 = adf.buffer.create @L1_L1_A_314() : memref<32x32xf32, 2>
+    %864 = adf.buffer.create @L1_L1_B_314() : memref<32x32xf32, 2>
+    %865 = adf.buffer.create @L1_L1_C_314() : memref<32x32xf32, 2>
+    %866 = adf.buffer.create @L1_L1_A_315() : memref<32x32xf32, 2>
+    %867 = adf.buffer.create @L1_L1_B_315() : memref<32x32xf32, 2>
+    %868 = adf.buffer.create @L1_L1_C_315() : memref<32x32xf32, 2>
+    %869 = adf.buffer.create @L1_L1_A_316() : memref<32x32xf32, 2>
+    %870 = adf.buffer.create @L1_L1_B_316() : memref<32x32xf32, 2>
+    %871 = adf.buffer.create @L1_L1_A_317() : memref<32x32xf32, 2>
+    %872 = adf.buffer.create @L1_L1_B_317() : memref<32x32xf32, 2>
+    %873 = adf.buffer.create @L1_L1_C_317() : memref<32x32xf32, 2>
+    %874 = adf.buffer.create @L1_L1_A_318() : memref<32x32xf32, 2>
+    %875 = adf.buffer.create @L1_L1_B_318() : memref<32x32xf32, 2>
+    %876 = adf.buffer.create @L1_L1_C_318() : memref<32x32xf32, 2>
+    %877 = adf.buffer.create @L1_L1_A_319() : memref<32x32xf32, 2>
+    %878 = adf.buffer.create @L1_L1_B_319() : memref<32x32xf32, 2>
+    %879 = adf.buffer.create @L1_L1_C_319() : memref<32x32xf32, 2>
+    %880 = adf.buffer.create @L1_L1_A_320() : memref<32x32xf32, 2>
+    %881 = adf.buffer.create @L1_L1_B_320() : memref<32x32xf32, 2>
+    %882 = adf.buffer.create @L1_L1_A_321() : memref<32x32xf32, 2>
+    %883 = adf.buffer.create @L1_L1_B_321() : memref<32x32xf32, 2>
+    %884 = adf.buffer.create @L1_L1_C_321() : memref<32x32xf32, 2>
+    %885 = adf.buffer.create @L1_L1_A_322() : memref<32x32xf32, 2>
+    %886 = adf.buffer.create @L1_L1_B_322() : memref<32x32xf32, 2>
+    %887 = adf.buffer.create @L1_L1_C_322() : memref<32x32xf32, 2>
+    %888 = adf.buffer.create @L1_L1_A_323() : memref<32x32xf32, 2>
+    %889 = adf.buffer.create @L1_L1_B_323() : memref<32x32xf32, 2>
+    %890 = adf.buffer.create @L1_L1_C_323() : memref<32x32xf32, 2>
+    %891 = adf.buffer.create @L1_L1_A_324() : memref<32x32xf32, 2>
+    %892 = adf.buffer.create @L1_L1_B_324() : memref<32x32xf32, 2>
+    %893 = adf.buffer.create @L1_L1_A_325() : memref<32x32xf32, 2>
+    %894 = adf.buffer.create @L1_L1_B_325() : memref<32x32xf32, 2>
+    %895 = adf.buffer.create @L1_L1_C_325() : memref<32x32xf32, 2>
+    %896 = adf.buffer.create @L1_L1_A_326() : memref<32x32xf32, 2>
+    %897 = adf.buffer.create @L1_L1_B_326() : memref<32x32xf32, 2>
+    %898 = adf.buffer.create @L1_L1_C_326() : memref<32x32xf32, 2>
+    %899 = adf.buffer.create @L1_L1_A_327() : memref<32x32xf32, 2>
+    %900 = adf.buffer.create @L1_L1_B_327() : memref<32x32xf32, 2>
+    %901 = adf.buffer.create @L1_L1_C_327() : memref<32x32xf32, 2>
+    %902 = adf.buffer.create @L1_L1_A_328() : memref<32x32xf32, 2>
+    %903 = adf.buffer.create @L1_L1_B_328() : memref<32x32xf32, 2>
+    %904 = adf.buffer.create @L1_L1_A_329() : memref<32x32xf32, 2>
+    %905 = adf.buffer.create @L1_L1_B_329() : memref<32x32xf32, 2>
+    %906 = adf.buffer.create @L1_L1_C_329() : memref<32x32xf32, 2>
+    %907 = adf.buffer.create @L1_L1_A_330() : memref<32x32xf32, 2>
+    %908 = adf.buffer.create @L1_L1_B_330() : memref<32x32xf32, 2>
+    %909 = adf.buffer.create @L1_L1_C_330() : memref<32x32xf32, 2>
+    %910 = adf.buffer.create @L1_L1_A_331() : memref<32x32xf32, 2>
+    %911 = adf.buffer.create @L1_L1_B_331() : memref<32x32xf32, 2>
+    %912 = adf.buffer.create @L1_L1_C_331() : memref<32x32xf32, 2>
+    %913 = adf.buffer.create @L1_L1_A_332() : memref<32x32xf32, 2>
+    %914 = adf.buffer.create @L1_L1_B_332() : memref<32x32xf32, 2>
+    %915 = adf.buffer.create @L1_L1_A_333() : memref<32x32xf32, 2>
+    %916 = adf.buffer.create @L1_L1_B_333() : memref<32x32xf32, 2>
+    %917 = adf.buffer.create @L1_L1_C_333() : memref<32x32xf32, 2>
+    %918 = adf.buffer.create @L1_L1_A_334() : memref<32x32xf32, 2>
+    %919 = adf.buffer.create @L1_L1_B_334() : memref<32x32xf32, 2>
+    %920 = adf.buffer.create @L1_L1_C_334() : memref<32x32xf32, 2>
+    %921 = adf.buffer.create @L1_L1_A_335() : memref<32x32xf32, 2>
+    %922 = adf.buffer.create @L1_L1_B_335() : memref<32x32xf32, 2>
+    %923 = adf.buffer.create @L1_L1_C_335() : memref<32x32xf32, 2>
+    %924 = adf.buffer.create @L1_L1_A_336() : memref<32x32xf32, 2>
+    %925 = adf.buffer.create @L1_L1_B_336() : memref<32x32xf32, 2>
+    %926 = adf.buffer.create @L1_L1_A_337() : memref<32x32xf32, 2>
+    %927 = adf.buffer.create @L1_L1_B_337() : memref<32x32xf32, 2>
+    %928 = adf.buffer.create @L1_L1_C_337() : memref<32x32xf32, 2>
+    %929 = adf.buffer.create @L1_L1_A_338() : memref<32x32xf32, 2>
+    %930 = adf.buffer.create @L1_L1_B_338() : memref<32x32xf32, 2>
+    %931 = adf.buffer.create @L1_L1_C_338() : memref<32x32xf32, 2>
+    %932 = adf.buffer.create @L1_L1_A_339() : memref<32x32xf32, 2>
+    %933 = adf.buffer.create @L1_L1_B_339() : memref<32x32xf32, 2>
+    %934 = adf.buffer.create @L1_L1_C_339() : memref<32x32xf32, 2>
+    %935 = adf.buffer.create @L1_L1_A_340() : memref<32x32xf32, 2>
+    %936 = adf.buffer.create @L1_L1_B_340() : memref<32x32xf32, 2>
+    %937 = adf.buffer.create @L1_L1_A_341() : memref<32x32xf32, 2>
+    %938 = adf.buffer.create @L1_L1_B_341() : memref<32x32xf32, 2>
+    %939 = adf.buffer.create @L1_L1_C_341() : memref<32x32xf32, 2>
+    %940 = adf.buffer.create @L1_L1_A_342() : memref<32x32xf32, 2>
+    %941 = adf.buffer.create @L1_L1_B_342() : memref<32x32xf32, 2>
+    %942 = adf.buffer.create @L1_L1_C_342() : memref<32x32xf32, 2>
+    %943 = adf.buffer.create @L1_L1_A_343() : memref<32x32xf32, 2>
+    %944 = adf.buffer.create @L1_L1_B_343() : memref<32x32xf32, 2>
+    %945 = adf.buffer.create @L1_L1_C_343() : memref<32x32xf32, 2>
+    %946 = adf.buffer.create @L1_L1_A_344() : memref<32x32xf32, 2>
+    %947 = adf.buffer.create @L1_L1_B_344() : memref<32x32xf32, 2>
+    %948 = adf.buffer.create @L1_L1_A_345() : memref<32x32xf32, 2>
+    %949 = adf.buffer.create @L1_L1_B_345() : memref<32x32xf32, 2>
+    %950 = adf.buffer.create @L1_L1_C_345() : memref<32x32xf32, 2>
+    %951 = adf.buffer.create @L1_L1_A_346() : memref<32x32xf32, 2>
+    %952 = adf.buffer.create @L1_L1_B_346() : memref<32x32xf32, 2>
+    %953 = adf.buffer.create @L1_L1_C_346() : memref<32x32xf32, 2>
+    %954 = adf.buffer.create @L1_L1_A_347() : memref<32x32xf32, 2>
+    %955 = adf.buffer.create @L1_L1_B_347() : memref<32x32xf32, 2>
+    %956 = adf.buffer.create @L1_L1_C_347() : memref<32x32xf32, 2>
+    %957 = adf.buffer.create @L1_L1_A_348() : memref<32x32xf32, 2>
+    %958 = adf.buffer.create @L1_L1_B_348() : memref<32x32xf32, 2>
+    %959 = adf.buffer.create @L1_L1_A_349() : memref<32x32xf32, 2>
+    %960 = adf.buffer.create @L1_L1_B_349() : memref<32x32xf32, 2>
+    %961 = adf.buffer.create @L1_L1_C_349() : memref<32x32xf32, 2>
+    %962 = adf.buffer.create @L1_L1_A_350() : memref<32x32xf32, 2>
+    %963 = adf.buffer.create @L1_L1_B_350() : memref<32x32xf32, 2>
+    %964 = adf.buffer.create @L1_L1_C_350() : memref<32x32xf32, 2>
+    %965 = adf.buffer.create @L1_L1_A_351() : memref<32x32xf32, 2>
+    %966 = adf.buffer.create @L1_L1_B_351() : memref<32x32xf32, 2>
+    %967 = adf.buffer.create @L1_L1_C_351() : memref<32x32xf32, 2>
     adf.connect(%arg0, %0) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
     adf.connect(%arg1, %1) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %2 = call @kernel_gemm0(%0, %1) {adf.kernel, "col, row" = [3 : index, 0 : index], ivs = [0 : index, 0 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 0 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%2, %c3, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    %968 = call @kernel_gemm0(%0, %1) {adf.kernel, "col, row" = [3 : index, 0 : index], ivs = [0 : index, 0 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 0 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%968, %c3, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.buffer.location(%1, %c2, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.buffer.location(%0, %c3, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %3 = adf.buffer.create @L1_L1_A_1() : memref<32x32xf32, 2>
-    %4 = adf.buffer.create @L1_L1_B_1() : memref<32x32xf32, 2>
-    %5 = adf.buffer.create @L1_L1_C_1() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %3) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %4) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%2, %5) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %6 = call @kernel_gemm(%3, %4, %5) {adf.kernel, "col, row" = [4 : index, 0 : index], ivs = [1 : index, 0 : index, 0 : index], kernel_gemm = 1 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%6, %c4, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%4, %c3, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%3, %c4, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %7 = adf.buffer.create @L1_L1_A_2() : memref<32x32xf32, 2>
-    %8 = adf.buffer.create @L1_L1_B_2() : memref<32x32xf32, 2>
-    %9 = adf.buffer.create @L1_L1_C_2() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %7) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %8) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%6, %9) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %10 = call @kernel_gemm(%7, %8, %9) {adf.kernel, "col, row" = [5 : index, 0 : index], ivs = [2 : index, 0 : index, 0 : index], kernel_gemm = 2 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%10, %c5, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%8, %c4, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%7, %c5, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %11 = adf.buffer.create @L1_L1_A_3() : memref<32x32xf32, 2>
-    %12 = adf.buffer.create @L1_L1_B_3() : memref<32x32xf32, 2>
-    %13 = adf.buffer.create @L1_L1_C_3() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %11) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %12) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%10, %13) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %14 = call @kernel_gemm(%11, %12, %13) {adf.kernel, "col, row" = [6 : index, 0 : index], ivs = [3 : index, 0 : index, 0 : index], kernel_gemm = 3 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%14, %c6, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%12, %c5, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%11, %c6, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%14, %arg8) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %15 = adf.buffer.create @L1_L1_A_4() : memref<32x32xf32, 2>
-    %16 = adf.buffer.create @L1_L1_B_4() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %15) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %16) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %17 = call @kernel_gemm0(%15, %16) {adf.kernel, "col, row" = [3 : index, 1 : index], ivs = [0 : index, 1 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 4 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%17, %c4, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%16, %c3, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%15, %c3, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %18 = adf.buffer.create @L1_L1_A_5() : memref<32x32xf32, 2>
-    %19 = adf.buffer.create @L1_L1_B_5() : memref<32x32xf32, 2>
-    %20 = adf.buffer.create @L1_L1_C_5() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %18) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %19) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%17, %20) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %21 = call @kernel_gemm(%18, %19, %20) {adf.kernel, "col, row" = [4 : index, 1 : index], ivs = [1 : index, 1 : index, 0 : index], kernel_gemm = 5 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%21, %c5, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%19, %c4, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%18, %c4, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %22 = adf.buffer.create @L1_L1_A_6() : memref<32x32xf32, 2>
-    %23 = adf.buffer.create @L1_L1_B_6() : memref<32x32xf32, 2>
-    %24 = adf.buffer.create @L1_L1_C_6() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %22) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %23) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%21, %24) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %25 = call @kernel_gemm(%22, %23, %24) {adf.kernel, "col, row" = [5 : index, 1 : index], ivs = [2 : index, 1 : index, 0 : index], kernel_gemm = 6 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%25, %c6, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%23, %c5, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%22, %c5, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %26 = adf.buffer.create @L1_L1_A_7() : memref<32x32xf32, 2>
-    %27 = adf.buffer.create @L1_L1_B_7() : memref<32x32xf32, 2>
-    %28 = adf.buffer.create @L1_L1_C_7() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %26) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %27) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%25, %28) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %29 = call @kernel_gemm(%26, %27, %28) {adf.kernel, "col, row" = [6 : index, 1 : index], ivs = [3 : index, 1 : index, 0 : index], kernel_gemm = 7 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%29, %c7, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%27, %c6, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%26, %c6, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%29, %arg13) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %30 = adf.buffer.create @L1_L1_A_8() : memref<32x32xf32, 2>
-    %31 = adf.buffer.create @L1_L1_B_8() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %30) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %31) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %32 = call @kernel_gemm0(%30, %31) {adf.kernel, "col, row" = [3 : index, 2 : index], ivs = [0 : index, 2 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 8 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%32, %c3, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%31, %c3, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%30, %c3, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %33 = adf.buffer.create @L1_L1_A_9() : memref<32x32xf32, 2>
-    %34 = adf.buffer.create @L1_L1_B_9() : memref<32x32xf32, 2>
-    %35 = adf.buffer.create @L1_L1_C_9() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %33) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %34) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%32, %35) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %36 = call @kernel_gemm(%33, %34, %35) {adf.kernel, "col, row" = [4 : index, 2 : index], ivs = [1 : index, 2 : index, 0 : index], kernel_gemm = 9 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%36, %c4, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%34, %c4, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%33, %c4, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %37 = adf.buffer.create @L1_L1_A_10() : memref<32x32xf32, 2>
-    %38 = adf.buffer.create @L1_L1_B_10() : memref<32x32xf32, 2>
-    %39 = adf.buffer.create @L1_L1_C_10() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %37) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %38) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%36, %39) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %40 = call @kernel_gemm(%37, %38, %39) {adf.kernel, "col, row" = [5 : index, 2 : index], ivs = [2 : index, 2 : index, 0 : index], kernel_gemm = 10 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%40, %c5, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%38, %c5, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%37, %c5, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %41 = adf.buffer.create @L1_L1_A_11() : memref<32x32xf32, 2>
-    %42 = adf.buffer.create @L1_L1_B_11() : memref<32x32xf32, 2>
-    %43 = adf.buffer.create @L1_L1_C_11() : memref<32x32xf32, 2>
+    adf.connect(%arg2, %2) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %3) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%968, %4) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %969 = call @kernel_gemm(%2, %3, %4) {adf.kernel, "col, row" = [4 : index, 0 : index], ivs = [1 : index, 0 : index, 0 : index], kernel_gemm = 1 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%969, %c4, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%3, %c3, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%2, %c4, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %5) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %6) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%969, %7) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %970 = call @kernel_gemm(%5, %6, %7) {adf.kernel, "col, row" = [5 : index, 0 : index], ivs = [2 : index, 0 : index, 0 : index], kernel_gemm = 2 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%970, %c5, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%6, %c4, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%5, %c5, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %8) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %9) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%970, %10) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %971 = call @kernel_gemm(%8, %9, %10) {adf.kernel, "col, row" = [6 : index, 0 : index], ivs = [3 : index, 0 : index, 0 : index], kernel_gemm = 3 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%971, %c6, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%9, %c5, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%8, %c6, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%971, %arg8) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %11) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %12) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %972 = call @kernel_gemm0(%11, %12) {adf.kernel, "col, row" = [3 : index, 1 : index], ivs = [0 : index, 1 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 4 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%972, %c4, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%12, %c3, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%11, %c3, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %13) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %14) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%972, %15) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %973 = call @kernel_gemm(%13, %14, %15) {adf.kernel, "col, row" = [4 : index, 1 : index], ivs = [1 : index, 1 : index, 0 : index], kernel_gemm = 5 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%973, %c5, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%14, %c4, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%13, %c4, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %16) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %17) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%973, %18) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %974 = call @kernel_gemm(%16, %17, %18) {adf.kernel, "col, row" = [5 : index, 1 : index], ivs = [2 : index, 1 : index, 0 : index], kernel_gemm = 6 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%974, %c6, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%17, %c5, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%16, %c5, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %19) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %20) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%974, %21) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %975 = call @kernel_gemm(%19, %20, %21) {adf.kernel, "col, row" = [6 : index, 1 : index], ivs = [3 : index, 1 : index, 0 : index], kernel_gemm = 7 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%975, %c7, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%20, %c6, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%19, %c6, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%975, %arg13) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %22) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %23) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %976 = call @kernel_gemm0(%22, %23) {adf.kernel, "col, row" = [3 : index, 2 : index], ivs = [0 : index, 2 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 8 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%976, %c3, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%23, %c3, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%22, %c3, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %24) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %25) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%976, %26) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %977 = call @kernel_gemm(%24, %25, %26) {adf.kernel, "col, row" = [4 : index, 2 : index], ivs = [1 : index, 2 : index, 0 : index], kernel_gemm = 9 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%977, %c4, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%25, %c4, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%24, %c4, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %27) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %28) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%977, %29) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %978 = call @kernel_gemm(%27, %28, %29) {adf.kernel, "col, row" = [5 : index, 2 : index], ivs = [2 : index, 2 : index, 0 : index], kernel_gemm = 10 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%978, %c5, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%28, %c5, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%27, %c5, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %30) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %31) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%978, %32) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %979 = call @kernel_gemm(%30, %31, %32) {adf.kernel, "col, row" = [6 : index, 2 : index], ivs = [3 : index, 2 : index, 0 : index], kernel_gemm = 11 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%979, %c6, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%31, %c6, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%30, %c6, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%979, %arg18) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %33) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %34) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %980 = call @kernel_gemm0(%33, %34) {adf.kernel, "col, row" = [3 : index, 3 : index], ivs = [0 : index, 3 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 12 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%980, %c4, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%34, %c3, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%33, %c3, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %35) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %36) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%980, %37) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %981 = call @kernel_gemm(%35, %36, %37) {adf.kernel, "col, row" = [4 : index, 3 : index], ivs = [1 : index, 3 : index, 0 : index], kernel_gemm = 13 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%981, %c5, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%36, %c4, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%35, %c4, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %38) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %39) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%981, %40) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %982 = call @kernel_gemm(%38, %39, %40) {adf.kernel, "col, row" = [5 : index, 3 : index], ivs = [2 : index, 3 : index, 0 : index], kernel_gemm = 14 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%982, %c6, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%39, %c5, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%38, %c5, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.connect(%arg6, %41) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %42) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%40, %43) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %44 = call @kernel_gemm(%41, %42, %43) {adf.kernel, "col, row" = [6 : index, 2 : index], ivs = [3 : index, 2 : index, 0 : index], kernel_gemm = 11 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%44, %c6, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%42, %c6, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%41, %c6, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%44, %arg18) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %45 = adf.buffer.create @L1_L1_A_12() : memref<32x32xf32, 2>
-    %46 = adf.buffer.create @L1_L1_B_12() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %45) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %46) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %47 = call @kernel_gemm0(%45, %46) {adf.kernel, "col, row" = [3 : index, 3 : index], ivs = [0 : index, 3 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 12 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%47, %c4, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%46, %c3, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%45, %c3, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %48 = adf.buffer.create @L1_L1_A_13() : memref<32x32xf32, 2>
-    %49 = adf.buffer.create @L1_L1_B_13() : memref<32x32xf32, 2>
-    %50 = adf.buffer.create @L1_L1_C_13() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %48) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %49) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%47, %50) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %51 = call @kernel_gemm(%48, %49, %50) {adf.kernel, "col, row" = [4 : index, 3 : index], ivs = [1 : index, 3 : index, 0 : index], kernel_gemm = 13 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%51, %c5, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%49, %c4, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%48, %c4, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %52 = adf.buffer.create @L1_L1_A_14() : memref<32x32xf32, 2>
-    %53 = adf.buffer.create @L1_L1_B_14() : memref<32x32xf32, 2>
-    %54 = adf.buffer.create @L1_L1_C_14() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %52) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %53) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%51, %54) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %55 = call @kernel_gemm(%52, %53, %54) {adf.kernel, "col, row" = [5 : index, 3 : index], ivs = [2 : index, 3 : index, 0 : index], kernel_gemm = 14 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%55, %c6, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%53, %c5, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%52, %c5, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %56 = adf.buffer.create @L1_L1_A_15() : memref<32x32xf32, 2>
-    %57 = adf.buffer.create @L1_L1_B_15() : memref<32x32xf32, 2>
-    %58 = adf.buffer.create @L1_L1_C_15() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %56) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %57) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%55, %58) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %59 = call @kernel_gemm(%56, %57, %58) {adf.kernel, "col, row" = [6 : index, 3 : index], ivs = [3 : index, 3 : index, 0 : index], kernel_gemm = 15 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%59, %c7, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%57, %c6, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%56, %c6, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%59, %arg23) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %60 = adf.buffer.create @L1_L1_A_16() : memref<32x32xf32, 2>
-    %61 = adf.buffer.create @L1_L1_B_16() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %60) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %61) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %62 = call @kernel_gemm0(%60, %61) {adf.kernel, "col, row" = [3 : index, 4 : index], ivs = [0 : index, 4 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 16 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%62, %c3, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%61, %c3, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%60, %c3, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %63 = adf.buffer.create @L1_L1_A_17() : memref<32x32xf32, 2>
-    %64 = adf.buffer.create @L1_L1_B_17() : memref<32x32xf32, 2>
-    %65 = adf.buffer.create @L1_L1_C_17() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %63) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %64) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%62, %65) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %66 = call @kernel_gemm(%63, %64, %65) {adf.kernel, "col, row" = [4 : index, 4 : index], ivs = [1 : index, 4 : index, 0 : index], kernel_gemm = 17 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%66, %c4, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%64, %c4, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%63, %c4, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %67 = adf.buffer.create @L1_L1_A_18() : memref<32x32xf32, 2>
-    %68 = adf.buffer.create @L1_L1_B_18() : memref<32x32xf32, 2>
-    %69 = adf.buffer.create @L1_L1_C_18() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %67) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %68) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%66, %69) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %70 = call @kernel_gemm(%67, %68, %69) {adf.kernel, "col, row" = [5 : index, 4 : index], ivs = [2 : index, 4 : index, 0 : index], kernel_gemm = 18 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%70, %c5, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%68, %c5, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%67, %c5, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %71 = adf.buffer.create @L1_L1_A_19() : memref<32x32xf32, 2>
-    %72 = adf.buffer.create @L1_L1_B_19() : memref<32x32xf32, 2>
-    %73 = adf.buffer.create @L1_L1_C_19() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %71) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %72) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%70, %73) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %74 = call @kernel_gemm(%71, %72, %73) {adf.kernel, "col, row" = [6 : index, 4 : index], ivs = [3 : index, 4 : index, 0 : index], kernel_gemm = 19 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%74, %c6, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%72, %c6, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%71, %c6, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%74, %arg28) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %75 = adf.buffer.create @L1_L1_A_20() : memref<32x32xf32, 2>
-    %76 = adf.buffer.create @L1_L1_B_20() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %75) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %76) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %77 = call @kernel_gemm0(%75, %76) {adf.kernel, "col, row" = [3 : index, 5 : index], ivs = [0 : index, 5 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 20 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%77, %c4, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%76, %c3, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%75, %c3, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %78 = adf.buffer.create @L1_L1_A_21() : memref<32x32xf32, 2>
-    %79 = adf.buffer.create @L1_L1_B_21() : memref<32x32xf32, 2>
-    %80 = adf.buffer.create @L1_L1_C_21() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %78) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %79) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%77, %80) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %81 = call @kernel_gemm(%78, %79, %80) {adf.kernel, "col, row" = [4 : index, 5 : index], ivs = [1 : index, 5 : index, 0 : index], kernel_gemm = 21 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%81, %c5, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%79, %c4, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%78, %c4, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %82 = adf.buffer.create @L1_L1_A_22() : memref<32x32xf32, 2>
-    %83 = adf.buffer.create @L1_L1_B_22() : memref<32x32xf32, 2>
-    %84 = adf.buffer.create @L1_L1_C_22() : memref<32x32xf32, 2>
+    adf.connect(%arg22, %42) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%982, %43) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %983 = call @kernel_gemm(%41, %42, %43) {adf.kernel, "col, row" = [6 : index, 3 : index], ivs = [3 : index, 3 : index, 0 : index], kernel_gemm = 15 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%983, %c7, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%42, %c6, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%41, %c6, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%983, %arg23) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %44) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %45) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %984 = call @kernel_gemm0(%44, %45) {adf.kernel, "col, row" = [3 : index, 4 : index], ivs = [0 : index, 4 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 16 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%984, %c3, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%45, %c3, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%44, %c3, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %46) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %47) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%984, %48) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %985 = call @kernel_gemm(%46, %47, %48) {adf.kernel, "col, row" = [4 : index, 4 : index], ivs = [1 : index, 4 : index, 0 : index], kernel_gemm = 17 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%985, %c4, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%47, %c4, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%46, %c4, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %49) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %50) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%985, %51) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %986 = call @kernel_gemm(%49, %50, %51) {adf.kernel, "col, row" = [5 : index, 4 : index], ivs = [2 : index, 4 : index, 0 : index], kernel_gemm = 18 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%986, %c5, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%50, %c5, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%49, %c5, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %52) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %53) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%986, %54) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %987 = call @kernel_gemm(%52, %53, %54) {adf.kernel, "col, row" = [6 : index, 4 : index], ivs = [3 : index, 4 : index, 0 : index], kernel_gemm = 19 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%987, %c6, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%53, %c6, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%52, %c6, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%987, %arg28) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %55) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %56) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %988 = call @kernel_gemm0(%55, %56) {adf.kernel, "col, row" = [3 : index, 5 : index], ivs = [0 : index, 5 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 20 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%988, %c4, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%56, %c3, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%55, %c3, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %57) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %58) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%988, %59) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %989 = call @kernel_gemm(%57, %58, %59) {adf.kernel, "col, row" = [4 : index, 5 : index], ivs = [1 : index, 5 : index, 0 : index], kernel_gemm = 21 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%989, %c5, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%58, %c4, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%57, %c4, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %60) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %61) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%989, %62) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %990 = call @kernel_gemm(%60, %61, %62) {adf.kernel, "col, row" = [5 : index, 5 : index], ivs = [2 : index, 5 : index, 0 : index], kernel_gemm = 22 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%990, %c6, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%61, %c5, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%60, %c5, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %63) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %64) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%990, %65) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %991 = call @kernel_gemm(%63, %64, %65) {adf.kernel, "col, row" = [6 : index, 5 : index], ivs = [3 : index, 5 : index, 0 : index], kernel_gemm = 23 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%991, %c7, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%64, %c6, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%63, %c6, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%991, %arg33) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %66) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %67) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %992 = call @kernel_gemm0(%66, %67) {adf.kernel, "col, row" = [3 : index, 6 : index], ivs = [0 : index, 6 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 24 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%992, %c3, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%67, %c3, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%66, %c3, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %68) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %69) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%992, %70) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %993 = call @kernel_gemm(%68, %69, %70) {adf.kernel, "col, row" = [4 : index, 6 : index], ivs = [1 : index, 6 : index, 0 : index], kernel_gemm = 25 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%993, %c4, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%69, %c4, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%68, %c4, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg4, %71) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %72) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%993, %73) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %994 = call @kernel_gemm(%71, %72, %73) {adf.kernel, "col, row" = [5 : index, 6 : index], ivs = [2 : index, 6 : index, 0 : index], kernel_gemm = 26 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%994, %c5, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%72, %c5, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%71, %c5, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %74) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %75) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%994, %76) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %995 = call @kernel_gemm(%74, %75, %76) {adf.kernel, "col, row" = [6 : index, 6 : index], ivs = [3 : index, 6 : index, 0 : index], kernel_gemm = 27 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%995, %c6, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%75, %c6, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%74, %c6, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%995, %arg38) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg0, %77) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %78) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %996 = call @kernel_gemm0(%77, %78) {adf.kernel, "col, row" = [3 : index, 7 : index], ivs = [0 : index, 7 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 28 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%996, %c4, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%78, %c3, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%77, %c3, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg2, %79) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %80) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%996, %81) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %997 = call @kernel_gemm(%79, %80, %81) {adf.kernel, "col, row" = [4 : index, 7 : index], ivs = [1 : index, 7 : index, 0 : index], kernel_gemm = 29 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%997, %c5, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%80, %c4, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%79, %c4, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.connect(%arg4, %82) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %83) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%81, %84) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %85 = call @kernel_gemm(%82, %83, %84) {adf.kernel, "col, row" = [5 : index, 5 : index], ivs = [2 : index, 5 : index, 0 : index], kernel_gemm = 22 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%85, %c6, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%83, %c5, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%82, %c5, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %86 = adf.buffer.create @L1_L1_A_23() : memref<32x32xf32, 2>
-    %87 = adf.buffer.create @L1_L1_B_23() : memref<32x32xf32, 2>
-    %88 = adf.buffer.create @L1_L1_C_23() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %86) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %87) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%85, %88) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %89 = call @kernel_gemm(%86, %87, %88) {adf.kernel, "col, row" = [6 : index, 5 : index], ivs = [3 : index, 5 : index, 0 : index], kernel_gemm = 23 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%89, %c7, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%87, %c6, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%86, %c6, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%89, %arg33) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %90 = adf.buffer.create @L1_L1_A_24() : memref<32x32xf32, 2>
-    %91 = adf.buffer.create @L1_L1_B_24() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %90) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %91) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %92 = call @kernel_gemm0(%90, %91) {adf.kernel, "col, row" = [3 : index, 6 : index], ivs = [0 : index, 6 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 24 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%92, %c3, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%91, %c3, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%90, %c3, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %93 = adf.buffer.create @L1_L1_A_25() : memref<32x32xf32, 2>
-    %94 = adf.buffer.create @L1_L1_B_25() : memref<32x32xf32, 2>
-    %95 = adf.buffer.create @L1_L1_C_25() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %93) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %94) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%92, %95) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %96 = call @kernel_gemm(%93, %94, %95) {adf.kernel, "col, row" = [4 : index, 6 : index], ivs = [1 : index, 6 : index, 0 : index], kernel_gemm = 25 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%96, %c4, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%94, %c4, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%93, %c4, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %97 = adf.buffer.create @L1_L1_A_26() : memref<32x32xf32, 2>
-    %98 = adf.buffer.create @L1_L1_B_26() : memref<32x32xf32, 2>
-    %99 = adf.buffer.create @L1_L1_C_26() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %97) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %98) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%96, %99) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %100 = call @kernel_gemm(%97, %98, %99) {adf.kernel, "col, row" = [5 : index, 6 : index], ivs = [2 : index, 6 : index, 0 : index], kernel_gemm = 26 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%100, %c5, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%98, %c5, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%97, %c5, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %101 = adf.buffer.create @L1_L1_A_27() : memref<32x32xf32, 2>
-    %102 = adf.buffer.create @L1_L1_B_27() : memref<32x32xf32, 2>
-    %103 = adf.buffer.create @L1_L1_C_27() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %101) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %102) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%100, %103) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %104 = call @kernel_gemm(%101, %102, %103) {adf.kernel, "col, row" = [6 : index, 6 : index], ivs = [3 : index, 6 : index, 0 : index], kernel_gemm = 27 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%104, %c6, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%102, %c6, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%101, %c6, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%104, %arg38) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %105 = adf.buffer.create @L1_L1_A_28() : memref<32x32xf32, 2>
-    %106 = adf.buffer.create @L1_L1_B_28() : memref<32x32xf32, 2>
-    adf.connect(%arg0, %105) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %106) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %107 = call @kernel_gemm0(%105, %106) {adf.kernel, "col, row" = [3 : index, 7 : index], ivs = [0 : index, 7 : index, 0 : index], kernel = 0 : index, kernel_gemm0 = 28 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%107, %c4, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%106, %c3, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%105, %c3, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %108 = adf.buffer.create @L1_L1_A_29() : memref<32x32xf32, 2>
-    %109 = adf.buffer.create @L1_L1_B_29() : memref<32x32xf32, 2>
-    %110 = adf.buffer.create @L1_L1_C_29() : memref<32x32xf32, 2>
-    adf.connect(%arg2, %108) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %109) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%107, %110) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %111 = call @kernel_gemm(%108, %109, %110) {adf.kernel, "col, row" = [4 : index, 7 : index], ivs = [1 : index, 7 : index, 0 : index], kernel_gemm = 29 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%111, %c5, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%109, %c4, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%108, %c4, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %112 = adf.buffer.create @L1_L1_A_30() : memref<32x32xf32, 2>
-    %113 = adf.buffer.create @L1_L1_B_30() : memref<32x32xf32, 2>
-    %114 = adf.buffer.create @L1_L1_C_30() : memref<32x32xf32, 2>
-    adf.connect(%arg4, %112) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %113) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%111, %114) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %115 = call @kernel_gemm(%112, %113, %114) {adf.kernel, "col, row" = [5 : index, 7 : index], ivs = [2 : index, 7 : index, 0 : index], kernel_gemm = 30 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%115, %c6, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%113, %c5, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%112, %c5, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %116 = adf.buffer.create @L1_L1_A_31() : memref<32x32xf32, 2>
-    %117 = adf.buffer.create @L1_L1_B_31() : memref<32x32xf32, 2>
-    %118 = adf.buffer.create @L1_L1_C_31() : memref<32x32xf32, 2>
-    adf.connect(%arg6, %116) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %117) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%115, %118) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %119 = call @kernel_gemm(%116, %117, %118) {adf.kernel, "col, row" = [6 : index, 7 : index], ivs = [3 : index, 7 : index, 0 : index], kernel_gemm = 31 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%119, %c7, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%117, %c6, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%116, %c6, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%119, %arg43) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %120 = adf.buffer.create @L1_L1_A_32() : memref<32x32xf32, 2>
-    %121 = adf.buffer.create @L1_L1_B_32() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %120) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %121) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %122 = call @kernel_gemm0(%120, %121) {adf.kernel, "col, row" = [7 : index, 0 : index], ivs = [0 : index, 0 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 32 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%122, %c7, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%121, %c6, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%120, %c7, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %123 = adf.buffer.create @L1_L1_A_33() : memref<32x32xf32, 2>
-    %124 = adf.buffer.create @L1_L1_B_33() : memref<32x32xf32, 2>
-    %125 = adf.buffer.create @L1_L1_C_33() : memref<32x32xf32, 2>
+    adf.connect(%arg41, %83) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%997, %84) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %998 = call @kernel_gemm(%82, %83, %84) {adf.kernel, "col, row" = [5 : index, 7 : index], ivs = [2 : index, 7 : index, 0 : index], kernel_gemm = 30 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%998, %c6, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%83, %c5, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%82, %c5, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg6, %85) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %86) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%998, %87) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %999 = call @kernel_gemm(%85, %86, %87) {adf.kernel, "col, row" = [6 : index, 7 : index], ivs = [3 : index, 7 : index, 0 : index], kernel_gemm = 31 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%999, %c7, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%86, %c6, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%85, %c6, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%999, %arg43) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %88) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %89) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1000 = call @kernel_gemm0(%88, %89) {adf.kernel, "col, row" = [7 : index, 0 : index], ivs = [0 : index, 0 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 32 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1000, %c7, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%89, %c6, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%88, %c7, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %90) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %91) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1000, %92) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1001 = call @kernel_gemm(%90, %91, %92) {adf.kernel, "col, row" = [8 : index, 0 : index], ivs = [1 : index, 0 : index, 1 : index], kernel_gemm = 33 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1001, %c8, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%91, %c7, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%90, %c8, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %93) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %94) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1001, %95) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1002 = call @kernel_gemm(%93, %94, %95) {adf.kernel, "col, row" = [9 : index, 0 : index], ivs = [2 : index, 0 : index, 1 : index], kernel_gemm = 34 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1002, %c9, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%94, %c8, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%93, %c9, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %96) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %97) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1002, %98) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1003 = call @kernel_gemm(%96, %97, %98) {adf.kernel, "col, row" = [10 : index, 0 : index], ivs = [3 : index, 0 : index, 1 : index], kernel_gemm = 35 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1003, %c10, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%97, %c9, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%96, %c10, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1003, %arg48) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %99) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %100) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1004 = call @kernel_gemm0(%99, %100) {adf.kernel, "col, row" = [7 : index, 1 : index], ivs = [0 : index, 1 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 36 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1004, %c8, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%100, %c7, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%99, %c7, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %101) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %102) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1004, %103) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1005 = call @kernel_gemm(%101, %102, %103) {adf.kernel, "col, row" = [8 : index, 1 : index], ivs = [1 : index, 1 : index, 1 : index], kernel_gemm = 37 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1005, %c9, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%102, %c8, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%101, %c8, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %104) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %105) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1005, %106) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1006 = call @kernel_gemm(%104, %105, %106) {adf.kernel, "col, row" = [9 : index, 1 : index], ivs = [2 : index, 1 : index, 1 : index], kernel_gemm = 38 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1006, %c10, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%105, %c9, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%104, %c9, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %107) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %108) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1006, %109) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1007 = call @kernel_gemm(%107, %108, %109) {adf.kernel, "col, row" = [10 : index, 1 : index], ivs = [3 : index, 1 : index, 1 : index], kernel_gemm = 39 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1007, %c11, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%108, %c10, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%107, %c10, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1007, %arg49) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %110) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %111) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1008 = call @kernel_gemm0(%110, %111) {adf.kernel, "col, row" = [7 : index, 2 : index], ivs = [0 : index, 2 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 40 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1008, %c7, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%111, %c7, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%110, %c7, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %112) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %113) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1008, %114) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1009 = call @kernel_gemm(%112, %113, %114) {adf.kernel, "col, row" = [8 : index, 2 : index], ivs = [1 : index, 2 : index, 1 : index], kernel_gemm = 41 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1009, %c8, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%113, %c8, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%112, %c8, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %115) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %116) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1009, %117) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1010 = call @kernel_gemm(%115, %116, %117) {adf.kernel, "col, row" = [9 : index, 2 : index], ivs = [2 : index, 2 : index, 1 : index], kernel_gemm = 42 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1010, %c9, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%116, %c9, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%115, %c9, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %118) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %119) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1010, %120) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1011 = call @kernel_gemm(%118, %119, %120) {adf.kernel, "col, row" = [10 : index, 2 : index], ivs = [3 : index, 2 : index, 1 : index], kernel_gemm = 43 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1011, %c10, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%119, %c10, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%118, %c10, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1011, %arg50) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %121) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %122) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1012 = call @kernel_gemm0(%121, %122) {adf.kernel, "col, row" = [7 : index, 3 : index], ivs = [0 : index, 3 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 44 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1012, %c8, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%122, %c7, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%121, %c7, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.connect(%arg45, %123) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %124) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%122, %125) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %126 = call @kernel_gemm(%123, %124, %125) {adf.kernel, "col, row" = [8 : index, 0 : index], ivs = [1 : index, 0 : index, 1 : index], kernel_gemm = 33 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%126, %c8, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%124, %c7, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%123, %c8, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %127 = adf.buffer.create @L1_L1_A_34() : memref<32x32xf32, 2>
-    %128 = adf.buffer.create @L1_L1_B_34() : memref<32x32xf32, 2>
-    %129 = adf.buffer.create @L1_L1_C_34() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %127) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %128) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%126, %129) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %130 = call @kernel_gemm(%127, %128, %129) {adf.kernel, "col, row" = [9 : index, 0 : index], ivs = [2 : index, 0 : index, 1 : index], kernel_gemm = 34 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%130, %c9, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%128, %c8, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%127, %c9, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %131 = adf.buffer.create @L1_L1_A_35() : memref<32x32xf32, 2>
-    %132 = adf.buffer.create @L1_L1_B_35() : memref<32x32xf32, 2>
-    %133 = adf.buffer.create @L1_L1_C_35() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %131) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %132) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%130, %133) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %134 = call @kernel_gemm(%131, %132, %133) {adf.kernel, "col, row" = [10 : index, 0 : index], ivs = [3 : index, 0 : index, 1 : index], kernel_gemm = 35 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%134, %c10, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%132, %c9, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%131, %c10, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%134, %arg48) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %135 = adf.buffer.create @L1_L1_A_36() : memref<32x32xf32, 2>
-    %136 = adf.buffer.create @L1_L1_B_36() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %135) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %136) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %137 = call @kernel_gemm0(%135, %136) {adf.kernel, "col, row" = [7 : index, 1 : index], ivs = [0 : index, 1 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 36 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%137, %c8, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%136, %c7, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%135, %c7, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %138 = adf.buffer.create @L1_L1_A_37() : memref<32x32xf32, 2>
-    %139 = adf.buffer.create @L1_L1_B_37() : memref<32x32xf32, 2>
-    %140 = adf.buffer.create @L1_L1_C_37() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %138) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %139) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%137, %140) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %141 = call @kernel_gemm(%138, %139, %140) {adf.kernel, "col, row" = [8 : index, 1 : index], ivs = [1 : index, 1 : index, 1 : index], kernel_gemm = 37 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%141, %c9, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%139, %c8, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%138, %c8, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %142 = adf.buffer.create @L1_L1_A_38() : memref<32x32xf32, 2>
-    %143 = adf.buffer.create @L1_L1_B_38() : memref<32x32xf32, 2>
-    %144 = adf.buffer.create @L1_L1_C_38() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %142) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %143) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%141, %144) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %145 = call @kernel_gemm(%142, %143, %144) {adf.kernel, "col, row" = [9 : index, 1 : index], ivs = [2 : index, 1 : index, 1 : index], kernel_gemm = 38 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%145, %c10, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%143, %c9, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%142, %c9, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %146 = adf.buffer.create @L1_L1_A_39() : memref<32x32xf32, 2>
-    %147 = adf.buffer.create @L1_L1_B_39() : memref<32x32xf32, 2>
-    %148 = adf.buffer.create @L1_L1_C_39() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %146) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %147) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%145, %148) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %149 = call @kernel_gemm(%146, %147, %148) {adf.kernel, "col, row" = [10 : index, 1 : index], ivs = [3 : index, 1 : index, 1 : index], kernel_gemm = 39 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%149, %c11, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%147, %c10, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%146, %c10, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%149, %arg49) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %150 = adf.buffer.create @L1_L1_A_40() : memref<32x32xf32, 2>
-    %151 = adf.buffer.create @L1_L1_B_40() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %150) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %151) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %152 = call @kernel_gemm0(%150, %151) {adf.kernel, "col, row" = [7 : index, 2 : index], ivs = [0 : index, 2 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 40 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%152, %c7, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%151, %c7, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%150, %c7, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %153 = adf.buffer.create @L1_L1_A_41() : memref<32x32xf32, 2>
-    %154 = adf.buffer.create @L1_L1_B_41() : memref<32x32xf32, 2>
-    %155 = adf.buffer.create @L1_L1_C_41() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %153) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %154) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%152, %155) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %156 = call @kernel_gemm(%153, %154, %155) {adf.kernel, "col, row" = [8 : index, 2 : index], ivs = [1 : index, 2 : index, 1 : index], kernel_gemm = 41 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%156, %c8, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%154, %c8, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%153, %c8, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %157 = adf.buffer.create @L1_L1_A_42() : memref<32x32xf32, 2>
-    %158 = adf.buffer.create @L1_L1_B_42() : memref<32x32xf32, 2>
-    %159 = adf.buffer.create @L1_L1_C_42() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %157) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %158) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%156, %159) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %160 = call @kernel_gemm(%157, %158, %159) {adf.kernel, "col, row" = [9 : index, 2 : index], ivs = [2 : index, 2 : index, 1 : index], kernel_gemm = 42 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%160, %c9, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%158, %c9, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%157, %c9, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %161 = adf.buffer.create @L1_L1_A_43() : memref<32x32xf32, 2>
-    %162 = adf.buffer.create @L1_L1_B_43() : memref<32x32xf32, 2>
-    %163 = adf.buffer.create @L1_L1_C_43() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %161) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %162) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%160, %163) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %164 = call @kernel_gemm(%161, %162, %163) {adf.kernel, "col, row" = [10 : index, 2 : index], ivs = [3 : index, 2 : index, 1 : index], kernel_gemm = 43 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%164, %c10, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%162, %c10, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%161, %c10, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%164, %arg50) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %165 = adf.buffer.create @L1_L1_A_44() : memref<32x32xf32, 2>
-    %166 = adf.buffer.create @L1_L1_B_44() : memref<32x32xf32, 2>
+    adf.connect(%arg20, %124) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1012, %125) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1013 = call @kernel_gemm(%123, %124, %125) {adf.kernel, "col, row" = [8 : index, 3 : index], ivs = [1 : index, 3 : index, 1 : index], kernel_gemm = 45 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1013, %c9, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%124, %c8, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%123, %c8, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %126) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %127) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1013, %128) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1014 = call @kernel_gemm(%126, %127, %128) {adf.kernel, "col, row" = [9 : index, 3 : index], ivs = [2 : index, 3 : index, 1 : index], kernel_gemm = 46 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1014, %c10, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%127, %c9, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%126, %c9, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %129) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %130) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1014, %131) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1015 = call @kernel_gemm(%129, %130, %131) {adf.kernel, "col, row" = [10 : index, 3 : index], ivs = [3 : index, 3 : index, 1 : index], kernel_gemm = 47 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1015, %c11, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%130, %c10, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%129, %c10, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1015, %arg51) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %132) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %133) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1016 = call @kernel_gemm0(%132, %133) {adf.kernel, "col, row" = [7 : index, 4 : index], ivs = [0 : index, 4 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 48 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1016, %c7, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%133, %c7, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%132, %c7, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %134) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %135) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1016, %136) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1017 = call @kernel_gemm(%134, %135, %136) {adf.kernel, "col, row" = [8 : index, 4 : index], ivs = [1 : index, 4 : index, 1 : index], kernel_gemm = 49 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1017, %c8, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%135, %c8, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%134, %c8, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %137) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %138) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1017, %139) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1018 = call @kernel_gemm(%137, %138, %139) {adf.kernel, "col, row" = [9 : index, 4 : index], ivs = [2 : index, 4 : index, 1 : index], kernel_gemm = 50 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1018, %c9, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%138, %c9, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%137, %c9, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %140) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %141) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1018, %142) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1019 = call @kernel_gemm(%140, %141, %142) {adf.kernel, "col, row" = [10 : index, 4 : index], ivs = [3 : index, 4 : index, 1 : index], kernel_gemm = 51 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1019, %c10, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%141, %c10, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%140, %c10, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1019, %arg52) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %143) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %144) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1020 = call @kernel_gemm0(%143, %144) {adf.kernel, "col, row" = [7 : index, 5 : index], ivs = [0 : index, 5 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 52 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1020, %c8, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%144, %c7, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%143, %c7, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %145) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %146) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1020, %147) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1021 = call @kernel_gemm(%145, %146, %147) {adf.kernel, "col, row" = [8 : index, 5 : index], ivs = [1 : index, 5 : index, 1 : index], kernel_gemm = 53 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1021, %c9, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%146, %c8, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%145, %c8, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %148) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %149) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1021, %150) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1022 = call @kernel_gemm(%148, %149, %150) {adf.kernel, "col, row" = [9 : index, 5 : index], ivs = [2 : index, 5 : index, 1 : index], kernel_gemm = 54 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1022, %c10, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%149, %c9, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%148, %c9, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %151) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %152) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1022, %153) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1023 = call @kernel_gemm(%151, %152, %153) {adf.kernel, "col, row" = [10 : index, 5 : index], ivs = [3 : index, 5 : index, 1 : index], kernel_gemm = 55 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1023, %c11, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%152, %c10, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%151, %c10, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1023, %arg53) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg44, %154) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %155) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1024 = call @kernel_gemm0(%154, %155) {adf.kernel, "col, row" = [7 : index, 6 : index], ivs = [0 : index, 6 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 56 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1024, %c7, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%155, %c7, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%154, %c7, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %156) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %157) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1024, %158) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1025 = call @kernel_gemm(%156, %157, %158) {adf.kernel, "col, row" = [8 : index, 6 : index], ivs = [1 : index, 6 : index, 1 : index], kernel_gemm = 57 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1025, %c8, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%157, %c8, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%156, %c8, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %159) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %160) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1025, %161) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1026 = call @kernel_gemm(%159, %160, %161) {adf.kernel, "col, row" = [9 : index, 6 : index], ivs = [2 : index, 6 : index, 1 : index], kernel_gemm = 58 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1026, %c9, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%160, %c9, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%159, %c9, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %162) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %163) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1026, %164) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1027 = call @kernel_gemm(%162, %163, %164) {adf.kernel, "col, row" = [10 : index, 6 : index], ivs = [3 : index, 6 : index, 1 : index], kernel_gemm = 59 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1027, %c10, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%163, %c10, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%162, %c10, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1027, %arg54) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
     adf.connect(%arg44, %165) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %166) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %167 = call @kernel_gemm0(%165, %166) {adf.kernel, "col, row" = [7 : index, 3 : index], ivs = [0 : index, 3 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 44 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%167, %c8, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%166, %c7, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%165, %c7, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %168 = adf.buffer.create @L1_L1_A_45() : memref<32x32xf32, 2>
-    %169 = adf.buffer.create @L1_L1_B_45() : memref<32x32xf32, 2>
-    %170 = adf.buffer.create @L1_L1_C_45() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %168) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %169) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%167, %170) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %171 = call @kernel_gemm(%168, %169, %170) {adf.kernel, "col, row" = [8 : index, 3 : index], ivs = [1 : index, 3 : index, 1 : index], kernel_gemm = 45 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%171, %c9, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%169, %c8, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%168, %c8, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %172 = adf.buffer.create @L1_L1_A_46() : memref<32x32xf32, 2>
-    %173 = adf.buffer.create @L1_L1_B_46() : memref<32x32xf32, 2>
-    %174 = adf.buffer.create @L1_L1_C_46() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %172) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %173) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%171, %174) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %175 = call @kernel_gemm(%172, %173, %174) {adf.kernel, "col, row" = [9 : index, 3 : index], ivs = [2 : index, 3 : index, 1 : index], kernel_gemm = 46 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%175, %c10, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%173, %c9, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%172, %c9, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %176 = adf.buffer.create @L1_L1_A_47() : memref<32x32xf32, 2>
-    %177 = adf.buffer.create @L1_L1_B_47() : memref<32x32xf32, 2>
-    %178 = adf.buffer.create @L1_L1_C_47() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %176) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %177) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%175, %178) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %179 = call @kernel_gemm(%176, %177, %178) {adf.kernel, "col, row" = [10 : index, 3 : index], ivs = [3 : index, 3 : index, 1 : index], kernel_gemm = 47 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%179, %c11, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%177, %c10, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%176, %c10, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%179, %arg51) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %180 = adf.buffer.create @L1_L1_A_48() : memref<32x32xf32, 2>
-    %181 = adf.buffer.create @L1_L1_B_48() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %180) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %181) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %182 = call @kernel_gemm0(%180, %181) {adf.kernel, "col, row" = [7 : index, 4 : index], ivs = [0 : index, 4 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 48 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%182, %c7, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%181, %c7, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%180, %c7, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %183 = adf.buffer.create @L1_L1_A_49() : memref<32x32xf32, 2>
-    %184 = adf.buffer.create @L1_L1_B_49() : memref<32x32xf32, 2>
-    %185 = adf.buffer.create @L1_L1_C_49() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %183) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %184) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%182, %185) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %186 = call @kernel_gemm(%183, %184, %185) {adf.kernel, "col, row" = [8 : index, 4 : index], ivs = [1 : index, 4 : index, 1 : index], kernel_gemm = 49 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%186, %c8, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%184, %c8, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%183, %c8, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %187 = adf.buffer.create @L1_L1_A_50() : memref<32x32xf32, 2>
-    %188 = adf.buffer.create @L1_L1_B_50() : memref<32x32xf32, 2>
-    %189 = adf.buffer.create @L1_L1_C_50() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %187) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %188) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%186, %189) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %190 = call @kernel_gemm(%187, %188, %189) {adf.kernel, "col, row" = [9 : index, 4 : index], ivs = [2 : index, 4 : index, 1 : index], kernel_gemm = 50 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%190, %c9, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%188, %c9, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%187, %c9, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %191 = adf.buffer.create @L1_L1_A_51() : memref<32x32xf32, 2>
-    %192 = adf.buffer.create @L1_L1_B_51() : memref<32x32xf32, 2>
-    %193 = adf.buffer.create @L1_L1_C_51() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %191) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %192) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%190, %193) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %194 = call @kernel_gemm(%191, %192, %193) {adf.kernel, "col, row" = [10 : index, 4 : index], ivs = [3 : index, 4 : index, 1 : index], kernel_gemm = 51 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%194, %c10, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%192, %c10, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%191, %c10, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%194, %arg52) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %195 = adf.buffer.create @L1_L1_A_52() : memref<32x32xf32, 2>
-    %196 = adf.buffer.create @L1_L1_B_52() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %195) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %196) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %197 = call @kernel_gemm0(%195, %196) {adf.kernel, "col, row" = [7 : index, 5 : index], ivs = [0 : index, 5 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 52 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%197, %c8, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%196, %c7, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%195, %c7, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %198 = adf.buffer.create @L1_L1_A_53() : memref<32x32xf32, 2>
-    %199 = adf.buffer.create @L1_L1_B_53() : memref<32x32xf32, 2>
-    %200 = adf.buffer.create @L1_L1_C_53() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %198) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %199) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%197, %200) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %201 = call @kernel_gemm(%198, %199, %200) {adf.kernel, "col, row" = [8 : index, 5 : index], ivs = [1 : index, 5 : index, 1 : index], kernel_gemm = 53 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%201, %c9, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%199, %c8, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%198, %c8, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %202 = adf.buffer.create @L1_L1_A_54() : memref<32x32xf32, 2>
-    %203 = adf.buffer.create @L1_L1_B_54() : memref<32x32xf32, 2>
-    %204 = adf.buffer.create @L1_L1_C_54() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %202) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %203) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%201, %204) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %205 = call @kernel_gemm(%202, %203, %204) {adf.kernel, "col, row" = [9 : index, 5 : index], ivs = [2 : index, 5 : index, 1 : index], kernel_gemm = 54 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%205, %c10, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%203, %c9, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%202, %c9, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %206 = adf.buffer.create @L1_L1_A_55() : memref<32x32xf32, 2>
-    %207 = adf.buffer.create @L1_L1_B_55() : memref<32x32xf32, 2>
-    %208 = adf.buffer.create @L1_L1_C_55() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %206) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %207) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%205, %208) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %209 = call @kernel_gemm(%206, %207, %208) {adf.kernel, "col, row" = [10 : index, 5 : index], ivs = [3 : index, 5 : index, 1 : index], kernel_gemm = 55 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%209, %c11, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%207, %c10, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%206, %c10, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%209, %arg53) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %210 = adf.buffer.create @L1_L1_A_56() : memref<32x32xf32, 2>
-    %211 = adf.buffer.create @L1_L1_B_56() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %210) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %211) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %212 = call @kernel_gemm0(%210, %211) {adf.kernel, "col, row" = [7 : index, 6 : index], ivs = [0 : index, 6 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 56 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%212, %c7, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%211, %c7, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%210, %c7, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %213 = adf.buffer.create @L1_L1_A_57() : memref<32x32xf32, 2>
-    %214 = adf.buffer.create @L1_L1_B_57() : memref<32x32xf32, 2>
-    %215 = adf.buffer.create @L1_L1_C_57() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %213) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %214) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%212, %215) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %216 = call @kernel_gemm(%213, %214, %215) {adf.kernel, "col, row" = [8 : index, 6 : index], ivs = [1 : index, 6 : index, 1 : index], kernel_gemm = 57 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%216, %c8, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%214, %c8, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%213, %c8, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %217 = adf.buffer.create @L1_L1_A_58() : memref<32x32xf32, 2>
-    %218 = adf.buffer.create @L1_L1_B_58() : memref<32x32xf32, 2>
-    %219 = adf.buffer.create @L1_L1_C_58() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %217) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %218) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%216, %219) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %220 = call @kernel_gemm(%217, %218, %219) {adf.kernel, "col, row" = [9 : index, 6 : index], ivs = [2 : index, 6 : index, 1 : index], kernel_gemm = 58 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%220, %c9, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%218, %c9, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%217, %c9, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %221 = adf.buffer.create @L1_L1_A_59() : memref<32x32xf32, 2>
-    %222 = adf.buffer.create @L1_L1_B_59() : memref<32x32xf32, 2>
-    %223 = adf.buffer.create @L1_L1_C_59() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %221) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %222) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%220, %223) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %224 = call @kernel_gemm(%221, %222, %223) {adf.kernel, "col, row" = [10 : index, 6 : index], ivs = [3 : index, 6 : index, 1 : index], kernel_gemm = 59 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%224, %c10, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%222, %c10, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%221, %c10, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%224, %arg54) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %225 = adf.buffer.create @L1_L1_A_60() : memref<32x32xf32, 2>
-    %226 = adf.buffer.create @L1_L1_B_60() : memref<32x32xf32, 2>
-    adf.connect(%arg44, %225) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %226) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %227 = call @kernel_gemm0(%225, %226) {adf.kernel, "col, row" = [7 : index, 7 : index], ivs = [0 : index, 7 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 60 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%227, %c8, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%226, %c7, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%225, %c7, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %228 = adf.buffer.create @L1_L1_A_61() : memref<32x32xf32, 2>
-    %229 = adf.buffer.create @L1_L1_B_61() : memref<32x32xf32, 2>
-    %230 = adf.buffer.create @L1_L1_C_61() : memref<32x32xf32, 2>
-    adf.connect(%arg45, %228) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %229) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%227, %230) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %231 = call @kernel_gemm(%228, %229, %230) {adf.kernel, "col, row" = [8 : index, 7 : index], ivs = [1 : index, 7 : index, 1 : index], kernel_gemm = 61 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%231, %c9, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%229, %c8, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%228, %c8, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %232 = adf.buffer.create @L1_L1_A_62() : memref<32x32xf32, 2>
-    %233 = adf.buffer.create @L1_L1_B_62() : memref<32x32xf32, 2>
-    %234 = adf.buffer.create @L1_L1_C_62() : memref<32x32xf32, 2>
-    adf.connect(%arg46, %232) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %233) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%231, %234) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %235 = call @kernel_gemm(%232, %233, %234) {adf.kernel, "col, row" = [9 : index, 7 : index], ivs = [2 : index, 7 : index, 1 : index], kernel_gemm = 62 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%235, %c10, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%233, %c9, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%232, %c9, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %236 = adf.buffer.create @L1_L1_A_63() : memref<32x32xf32, 2>
-    %237 = adf.buffer.create @L1_L1_B_63() : memref<32x32xf32, 2>
-    %238 = adf.buffer.create @L1_L1_C_63() : memref<32x32xf32, 2>
-    adf.connect(%arg47, %236) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %237) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%235, %238) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %239 = call @kernel_gemm(%236, %237, %238) {adf.kernel, "col, row" = [10 : index, 7 : index], ivs = [3 : index, 7 : index, 1 : index], kernel_gemm = 63 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%239, %c11, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%237, %c10, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%236, %c10, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%239, %arg55) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %240 = adf.buffer.create @L1_L1_A_64() : memref<32x32xf32, 2>
-    %241 = adf.buffer.create @L1_L1_B_64() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %240) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %241) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %242 = call @kernel_gemm0(%240, %241) {adf.kernel, "col, row" = [11 : index, 0 : index], ivs = [0 : index, 0 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 64 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%242, %c11, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%241, %c10, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%240, %c11, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %243 = adf.buffer.create @L1_L1_A_65() : memref<32x32xf32, 2>
-    %244 = adf.buffer.create @L1_L1_B_65() : memref<32x32xf32, 2>
-    %245 = adf.buffer.create @L1_L1_C_65() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %243) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %244) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%242, %245) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %246 = call @kernel_gemm(%243, %244, %245) {adf.kernel, "col, row" = [12 : index, 0 : index], ivs = [1 : index, 0 : index, 2 : index], kernel_gemm = 65 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%246, %c12, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%244, %c11, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%243, %c12, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %247 = adf.buffer.create @L1_L1_A_66() : memref<32x32xf32, 2>
-    %248 = adf.buffer.create @L1_L1_B_66() : memref<32x32xf32, 2>
-    %249 = adf.buffer.create @L1_L1_C_66() : memref<32x32xf32, 2>
+    adf.connect(%arg39, %166) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1028 = call @kernel_gemm0(%165, %166) {adf.kernel, "col, row" = [7 : index, 7 : index], ivs = [0 : index, 7 : index, 1 : index], kernel = 0 : index, kernel_gemm0 = 60 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1028, %c8, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%166, %c7, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%165, %c7, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg45, %167) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %168) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1028, %169) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1029 = call @kernel_gemm(%167, %168, %169) {adf.kernel, "col, row" = [8 : index, 7 : index], ivs = [1 : index, 7 : index, 1 : index], kernel_gemm = 61 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1029, %c9, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%168, %c8, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%167, %c8, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg46, %170) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %171) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1029, %172) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1030 = call @kernel_gemm(%170, %171, %172) {adf.kernel, "col, row" = [9 : index, 7 : index], ivs = [2 : index, 7 : index, 1 : index], kernel_gemm = 62 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1030, %c10, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%171, %c9, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%170, %c9, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg47, %173) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %174) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1030, %175) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1031 = call @kernel_gemm(%173, %174, %175) {adf.kernel, "col, row" = [10 : index, 7 : index], ivs = [3 : index, 7 : index, 1 : index], kernel_gemm = 63 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1031, %c11, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%174, %c10, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%173, %c10, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1031, %arg55) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %176) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %177) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1032 = call @kernel_gemm0(%176, %177) {adf.kernel, "col, row" = [11 : index, 0 : index], ivs = [0 : index, 0 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 64 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1032, %c11, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%177, %c10, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%176, %c11, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %178) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %179) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1032, %180) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1033 = call @kernel_gemm(%178, %179, %180) {adf.kernel, "col, row" = [12 : index, 0 : index], ivs = [1 : index, 0 : index, 2 : index], kernel_gemm = 65 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1033, %c12, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%179, %c11, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%178, %c12, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %181) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %182) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1033, %183) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1034 = call @kernel_gemm(%181, %182, %183) {adf.kernel, "col, row" = [13 : index, 0 : index], ivs = [2 : index, 0 : index, 2 : index], kernel_gemm = 66 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1034, %c13, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%182, %c12, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%181, %c13, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %184) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %185) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1034, %186) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1035 = call @kernel_gemm(%184, %185, %186) {adf.kernel, "col, row" = [14 : index, 0 : index], ivs = [3 : index, 0 : index, 2 : index], kernel_gemm = 67 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1035, %c14, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%185, %c13, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%184, %c14, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1035, %arg60) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %187) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %188) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1036 = call @kernel_gemm0(%187, %188) {adf.kernel, "col, row" = [11 : index, 1 : index], ivs = [0 : index, 1 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 68 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1036, %c12, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%188, %c11, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%187, %c11, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %189) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %190) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1036, %191) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1037 = call @kernel_gemm(%189, %190, %191) {adf.kernel, "col, row" = [12 : index, 1 : index], ivs = [1 : index, 1 : index, 2 : index], kernel_gemm = 69 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1037, %c13, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%190, %c12, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%189, %c12, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %192) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %193) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1037, %194) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1038 = call @kernel_gemm(%192, %193, %194) {adf.kernel, "col, row" = [13 : index, 1 : index], ivs = [2 : index, 1 : index, 2 : index], kernel_gemm = 70 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1038, %c14, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%193, %c13, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%192, %c13, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %195) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %196) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1038, %197) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1039 = call @kernel_gemm(%195, %196, %197) {adf.kernel, "col, row" = [14 : index, 1 : index], ivs = [3 : index, 1 : index, 2 : index], kernel_gemm = 71 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1039, %c15, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%196, %c14, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%195, %c14, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1039, %arg61) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %198) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %199) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1040 = call @kernel_gemm0(%198, %199) {adf.kernel, "col, row" = [11 : index, 2 : index], ivs = [0 : index, 2 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 72 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1040, %c11, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%199, %c11, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%198, %c11, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %200) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %201) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1040, %202) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1041 = call @kernel_gemm(%200, %201, %202) {adf.kernel, "col, row" = [12 : index, 2 : index], ivs = [1 : index, 2 : index, 2 : index], kernel_gemm = 73 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1041, %c12, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%201, %c12, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%200, %c12, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %203) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %204) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1041, %205) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1042 = call @kernel_gemm(%203, %204, %205) {adf.kernel, "col, row" = [13 : index, 2 : index], ivs = [2 : index, 2 : index, 2 : index], kernel_gemm = 74 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1042, %c13, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%204, %c13, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%203, %c13, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %206) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %207) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1042, %208) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1043 = call @kernel_gemm(%206, %207, %208) {adf.kernel, "col, row" = [14 : index, 2 : index], ivs = [3 : index, 2 : index, 2 : index], kernel_gemm = 75 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1043, %c14, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%207, %c14, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%206, %c14, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1043, %arg62) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %209) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %210) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1044 = call @kernel_gemm0(%209, %210) {adf.kernel, "col, row" = [11 : index, 3 : index], ivs = [0 : index, 3 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 76 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1044, %c12, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%210, %c11, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%209, %c11, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %211) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %212) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1044, %213) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1045 = call @kernel_gemm(%211, %212, %213) {adf.kernel, "col, row" = [12 : index, 3 : index], ivs = [1 : index, 3 : index, 2 : index], kernel_gemm = 77 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1045, %c13, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%212, %c12, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%211, %c12, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %214) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %215) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1045, %216) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1046 = call @kernel_gemm(%214, %215, %216) {adf.kernel, "col, row" = [13 : index, 3 : index], ivs = [2 : index, 3 : index, 2 : index], kernel_gemm = 78 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1046, %c14, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%215, %c13, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%214, %c13, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %217) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %218) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1046, %219) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1047 = call @kernel_gemm(%217, %218, %219) {adf.kernel, "col, row" = [14 : index, 3 : index], ivs = [3 : index, 3 : index, 2 : index], kernel_gemm = 79 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1047, %c15, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%218, %c14, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%217, %c14, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1047, %arg63) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %220) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %221) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1048 = call @kernel_gemm0(%220, %221) {adf.kernel, "col, row" = [11 : index, 4 : index], ivs = [0 : index, 4 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 80 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1048, %c11, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%221, %c11, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%220, %c11, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %222) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %223) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1048, %224) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1049 = call @kernel_gemm(%222, %223, %224) {adf.kernel, "col, row" = [12 : index, 4 : index], ivs = [1 : index, 4 : index, 2 : index], kernel_gemm = 81 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1049, %c12, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%223, %c12, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%222, %c12, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %225) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %226) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1049, %227) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1050 = call @kernel_gemm(%225, %226, %227) {adf.kernel, "col, row" = [13 : index, 4 : index], ivs = [2 : index, 4 : index, 2 : index], kernel_gemm = 82 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1050, %c13, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%226, %c13, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%225, %c13, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %228) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %229) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1050, %230) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1051 = call @kernel_gemm(%228, %229, %230) {adf.kernel, "col, row" = [14 : index, 4 : index], ivs = [3 : index, 4 : index, 2 : index], kernel_gemm = 83 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1051, %c14, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%229, %c14, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%228, %c14, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1051, %arg64) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %231) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %232) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1052 = call @kernel_gemm0(%231, %232) {adf.kernel, "col, row" = [11 : index, 5 : index], ivs = [0 : index, 5 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 84 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1052, %c12, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%232, %c11, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%231, %c11, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %233) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %234) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1052, %235) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1053 = call @kernel_gemm(%233, %234, %235) {adf.kernel, "col, row" = [12 : index, 5 : index], ivs = [1 : index, 5 : index, 2 : index], kernel_gemm = 85 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1053, %c13, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%234, %c12, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%233, %c12, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %236) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %237) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1053, %238) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1054 = call @kernel_gemm(%236, %237, %238) {adf.kernel, "col, row" = [13 : index, 5 : index], ivs = [2 : index, 5 : index, 2 : index], kernel_gemm = 86 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1054, %c14, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%237, %c13, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%236, %c13, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %239) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %240) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1054, %241) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1055 = call @kernel_gemm(%239, %240, %241) {adf.kernel, "col, row" = [14 : index, 5 : index], ivs = [3 : index, 5 : index, 2 : index], kernel_gemm = 87 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1055, %c15, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%240, %c14, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%239, %c14, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1055, %arg65) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %242) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %243) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1056 = call @kernel_gemm0(%242, %243) {adf.kernel, "col, row" = [11 : index, 6 : index], ivs = [0 : index, 6 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 88 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1056, %c11, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%243, %c11, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%242, %c11, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %244) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %245) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1056, %246) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1057 = call @kernel_gemm(%244, %245, %246) {adf.kernel, "col, row" = [12 : index, 6 : index], ivs = [1 : index, 6 : index, 2 : index], kernel_gemm = 89 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1057, %c12, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%245, %c12, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%244, %c12, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.connect(%arg58, %247) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %248) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%246, %249) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %250 = call @kernel_gemm(%247, %248, %249) {adf.kernel, "col, row" = [13 : index, 0 : index], ivs = [2 : index, 0 : index, 2 : index], kernel_gemm = 66 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%250, %c13, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%248, %c12, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%247, %c13, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %251 = adf.buffer.create @L1_L1_A_67() : memref<32x32xf32, 2>
-    %252 = adf.buffer.create @L1_L1_B_67() : memref<32x32xf32, 2>
-    %253 = adf.buffer.create @L1_L1_C_67() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %251) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %252) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%250, %253) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %254 = call @kernel_gemm(%251, %252, %253) {adf.kernel, "col, row" = [14 : index, 0 : index], ivs = [3 : index, 0 : index, 2 : index], kernel_gemm = 67 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%254, %c14, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%252, %c13, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%251, %c14, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%254, %arg60) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %255 = adf.buffer.create @L1_L1_A_68() : memref<32x32xf32, 2>
-    %256 = adf.buffer.create @L1_L1_B_68() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %255) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %256) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %257 = call @kernel_gemm0(%255, %256) {adf.kernel, "col, row" = [11 : index, 1 : index], ivs = [0 : index, 1 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 68 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%257, %c12, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%256, %c11, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%255, %c11, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %258 = adf.buffer.create @L1_L1_A_69() : memref<32x32xf32, 2>
-    %259 = adf.buffer.create @L1_L1_B_69() : memref<32x32xf32, 2>
-    %260 = adf.buffer.create @L1_L1_C_69() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %258) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %259) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%257, %260) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %261 = call @kernel_gemm(%258, %259, %260) {adf.kernel, "col, row" = [12 : index, 1 : index], ivs = [1 : index, 1 : index, 2 : index], kernel_gemm = 69 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%261, %c13, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%259, %c12, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%258, %c12, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %262 = adf.buffer.create @L1_L1_A_70() : memref<32x32xf32, 2>
-    %263 = adf.buffer.create @L1_L1_B_70() : memref<32x32xf32, 2>
-    %264 = adf.buffer.create @L1_L1_C_70() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %262) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %263) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%261, %264) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %265 = call @kernel_gemm(%262, %263, %264) {adf.kernel, "col, row" = [13 : index, 1 : index], ivs = [2 : index, 1 : index, 2 : index], kernel_gemm = 70 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%265, %c14, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%263, %c13, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%262, %c13, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %266 = adf.buffer.create @L1_L1_A_71() : memref<32x32xf32, 2>
-    %267 = adf.buffer.create @L1_L1_B_71() : memref<32x32xf32, 2>
-    %268 = adf.buffer.create @L1_L1_C_71() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %266) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %267) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%265, %268) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %269 = call @kernel_gemm(%266, %267, %268) {adf.kernel, "col, row" = [14 : index, 1 : index], ivs = [3 : index, 1 : index, 2 : index], kernel_gemm = 71 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%269, %c15, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%267, %c14, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%266, %c14, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%269, %arg61) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %270 = adf.buffer.create @L1_L1_A_72() : memref<32x32xf32, 2>
-    %271 = adf.buffer.create @L1_L1_B_72() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %270) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %271) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %272 = call @kernel_gemm0(%270, %271) {adf.kernel, "col, row" = [11 : index, 2 : index], ivs = [0 : index, 2 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 72 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%272, %c11, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%271, %c11, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%270, %c11, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %273 = adf.buffer.create @L1_L1_A_73() : memref<32x32xf32, 2>
-    %274 = adf.buffer.create @L1_L1_B_73() : memref<32x32xf32, 2>
-    %275 = adf.buffer.create @L1_L1_C_73() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %273) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %274) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%272, %275) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %276 = call @kernel_gemm(%273, %274, %275) {adf.kernel, "col, row" = [12 : index, 2 : index], ivs = [1 : index, 2 : index, 2 : index], kernel_gemm = 73 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%276, %c12, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%274, %c12, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%273, %c12, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %277 = adf.buffer.create @L1_L1_A_74() : memref<32x32xf32, 2>
-    %278 = adf.buffer.create @L1_L1_B_74() : memref<32x32xf32, 2>
-    %279 = adf.buffer.create @L1_L1_C_74() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %277) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %278) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%276, %279) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %280 = call @kernel_gemm(%277, %278, %279) {adf.kernel, "col, row" = [13 : index, 2 : index], ivs = [2 : index, 2 : index, 2 : index], kernel_gemm = 74 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%280, %c13, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%278, %c13, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%277, %c13, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %281 = adf.buffer.create @L1_L1_A_75() : memref<32x32xf32, 2>
-    %282 = adf.buffer.create @L1_L1_B_75() : memref<32x32xf32, 2>
-    %283 = adf.buffer.create @L1_L1_C_75() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %281) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %282) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%280, %283) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %284 = call @kernel_gemm(%281, %282, %283) {adf.kernel, "col, row" = [14 : index, 2 : index], ivs = [3 : index, 2 : index, 2 : index], kernel_gemm = 75 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%284, %c14, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%282, %c14, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%281, %c14, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%284, %arg62) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %285 = adf.buffer.create @L1_L1_A_76() : memref<32x32xf32, 2>
-    %286 = adf.buffer.create @L1_L1_B_76() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %285) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %286) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %287 = call @kernel_gemm0(%285, %286) {adf.kernel, "col, row" = [11 : index, 3 : index], ivs = [0 : index, 3 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 76 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%287, %c12, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%286, %c11, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%285, %c11, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %288 = adf.buffer.create @L1_L1_A_77() : memref<32x32xf32, 2>
-    %289 = adf.buffer.create @L1_L1_B_77() : memref<32x32xf32, 2>
-    %290 = adf.buffer.create @L1_L1_C_77() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %288) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %289) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%287, %290) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %291 = call @kernel_gemm(%288, %289, %290) {adf.kernel, "col, row" = [12 : index, 3 : index], ivs = [1 : index, 3 : index, 2 : index], kernel_gemm = 77 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%291, %c13, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%289, %c12, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%288, %c12, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %292 = adf.buffer.create @L1_L1_A_78() : memref<32x32xf32, 2>
-    %293 = adf.buffer.create @L1_L1_B_78() : memref<32x32xf32, 2>
-    %294 = adf.buffer.create @L1_L1_C_78() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %292) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %293) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%291, %294) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %295 = call @kernel_gemm(%292, %293, %294) {adf.kernel, "col, row" = [13 : index, 3 : index], ivs = [2 : index, 3 : index, 2 : index], kernel_gemm = 78 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%295, %c14, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%293, %c13, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%292, %c13, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %296 = adf.buffer.create @L1_L1_A_79() : memref<32x32xf32, 2>
-    %297 = adf.buffer.create @L1_L1_B_79() : memref<32x32xf32, 2>
-    %298 = adf.buffer.create @L1_L1_C_79() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %296) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %297) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%295, %298) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %299 = call @kernel_gemm(%296, %297, %298) {adf.kernel, "col, row" = [14 : index, 3 : index], ivs = [3 : index, 3 : index, 2 : index], kernel_gemm = 79 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%299, %c15, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%297, %c14, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%296, %c14, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%299, %arg63) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %300 = adf.buffer.create @L1_L1_A_80() : memref<32x32xf32, 2>
-    %301 = adf.buffer.create @L1_L1_B_80() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %300) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %301) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %302 = call @kernel_gemm0(%300, %301) {adf.kernel, "col, row" = [11 : index, 4 : index], ivs = [0 : index, 4 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 80 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%302, %c11, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%301, %c11, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%300, %c11, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %303 = adf.buffer.create @L1_L1_A_81() : memref<32x32xf32, 2>
-    %304 = adf.buffer.create @L1_L1_B_81() : memref<32x32xf32, 2>
-    %305 = adf.buffer.create @L1_L1_C_81() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %303) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %304) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%302, %305) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %306 = call @kernel_gemm(%303, %304, %305) {adf.kernel, "col, row" = [12 : index, 4 : index], ivs = [1 : index, 4 : index, 2 : index], kernel_gemm = 81 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%306, %c12, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%304, %c12, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%303, %c12, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %307 = adf.buffer.create @L1_L1_A_82() : memref<32x32xf32, 2>
-    %308 = adf.buffer.create @L1_L1_B_82() : memref<32x32xf32, 2>
-    %309 = adf.buffer.create @L1_L1_C_82() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %307) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %308) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%306, %309) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %310 = call @kernel_gemm(%307, %308, %309) {adf.kernel, "col, row" = [13 : index, 4 : index], ivs = [2 : index, 4 : index, 2 : index], kernel_gemm = 82 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%310, %c13, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%308, %c13, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%307, %c13, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %311 = adf.buffer.create @L1_L1_A_83() : memref<32x32xf32, 2>
-    %312 = adf.buffer.create @L1_L1_B_83() : memref<32x32xf32, 2>
-    %313 = adf.buffer.create @L1_L1_C_83() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %311) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %312) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%310, %313) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %314 = call @kernel_gemm(%311, %312, %313) {adf.kernel, "col, row" = [14 : index, 4 : index], ivs = [3 : index, 4 : index, 2 : index], kernel_gemm = 83 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%314, %c14, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%312, %c14, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%311, %c14, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%314, %arg64) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %315 = adf.buffer.create @L1_L1_A_84() : memref<32x32xf32, 2>
-    %316 = adf.buffer.create @L1_L1_B_84() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %315) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %316) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %317 = call @kernel_gemm0(%315, %316) {adf.kernel, "col, row" = [11 : index, 5 : index], ivs = [0 : index, 5 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 84 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%317, %c12, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%316, %c11, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%315, %c11, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %318 = adf.buffer.create @L1_L1_A_85() : memref<32x32xf32, 2>
-    %319 = adf.buffer.create @L1_L1_B_85() : memref<32x32xf32, 2>
-    %320 = adf.buffer.create @L1_L1_C_85() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %318) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %319) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%317, %320) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %321 = call @kernel_gemm(%318, %319, %320) {adf.kernel, "col, row" = [12 : index, 5 : index], ivs = [1 : index, 5 : index, 2 : index], kernel_gemm = 85 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%321, %c13, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%319, %c12, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%318, %c12, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %322 = adf.buffer.create @L1_L1_A_86() : memref<32x32xf32, 2>
-    %323 = adf.buffer.create @L1_L1_B_86() : memref<32x32xf32, 2>
-    %324 = adf.buffer.create @L1_L1_C_86() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %322) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %323) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%321, %324) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %325 = call @kernel_gemm(%322, %323, %324) {adf.kernel, "col, row" = [13 : index, 5 : index], ivs = [2 : index, 5 : index, 2 : index], kernel_gemm = 86 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%325, %c14, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%323, %c13, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%322, %c13, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %326 = adf.buffer.create @L1_L1_A_87() : memref<32x32xf32, 2>
-    %327 = adf.buffer.create @L1_L1_B_87() : memref<32x32xf32, 2>
-    %328 = adf.buffer.create @L1_L1_C_87() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %326) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %327) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%325, %328) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %329 = call @kernel_gemm(%326, %327, %328) {adf.kernel, "col, row" = [14 : index, 5 : index], ivs = [3 : index, 5 : index, 2 : index], kernel_gemm = 87 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%329, %c15, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%327, %c14, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%326, %c14, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%329, %arg65) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %330 = adf.buffer.create @L1_L1_A_88() : memref<32x32xf32, 2>
-    %331 = adf.buffer.create @L1_L1_B_88() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %330) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %248) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1057, %249) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1058 = call @kernel_gemm(%247, %248, %249) {adf.kernel, "col, row" = [13 : index, 6 : index], ivs = [2 : index, 6 : index, 2 : index], kernel_gemm = 90 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1058, %c13, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%248, %c13, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%247, %c13, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %250) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %251) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1058, %252) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1059 = call @kernel_gemm(%250, %251, %252) {adf.kernel, "col, row" = [14 : index, 6 : index], ivs = [3 : index, 6 : index, 2 : index], kernel_gemm = 91 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1059, %c14, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%251, %c14, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%250, %c14, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1059, %arg66) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg56, %253) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %254) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1060 = call @kernel_gemm0(%253, %254) {adf.kernel, "col, row" = [11 : index, 7 : index], ivs = [0 : index, 7 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 92 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1060, %c12, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%254, %c11, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%253, %c11, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg57, %255) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %256) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1060, %257) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1061 = call @kernel_gemm(%255, %256, %257) {adf.kernel, "col, row" = [12 : index, 7 : index], ivs = [1 : index, 7 : index, 2 : index], kernel_gemm = 93 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1061, %c13, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%256, %c12, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%255, %c12, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg58, %258) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %259) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1061, %260) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1062 = call @kernel_gemm(%258, %259, %260) {adf.kernel, "col, row" = [13 : index, 7 : index], ivs = [2 : index, 7 : index, 2 : index], kernel_gemm = 94 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1062, %c14, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%259, %c13, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%258, %c13, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg59, %261) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %262) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1062, %263) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1063 = call @kernel_gemm(%261, %262, %263) {adf.kernel, "col, row" = [14 : index, 7 : index], ivs = [3 : index, 7 : index, 2 : index], kernel_gemm = 95 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1063, %c15, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%262, %c14, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%261, %c14, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1063, %arg67) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %264) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %265) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1064 = call @kernel_gemm0(%264, %265) {adf.kernel, "col, row" = [15 : index, 0 : index], ivs = [0 : index, 0 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 96 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1064, %c15, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%265, %c14, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%264, %c15, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %266) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %267) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1064, %268) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1065 = call @kernel_gemm(%266, %267, %268) {adf.kernel, "col, row" = [16 : index, 0 : index], ivs = [1 : index, 0 : index, 3 : index], kernel_gemm = 97 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1065, %c16, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%267, %c15, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%266, %c16, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %269) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %270) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1065, %271) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1066 = call @kernel_gemm(%269, %270, %271) {adf.kernel, "col, row" = [17 : index, 0 : index], ivs = [2 : index, 0 : index, 3 : index], kernel_gemm = 98 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1066, %c17, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%270, %c16, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%269, %c17, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %272) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %273) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1066, %274) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1067 = call @kernel_gemm(%272, %273, %274) {adf.kernel, "col, row" = [18 : index, 0 : index], ivs = [3 : index, 0 : index, 3 : index], kernel_gemm = 99 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1067, %c18, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%273, %c17, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%272, %c18, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1067, %arg72) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %275) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %276) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1068 = call @kernel_gemm0(%275, %276) {adf.kernel, "col, row" = [15 : index, 1 : index], ivs = [0 : index, 1 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 100 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1068, %c16, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%276, %c15, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%275, %c15, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %277) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %278) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1068, %279) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1069 = call @kernel_gemm(%277, %278, %279) {adf.kernel, "col, row" = [16 : index, 1 : index], ivs = [1 : index, 1 : index, 3 : index], kernel_gemm = 101 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1069, %c17, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%278, %c16, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%277, %c16, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %280) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %281) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1069, %282) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1070 = call @kernel_gemm(%280, %281, %282) {adf.kernel, "col, row" = [17 : index, 1 : index], ivs = [2 : index, 1 : index, 3 : index], kernel_gemm = 102 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1070, %c18, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%281, %c17, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%280, %c17, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %283) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %284) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1070, %285) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1071 = call @kernel_gemm(%283, %284, %285) {adf.kernel, "col, row" = [18 : index, 1 : index], ivs = [3 : index, 1 : index, 3 : index], kernel_gemm = 103 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1071, %c19, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%284, %c18, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%283, %c18, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1071, %arg73) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %286) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %287) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1072 = call @kernel_gemm0(%286, %287) {adf.kernel, "col, row" = [15 : index, 2 : index], ivs = [0 : index, 2 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 104 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1072, %c15, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%287, %c15, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%286, %c15, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %288) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %289) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1072, %290) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1073 = call @kernel_gemm(%288, %289, %290) {adf.kernel, "col, row" = [16 : index, 2 : index], ivs = [1 : index, 2 : index, 3 : index], kernel_gemm = 105 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1073, %c16, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%289, %c16, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%288, %c16, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %291) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %292) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1073, %293) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1074 = call @kernel_gemm(%291, %292, %293) {adf.kernel, "col, row" = [17 : index, 2 : index], ivs = [2 : index, 2 : index, 3 : index], kernel_gemm = 106 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1074, %c17, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%292, %c17, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%291, %c17, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %294) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %295) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1074, %296) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1075 = call @kernel_gemm(%294, %295, %296) {adf.kernel, "col, row" = [18 : index, 2 : index], ivs = [3 : index, 2 : index, 3 : index], kernel_gemm = 107 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1075, %c18, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%295, %c18, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%294, %c18, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1075, %arg74) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %297) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %298) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1076 = call @kernel_gemm0(%297, %298) {adf.kernel, "col, row" = [15 : index, 3 : index], ivs = [0 : index, 3 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 108 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1076, %c16, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%298, %c15, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%297, %c15, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %299) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %300) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1076, %301) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1077 = call @kernel_gemm(%299, %300, %301) {adf.kernel, "col, row" = [16 : index, 3 : index], ivs = [1 : index, 3 : index, 3 : index], kernel_gemm = 109 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1077, %c17, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%300, %c16, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%299, %c16, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %302) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %303) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1077, %304) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1078 = call @kernel_gemm(%302, %303, %304) {adf.kernel, "col, row" = [17 : index, 3 : index], ivs = [2 : index, 3 : index, 3 : index], kernel_gemm = 110 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1078, %c18, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%303, %c17, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%302, %c17, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %305) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %306) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1078, %307) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1079 = call @kernel_gemm(%305, %306, %307) {adf.kernel, "col, row" = [18 : index, 3 : index], ivs = [3 : index, 3 : index, 3 : index], kernel_gemm = 111 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1079, %c19, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%306, %c18, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%305, %c18, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1079, %arg75) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %308) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %309) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1080 = call @kernel_gemm0(%308, %309) {adf.kernel, "col, row" = [15 : index, 4 : index], ivs = [0 : index, 4 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 112 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1080, %c15, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%309, %c15, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%308, %c15, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %310) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %311) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1080, %312) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1081 = call @kernel_gemm(%310, %311, %312) {adf.kernel, "col, row" = [16 : index, 4 : index], ivs = [1 : index, 4 : index, 3 : index], kernel_gemm = 113 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1081, %c16, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%311, %c16, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%310, %c16, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %313) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %314) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1081, %315) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1082 = call @kernel_gemm(%313, %314, %315) {adf.kernel, "col, row" = [17 : index, 4 : index], ivs = [2 : index, 4 : index, 3 : index], kernel_gemm = 114 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1082, %c17, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%314, %c17, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%313, %c17, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %316) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %317) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1082, %318) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1083 = call @kernel_gemm(%316, %317, %318) {adf.kernel, "col, row" = [18 : index, 4 : index], ivs = [3 : index, 4 : index, 3 : index], kernel_gemm = 115 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1083, %c18, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%317, %c18, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%316, %c18, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1083, %arg76) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %319) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %320) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1084 = call @kernel_gemm0(%319, %320) {adf.kernel, "col, row" = [15 : index, 5 : index], ivs = [0 : index, 5 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 116 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1084, %c16, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%320, %c15, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%319, %c15, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %321) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %322) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1084, %323) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1085 = call @kernel_gemm(%321, %322, %323) {adf.kernel, "col, row" = [16 : index, 5 : index], ivs = [1 : index, 5 : index, 3 : index], kernel_gemm = 117 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1085, %c17, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%322, %c16, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%321, %c16, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %324) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %325) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1085, %326) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1086 = call @kernel_gemm(%324, %325, %326) {adf.kernel, "col, row" = [17 : index, 5 : index], ivs = [2 : index, 5 : index, 3 : index], kernel_gemm = 118 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1086, %c18, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%325, %c17, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%324, %c17, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %327) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %328) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1086, %329) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1087 = call @kernel_gemm(%327, %328, %329) {adf.kernel, "col, row" = [18 : index, 5 : index], ivs = [3 : index, 5 : index, 3 : index], kernel_gemm = 119 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1087, %c19, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%328, %c18, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%327, %c18, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1087, %arg77) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %330) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
     adf.connect(%arg34, %331) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %332 = call @kernel_gemm0(%330, %331) {adf.kernel, "col, row" = [11 : index, 6 : index], ivs = [0 : index, 6 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 88 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%332, %c11, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%331, %c11, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%330, %c11, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %333 = adf.buffer.create @L1_L1_A_89() : memref<32x32xf32, 2>
-    %334 = adf.buffer.create @L1_L1_B_89() : memref<32x32xf32, 2>
-    %335 = adf.buffer.create @L1_L1_C_89() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %333) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %334) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%332, %335) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %336 = call @kernel_gemm(%333, %334, %335) {adf.kernel, "col, row" = [12 : index, 6 : index], ivs = [1 : index, 6 : index, 2 : index], kernel_gemm = 89 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%336, %c12, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%334, %c12, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%333, %c12, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %337 = adf.buffer.create @L1_L1_A_90() : memref<32x32xf32, 2>
-    %338 = adf.buffer.create @L1_L1_B_90() : memref<32x32xf32, 2>
-    %339 = adf.buffer.create @L1_L1_C_90() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %337) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %338) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%336, %339) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %340 = call @kernel_gemm(%337, %338, %339) {adf.kernel, "col, row" = [13 : index, 6 : index], ivs = [2 : index, 6 : index, 2 : index], kernel_gemm = 90 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%340, %c13, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%338, %c13, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%337, %c13, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %341 = adf.buffer.create @L1_L1_A_91() : memref<32x32xf32, 2>
-    %342 = adf.buffer.create @L1_L1_B_91() : memref<32x32xf32, 2>
-    %343 = adf.buffer.create @L1_L1_C_91() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %341) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %342) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%340, %343) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %344 = call @kernel_gemm(%341, %342, %343) {adf.kernel, "col, row" = [14 : index, 6 : index], ivs = [3 : index, 6 : index, 2 : index], kernel_gemm = 91 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%344, %c14, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%342, %c14, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%341, %c14, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%344, %arg66) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %345 = adf.buffer.create @L1_L1_A_92() : memref<32x32xf32, 2>
-    %346 = adf.buffer.create @L1_L1_B_92() : memref<32x32xf32, 2>
-    adf.connect(%arg56, %345) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %346) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %347 = call @kernel_gemm0(%345, %346) {adf.kernel, "col, row" = [11 : index, 7 : index], ivs = [0 : index, 7 : index, 2 : index], kernel = 0 : index, kernel_gemm0 = 92 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%347, %c12, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%346, %c11, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%345, %c11, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %348 = adf.buffer.create @L1_L1_A_93() : memref<32x32xf32, 2>
-    %349 = adf.buffer.create @L1_L1_B_93() : memref<32x32xf32, 2>
-    %350 = adf.buffer.create @L1_L1_C_93() : memref<32x32xf32, 2>
-    adf.connect(%arg57, %348) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %349) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%347, %350) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %351 = call @kernel_gemm(%348, %349, %350) {adf.kernel, "col, row" = [12 : index, 7 : index], ivs = [1 : index, 7 : index, 2 : index], kernel_gemm = 93 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%351, %c13, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%349, %c12, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%348, %c12, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %352 = adf.buffer.create @L1_L1_A_94() : memref<32x32xf32, 2>
-    %353 = adf.buffer.create @L1_L1_B_94() : memref<32x32xf32, 2>
-    %354 = adf.buffer.create @L1_L1_C_94() : memref<32x32xf32, 2>
-    adf.connect(%arg58, %352) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %353) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%351, %354) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %355 = call @kernel_gemm(%352, %353, %354) {adf.kernel, "col, row" = [13 : index, 7 : index], ivs = [2 : index, 7 : index, 2 : index], kernel_gemm = 94 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%355, %c14, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%353, %c13, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%352, %c13, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %356 = adf.buffer.create @L1_L1_A_95() : memref<32x32xf32, 2>
-    %357 = adf.buffer.create @L1_L1_B_95() : memref<32x32xf32, 2>
-    %358 = adf.buffer.create @L1_L1_C_95() : memref<32x32xf32, 2>
-    adf.connect(%arg59, %356) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %357) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%355, %358) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %359 = call @kernel_gemm(%356, %357, %358) {adf.kernel, "col, row" = [14 : index, 7 : index], ivs = [3 : index, 7 : index, 2 : index], kernel_gemm = 95 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%359, %c15, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%357, %c14, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%356, %c14, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%359, %arg67) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %360 = adf.buffer.create @L1_L1_A_96() : memref<32x32xf32, 2>
-    %361 = adf.buffer.create @L1_L1_B_96() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %360) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %361) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %362 = call @kernel_gemm0(%360, %361) {adf.kernel, "col, row" = [15 : index, 0 : index], ivs = [0 : index, 0 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 96 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%362, %c15, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%361, %c14, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%360, %c15, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %363 = adf.buffer.create @L1_L1_A_97() : memref<32x32xf32, 2>
-    %364 = adf.buffer.create @L1_L1_B_97() : memref<32x32xf32, 2>
-    %365 = adf.buffer.create @L1_L1_C_97() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %363) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %364) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%362, %365) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %366 = call @kernel_gemm(%363, %364, %365) {adf.kernel, "col, row" = [16 : index, 0 : index], ivs = [1 : index, 0 : index, 3 : index], kernel_gemm = 97 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%366, %c16, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%364, %c15, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%363, %c16, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %367 = adf.buffer.create @L1_L1_A_98() : memref<32x32xf32, 2>
-    %368 = adf.buffer.create @L1_L1_B_98() : memref<32x32xf32, 2>
-    %369 = adf.buffer.create @L1_L1_C_98() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %367) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %368) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%366, %369) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %370 = call @kernel_gemm(%367, %368, %369) {adf.kernel, "col, row" = [17 : index, 0 : index], ivs = [2 : index, 0 : index, 3 : index], kernel_gemm = 98 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%370, %c17, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%368, %c16, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%367, %c17, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %371 = adf.buffer.create @L1_L1_A_99() : memref<32x32xf32, 2>
-    %372 = adf.buffer.create @L1_L1_B_99() : memref<32x32xf32, 2>
-    %373 = adf.buffer.create @L1_L1_C_99() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %371) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %372) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%370, %373) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %374 = call @kernel_gemm(%371, %372, %373) {adf.kernel, "col, row" = [18 : index, 0 : index], ivs = [3 : index, 0 : index, 3 : index], kernel_gemm = 99 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%374, %c18, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%372, %c17, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%371, %c18, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%374, %arg72) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %375 = adf.buffer.create @L1_L1_A_100() : memref<32x32xf32, 2>
-    %376 = adf.buffer.create @L1_L1_B_100() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %375) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %376) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %377 = call @kernel_gemm0(%375, %376) {adf.kernel, "col, row" = [15 : index, 1 : index], ivs = [0 : index, 1 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 100 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%377, %c16, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%376, %c15, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%375, %c15, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %378 = adf.buffer.create @L1_L1_A_101() : memref<32x32xf32, 2>
-    %379 = adf.buffer.create @L1_L1_B_101() : memref<32x32xf32, 2>
-    %380 = adf.buffer.create @L1_L1_C_101() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %378) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %379) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%377, %380) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %381 = call @kernel_gemm(%378, %379, %380) {adf.kernel, "col, row" = [16 : index, 1 : index], ivs = [1 : index, 1 : index, 3 : index], kernel_gemm = 101 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%381, %c17, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%379, %c16, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%378, %c16, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %382 = adf.buffer.create @L1_L1_A_102() : memref<32x32xf32, 2>
-    %383 = adf.buffer.create @L1_L1_B_102() : memref<32x32xf32, 2>
-    %384 = adf.buffer.create @L1_L1_C_102() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %382) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %383) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%381, %384) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %385 = call @kernel_gemm(%382, %383, %384) {adf.kernel, "col, row" = [17 : index, 1 : index], ivs = [2 : index, 1 : index, 3 : index], kernel_gemm = 102 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%385, %c18, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%383, %c17, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%382, %c17, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %386 = adf.buffer.create @L1_L1_A_103() : memref<32x32xf32, 2>
-    %387 = adf.buffer.create @L1_L1_B_103() : memref<32x32xf32, 2>
-    %388 = adf.buffer.create @L1_L1_C_103() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %386) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %387) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%385, %388) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %389 = call @kernel_gemm(%386, %387, %388) {adf.kernel, "col, row" = [18 : index, 1 : index], ivs = [3 : index, 1 : index, 3 : index], kernel_gemm = 103 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%389, %c19, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%387, %c18, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%386, %c18, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%389, %arg73) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %390 = adf.buffer.create @L1_L1_A_104() : memref<32x32xf32, 2>
-    %391 = adf.buffer.create @L1_L1_B_104() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %390) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %391) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %392 = call @kernel_gemm0(%390, %391) {adf.kernel, "col, row" = [15 : index, 2 : index], ivs = [0 : index, 2 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 104 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%392, %c15, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%391, %c15, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%390, %c15, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %393 = adf.buffer.create @L1_L1_A_105() : memref<32x32xf32, 2>
-    %394 = adf.buffer.create @L1_L1_B_105() : memref<32x32xf32, 2>
-    %395 = adf.buffer.create @L1_L1_C_105() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %393) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %394) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%392, %395) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %396 = call @kernel_gemm(%393, %394, %395) {adf.kernel, "col, row" = [16 : index, 2 : index], ivs = [1 : index, 2 : index, 3 : index], kernel_gemm = 105 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%396, %c16, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%394, %c16, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%393, %c16, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %397 = adf.buffer.create @L1_L1_A_106() : memref<32x32xf32, 2>
-    %398 = adf.buffer.create @L1_L1_B_106() : memref<32x32xf32, 2>
-    %399 = adf.buffer.create @L1_L1_C_106() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %397) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %398) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%396, %399) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %400 = call @kernel_gemm(%397, %398, %399) {adf.kernel, "col, row" = [17 : index, 2 : index], ivs = [2 : index, 2 : index, 3 : index], kernel_gemm = 106 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%400, %c17, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%398, %c17, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%397, %c17, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %401 = adf.buffer.create @L1_L1_A_107() : memref<32x32xf32, 2>
-    %402 = adf.buffer.create @L1_L1_B_107() : memref<32x32xf32, 2>
-    %403 = adf.buffer.create @L1_L1_C_107() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %401) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %402) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%400, %403) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %404 = call @kernel_gemm(%401, %402, %403) {adf.kernel, "col, row" = [18 : index, 2 : index], ivs = [3 : index, 2 : index, 3 : index], kernel_gemm = 107 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%404, %c18, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%402, %c18, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%401, %c18, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%404, %arg74) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %405 = adf.buffer.create @L1_L1_A_108() : memref<32x32xf32, 2>
-    %406 = adf.buffer.create @L1_L1_B_108() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %405) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %406) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %407 = call @kernel_gemm0(%405, %406) {adf.kernel, "col, row" = [15 : index, 3 : index], ivs = [0 : index, 3 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 108 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%407, %c16, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%406, %c15, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%405, %c15, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %408 = adf.buffer.create @L1_L1_A_109() : memref<32x32xf32, 2>
-    %409 = adf.buffer.create @L1_L1_B_109() : memref<32x32xf32, 2>
-    %410 = adf.buffer.create @L1_L1_C_109() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %408) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %409) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%407, %410) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %411 = call @kernel_gemm(%408, %409, %410) {adf.kernel, "col, row" = [16 : index, 3 : index], ivs = [1 : index, 3 : index, 3 : index], kernel_gemm = 109 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%411, %c17, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%409, %c16, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%408, %c16, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %412 = adf.buffer.create @L1_L1_A_110() : memref<32x32xf32, 2>
-    %413 = adf.buffer.create @L1_L1_B_110() : memref<32x32xf32, 2>
-    %414 = adf.buffer.create @L1_L1_C_110() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %412) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %413) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%411, %414) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %415 = call @kernel_gemm(%412, %413, %414) {adf.kernel, "col, row" = [17 : index, 3 : index], ivs = [2 : index, 3 : index, 3 : index], kernel_gemm = 110 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%415, %c18, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%413, %c17, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%412, %c17, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %416 = adf.buffer.create @L1_L1_A_111() : memref<32x32xf32, 2>
-    %417 = adf.buffer.create @L1_L1_B_111() : memref<32x32xf32, 2>
-    %418 = adf.buffer.create @L1_L1_C_111() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %416) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %417) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%415, %418) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %419 = call @kernel_gemm(%416, %417, %418) {adf.kernel, "col, row" = [18 : index, 3 : index], ivs = [3 : index, 3 : index, 3 : index], kernel_gemm = 111 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%419, %c19, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%417, %c18, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%416, %c18, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%419, %arg75) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %420 = adf.buffer.create @L1_L1_A_112() : memref<32x32xf32, 2>
-    %421 = adf.buffer.create @L1_L1_B_112() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %420) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %421) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %422 = call @kernel_gemm0(%420, %421) {adf.kernel, "col, row" = [15 : index, 4 : index], ivs = [0 : index, 4 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 112 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%422, %c15, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%421, %c15, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%420, %c15, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %423 = adf.buffer.create @L1_L1_A_113() : memref<32x32xf32, 2>
-    %424 = adf.buffer.create @L1_L1_B_113() : memref<32x32xf32, 2>
-    %425 = adf.buffer.create @L1_L1_C_113() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %423) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %424) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%422, %425) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %426 = call @kernel_gemm(%423, %424, %425) {adf.kernel, "col, row" = [16 : index, 4 : index], ivs = [1 : index, 4 : index, 3 : index], kernel_gemm = 113 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%426, %c16, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%424, %c16, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%423, %c16, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %427 = adf.buffer.create @L1_L1_A_114() : memref<32x32xf32, 2>
-    %428 = adf.buffer.create @L1_L1_B_114() : memref<32x32xf32, 2>
-    %429 = adf.buffer.create @L1_L1_C_114() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %427) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %428) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%426, %429) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %430 = call @kernel_gemm(%427, %428, %429) {adf.kernel, "col, row" = [17 : index, 4 : index], ivs = [2 : index, 4 : index, 3 : index], kernel_gemm = 114 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%430, %c17, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%428, %c17, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%427, %c17, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %431 = adf.buffer.create @L1_L1_A_115() : memref<32x32xf32, 2>
-    %432 = adf.buffer.create @L1_L1_B_115() : memref<32x32xf32, 2>
-    %433 = adf.buffer.create @L1_L1_C_115() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %431) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %432) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%430, %433) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %434 = call @kernel_gemm(%431, %432, %433) {adf.kernel, "col, row" = [18 : index, 4 : index], ivs = [3 : index, 4 : index, 3 : index], kernel_gemm = 115 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%434, %c18, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%432, %c18, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%431, %c18, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%434, %arg76) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %435 = adf.buffer.create @L1_L1_A_116() : memref<32x32xf32, 2>
-    %436 = adf.buffer.create @L1_L1_B_116() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %435) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %436) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %437 = call @kernel_gemm0(%435, %436) {adf.kernel, "col, row" = [15 : index, 5 : index], ivs = [0 : index, 5 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 116 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%437, %c16, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%436, %c15, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%435, %c15, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %438 = adf.buffer.create @L1_L1_A_117() : memref<32x32xf32, 2>
-    %439 = adf.buffer.create @L1_L1_B_117() : memref<32x32xf32, 2>
-    %440 = adf.buffer.create @L1_L1_C_117() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %438) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %439) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%437, %440) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %441 = call @kernel_gemm(%438, %439, %440) {adf.kernel, "col, row" = [16 : index, 5 : index], ivs = [1 : index, 5 : index, 3 : index], kernel_gemm = 117 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%441, %c17, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%439, %c16, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%438, %c16, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %442 = adf.buffer.create @L1_L1_A_118() : memref<32x32xf32, 2>
-    %443 = adf.buffer.create @L1_L1_B_118() : memref<32x32xf32, 2>
-    %444 = adf.buffer.create @L1_L1_C_118() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %442) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %443) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%441, %444) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %445 = call @kernel_gemm(%442, %443, %444) {adf.kernel, "col, row" = [17 : index, 5 : index], ivs = [2 : index, 5 : index, 3 : index], kernel_gemm = 118 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%445, %c18, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%443, %c17, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%442, %c17, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %446 = adf.buffer.create @L1_L1_A_119() : memref<32x32xf32, 2>
-    %447 = adf.buffer.create @L1_L1_B_119() : memref<32x32xf32, 2>
-    %448 = adf.buffer.create @L1_L1_C_119() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %446) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %447) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%445, %448) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %449 = call @kernel_gemm(%446, %447, %448) {adf.kernel, "col, row" = [18 : index, 5 : index], ivs = [3 : index, 5 : index, 3 : index], kernel_gemm = 119 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%449, %c19, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%447, %c18, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%446, %c18, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%449, %arg77) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %450 = adf.buffer.create @L1_L1_A_120() : memref<32x32xf32, 2>
-    %451 = adf.buffer.create @L1_L1_B_120() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %450) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %451) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %452 = call @kernel_gemm0(%450, %451) {adf.kernel, "col, row" = [15 : index, 6 : index], ivs = [0 : index, 6 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 120 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%452, %c15, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%451, %c15, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%450, %c15, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %453 = adf.buffer.create @L1_L1_A_121() : memref<32x32xf32, 2>
-    %454 = adf.buffer.create @L1_L1_B_121() : memref<32x32xf32, 2>
-    %455 = adf.buffer.create @L1_L1_C_121() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %453) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %454) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%452, %455) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %456 = call @kernel_gemm(%453, %454, %455) {adf.kernel, "col, row" = [16 : index, 6 : index], ivs = [1 : index, 6 : index, 3 : index], kernel_gemm = 121 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%456, %c16, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%454, %c16, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%453, %c16, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %457 = adf.buffer.create @L1_L1_A_122() : memref<32x32xf32, 2>
-    %458 = adf.buffer.create @L1_L1_B_122() : memref<32x32xf32, 2>
-    %459 = adf.buffer.create @L1_L1_C_122() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %457) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %458) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%456, %459) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %460 = call @kernel_gemm(%457, %458, %459) {adf.kernel, "col, row" = [17 : index, 6 : index], ivs = [2 : index, 6 : index, 3 : index], kernel_gemm = 122 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%460, %c17, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%458, %c17, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%457, %c17, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %461 = adf.buffer.create @L1_L1_A_123() : memref<32x32xf32, 2>
-    %462 = adf.buffer.create @L1_L1_B_123() : memref<32x32xf32, 2>
-    %463 = adf.buffer.create @L1_L1_C_123() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %461) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %462) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%460, %463) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %464 = call @kernel_gemm(%461, %462, %463) {adf.kernel, "col, row" = [18 : index, 6 : index], ivs = [3 : index, 6 : index, 3 : index], kernel_gemm = 123 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%464, %c18, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%462, %c18, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%461, %c18, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%464, %arg78) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %465 = adf.buffer.create @L1_L1_A_124() : memref<32x32xf32, 2>
-    %466 = adf.buffer.create @L1_L1_B_124() : memref<32x32xf32, 2>
-    adf.connect(%arg68, %465) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %466) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %467 = call @kernel_gemm0(%465, %466) {adf.kernel, "col, row" = [15 : index, 7 : index], ivs = [0 : index, 7 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 124 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%467, %c16, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%466, %c15, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%465, %c15, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %468 = adf.buffer.create @L1_L1_A_125() : memref<32x32xf32, 2>
-    %469 = adf.buffer.create @L1_L1_B_125() : memref<32x32xf32, 2>
-    %470 = adf.buffer.create @L1_L1_C_125() : memref<32x32xf32, 2>
-    adf.connect(%arg69, %468) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %469) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%467, %470) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %471 = call @kernel_gemm(%468, %469, %470) {adf.kernel, "col, row" = [16 : index, 7 : index], ivs = [1 : index, 7 : index, 3 : index], kernel_gemm = 125 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%471, %c17, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%469, %c16, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%468, %c16, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %472 = adf.buffer.create @L1_L1_A_126() : memref<32x32xf32, 2>
-    %473 = adf.buffer.create @L1_L1_B_126() : memref<32x32xf32, 2>
-    %474 = adf.buffer.create @L1_L1_C_126() : memref<32x32xf32, 2>
-    adf.connect(%arg70, %472) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %473) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%471, %474) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %475 = call @kernel_gemm(%472, %473, %474) {adf.kernel, "col, row" = [17 : index, 7 : index], ivs = [2 : index, 7 : index, 3 : index], kernel_gemm = 126 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%475, %c18, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%473, %c17, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%472, %c17, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %476 = adf.buffer.create @L1_L1_A_127() : memref<32x32xf32, 2>
-    %477 = adf.buffer.create @L1_L1_B_127() : memref<32x32xf32, 2>
-    %478 = adf.buffer.create @L1_L1_C_127() : memref<32x32xf32, 2>
-    adf.connect(%arg71, %476) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %477) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%475, %478) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %479 = call @kernel_gemm(%476, %477, %478) {adf.kernel, "col, row" = [18 : index, 7 : index], ivs = [3 : index, 7 : index, 3 : index], kernel_gemm = 127 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%479, %c19, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%477, %c18, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%476, %c18, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%479, %arg79) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %480 = adf.buffer.create @L1_L1_A_128() : memref<32x32xf32, 2>
-    %481 = adf.buffer.create @L1_L1_B_128() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %480) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %481) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %482 = call @kernel_gemm0(%480, %481) {adf.kernel, "col, row" = [19 : index, 0 : index], ivs = [0 : index, 0 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 128 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%482, %c19, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%481, %c18, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%480, %c19, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %483 = adf.buffer.create @L1_L1_A_129() : memref<32x32xf32, 2>
-    %484 = adf.buffer.create @L1_L1_B_129() : memref<32x32xf32, 2>
-    %485 = adf.buffer.create @L1_L1_C_129() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %483) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %484) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%482, %485) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %486 = call @kernel_gemm(%483, %484, %485) {adf.kernel, "col, row" = [20 : index, 0 : index], ivs = [1 : index, 0 : index, 4 : index], kernel_gemm = 129 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%486, %c20, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%484, %c19, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%483, %c20, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %487 = adf.buffer.create @L1_L1_A_130() : memref<32x32xf32, 2>
-    %488 = adf.buffer.create @L1_L1_B_130() : memref<32x32xf32, 2>
-    %489 = adf.buffer.create @L1_L1_C_130() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %487) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %488) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%486, %489) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %490 = call @kernel_gemm(%487, %488, %489) {adf.kernel, "col, row" = [21 : index, 0 : index], ivs = [2 : index, 0 : index, 4 : index], kernel_gemm = 130 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%490, %c21, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%488, %c20, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%487, %c21, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %491 = adf.buffer.create @L1_L1_A_131() : memref<32x32xf32, 2>
-    %492 = adf.buffer.create @L1_L1_B_131() : memref<32x32xf32, 2>
-    %493 = adf.buffer.create @L1_L1_C_131() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %491) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %492) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%490, %493) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %494 = call @kernel_gemm(%491, %492, %493) {adf.kernel, "col, row" = [22 : index, 0 : index], ivs = [3 : index, 0 : index, 4 : index], kernel_gemm = 131 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%494, %c22, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%492, %c21, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%491, %c22, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%494, %arg84) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %495 = adf.buffer.create @L1_L1_A_132() : memref<32x32xf32, 2>
-    %496 = adf.buffer.create @L1_L1_B_132() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %495) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %496) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %497 = call @kernel_gemm0(%495, %496) {adf.kernel, "col, row" = [19 : index, 1 : index], ivs = [0 : index, 1 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 132 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%497, %c20, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%496, %c19, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%495, %c19, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %498 = adf.buffer.create @L1_L1_A_133() : memref<32x32xf32, 2>
-    %499 = adf.buffer.create @L1_L1_B_133() : memref<32x32xf32, 2>
-    %500 = adf.buffer.create @L1_L1_C_133() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %498) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %499) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%497, %500) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %501 = call @kernel_gemm(%498, %499, %500) {adf.kernel, "col, row" = [20 : index, 1 : index], ivs = [1 : index, 1 : index, 4 : index], kernel_gemm = 133 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%501, %c21, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%499, %c20, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%498, %c20, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %502 = adf.buffer.create @L1_L1_A_134() : memref<32x32xf32, 2>
-    %503 = adf.buffer.create @L1_L1_B_134() : memref<32x32xf32, 2>
-    %504 = adf.buffer.create @L1_L1_C_134() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %502) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %503) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%501, %504) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %505 = call @kernel_gemm(%502, %503, %504) {adf.kernel, "col, row" = [21 : index, 1 : index], ivs = [2 : index, 1 : index, 4 : index], kernel_gemm = 134 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%505, %c22, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%503, %c21, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%502, %c21, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %506 = adf.buffer.create @L1_L1_A_135() : memref<32x32xf32, 2>
-    %507 = adf.buffer.create @L1_L1_B_135() : memref<32x32xf32, 2>
-    %508 = adf.buffer.create @L1_L1_C_135() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %506) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %507) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%505, %508) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %509 = call @kernel_gemm(%506, %507, %508) {adf.kernel, "col, row" = [22 : index, 1 : index], ivs = [3 : index, 1 : index, 4 : index], kernel_gemm = 135 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%509, %c23, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%507, %c22, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%506, %c22, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%509, %arg85) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %510 = adf.buffer.create @L1_L1_A_136() : memref<32x32xf32, 2>
-    %511 = adf.buffer.create @L1_L1_B_136() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %510) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %511) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %512 = call @kernel_gemm0(%510, %511) {adf.kernel, "col, row" = [19 : index, 2 : index], ivs = [0 : index, 2 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 136 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%512, %c19, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%511, %c19, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%510, %c19, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %513 = adf.buffer.create @L1_L1_A_137() : memref<32x32xf32, 2>
-    %514 = adf.buffer.create @L1_L1_B_137() : memref<32x32xf32, 2>
-    %515 = adf.buffer.create @L1_L1_C_137() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %513) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %514) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%512, %515) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %516 = call @kernel_gemm(%513, %514, %515) {adf.kernel, "col, row" = [20 : index, 2 : index], ivs = [1 : index, 2 : index, 4 : index], kernel_gemm = 137 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%516, %c20, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%514, %c20, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%513, %c20, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %517 = adf.buffer.create @L1_L1_A_138() : memref<32x32xf32, 2>
-    %518 = adf.buffer.create @L1_L1_B_138() : memref<32x32xf32, 2>
-    %519 = adf.buffer.create @L1_L1_C_138() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %517) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %518) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%516, %519) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %520 = call @kernel_gemm(%517, %518, %519) {adf.kernel, "col, row" = [21 : index, 2 : index], ivs = [2 : index, 2 : index, 4 : index], kernel_gemm = 138 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%520, %c21, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%518, %c21, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%517, %c21, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %521 = adf.buffer.create @L1_L1_A_139() : memref<32x32xf32, 2>
-    %522 = adf.buffer.create @L1_L1_B_139() : memref<32x32xf32, 2>
-    %523 = adf.buffer.create @L1_L1_C_139() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %521) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %522) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%520, %523) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %524 = call @kernel_gemm(%521, %522, %523) {adf.kernel, "col, row" = [22 : index, 2 : index], ivs = [3 : index, 2 : index, 4 : index], kernel_gemm = 139 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%524, %c22, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%522, %c22, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%521, %c22, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%524, %arg86) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %525 = adf.buffer.create @L1_L1_A_140() : memref<32x32xf32, 2>
-    %526 = adf.buffer.create @L1_L1_B_140() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %525) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %526) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %527 = call @kernel_gemm0(%525, %526) {adf.kernel, "col, row" = [19 : index, 3 : index], ivs = [0 : index, 3 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 140 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%527, %c20, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%526, %c19, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%525, %c19, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %528 = adf.buffer.create @L1_L1_A_141() : memref<32x32xf32, 2>
-    %529 = adf.buffer.create @L1_L1_B_141() : memref<32x32xf32, 2>
-    %530 = adf.buffer.create @L1_L1_C_141() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %528) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %529) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%527, %530) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %531 = call @kernel_gemm(%528, %529, %530) {adf.kernel, "col, row" = [20 : index, 3 : index], ivs = [1 : index, 3 : index, 4 : index], kernel_gemm = 141 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%531, %c21, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%529, %c20, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%528, %c20, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %532 = adf.buffer.create @L1_L1_A_142() : memref<32x32xf32, 2>
-    %533 = adf.buffer.create @L1_L1_B_142() : memref<32x32xf32, 2>
-    %534 = adf.buffer.create @L1_L1_C_142() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %532) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %533) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%531, %534) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %535 = call @kernel_gemm(%532, %533, %534) {adf.kernel, "col, row" = [21 : index, 3 : index], ivs = [2 : index, 3 : index, 4 : index], kernel_gemm = 142 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%535, %c22, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%533, %c21, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%532, %c21, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %536 = adf.buffer.create @L1_L1_A_143() : memref<32x32xf32, 2>
-    %537 = adf.buffer.create @L1_L1_B_143() : memref<32x32xf32, 2>
-    %538 = adf.buffer.create @L1_L1_C_143() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %536) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %537) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%535, %538) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %539 = call @kernel_gemm(%536, %537, %538) {adf.kernel, "col, row" = [22 : index, 3 : index], ivs = [3 : index, 3 : index, 4 : index], kernel_gemm = 143 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%539, %c23, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%537, %c22, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%536, %c22, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%539, %arg87) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %540 = adf.buffer.create @L1_L1_A_144() : memref<32x32xf32, 2>
-    %541 = adf.buffer.create @L1_L1_B_144() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %540) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %541) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %542 = call @kernel_gemm0(%540, %541) {adf.kernel, "col, row" = [19 : index, 4 : index], ivs = [0 : index, 4 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 144 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%542, %c19, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%541, %c19, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%540, %c19, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %543 = adf.buffer.create @L1_L1_A_145() : memref<32x32xf32, 2>
-    %544 = adf.buffer.create @L1_L1_B_145() : memref<32x32xf32, 2>
-    %545 = adf.buffer.create @L1_L1_C_145() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %543) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %544) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%542, %545) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %546 = call @kernel_gemm(%543, %544, %545) {adf.kernel, "col, row" = [20 : index, 4 : index], ivs = [1 : index, 4 : index, 4 : index], kernel_gemm = 145 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%546, %c20, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%544, %c20, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%543, %c20, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %547 = adf.buffer.create @L1_L1_A_146() : memref<32x32xf32, 2>
-    %548 = adf.buffer.create @L1_L1_B_146() : memref<32x32xf32, 2>
-    %549 = adf.buffer.create @L1_L1_C_146() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %547) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %548) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%546, %549) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %550 = call @kernel_gemm(%547, %548, %549) {adf.kernel, "col, row" = [21 : index, 4 : index], ivs = [2 : index, 4 : index, 4 : index], kernel_gemm = 146 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%550, %c21, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%548, %c21, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%547, %c21, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %551 = adf.buffer.create @L1_L1_A_147() : memref<32x32xf32, 2>
-    %552 = adf.buffer.create @L1_L1_B_147() : memref<32x32xf32, 2>
-    %553 = adf.buffer.create @L1_L1_C_147() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %551) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %552) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%550, %553) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %554 = call @kernel_gemm(%551, %552, %553) {adf.kernel, "col, row" = [22 : index, 4 : index], ivs = [3 : index, 4 : index, 4 : index], kernel_gemm = 147 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%554, %c22, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%552, %c22, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%551, %c22, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%554, %arg88) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %555 = adf.buffer.create @L1_L1_A_148() : memref<32x32xf32, 2>
-    %556 = adf.buffer.create @L1_L1_B_148() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %555) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %556) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %557 = call @kernel_gemm0(%555, %556) {adf.kernel, "col, row" = [19 : index, 5 : index], ivs = [0 : index, 5 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 148 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%557, %c20, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%556, %c19, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%555, %c19, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %558 = adf.buffer.create @L1_L1_A_149() : memref<32x32xf32, 2>
-    %559 = adf.buffer.create @L1_L1_B_149() : memref<32x32xf32, 2>
-    %560 = adf.buffer.create @L1_L1_C_149() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %558) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %559) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%557, %560) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %561 = call @kernel_gemm(%558, %559, %560) {adf.kernel, "col, row" = [20 : index, 5 : index], ivs = [1 : index, 5 : index, 4 : index], kernel_gemm = 149 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%561, %c21, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%559, %c20, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%558, %c20, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %562 = adf.buffer.create @L1_L1_A_150() : memref<32x32xf32, 2>
-    %563 = adf.buffer.create @L1_L1_B_150() : memref<32x32xf32, 2>
-    %564 = adf.buffer.create @L1_L1_C_150() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %562) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %563) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%561, %564) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %565 = call @kernel_gemm(%562, %563, %564) {adf.kernel, "col, row" = [21 : index, 5 : index], ivs = [2 : index, 5 : index, 4 : index], kernel_gemm = 150 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%565, %c22, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%563, %c21, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%562, %c21, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %566 = adf.buffer.create @L1_L1_A_151() : memref<32x32xf32, 2>
-    %567 = adf.buffer.create @L1_L1_B_151() : memref<32x32xf32, 2>
-    %568 = adf.buffer.create @L1_L1_C_151() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %566) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %567) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%565, %568) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %569 = call @kernel_gemm(%566, %567, %568) {adf.kernel, "col, row" = [22 : index, 5 : index], ivs = [3 : index, 5 : index, 4 : index], kernel_gemm = 151 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%569, %c23, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%567, %c22, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%566, %c22, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%569, %arg89) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %570 = adf.buffer.create @L1_L1_A_152() : memref<32x32xf32, 2>
-    %571 = adf.buffer.create @L1_L1_B_152() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %570) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %571) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %572 = call @kernel_gemm0(%570, %571) {adf.kernel, "col, row" = [19 : index, 6 : index], ivs = [0 : index, 6 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 152 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%572, %c19, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%571, %c19, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%570, %c19, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %573 = adf.buffer.create @L1_L1_A_153() : memref<32x32xf32, 2>
-    %574 = adf.buffer.create @L1_L1_B_153() : memref<32x32xf32, 2>
-    %575 = adf.buffer.create @L1_L1_C_153() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %573) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %574) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%572, %575) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %576 = call @kernel_gemm(%573, %574, %575) {adf.kernel, "col, row" = [20 : index, 6 : index], ivs = [1 : index, 6 : index, 4 : index], kernel_gemm = 153 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%576, %c20, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%574, %c20, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%573, %c20, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %577 = adf.buffer.create @L1_L1_A_154() : memref<32x32xf32, 2>
-    %578 = adf.buffer.create @L1_L1_B_154() : memref<32x32xf32, 2>
-    %579 = adf.buffer.create @L1_L1_C_154() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %577) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %578) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%576, %579) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %580 = call @kernel_gemm(%577, %578, %579) {adf.kernel, "col, row" = [21 : index, 6 : index], ivs = [2 : index, 6 : index, 4 : index], kernel_gemm = 154 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%580, %c21, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%578, %c21, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%577, %c21, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %581 = adf.buffer.create @L1_L1_A_155() : memref<32x32xf32, 2>
-    %582 = adf.buffer.create @L1_L1_B_155() : memref<32x32xf32, 2>
-    %583 = adf.buffer.create @L1_L1_C_155() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %581) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %582) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%580, %583) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %584 = call @kernel_gemm(%581, %582, %583) {adf.kernel, "col, row" = [22 : index, 6 : index], ivs = [3 : index, 6 : index, 4 : index], kernel_gemm = 155 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%584, %c22, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%582, %c22, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%581, %c22, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%584, %arg90) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %585 = adf.buffer.create @L1_L1_A_156() : memref<32x32xf32, 2>
-    %586 = adf.buffer.create @L1_L1_B_156() : memref<32x32xf32, 2>
-    adf.connect(%arg80, %585) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %586) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %587 = call @kernel_gemm0(%585, %586) {adf.kernel, "col, row" = [19 : index, 7 : index], ivs = [0 : index, 7 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 156 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%587, %c20, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%586, %c19, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%585, %c19, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %588 = adf.buffer.create @L1_L1_A_157() : memref<32x32xf32, 2>
-    %589 = adf.buffer.create @L1_L1_B_157() : memref<32x32xf32, 2>
-    %590 = adf.buffer.create @L1_L1_C_157() : memref<32x32xf32, 2>
-    adf.connect(%arg81, %588) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %589) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%587, %590) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %591 = call @kernel_gemm(%588, %589, %590) {adf.kernel, "col, row" = [20 : index, 7 : index], ivs = [1 : index, 7 : index, 4 : index], kernel_gemm = 157 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%591, %c21, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%589, %c20, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%588, %c20, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %592 = adf.buffer.create @L1_L1_A_158() : memref<32x32xf32, 2>
-    %593 = adf.buffer.create @L1_L1_B_158() : memref<32x32xf32, 2>
-    %594 = adf.buffer.create @L1_L1_C_158() : memref<32x32xf32, 2>
-    adf.connect(%arg82, %592) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %593) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%591, %594) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %595 = call @kernel_gemm(%592, %593, %594) {adf.kernel, "col, row" = [21 : index, 7 : index], ivs = [2 : index, 7 : index, 4 : index], kernel_gemm = 158 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%595, %c22, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%593, %c21, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%592, %c21, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %596 = adf.buffer.create @L1_L1_A_159() : memref<32x32xf32, 2>
-    %597 = adf.buffer.create @L1_L1_B_159() : memref<32x32xf32, 2>
-    %598 = adf.buffer.create @L1_L1_C_159() : memref<32x32xf32, 2>
-    adf.connect(%arg83, %596) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %597) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%595, %598) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %599 = call @kernel_gemm(%596, %597, %598) {adf.kernel, "col, row" = [22 : index, 7 : index], ivs = [3 : index, 7 : index, 4 : index], kernel_gemm = 159 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%599, %c23, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%597, %c22, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%596, %c22, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%599, %arg91) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %600 = adf.buffer.create @L1_L1_A_160() : memref<32x32xf32, 2>
-    %601 = adf.buffer.create @L1_L1_B_160() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %600) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %601) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %602 = call @kernel_gemm0(%600, %601) {adf.kernel, "col, row" = [23 : index, 0 : index], ivs = [0 : index, 0 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 160 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%602, %c23, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%601, %c22, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%600, %c23, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %603 = adf.buffer.create @L1_L1_A_161() : memref<32x32xf32, 2>
-    %604 = adf.buffer.create @L1_L1_B_161() : memref<32x32xf32, 2>
-    %605 = adf.buffer.create @L1_L1_C_161() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %603) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %604) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%602, %605) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %606 = call @kernel_gemm(%603, %604, %605) {adf.kernel, "col, row" = [24 : index, 0 : index], ivs = [1 : index, 0 : index, 5 : index], kernel_gemm = 161 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%606, %c24, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%604, %c23, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%603, %c24, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %607 = adf.buffer.create @L1_L1_A_162() : memref<32x32xf32, 2>
-    %608 = adf.buffer.create @L1_L1_B_162() : memref<32x32xf32, 2>
-    %609 = adf.buffer.create @L1_L1_C_162() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %607) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %608) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%606, %609) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %610 = call @kernel_gemm(%607, %608, %609) {adf.kernel, "col, row" = [25 : index, 0 : index], ivs = [2 : index, 0 : index, 5 : index], kernel_gemm = 162 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%610, %c25, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%608, %c24, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%607, %c25, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %611 = adf.buffer.create @L1_L1_A_163() : memref<32x32xf32, 2>
-    %612 = adf.buffer.create @L1_L1_B_163() : memref<32x32xf32, 2>
-    %613 = adf.buffer.create @L1_L1_C_163() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %611) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %612) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%610, %613) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %614 = call @kernel_gemm(%611, %612, %613) {adf.kernel, "col, row" = [26 : index, 0 : index], ivs = [3 : index, 0 : index, 5 : index], kernel_gemm = 163 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%614, %c26, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%612, %c25, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%611, %c26, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%614, %arg96) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %615 = adf.buffer.create @L1_L1_A_164() : memref<32x32xf32, 2>
-    %616 = adf.buffer.create @L1_L1_B_164() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %615) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %616) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %617 = call @kernel_gemm0(%615, %616) {adf.kernel, "col, row" = [23 : index, 1 : index], ivs = [0 : index, 1 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 164 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%617, %c24, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%616, %c23, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%615, %c23, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %618 = adf.buffer.create @L1_L1_A_165() : memref<32x32xf32, 2>
-    %619 = adf.buffer.create @L1_L1_B_165() : memref<32x32xf32, 2>
-    %620 = adf.buffer.create @L1_L1_C_165() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %618) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %619) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%617, %620) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %621 = call @kernel_gemm(%618, %619, %620) {adf.kernel, "col, row" = [24 : index, 1 : index], ivs = [1 : index, 1 : index, 5 : index], kernel_gemm = 165 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%621, %c25, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%619, %c24, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%618, %c24, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %622 = adf.buffer.create @L1_L1_A_166() : memref<32x32xf32, 2>
-    %623 = adf.buffer.create @L1_L1_B_166() : memref<32x32xf32, 2>
-    %624 = adf.buffer.create @L1_L1_C_166() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %622) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %623) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%621, %624) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %625 = call @kernel_gemm(%622, %623, %624) {adf.kernel, "col, row" = [25 : index, 1 : index], ivs = [2 : index, 1 : index, 5 : index], kernel_gemm = 166 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%625, %c26, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%623, %c25, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%622, %c25, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %626 = adf.buffer.create @L1_L1_A_167() : memref<32x32xf32, 2>
-    %627 = adf.buffer.create @L1_L1_B_167() : memref<32x32xf32, 2>
-    %628 = adf.buffer.create @L1_L1_C_167() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %626) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %627) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%625, %628) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %629 = call @kernel_gemm(%626, %627, %628) {adf.kernel, "col, row" = [26 : index, 1 : index], ivs = [3 : index, 1 : index, 5 : index], kernel_gemm = 167 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%629, %c27, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%627, %c26, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%626, %c26, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%629, %arg97) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %630 = adf.buffer.create @L1_L1_A_168() : memref<32x32xf32, 2>
-    %631 = adf.buffer.create @L1_L1_B_168() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %630) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %631) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %632 = call @kernel_gemm0(%630, %631) {adf.kernel, "col, row" = [23 : index, 2 : index], ivs = [0 : index, 2 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 168 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%632, %c23, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%631, %c23, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%630, %c23, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %633 = adf.buffer.create @L1_L1_A_169() : memref<32x32xf32, 2>
-    %634 = adf.buffer.create @L1_L1_B_169() : memref<32x32xf32, 2>
-    %635 = adf.buffer.create @L1_L1_C_169() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %633) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %634) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%632, %635) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %636 = call @kernel_gemm(%633, %634, %635) {adf.kernel, "col, row" = [24 : index, 2 : index], ivs = [1 : index, 2 : index, 5 : index], kernel_gemm = 169 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%636, %c24, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%634, %c24, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%633, %c24, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %637 = adf.buffer.create @L1_L1_A_170() : memref<32x32xf32, 2>
-    %638 = adf.buffer.create @L1_L1_B_170() : memref<32x32xf32, 2>
-    %639 = adf.buffer.create @L1_L1_C_170() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %637) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %638) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%636, %639) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %640 = call @kernel_gemm(%637, %638, %639) {adf.kernel, "col, row" = [25 : index, 2 : index], ivs = [2 : index, 2 : index, 5 : index], kernel_gemm = 170 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%640, %c25, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%638, %c25, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%637, %c25, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %641 = adf.buffer.create @L1_L1_A_171() : memref<32x32xf32, 2>
-    %642 = adf.buffer.create @L1_L1_B_171() : memref<32x32xf32, 2>
-    %643 = adf.buffer.create @L1_L1_C_171() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %641) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %642) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%640, %643) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %644 = call @kernel_gemm(%641, %642, %643) {adf.kernel, "col, row" = [26 : index, 2 : index], ivs = [3 : index, 2 : index, 5 : index], kernel_gemm = 171 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%644, %c26, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%642, %c26, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%641, %c26, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%644, %arg98) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %645 = adf.buffer.create @L1_L1_A_172() : memref<32x32xf32, 2>
-    %646 = adf.buffer.create @L1_L1_B_172() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %645) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %646) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %647 = call @kernel_gemm0(%645, %646) {adf.kernel, "col, row" = [23 : index, 3 : index], ivs = [0 : index, 3 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 172 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%647, %c24, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%646, %c23, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%645, %c23, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %648 = adf.buffer.create @L1_L1_A_173() : memref<32x32xf32, 2>
-    %649 = adf.buffer.create @L1_L1_B_173() : memref<32x32xf32, 2>
-    %650 = adf.buffer.create @L1_L1_C_173() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %648) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %649) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%647, %650) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %651 = call @kernel_gemm(%648, %649, %650) {adf.kernel, "col, row" = [24 : index, 3 : index], ivs = [1 : index, 3 : index, 5 : index], kernel_gemm = 173 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%651, %c25, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%649, %c24, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%648, %c24, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %652 = adf.buffer.create @L1_L1_A_174() : memref<32x32xf32, 2>
-    %653 = adf.buffer.create @L1_L1_B_174() : memref<32x32xf32, 2>
-    %654 = adf.buffer.create @L1_L1_C_174() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %652) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %653) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%651, %654) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %655 = call @kernel_gemm(%652, %653, %654) {adf.kernel, "col, row" = [25 : index, 3 : index], ivs = [2 : index, 3 : index, 5 : index], kernel_gemm = 174 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%655, %c26, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%653, %c25, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%652, %c25, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %656 = adf.buffer.create @L1_L1_A_175() : memref<32x32xf32, 2>
-    %657 = adf.buffer.create @L1_L1_B_175() : memref<32x32xf32, 2>
-    %658 = adf.buffer.create @L1_L1_C_175() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %656) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %657) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%655, %658) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %659 = call @kernel_gemm(%656, %657, %658) {adf.kernel, "col, row" = [26 : index, 3 : index], ivs = [3 : index, 3 : index, 5 : index], kernel_gemm = 175 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%659, %c27, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%657, %c26, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%656, %c26, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%659, %arg99) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %660 = adf.buffer.create @L1_L1_A_176() : memref<32x32xf32, 2>
-    %661 = adf.buffer.create @L1_L1_B_176() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %660) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1088 = call @kernel_gemm0(%330, %331) {adf.kernel, "col, row" = [15 : index, 6 : index], ivs = [0 : index, 6 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 120 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1088, %c15, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%331, %c15, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%330, %c15, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %332) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %333) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1088, %334) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1089 = call @kernel_gemm(%332, %333, %334) {adf.kernel, "col, row" = [16 : index, 6 : index], ivs = [1 : index, 6 : index, 3 : index], kernel_gemm = 121 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1089, %c16, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%333, %c16, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%332, %c16, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %335) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %336) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1089, %337) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1090 = call @kernel_gemm(%335, %336, %337) {adf.kernel, "col, row" = [17 : index, 6 : index], ivs = [2 : index, 6 : index, 3 : index], kernel_gemm = 122 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1090, %c17, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%336, %c17, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%335, %c17, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %338) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %339) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1090, %340) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1091 = call @kernel_gemm(%338, %339, %340) {adf.kernel, "col, row" = [18 : index, 6 : index], ivs = [3 : index, 6 : index, 3 : index], kernel_gemm = 123 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1091, %c18, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%339, %c18, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%338, %c18, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1091, %arg78) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg68, %341) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %342) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1092 = call @kernel_gemm0(%341, %342) {adf.kernel, "col, row" = [15 : index, 7 : index], ivs = [0 : index, 7 : index, 3 : index], kernel = 0 : index, kernel_gemm0 = 124 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1092, %c16, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%342, %c15, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%341, %c15, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg69, %343) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %344) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1092, %345) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1093 = call @kernel_gemm(%343, %344, %345) {adf.kernel, "col, row" = [16 : index, 7 : index], ivs = [1 : index, 7 : index, 3 : index], kernel_gemm = 125 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1093, %c17, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%344, %c16, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%343, %c16, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg70, %346) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %347) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1093, %348) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1094 = call @kernel_gemm(%346, %347, %348) {adf.kernel, "col, row" = [17 : index, 7 : index], ivs = [2 : index, 7 : index, 3 : index], kernel_gemm = 126 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1094, %c18, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%347, %c17, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%346, %c17, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg71, %349) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %350) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1094, %351) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1095 = call @kernel_gemm(%349, %350, %351) {adf.kernel, "col, row" = [18 : index, 7 : index], ivs = [3 : index, 7 : index, 3 : index], kernel_gemm = 127 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1095, %c19, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%350, %c18, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%349, %c18, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1095, %arg79) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %352) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %353) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1096 = call @kernel_gemm0(%352, %353) {adf.kernel, "col, row" = [19 : index, 0 : index], ivs = [0 : index, 0 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 128 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1096, %c19, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%353, %c18, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%352, %c19, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %354) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %355) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1096, %356) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1097 = call @kernel_gemm(%354, %355, %356) {adf.kernel, "col, row" = [20 : index, 0 : index], ivs = [1 : index, 0 : index, 4 : index], kernel_gemm = 129 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1097, %c20, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%355, %c19, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%354, %c20, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %357) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %358) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1097, %359) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1098 = call @kernel_gemm(%357, %358, %359) {adf.kernel, "col, row" = [21 : index, 0 : index], ivs = [2 : index, 0 : index, 4 : index], kernel_gemm = 130 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1098, %c21, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%358, %c20, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%357, %c21, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %360) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %361) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1098, %362) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1099 = call @kernel_gemm(%360, %361, %362) {adf.kernel, "col, row" = [22 : index, 0 : index], ivs = [3 : index, 0 : index, 4 : index], kernel_gemm = 131 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1099, %c22, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%361, %c21, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%360, %c22, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1099, %arg84) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %363) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %364) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1100 = call @kernel_gemm0(%363, %364) {adf.kernel, "col, row" = [19 : index, 1 : index], ivs = [0 : index, 1 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 132 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1100, %c20, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%364, %c19, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%363, %c19, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %365) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %366) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1100, %367) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1101 = call @kernel_gemm(%365, %366, %367) {adf.kernel, "col, row" = [20 : index, 1 : index], ivs = [1 : index, 1 : index, 4 : index], kernel_gemm = 133 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1101, %c21, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%366, %c20, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%365, %c20, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %368) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %369) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1101, %370) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1102 = call @kernel_gemm(%368, %369, %370) {adf.kernel, "col, row" = [21 : index, 1 : index], ivs = [2 : index, 1 : index, 4 : index], kernel_gemm = 134 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1102, %c22, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%369, %c21, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%368, %c21, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %371) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %372) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1102, %373) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1103 = call @kernel_gemm(%371, %372, %373) {adf.kernel, "col, row" = [22 : index, 1 : index], ivs = [3 : index, 1 : index, 4 : index], kernel_gemm = 135 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1103, %c23, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%372, %c22, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%371, %c22, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1103, %arg85) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %374) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %375) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1104 = call @kernel_gemm0(%374, %375) {adf.kernel, "col, row" = [19 : index, 2 : index], ivs = [0 : index, 2 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 136 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1104, %c19, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%375, %c19, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%374, %c19, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %376) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %377) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1104, %378) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1105 = call @kernel_gemm(%376, %377, %378) {adf.kernel, "col, row" = [20 : index, 2 : index], ivs = [1 : index, 2 : index, 4 : index], kernel_gemm = 137 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1105, %c20, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%377, %c20, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%376, %c20, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %379) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %380) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1105, %381) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1106 = call @kernel_gemm(%379, %380, %381) {adf.kernel, "col, row" = [21 : index, 2 : index], ivs = [2 : index, 2 : index, 4 : index], kernel_gemm = 138 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1106, %c21, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%380, %c21, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%379, %c21, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %382) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %383) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1106, %384) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1107 = call @kernel_gemm(%382, %383, %384) {adf.kernel, "col, row" = [22 : index, 2 : index], ivs = [3 : index, 2 : index, 4 : index], kernel_gemm = 139 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1107, %c22, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%383, %c22, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%382, %c22, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1107, %arg86) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %385) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %386) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1108 = call @kernel_gemm0(%385, %386) {adf.kernel, "col, row" = [19 : index, 3 : index], ivs = [0 : index, 3 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 140 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1108, %c20, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%386, %c19, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%385, %c19, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %387) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %388) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1108, %389) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1109 = call @kernel_gemm(%387, %388, %389) {adf.kernel, "col, row" = [20 : index, 3 : index], ivs = [1 : index, 3 : index, 4 : index], kernel_gemm = 141 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1109, %c21, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%388, %c20, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%387, %c20, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %390) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %391) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1109, %392) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1110 = call @kernel_gemm(%390, %391, %392) {adf.kernel, "col, row" = [21 : index, 3 : index], ivs = [2 : index, 3 : index, 4 : index], kernel_gemm = 142 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1110, %c22, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%391, %c21, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%390, %c21, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %393) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %394) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1110, %395) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1111 = call @kernel_gemm(%393, %394, %395) {adf.kernel, "col, row" = [22 : index, 3 : index], ivs = [3 : index, 3 : index, 4 : index], kernel_gemm = 143 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1111, %c23, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%394, %c22, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%393, %c22, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1111, %arg87) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %396) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %397) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1112 = call @kernel_gemm0(%396, %397) {adf.kernel, "col, row" = [19 : index, 4 : index], ivs = [0 : index, 4 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 144 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1112, %c19, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%397, %c19, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%396, %c19, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %398) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %399) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1112, %400) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1113 = call @kernel_gemm(%398, %399, %400) {adf.kernel, "col, row" = [20 : index, 4 : index], ivs = [1 : index, 4 : index, 4 : index], kernel_gemm = 145 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1113, %c20, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%399, %c20, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%398, %c20, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %401) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %402) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1113, %403) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1114 = call @kernel_gemm(%401, %402, %403) {adf.kernel, "col, row" = [21 : index, 4 : index], ivs = [2 : index, 4 : index, 4 : index], kernel_gemm = 146 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1114, %c21, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%402, %c21, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%401, %c21, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %404) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %405) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1114, %406) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1115 = call @kernel_gemm(%404, %405, %406) {adf.kernel, "col, row" = [22 : index, 4 : index], ivs = [3 : index, 4 : index, 4 : index], kernel_gemm = 147 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1115, %c22, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%405, %c22, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%404, %c22, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1115, %arg88) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %407) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %408) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1116 = call @kernel_gemm0(%407, %408) {adf.kernel, "col, row" = [19 : index, 5 : index], ivs = [0 : index, 5 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 148 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1116, %c20, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%408, %c19, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%407, %c19, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %409) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %410) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1116, %411) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1117 = call @kernel_gemm(%409, %410, %411) {adf.kernel, "col, row" = [20 : index, 5 : index], ivs = [1 : index, 5 : index, 4 : index], kernel_gemm = 149 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1117, %c21, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%410, %c20, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%409, %c20, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %412) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %413) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1117, %414) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1118 = call @kernel_gemm(%412, %413, %414) {adf.kernel, "col, row" = [21 : index, 5 : index], ivs = [2 : index, 5 : index, 4 : index], kernel_gemm = 150 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1118, %c22, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%413, %c21, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%412, %c21, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %415) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %416) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1118, %417) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1119 = call @kernel_gemm(%415, %416, %417) {adf.kernel, "col, row" = [22 : index, 5 : index], ivs = [3 : index, 5 : index, 4 : index], kernel_gemm = 151 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1119, %c23, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%416, %c22, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%415, %c22, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1119, %arg89) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %418) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %419) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1120 = call @kernel_gemm0(%418, %419) {adf.kernel, "col, row" = [19 : index, 6 : index], ivs = [0 : index, 6 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 152 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1120, %c19, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%419, %c19, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%418, %c19, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %420) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %421) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1120, %422) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1121 = call @kernel_gemm(%420, %421, %422) {adf.kernel, "col, row" = [20 : index, 6 : index], ivs = [1 : index, 6 : index, 4 : index], kernel_gemm = 153 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1121, %c20, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%421, %c20, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%420, %c20, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %423) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %424) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1121, %425) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1122 = call @kernel_gemm(%423, %424, %425) {adf.kernel, "col, row" = [21 : index, 6 : index], ivs = [2 : index, 6 : index, 4 : index], kernel_gemm = 154 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1122, %c21, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%424, %c21, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%423, %c21, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %426) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %427) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1122, %428) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1123 = call @kernel_gemm(%426, %427, %428) {adf.kernel, "col, row" = [22 : index, 6 : index], ivs = [3 : index, 6 : index, 4 : index], kernel_gemm = 155 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1123, %c22, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%427, %c22, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%426, %c22, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1123, %arg90) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg80, %429) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %430) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1124 = call @kernel_gemm0(%429, %430) {adf.kernel, "col, row" = [19 : index, 7 : index], ivs = [0 : index, 7 : index, 4 : index], kernel = 0 : index, kernel_gemm0 = 156 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1124, %c20, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%430, %c19, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%429, %c19, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg81, %431) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %432) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1124, %433) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1125 = call @kernel_gemm(%431, %432, %433) {adf.kernel, "col, row" = [20 : index, 7 : index], ivs = [1 : index, 7 : index, 4 : index], kernel_gemm = 157 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1125, %c21, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%432, %c20, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%431, %c20, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg82, %434) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %435) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1125, %436) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1126 = call @kernel_gemm(%434, %435, %436) {adf.kernel, "col, row" = [21 : index, 7 : index], ivs = [2 : index, 7 : index, 4 : index], kernel_gemm = 158 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1126, %c22, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%435, %c21, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%434, %c21, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg83, %437) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %438) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1126, %439) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1127 = call @kernel_gemm(%437, %438, %439) {adf.kernel, "col, row" = [22 : index, 7 : index], ivs = [3 : index, 7 : index, 4 : index], kernel_gemm = 159 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1127, %c23, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%438, %c22, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%437, %c22, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1127, %arg91) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %440) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %441) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1128 = call @kernel_gemm0(%440, %441) {adf.kernel, "col, row" = [23 : index, 0 : index], ivs = [0 : index, 0 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 160 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1128, %c23, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%441, %c22, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%440, %c23, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %442) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %443) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1128, %444) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1129 = call @kernel_gemm(%442, %443, %444) {adf.kernel, "col, row" = [24 : index, 0 : index], ivs = [1 : index, 0 : index, 5 : index], kernel_gemm = 161 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1129, %c24, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%443, %c23, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%442, %c24, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %445) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %446) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1129, %447) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1130 = call @kernel_gemm(%445, %446, %447) {adf.kernel, "col, row" = [25 : index, 0 : index], ivs = [2 : index, 0 : index, 5 : index], kernel_gemm = 162 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1130, %c25, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%446, %c24, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%445, %c25, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %448) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %449) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1130, %450) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1131 = call @kernel_gemm(%448, %449, %450) {adf.kernel, "col, row" = [26 : index, 0 : index], ivs = [3 : index, 0 : index, 5 : index], kernel_gemm = 163 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1131, %c26, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%449, %c25, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%448, %c26, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1131, %arg96) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %451) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %452) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1132 = call @kernel_gemm0(%451, %452) {adf.kernel, "col, row" = [23 : index, 1 : index], ivs = [0 : index, 1 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 164 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1132, %c24, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%452, %c23, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%451, %c23, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %453) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %454) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1132, %455) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1133 = call @kernel_gemm(%453, %454, %455) {adf.kernel, "col, row" = [24 : index, 1 : index], ivs = [1 : index, 1 : index, 5 : index], kernel_gemm = 165 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1133, %c25, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%454, %c24, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%453, %c24, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %456) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %457) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1133, %458) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1134 = call @kernel_gemm(%456, %457, %458) {adf.kernel, "col, row" = [25 : index, 1 : index], ivs = [2 : index, 1 : index, 5 : index], kernel_gemm = 166 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1134, %c26, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%457, %c25, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%456, %c25, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %459) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %460) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1134, %461) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1135 = call @kernel_gemm(%459, %460, %461) {adf.kernel, "col, row" = [26 : index, 1 : index], ivs = [3 : index, 1 : index, 5 : index], kernel_gemm = 167 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1135, %c27, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%460, %c26, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%459, %c26, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1135, %arg97) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %462) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %463) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1136 = call @kernel_gemm0(%462, %463) {adf.kernel, "col, row" = [23 : index, 2 : index], ivs = [0 : index, 2 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 168 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1136, %c23, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%463, %c23, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%462, %c23, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %464) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %465) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1136, %466) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1137 = call @kernel_gemm(%464, %465, %466) {adf.kernel, "col, row" = [24 : index, 2 : index], ivs = [1 : index, 2 : index, 5 : index], kernel_gemm = 169 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1137, %c24, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%465, %c24, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%464, %c24, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %467) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %468) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1137, %469) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1138 = call @kernel_gemm(%467, %468, %469) {adf.kernel, "col, row" = [25 : index, 2 : index], ivs = [2 : index, 2 : index, 5 : index], kernel_gemm = 170 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1138, %c25, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%468, %c25, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%467, %c25, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %470) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %471) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1138, %472) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1139 = call @kernel_gemm(%470, %471, %472) {adf.kernel, "col, row" = [26 : index, 2 : index], ivs = [3 : index, 2 : index, 5 : index], kernel_gemm = 171 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1139, %c26, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%471, %c26, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%470, %c26, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1139, %arg98) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %473) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %474) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1140 = call @kernel_gemm0(%473, %474) {adf.kernel, "col, row" = [23 : index, 3 : index], ivs = [0 : index, 3 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 172 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1140, %c24, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%474, %c23, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%473, %c23, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %475) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %476) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1140, %477) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1141 = call @kernel_gemm(%475, %476, %477) {adf.kernel, "col, row" = [24 : index, 3 : index], ivs = [1 : index, 3 : index, 5 : index], kernel_gemm = 173 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1141, %c25, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%476, %c24, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%475, %c24, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %478) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %479) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1141, %480) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1142 = call @kernel_gemm(%478, %479, %480) {adf.kernel, "col, row" = [25 : index, 3 : index], ivs = [2 : index, 3 : index, 5 : index], kernel_gemm = 174 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1142, %c26, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%479, %c25, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%478, %c25, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %481) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %482) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1142, %483) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1143 = call @kernel_gemm(%481, %482, %483) {adf.kernel, "col, row" = [26 : index, 3 : index], ivs = [3 : index, 3 : index, 5 : index], kernel_gemm = 175 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1143, %c27, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%482, %c26, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%481, %c26, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1143, %arg99) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %484) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %485) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1144 = call @kernel_gemm0(%484, %485) {adf.kernel, "col, row" = [23 : index, 4 : index], ivs = [0 : index, 4 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 176 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1144, %c23, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%485, %c23, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%484, %c23, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %486) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %487) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1144, %488) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1145 = call @kernel_gemm(%486, %487, %488) {adf.kernel, "col, row" = [24 : index, 4 : index], ivs = [1 : index, 4 : index, 5 : index], kernel_gemm = 177 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1145, %c24, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%487, %c24, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%486, %c24, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %489) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %490) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1145, %491) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1146 = call @kernel_gemm(%489, %490, %491) {adf.kernel, "col, row" = [25 : index, 4 : index], ivs = [2 : index, 4 : index, 5 : index], kernel_gemm = 178 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1146, %c25, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%490, %c25, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%489, %c25, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %492) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %493) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1146, %494) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1147 = call @kernel_gemm(%492, %493, %494) {adf.kernel, "col, row" = [26 : index, 4 : index], ivs = [3 : index, 4 : index, 5 : index], kernel_gemm = 179 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1147, %c26, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%493, %c26, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%492, %c26, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1147, %arg100) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %495) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %496) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1148 = call @kernel_gemm0(%495, %496) {adf.kernel, "col, row" = [23 : index, 5 : index], ivs = [0 : index, 5 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 180 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1148, %c24, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%496, %c23, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%495, %c23, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %497) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %498) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1148, %499) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1149 = call @kernel_gemm(%497, %498, %499) {adf.kernel, "col, row" = [24 : index, 5 : index], ivs = [1 : index, 5 : index, 5 : index], kernel_gemm = 181 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1149, %c25, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%498, %c24, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%497, %c24, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %500) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %501) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1149, %502) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1150 = call @kernel_gemm(%500, %501, %502) {adf.kernel, "col, row" = [25 : index, 5 : index], ivs = [2 : index, 5 : index, 5 : index], kernel_gemm = 182 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1150, %c26, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%501, %c25, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%500, %c25, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %503) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %504) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1150, %505) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1151 = call @kernel_gemm(%503, %504, %505) {adf.kernel, "col, row" = [26 : index, 5 : index], ivs = [3 : index, 5 : index, 5 : index], kernel_gemm = 183 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1151, %c27, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%504, %c26, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%503, %c26, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1151, %arg101) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %506) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %507) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1152 = call @kernel_gemm0(%506, %507) {adf.kernel, "col, row" = [23 : index, 6 : index], ivs = [0 : index, 6 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 184 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1152, %c23, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%507, %c23, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%506, %c23, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %508) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %509) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1152, %510) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1153 = call @kernel_gemm(%508, %509, %510) {adf.kernel, "col, row" = [24 : index, 6 : index], ivs = [1 : index, 6 : index, 5 : index], kernel_gemm = 185 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1153, %c24, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%509, %c24, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%508, %c24, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %511) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %512) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1153, %513) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1154 = call @kernel_gemm(%511, %512, %513) {adf.kernel, "col, row" = [25 : index, 6 : index], ivs = [2 : index, 6 : index, 5 : index], kernel_gemm = 186 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1154, %c25, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%512, %c25, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%511, %c25, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %514) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %515) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1154, %516) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1155 = call @kernel_gemm(%514, %515, %516) {adf.kernel, "col, row" = [26 : index, 6 : index], ivs = [3 : index, 6 : index, 5 : index], kernel_gemm = 187 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1155, %c26, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%515, %c26, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%514, %c26, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1155, %arg102) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg92, %517) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %518) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1156 = call @kernel_gemm0(%517, %518) {adf.kernel, "col, row" = [23 : index, 7 : index], ivs = [0 : index, 7 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 188 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1156, %c24, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%518, %c23, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%517, %c23, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg93, %519) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %520) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1156, %521) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1157 = call @kernel_gemm(%519, %520, %521) {adf.kernel, "col, row" = [24 : index, 7 : index], ivs = [1 : index, 7 : index, 5 : index], kernel_gemm = 189 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1157, %c25, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%520, %c24, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%519, %c24, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg94, %522) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %523) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1157, %524) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1158 = call @kernel_gemm(%522, %523, %524) {adf.kernel, "col, row" = [25 : index, 7 : index], ivs = [2 : index, 7 : index, 5 : index], kernel_gemm = 190 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1158, %c26, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%523, %c25, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%522, %c25, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg95, %525) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %526) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1158, %527) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1159 = call @kernel_gemm(%525, %526, %527) {adf.kernel, "col, row" = [26 : index, 7 : index], ivs = [3 : index, 7 : index, 5 : index], kernel_gemm = 191 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1159, %c27, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%526, %c26, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%525, %c26, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1159, %arg103) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %528) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %529) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1160 = call @kernel_gemm0(%528, %529) {adf.kernel, "col, row" = [27 : index, 0 : index], ivs = [0 : index, 0 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 192 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1160, %c27, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%529, %c26, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%528, %c27, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %530) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %531) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1160, %532) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1161 = call @kernel_gemm(%530, %531, %532) {adf.kernel, "col, row" = [28 : index, 0 : index], ivs = [1 : index, 0 : index, 6 : index], kernel_gemm = 193 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1161, %c28, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%531, %c27, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%530, %c28, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %533) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %534) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1161, %535) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1162 = call @kernel_gemm(%533, %534, %535) {adf.kernel, "col, row" = [29 : index, 0 : index], ivs = [2 : index, 0 : index, 6 : index], kernel_gemm = 194 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1162, %c29, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%534, %c28, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%533, %c29, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %536) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %537) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1162, %538) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1163 = call @kernel_gemm(%536, %537, %538) {adf.kernel, "col, row" = [30 : index, 0 : index], ivs = [3 : index, 0 : index, 6 : index], kernel_gemm = 195 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1163, %c30, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%537, %c29, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%536, %c30, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1163, %arg108) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %539) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %540) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1164 = call @kernel_gemm0(%539, %540) {adf.kernel, "col, row" = [27 : index, 1 : index], ivs = [0 : index, 1 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 196 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1164, %c28, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%540, %c27, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%539, %c27, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %541) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %542) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1164, %543) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1165 = call @kernel_gemm(%541, %542, %543) {adf.kernel, "col, row" = [28 : index, 1 : index], ivs = [1 : index, 1 : index, 6 : index], kernel_gemm = 197 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1165, %c29, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%542, %c28, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%541, %c28, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %544) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %545) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1165, %546) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1166 = call @kernel_gemm(%544, %545, %546) {adf.kernel, "col, row" = [29 : index, 1 : index], ivs = [2 : index, 1 : index, 6 : index], kernel_gemm = 198 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1166, %c30, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%545, %c29, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%544, %c29, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %547) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %548) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1166, %549) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1167 = call @kernel_gemm(%547, %548, %549) {adf.kernel, "col, row" = [30 : index, 1 : index], ivs = [3 : index, 1 : index, 6 : index], kernel_gemm = 199 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1167, %c31, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%548, %c30, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%547, %c30, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1167, %arg109) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %550) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %551) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1168 = call @kernel_gemm0(%550, %551) {adf.kernel, "col, row" = [27 : index, 2 : index], ivs = [0 : index, 2 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 200 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1168, %c27, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%551, %c27, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%550, %c27, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %552) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %553) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1168, %554) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1169 = call @kernel_gemm(%552, %553, %554) {adf.kernel, "col, row" = [28 : index, 2 : index], ivs = [1 : index, 2 : index, 6 : index], kernel_gemm = 201 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1169, %c28, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%553, %c28, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%552, %c28, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %555) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %556) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1169, %557) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1170 = call @kernel_gemm(%555, %556, %557) {adf.kernel, "col, row" = [29 : index, 2 : index], ivs = [2 : index, 2 : index, 6 : index], kernel_gemm = 202 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1170, %c29, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%556, %c29, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%555, %c29, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %558) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %559) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1170, %560) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1171 = call @kernel_gemm(%558, %559, %560) {adf.kernel, "col, row" = [30 : index, 2 : index], ivs = [3 : index, 2 : index, 6 : index], kernel_gemm = 203 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1171, %c30, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%559, %c30, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%558, %c30, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1171, %arg110) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %561) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %562) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1172 = call @kernel_gemm0(%561, %562) {adf.kernel, "col, row" = [27 : index, 3 : index], ivs = [0 : index, 3 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 204 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1172, %c28, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%562, %c27, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%561, %c27, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %563) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %564) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1172, %565) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1173 = call @kernel_gemm(%563, %564, %565) {adf.kernel, "col, row" = [28 : index, 3 : index], ivs = [1 : index, 3 : index, 6 : index], kernel_gemm = 205 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1173, %c29, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%564, %c28, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%563, %c28, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %566) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %567) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1173, %568) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1174 = call @kernel_gemm(%566, %567, %568) {adf.kernel, "col, row" = [29 : index, 3 : index], ivs = [2 : index, 3 : index, 6 : index], kernel_gemm = 206 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1174, %c30, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%567, %c29, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%566, %c29, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %569) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %570) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1174, %571) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1175 = call @kernel_gemm(%569, %570, %571) {adf.kernel, "col, row" = [30 : index, 3 : index], ivs = [3 : index, 3 : index, 6 : index], kernel_gemm = 207 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1175, %c31, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%570, %c30, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%569, %c30, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1175, %arg111) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %572) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %573) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1176 = call @kernel_gemm0(%572, %573) {adf.kernel, "col, row" = [27 : index, 4 : index], ivs = [0 : index, 4 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 208 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1176, %c27, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%573, %c27, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%572, %c27, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %574) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %575) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1176, %576) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1177 = call @kernel_gemm(%574, %575, %576) {adf.kernel, "col, row" = [28 : index, 4 : index], ivs = [1 : index, 4 : index, 6 : index], kernel_gemm = 209 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1177, %c28, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%575, %c28, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%574, %c28, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %577) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %578) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1177, %579) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1178 = call @kernel_gemm(%577, %578, %579) {adf.kernel, "col, row" = [29 : index, 4 : index], ivs = [2 : index, 4 : index, 6 : index], kernel_gemm = 210 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1178, %c29, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%578, %c29, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%577, %c29, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %580) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %581) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1178, %582) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1179 = call @kernel_gemm(%580, %581, %582) {adf.kernel, "col, row" = [30 : index, 4 : index], ivs = [3 : index, 4 : index, 6 : index], kernel_gemm = 211 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1179, %c30, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%581, %c30, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%580, %c30, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1179, %arg112) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %583) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %584) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1180 = call @kernel_gemm0(%583, %584) {adf.kernel, "col, row" = [27 : index, 5 : index], ivs = [0 : index, 5 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 212 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1180, %c28, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%584, %c27, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%583, %c27, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %585) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %586) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1180, %587) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1181 = call @kernel_gemm(%585, %586, %587) {adf.kernel, "col, row" = [28 : index, 5 : index], ivs = [1 : index, 5 : index, 6 : index], kernel_gemm = 213 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1181, %c29, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%586, %c28, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%585, %c28, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %588) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %589) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1181, %590) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1182 = call @kernel_gemm(%588, %589, %590) {adf.kernel, "col, row" = [29 : index, 5 : index], ivs = [2 : index, 5 : index, 6 : index], kernel_gemm = 214 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1182, %c30, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%589, %c29, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%588, %c29, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %591) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %592) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1182, %593) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1183 = call @kernel_gemm(%591, %592, %593) {adf.kernel, "col, row" = [30 : index, 5 : index], ivs = [3 : index, 5 : index, 6 : index], kernel_gemm = 215 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1183, %c31, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%592, %c30, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%591, %c30, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1183, %arg113) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %594) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %595) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1184 = call @kernel_gemm0(%594, %595) {adf.kernel, "col, row" = [27 : index, 6 : index], ivs = [0 : index, 6 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 216 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1184, %c27, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%595, %c27, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%594, %c27, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %596) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %597) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1184, %598) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1185 = call @kernel_gemm(%596, %597, %598) {adf.kernel, "col, row" = [28 : index, 6 : index], ivs = [1 : index, 6 : index, 6 : index], kernel_gemm = 217 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1185, %c28, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%597, %c28, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%596, %c28, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %599) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %600) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1185, %601) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1186 = call @kernel_gemm(%599, %600, %601) {adf.kernel, "col, row" = [29 : index, 6 : index], ivs = [2 : index, 6 : index, 6 : index], kernel_gemm = 218 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1186, %c29, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%600, %c29, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%599, %c29, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %602) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %603) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1186, %604) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1187 = call @kernel_gemm(%602, %603, %604) {adf.kernel, "col, row" = [30 : index, 6 : index], ivs = [3 : index, 6 : index, 6 : index], kernel_gemm = 219 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1187, %c30, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%603, %c30, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%602, %c30, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1187, %arg114) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg104, %605) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %606) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1188 = call @kernel_gemm0(%605, %606) {adf.kernel, "col, row" = [27 : index, 7 : index], ivs = [0 : index, 7 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 220 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1188, %c28, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%606, %c27, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%605, %c27, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg105, %607) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %608) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1188, %609) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1189 = call @kernel_gemm(%607, %608, %609) {adf.kernel, "col, row" = [28 : index, 7 : index], ivs = [1 : index, 7 : index, 6 : index], kernel_gemm = 221 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1189, %c29, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%608, %c28, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%607, %c28, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg106, %610) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %611) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1189, %612) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1190 = call @kernel_gemm(%610, %611, %612) {adf.kernel, "col, row" = [29 : index, 7 : index], ivs = [2 : index, 7 : index, 6 : index], kernel_gemm = 222 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1190, %c30, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%611, %c29, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%610, %c29, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg107, %613) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %614) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1190, %615) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1191 = call @kernel_gemm(%613, %614, %615) {adf.kernel, "col, row" = [30 : index, 7 : index], ivs = [3 : index, 7 : index, 6 : index], kernel_gemm = 223 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1191, %c31, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%614, %c30, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%613, %c30, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1191, %arg115) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %616) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %617) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1192 = call @kernel_gemm0(%616, %617) {adf.kernel, "col, row" = [31 : index, 0 : index], ivs = [0 : index, 0 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 224 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1192, %c31, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%617, %c30, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%616, %c31, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %618) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %619) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1192, %620) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1193 = call @kernel_gemm(%618, %619, %620) {adf.kernel, "col, row" = [32 : index, 0 : index], ivs = [1 : index, 0 : index, 7 : index], kernel_gemm = 225 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1193, %c32, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%619, %c31, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%618, %c32, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %621) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %622) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1193, %623) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1194 = call @kernel_gemm(%621, %622, %623) {adf.kernel, "col, row" = [33 : index, 0 : index], ivs = [2 : index, 0 : index, 7 : index], kernel_gemm = 226 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1194, %c33, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%622, %c32, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%621, %c33, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %624) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %625) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1194, %626) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1195 = call @kernel_gemm(%624, %625, %626) {adf.kernel, "col, row" = [34 : index, 0 : index], ivs = [3 : index, 0 : index, 7 : index], kernel_gemm = 227 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1195, %c34, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%625, %c33, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%624, %c34, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1195, %arg120) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %627) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %628) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1196 = call @kernel_gemm0(%627, %628) {adf.kernel, "col, row" = [31 : index, 1 : index], ivs = [0 : index, 1 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 228 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1196, %c32, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%628, %c31, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%627, %c31, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %629) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %630) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1196, %631) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1197 = call @kernel_gemm(%629, %630, %631) {adf.kernel, "col, row" = [32 : index, 1 : index], ivs = [1 : index, 1 : index, 7 : index], kernel_gemm = 229 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1197, %c33, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%630, %c32, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%629, %c32, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %632) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %633) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1197, %634) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1198 = call @kernel_gemm(%632, %633, %634) {adf.kernel, "col, row" = [33 : index, 1 : index], ivs = [2 : index, 1 : index, 7 : index], kernel_gemm = 230 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1198, %c34, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%633, %c33, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%632, %c33, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %635) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %636) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1198, %637) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1199 = call @kernel_gemm(%635, %636, %637) {adf.kernel, "col, row" = [34 : index, 1 : index], ivs = [3 : index, 1 : index, 7 : index], kernel_gemm = 231 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1199, %c35, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%636, %c34, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%635, %c34, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1199, %arg121) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %638) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %639) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1200 = call @kernel_gemm0(%638, %639) {adf.kernel, "col, row" = [31 : index, 2 : index], ivs = [0 : index, 2 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 232 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1200, %c31, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%639, %c31, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%638, %c31, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %640) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %641) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1200, %642) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1201 = call @kernel_gemm(%640, %641, %642) {adf.kernel, "col, row" = [32 : index, 2 : index], ivs = [1 : index, 2 : index, 7 : index], kernel_gemm = 233 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1201, %c32, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%641, %c32, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%640, %c32, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %643) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %644) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1201, %645) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1202 = call @kernel_gemm(%643, %644, %645) {adf.kernel, "col, row" = [33 : index, 2 : index], ivs = [2 : index, 2 : index, 7 : index], kernel_gemm = 234 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1202, %c33, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%644, %c33, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%643, %c33, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %646) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %647) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1202, %648) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1203 = call @kernel_gemm(%646, %647, %648) {adf.kernel, "col, row" = [34 : index, 2 : index], ivs = [3 : index, 2 : index, 7 : index], kernel_gemm = 235 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1203, %c34, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%647, %c34, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%646, %c34, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1203, %arg122) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %649) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %650) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1204 = call @kernel_gemm0(%649, %650) {adf.kernel, "col, row" = [31 : index, 3 : index], ivs = [0 : index, 3 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 236 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1204, %c32, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%650, %c31, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%649, %c31, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %651) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %652) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1204, %653) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1205 = call @kernel_gemm(%651, %652, %653) {adf.kernel, "col, row" = [32 : index, 3 : index], ivs = [1 : index, 3 : index, 7 : index], kernel_gemm = 237 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1205, %c33, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%652, %c32, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%651, %c32, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %654) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %655) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1205, %656) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1206 = call @kernel_gemm(%654, %655, %656) {adf.kernel, "col, row" = [33 : index, 3 : index], ivs = [2 : index, 3 : index, 7 : index], kernel_gemm = 238 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1206, %c34, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%655, %c33, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%654, %c33, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %657) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %658) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1206, %659) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1207 = call @kernel_gemm(%657, %658, %659) {adf.kernel, "col, row" = [34 : index, 3 : index], ivs = [3 : index, 3 : index, 7 : index], kernel_gemm = 239 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1207, %c35, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%658, %c34, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%657, %c34, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1207, %arg123) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %660) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
     adf.connect(%arg24, %661) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %662 = call @kernel_gemm0(%660, %661) {adf.kernel, "col, row" = [23 : index, 4 : index], ivs = [0 : index, 4 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 176 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%662, %c23, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%661, %c23, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%660, %c23, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %663 = adf.buffer.create @L1_L1_A_177() : memref<32x32xf32, 2>
-    %664 = adf.buffer.create @L1_L1_B_177() : memref<32x32xf32, 2>
-    %665 = adf.buffer.create @L1_L1_C_177() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %663) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %664) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%662, %665) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %666 = call @kernel_gemm(%663, %664, %665) {adf.kernel, "col, row" = [24 : index, 4 : index], ivs = [1 : index, 4 : index, 5 : index], kernel_gemm = 177 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%666, %c24, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%664, %c24, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%663, %c24, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %667 = adf.buffer.create @L1_L1_A_178() : memref<32x32xf32, 2>
-    %668 = adf.buffer.create @L1_L1_B_178() : memref<32x32xf32, 2>
-    %669 = adf.buffer.create @L1_L1_C_178() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %667) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %668) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%666, %669) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %670 = call @kernel_gemm(%667, %668, %669) {adf.kernel, "col, row" = [25 : index, 4 : index], ivs = [2 : index, 4 : index, 5 : index], kernel_gemm = 178 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%670, %c25, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%668, %c25, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%667, %c25, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %671 = adf.buffer.create @L1_L1_A_179() : memref<32x32xf32, 2>
-    %672 = adf.buffer.create @L1_L1_B_179() : memref<32x32xf32, 2>
-    %673 = adf.buffer.create @L1_L1_C_179() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %671) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %672) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%670, %673) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %674 = call @kernel_gemm(%671, %672, %673) {adf.kernel, "col, row" = [26 : index, 4 : index], ivs = [3 : index, 4 : index, 5 : index], kernel_gemm = 179 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%674, %c26, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%672, %c26, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%671, %c26, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%674, %arg100) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %675 = adf.buffer.create @L1_L1_A_180() : memref<32x32xf32, 2>
-    %676 = adf.buffer.create @L1_L1_B_180() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %675) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %676) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %677 = call @kernel_gemm0(%675, %676) {adf.kernel, "col, row" = [23 : index, 5 : index], ivs = [0 : index, 5 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 180 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%677, %c24, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%676, %c23, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%675, %c23, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %678 = adf.buffer.create @L1_L1_A_181() : memref<32x32xf32, 2>
-    %679 = adf.buffer.create @L1_L1_B_181() : memref<32x32xf32, 2>
-    %680 = adf.buffer.create @L1_L1_C_181() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %678) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %679) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%677, %680) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %681 = call @kernel_gemm(%678, %679, %680) {adf.kernel, "col, row" = [24 : index, 5 : index], ivs = [1 : index, 5 : index, 5 : index], kernel_gemm = 181 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%681, %c25, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%679, %c24, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%678, %c24, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %682 = adf.buffer.create @L1_L1_A_182() : memref<32x32xf32, 2>
-    %683 = adf.buffer.create @L1_L1_B_182() : memref<32x32xf32, 2>
-    %684 = adf.buffer.create @L1_L1_C_182() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %682) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %683) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%681, %684) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %685 = call @kernel_gemm(%682, %683, %684) {adf.kernel, "col, row" = [25 : index, 5 : index], ivs = [2 : index, 5 : index, 5 : index], kernel_gemm = 182 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%685, %c26, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%683, %c25, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%682, %c25, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %686 = adf.buffer.create @L1_L1_A_183() : memref<32x32xf32, 2>
-    %687 = adf.buffer.create @L1_L1_B_183() : memref<32x32xf32, 2>
-    %688 = adf.buffer.create @L1_L1_C_183() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %686) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %687) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%685, %688) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %689 = call @kernel_gemm(%686, %687, %688) {adf.kernel, "col, row" = [26 : index, 5 : index], ivs = [3 : index, 5 : index, 5 : index], kernel_gemm = 183 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%689, %c27, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%687, %c26, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%686, %c26, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%689, %arg101) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %690 = adf.buffer.create @L1_L1_A_184() : memref<32x32xf32, 2>
-    %691 = adf.buffer.create @L1_L1_B_184() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %690) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %691) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %692 = call @kernel_gemm0(%690, %691) {adf.kernel, "col, row" = [23 : index, 6 : index], ivs = [0 : index, 6 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 184 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%692, %c23, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%691, %c23, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%690, %c23, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %693 = adf.buffer.create @L1_L1_A_185() : memref<32x32xf32, 2>
-    %694 = adf.buffer.create @L1_L1_B_185() : memref<32x32xf32, 2>
-    %695 = adf.buffer.create @L1_L1_C_185() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %693) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %694) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%692, %695) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %696 = call @kernel_gemm(%693, %694, %695) {adf.kernel, "col, row" = [24 : index, 6 : index], ivs = [1 : index, 6 : index, 5 : index], kernel_gemm = 185 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%696, %c24, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%694, %c24, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%693, %c24, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %697 = adf.buffer.create @L1_L1_A_186() : memref<32x32xf32, 2>
-    %698 = adf.buffer.create @L1_L1_B_186() : memref<32x32xf32, 2>
-    %699 = adf.buffer.create @L1_L1_C_186() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %697) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %698) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%696, %699) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %700 = call @kernel_gemm(%697, %698, %699) {adf.kernel, "col, row" = [25 : index, 6 : index], ivs = [2 : index, 6 : index, 5 : index], kernel_gemm = 186 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%700, %c25, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%698, %c25, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%697, %c25, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %701 = adf.buffer.create @L1_L1_A_187() : memref<32x32xf32, 2>
-    %702 = adf.buffer.create @L1_L1_B_187() : memref<32x32xf32, 2>
-    %703 = adf.buffer.create @L1_L1_C_187() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %701) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %702) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%700, %703) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %704 = call @kernel_gemm(%701, %702, %703) {adf.kernel, "col, row" = [26 : index, 6 : index], ivs = [3 : index, 6 : index, 5 : index], kernel_gemm = 187 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%704, %c26, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%702, %c26, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%701, %c26, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%704, %arg102) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %705 = adf.buffer.create @L1_L1_A_188() : memref<32x32xf32, 2>
-    %706 = adf.buffer.create @L1_L1_B_188() : memref<32x32xf32, 2>
-    adf.connect(%arg92, %705) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %706) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %707 = call @kernel_gemm0(%705, %706) {adf.kernel, "col, row" = [23 : index, 7 : index], ivs = [0 : index, 7 : index, 5 : index], kernel = 0 : index, kernel_gemm0 = 188 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%707, %c24, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%706, %c23, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%705, %c23, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %708 = adf.buffer.create @L1_L1_A_189() : memref<32x32xf32, 2>
-    %709 = adf.buffer.create @L1_L1_B_189() : memref<32x32xf32, 2>
-    %710 = adf.buffer.create @L1_L1_C_189() : memref<32x32xf32, 2>
-    adf.connect(%arg93, %708) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %709) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%707, %710) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %711 = call @kernel_gemm(%708, %709, %710) {adf.kernel, "col, row" = [24 : index, 7 : index], ivs = [1 : index, 7 : index, 5 : index], kernel_gemm = 189 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%711, %c25, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%709, %c24, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%708, %c24, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %712 = adf.buffer.create @L1_L1_A_190() : memref<32x32xf32, 2>
-    %713 = adf.buffer.create @L1_L1_B_190() : memref<32x32xf32, 2>
-    %714 = adf.buffer.create @L1_L1_C_190() : memref<32x32xf32, 2>
-    adf.connect(%arg94, %712) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %713) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%711, %714) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %715 = call @kernel_gemm(%712, %713, %714) {adf.kernel, "col, row" = [25 : index, 7 : index], ivs = [2 : index, 7 : index, 5 : index], kernel_gemm = 190 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%715, %c26, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%713, %c25, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%712, %c25, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %716 = adf.buffer.create @L1_L1_A_191() : memref<32x32xf32, 2>
-    %717 = adf.buffer.create @L1_L1_B_191() : memref<32x32xf32, 2>
-    %718 = adf.buffer.create @L1_L1_C_191() : memref<32x32xf32, 2>
-    adf.connect(%arg95, %716) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %717) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%715, %718) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %719 = call @kernel_gemm(%716, %717, %718) {adf.kernel, "col, row" = [26 : index, 7 : index], ivs = [3 : index, 7 : index, 5 : index], kernel_gemm = 191 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%719, %c27, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%717, %c26, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%716, %c26, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%719, %arg103) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %720 = adf.buffer.create @L1_L1_A_192() : memref<32x32xf32, 2>
-    %721 = adf.buffer.create @L1_L1_B_192() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %720) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %721) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %722 = call @kernel_gemm0(%720, %721) {adf.kernel, "col, row" = [27 : index, 0 : index], ivs = [0 : index, 0 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 192 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%722, %c27, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%721, %c26, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%720, %c27, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %723 = adf.buffer.create @L1_L1_A_193() : memref<32x32xf32, 2>
-    %724 = adf.buffer.create @L1_L1_B_193() : memref<32x32xf32, 2>
-    %725 = adf.buffer.create @L1_L1_C_193() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %723) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %724) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%722, %725) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %726 = call @kernel_gemm(%723, %724, %725) {adf.kernel, "col, row" = [28 : index, 0 : index], ivs = [1 : index, 0 : index, 6 : index], kernel_gemm = 193 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%726, %c28, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%724, %c27, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%723, %c28, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %727 = adf.buffer.create @L1_L1_A_194() : memref<32x32xf32, 2>
-    %728 = adf.buffer.create @L1_L1_B_194() : memref<32x32xf32, 2>
-    %729 = adf.buffer.create @L1_L1_C_194() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %727) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %728) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%726, %729) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %730 = call @kernel_gemm(%727, %728, %729) {adf.kernel, "col, row" = [29 : index, 0 : index], ivs = [2 : index, 0 : index, 6 : index], kernel_gemm = 194 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%730, %c29, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%728, %c28, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%727, %c29, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %731 = adf.buffer.create @L1_L1_A_195() : memref<32x32xf32, 2>
-    %732 = adf.buffer.create @L1_L1_B_195() : memref<32x32xf32, 2>
-    %733 = adf.buffer.create @L1_L1_C_195() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %731) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %732) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%730, %733) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %734 = call @kernel_gemm(%731, %732, %733) {adf.kernel, "col, row" = [30 : index, 0 : index], ivs = [3 : index, 0 : index, 6 : index], kernel_gemm = 195 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%734, %c30, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%732, %c29, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%731, %c30, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%734, %arg108) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %735 = adf.buffer.create @L1_L1_A_196() : memref<32x32xf32, 2>
-    %736 = adf.buffer.create @L1_L1_B_196() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %735) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %736) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %737 = call @kernel_gemm0(%735, %736) {adf.kernel, "col, row" = [27 : index, 1 : index], ivs = [0 : index, 1 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 196 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%737, %c28, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%736, %c27, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%735, %c27, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %738 = adf.buffer.create @L1_L1_A_197() : memref<32x32xf32, 2>
-    %739 = adf.buffer.create @L1_L1_B_197() : memref<32x32xf32, 2>
-    %740 = adf.buffer.create @L1_L1_C_197() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %738) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %739) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%737, %740) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %741 = call @kernel_gemm(%738, %739, %740) {adf.kernel, "col, row" = [28 : index, 1 : index], ivs = [1 : index, 1 : index, 6 : index], kernel_gemm = 197 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%741, %c29, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%739, %c28, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%738, %c28, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %742 = adf.buffer.create @L1_L1_A_198() : memref<32x32xf32, 2>
-    %743 = adf.buffer.create @L1_L1_B_198() : memref<32x32xf32, 2>
-    %744 = adf.buffer.create @L1_L1_C_198() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %742) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %743) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%741, %744) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %745 = call @kernel_gemm(%742, %743, %744) {adf.kernel, "col, row" = [29 : index, 1 : index], ivs = [2 : index, 1 : index, 6 : index], kernel_gemm = 198 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%745, %c30, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%743, %c29, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%742, %c29, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %746 = adf.buffer.create @L1_L1_A_199() : memref<32x32xf32, 2>
-    %747 = adf.buffer.create @L1_L1_B_199() : memref<32x32xf32, 2>
-    %748 = adf.buffer.create @L1_L1_C_199() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %746) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %747) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%745, %748) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %749 = call @kernel_gemm(%746, %747, %748) {adf.kernel, "col, row" = [30 : index, 1 : index], ivs = [3 : index, 1 : index, 6 : index], kernel_gemm = 199 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%749, %c31, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%747, %c30, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%746, %c30, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%749, %arg109) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %750 = adf.buffer.create @L1_L1_A_200() : memref<32x32xf32, 2>
-    %751 = adf.buffer.create @L1_L1_B_200() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %750) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %751) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %752 = call @kernel_gemm0(%750, %751) {adf.kernel, "col, row" = [27 : index, 2 : index], ivs = [0 : index, 2 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 200 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%752, %c27, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%751, %c27, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%750, %c27, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %753 = adf.buffer.create @L1_L1_A_201() : memref<32x32xf32, 2>
-    %754 = adf.buffer.create @L1_L1_B_201() : memref<32x32xf32, 2>
-    %755 = adf.buffer.create @L1_L1_C_201() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %753) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %754) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%752, %755) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %756 = call @kernel_gemm(%753, %754, %755) {adf.kernel, "col, row" = [28 : index, 2 : index], ivs = [1 : index, 2 : index, 6 : index], kernel_gemm = 201 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%756, %c28, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%754, %c28, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%753, %c28, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %757 = adf.buffer.create @L1_L1_A_202() : memref<32x32xf32, 2>
-    %758 = adf.buffer.create @L1_L1_B_202() : memref<32x32xf32, 2>
-    %759 = adf.buffer.create @L1_L1_C_202() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %757) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %758) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%756, %759) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %760 = call @kernel_gemm(%757, %758, %759) {adf.kernel, "col, row" = [29 : index, 2 : index], ivs = [2 : index, 2 : index, 6 : index], kernel_gemm = 202 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%760, %c29, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%758, %c29, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%757, %c29, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %761 = adf.buffer.create @L1_L1_A_203() : memref<32x32xf32, 2>
-    %762 = adf.buffer.create @L1_L1_B_203() : memref<32x32xf32, 2>
-    %763 = adf.buffer.create @L1_L1_C_203() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %761) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %762) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%760, %763) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %764 = call @kernel_gemm(%761, %762, %763) {adf.kernel, "col, row" = [30 : index, 2 : index], ivs = [3 : index, 2 : index, 6 : index], kernel_gemm = 203 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%764, %c30, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%762, %c30, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%761, %c30, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%764, %arg110) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %765 = adf.buffer.create @L1_L1_A_204() : memref<32x32xf32, 2>
-    %766 = adf.buffer.create @L1_L1_B_204() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %765) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %766) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %767 = call @kernel_gemm0(%765, %766) {adf.kernel, "col, row" = [27 : index, 3 : index], ivs = [0 : index, 3 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 204 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%767, %c28, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%766, %c27, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%765, %c27, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %768 = adf.buffer.create @L1_L1_A_205() : memref<32x32xf32, 2>
-    %769 = adf.buffer.create @L1_L1_B_205() : memref<32x32xf32, 2>
-    %770 = adf.buffer.create @L1_L1_C_205() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %768) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %769) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%767, %770) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %771 = call @kernel_gemm(%768, %769, %770) {adf.kernel, "col, row" = [28 : index, 3 : index], ivs = [1 : index, 3 : index, 6 : index], kernel_gemm = 205 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%771, %c29, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%769, %c28, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%768, %c28, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %772 = adf.buffer.create @L1_L1_A_206() : memref<32x32xf32, 2>
-    %773 = adf.buffer.create @L1_L1_B_206() : memref<32x32xf32, 2>
-    %774 = adf.buffer.create @L1_L1_C_206() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %772) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %773) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%771, %774) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %775 = call @kernel_gemm(%772, %773, %774) {adf.kernel, "col, row" = [29 : index, 3 : index], ivs = [2 : index, 3 : index, 6 : index], kernel_gemm = 206 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%775, %c30, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%773, %c29, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%772, %c29, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %776 = adf.buffer.create @L1_L1_A_207() : memref<32x32xf32, 2>
-    %777 = adf.buffer.create @L1_L1_B_207() : memref<32x32xf32, 2>
-    %778 = adf.buffer.create @L1_L1_C_207() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %776) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %777) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%775, %778) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %779 = call @kernel_gemm(%776, %777, %778) {adf.kernel, "col, row" = [30 : index, 3 : index], ivs = [3 : index, 3 : index, 6 : index], kernel_gemm = 207 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%779, %c31, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%777, %c30, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%776, %c30, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%779, %arg111) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %780 = adf.buffer.create @L1_L1_A_208() : memref<32x32xf32, 2>
-    %781 = adf.buffer.create @L1_L1_B_208() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %780) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %781) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %782 = call @kernel_gemm0(%780, %781) {adf.kernel, "col, row" = [27 : index, 4 : index], ivs = [0 : index, 4 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 208 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%782, %c27, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%781, %c27, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%780, %c27, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %783 = adf.buffer.create @L1_L1_A_209() : memref<32x32xf32, 2>
-    %784 = adf.buffer.create @L1_L1_B_209() : memref<32x32xf32, 2>
-    %785 = adf.buffer.create @L1_L1_C_209() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %783) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %784) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%782, %785) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %786 = call @kernel_gemm(%783, %784, %785) {adf.kernel, "col, row" = [28 : index, 4 : index], ivs = [1 : index, 4 : index, 6 : index], kernel_gemm = 209 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%786, %c28, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%784, %c28, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%783, %c28, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %787 = adf.buffer.create @L1_L1_A_210() : memref<32x32xf32, 2>
-    %788 = adf.buffer.create @L1_L1_B_210() : memref<32x32xf32, 2>
-    %789 = adf.buffer.create @L1_L1_C_210() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %787) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %788) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%786, %789) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %790 = call @kernel_gemm(%787, %788, %789) {adf.kernel, "col, row" = [29 : index, 4 : index], ivs = [2 : index, 4 : index, 6 : index], kernel_gemm = 210 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%790, %c29, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%788, %c29, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%787, %c29, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %791 = adf.buffer.create @L1_L1_A_211() : memref<32x32xf32, 2>
-    %792 = adf.buffer.create @L1_L1_B_211() : memref<32x32xf32, 2>
-    %793 = adf.buffer.create @L1_L1_C_211() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %791) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %792) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%790, %793) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %794 = call @kernel_gemm(%791, %792, %793) {adf.kernel, "col, row" = [30 : index, 4 : index], ivs = [3 : index, 4 : index, 6 : index], kernel_gemm = 211 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%794, %c30, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%792, %c30, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%791, %c30, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%794, %arg112) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %795 = adf.buffer.create @L1_L1_A_212() : memref<32x32xf32, 2>
-    %796 = adf.buffer.create @L1_L1_B_212() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %795) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %796) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %797 = call @kernel_gemm0(%795, %796) {adf.kernel, "col, row" = [27 : index, 5 : index], ivs = [0 : index, 5 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 212 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%797, %c28, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%796, %c27, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%795, %c27, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %798 = adf.buffer.create @L1_L1_A_213() : memref<32x32xf32, 2>
-    %799 = adf.buffer.create @L1_L1_B_213() : memref<32x32xf32, 2>
-    %800 = adf.buffer.create @L1_L1_C_213() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %798) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %799) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%797, %800) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %801 = call @kernel_gemm(%798, %799, %800) {adf.kernel, "col, row" = [28 : index, 5 : index], ivs = [1 : index, 5 : index, 6 : index], kernel_gemm = 213 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%801, %c29, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%799, %c28, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%798, %c28, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %802 = adf.buffer.create @L1_L1_A_214() : memref<32x32xf32, 2>
-    %803 = adf.buffer.create @L1_L1_B_214() : memref<32x32xf32, 2>
-    %804 = adf.buffer.create @L1_L1_C_214() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %802) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %803) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%801, %804) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %805 = call @kernel_gemm(%802, %803, %804) {adf.kernel, "col, row" = [29 : index, 5 : index], ivs = [2 : index, 5 : index, 6 : index], kernel_gemm = 214 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%805, %c30, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%803, %c29, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%802, %c29, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %806 = adf.buffer.create @L1_L1_A_215() : memref<32x32xf32, 2>
-    %807 = adf.buffer.create @L1_L1_B_215() : memref<32x32xf32, 2>
-    %808 = adf.buffer.create @L1_L1_C_215() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %806) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %807) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%805, %808) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %809 = call @kernel_gemm(%806, %807, %808) {adf.kernel, "col, row" = [30 : index, 5 : index], ivs = [3 : index, 5 : index, 6 : index], kernel_gemm = 215 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%809, %c31, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%807, %c30, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%806, %c30, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%809, %arg113) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %810 = adf.buffer.create @L1_L1_A_216() : memref<32x32xf32, 2>
-    %811 = adf.buffer.create @L1_L1_B_216() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %810) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %811) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %812 = call @kernel_gemm0(%810, %811) {adf.kernel, "col, row" = [27 : index, 6 : index], ivs = [0 : index, 6 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 216 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%812, %c27, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%811, %c27, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%810, %c27, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %813 = adf.buffer.create @L1_L1_A_217() : memref<32x32xf32, 2>
-    %814 = adf.buffer.create @L1_L1_B_217() : memref<32x32xf32, 2>
-    %815 = adf.buffer.create @L1_L1_C_217() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %813) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %814) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%812, %815) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %816 = call @kernel_gemm(%813, %814, %815) {adf.kernel, "col, row" = [28 : index, 6 : index], ivs = [1 : index, 6 : index, 6 : index], kernel_gemm = 217 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%816, %c28, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%814, %c28, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%813, %c28, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %817 = adf.buffer.create @L1_L1_A_218() : memref<32x32xf32, 2>
-    %818 = adf.buffer.create @L1_L1_B_218() : memref<32x32xf32, 2>
-    %819 = adf.buffer.create @L1_L1_C_218() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %817) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %818) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%816, %819) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %820 = call @kernel_gemm(%817, %818, %819) {adf.kernel, "col, row" = [29 : index, 6 : index], ivs = [2 : index, 6 : index, 6 : index], kernel_gemm = 218 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%820, %c29, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%818, %c29, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%817, %c29, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %821 = adf.buffer.create @L1_L1_A_219() : memref<32x32xf32, 2>
-    %822 = adf.buffer.create @L1_L1_B_219() : memref<32x32xf32, 2>
-    %823 = adf.buffer.create @L1_L1_C_219() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %821) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %822) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%820, %823) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %824 = call @kernel_gemm(%821, %822, %823) {adf.kernel, "col, row" = [30 : index, 6 : index], ivs = [3 : index, 6 : index, 6 : index], kernel_gemm = 219 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%824, %c30, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%822, %c30, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%821, %c30, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%824, %arg114) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %825 = adf.buffer.create @L1_L1_A_220() : memref<32x32xf32, 2>
-    %826 = adf.buffer.create @L1_L1_B_220() : memref<32x32xf32, 2>
-    adf.connect(%arg104, %825) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %826) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %827 = call @kernel_gemm0(%825, %826) {adf.kernel, "col, row" = [27 : index, 7 : index], ivs = [0 : index, 7 : index, 6 : index], kernel = 0 : index, kernel_gemm0 = 220 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%827, %c28, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%826, %c27, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%825, %c27, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %828 = adf.buffer.create @L1_L1_A_221() : memref<32x32xf32, 2>
-    %829 = adf.buffer.create @L1_L1_B_221() : memref<32x32xf32, 2>
-    %830 = adf.buffer.create @L1_L1_C_221() : memref<32x32xf32, 2>
-    adf.connect(%arg105, %828) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %829) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%827, %830) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %831 = call @kernel_gemm(%828, %829, %830) {adf.kernel, "col, row" = [28 : index, 7 : index], ivs = [1 : index, 7 : index, 6 : index], kernel_gemm = 221 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%831, %c29, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%829, %c28, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%828, %c28, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %832 = adf.buffer.create @L1_L1_A_222() : memref<32x32xf32, 2>
-    %833 = adf.buffer.create @L1_L1_B_222() : memref<32x32xf32, 2>
-    %834 = adf.buffer.create @L1_L1_C_222() : memref<32x32xf32, 2>
-    adf.connect(%arg106, %832) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %833) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%831, %834) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %835 = call @kernel_gemm(%832, %833, %834) {adf.kernel, "col, row" = [29 : index, 7 : index], ivs = [2 : index, 7 : index, 6 : index], kernel_gemm = 222 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%835, %c30, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%833, %c29, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%832, %c29, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %836 = adf.buffer.create @L1_L1_A_223() : memref<32x32xf32, 2>
-    %837 = adf.buffer.create @L1_L1_B_223() : memref<32x32xf32, 2>
-    %838 = adf.buffer.create @L1_L1_C_223() : memref<32x32xf32, 2>
-    adf.connect(%arg107, %836) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %837) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%835, %838) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %839 = call @kernel_gemm(%836, %837, %838) {adf.kernel, "col, row" = [30 : index, 7 : index], ivs = [3 : index, 7 : index, 6 : index], kernel_gemm = 223 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%839, %c31, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%837, %c30, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%836, %c30, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%839, %arg115) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %840 = adf.buffer.create @L1_L1_A_224() : memref<32x32xf32, 2>
-    %841 = adf.buffer.create @L1_L1_B_224() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %840) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %841) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %842 = call @kernel_gemm0(%840, %841) {adf.kernel, "col, row" = [31 : index, 0 : index], ivs = [0 : index, 0 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 224 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%842, %c31, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%841, %c30, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%840, %c31, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %843 = adf.buffer.create @L1_L1_A_225() : memref<32x32xf32, 2>
-    %844 = adf.buffer.create @L1_L1_B_225() : memref<32x32xf32, 2>
-    %845 = adf.buffer.create @L1_L1_C_225() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %843) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %844) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%842, %845) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %846 = call @kernel_gemm(%843, %844, %845) {adf.kernel, "col, row" = [32 : index, 0 : index], ivs = [1 : index, 0 : index, 7 : index], kernel_gemm = 225 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%846, %c32, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%844, %c31, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%843, %c32, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %847 = adf.buffer.create @L1_L1_A_226() : memref<32x32xf32, 2>
-    %848 = adf.buffer.create @L1_L1_B_226() : memref<32x32xf32, 2>
-    %849 = adf.buffer.create @L1_L1_C_226() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %847) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %848) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%846, %849) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %850 = call @kernel_gemm(%847, %848, %849) {adf.kernel, "col, row" = [33 : index, 0 : index], ivs = [2 : index, 0 : index, 7 : index], kernel_gemm = 226 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%850, %c33, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%848, %c32, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%847, %c33, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %851 = adf.buffer.create @L1_L1_A_227() : memref<32x32xf32, 2>
-    %852 = adf.buffer.create @L1_L1_B_227() : memref<32x32xf32, 2>
-    %853 = adf.buffer.create @L1_L1_C_227() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %851) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %852) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%850, %853) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %854 = call @kernel_gemm(%851, %852, %853) {adf.kernel, "col, row" = [34 : index, 0 : index], ivs = [3 : index, 0 : index, 7 : index], kernel_gemm = 227 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%854, %c34, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%852, %c33, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%851, %c34, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%854, %arg120) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %855 = adf.buffer.create @L1_L1_A_228() : memref<32x32xf32, 2>
-    %856 = adf.buffer.create @L1_L1_B_228() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %855) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %856) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %857 = call @kernel_gemm0(%855, %856) {adf.kernel, "col, row" = [31 : index, 1 : index], ivs = [0 : index, 1 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 228 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%857, %c32, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%856, %c31, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%855, %c31, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %858 = adf.buffer.create @L1_L1_A_229() : memref<32x32xf32, 2>
-    %859 = adf.buffer.create @L1_L1_B_229() : memref<32x32xf32, 2>
-    %860 = adf.buffer.create @L1_L1_C_229() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %858) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %859) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%857, %860) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %861 = call @kernel_gemm(%858, %859, %860) {adf.kernel, "col, row" = [32 : index, 1 : index], ivs = [1 : index, 1 : index, 7 : index], kernel_gemm = 229 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%861, %c33, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%859, %c32, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%858, %c32, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %862 = adf.buffer.create @L1_L1_A_230() : memref<32x32xf32, 2>
-    %863 = adf.buffer.create @L1_L1_B_230() : memref<32x32xf32, 2>
-    %864 = adf.buffer.create @L1_L1_C_230() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %862) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %863) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%861, %864) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %865 = call @kernel_gemm(%862, %863, %864) {adf.kernel, "col, row" = [33 : index, 1 : index], ivs = [2 : index, 1 : index, 7 : index], kernel_gemm = 230 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%865, %c34, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%863, %c33, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%862, %c33, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %866 = adf.buffer.create @L1_L1_A_231() : memref<32x32xf32, 2>
-    %867 = adf.buffer.create @L1_L1_B_231() : memref<32x32xf32, 2>
-    %868 = adf.buffer.create @L1_L1_C_231() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %866) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %867) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%865, %868) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %869 = call @kernel_gemm(%866, %867, %868) {adf.kernel, "col, row" = [34 : index, 1 : index], ivs = [3 : index, 1 : index, 7 : index], kernel_gemm = 231 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%869, %c35, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%867, %c34, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%866, %c34, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%869, %arg121) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %870 = adf.buffer.create @L1_L1_A_232() : memref<32x32xf32, 2>
-    %871 = adf.buffer.create @L1_L1_B_232() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %870) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %871) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %872 = call @kernel_gemm0(%870, %871) {adf.kernel, "col, row" = [31 : index, 2 : index], ivs = [0 : index, 2 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 232 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%872, %c31, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%871, %c31, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%870, %c31, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %873 = adf.buffer.create @L1_L1_A_233() : memref<32x32xf32, 2>
-    %874 = adf.buffer.create @L1_L1_B_233() : memref<32x32xf32, 2>
-    %875 = adf.buffer.create @L1_L1_C_233() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %873) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %874) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%872, %875) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %876 = call @kernel_gemm(%873, %874, %875) {adf.kernel, "col, row" = [32 : index, 2 : index], ivs = [1 : index, 2 : index, 7 : index], kernel_gemm = 233 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%876, %c32, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%874, %c32, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%873, %c32, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %877 = adf.buffer.create @L1_L1_A_234() : memref<32x32xf32, 2>
-    %878 = adf.buffer.create @L1_L1_B_234() : memref<32x32xf32, 2>
-    %879 = adf.buffer.create @L1_L1_C_234() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %877) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %878) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%876, %879) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %880 = call @kernel_gemm(%877, %878, %879) {adf.kernel, "col, row" = [33 : index, 2 : index], ivs = [2 : index, 2 : index, 7 : index], kernel_gemm = 234 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%880, %c33, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%878, %c33, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%877, %c33, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %881 = adf.buffer.create @L1_L1_A_235() : memref<32x32xf32, 2>
-    %882 = adf.buffer.create @L1_L1_B_235() : memref<32x32xf32, 2>
-    %883 = adf.buffer.create @L1_L1_C_235() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %881) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %882) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%880, %883) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %884 = call @kernel_gemm(%881, %882, %883) {adf.kernel, "col, row" = [34 : index, 2 : index], ivs = [3 : index, 2 : index, 7 : index], kernel_gemm = 235 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%884, %c34, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%882, %c34, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%881, %c34, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%884, %arg122) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %885 = adf.buffer.create @L1_L1_A_236() : memref<32x32xf32, 2>
-    %886 = adf.buffer.create @L1_L1_B_236() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %885) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %886) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %887 = call @kernel_gemm0(%885, %886) {adf.kernel, "col, row" = [31 : index, 3 : index], ivs = [0 : index, 3 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 236 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%887, %c32, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%886, %c31, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%885, %c31, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %888 = adf.buffer.create @L1_L1_A_237() : memref<32x32xf32, 2>
-    %889 = adf.buffer.create @L1_L1_B_237() : memref<32x32xf32, 2>
-    %890 = adf.buffer.create @L1_L1_C_237() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %888) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %889) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%887, %890) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %891 = call @kernel_gemm(%888, %889, %890) {adf.kernel, "col, row" = [32 : index, 3 : index], ivs = [1 : index, 3 : index, 7 : index], kernel_gemm = 237 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%891, %c33, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%889, %c32, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%888, %c32, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %892 = adf.buffer.create @L1_L1_A_238() : memref<32x32xf32, 2>
-    %893 = adf.buffer.create @L1_L1_B_238() : memref<32x32xf32, 2>
-    %894 = adf.buffer.create @L1_L1_C_238() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %892) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %893) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%891, %894) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %895 = call @kernel_gemm(%892, %893, %894) {adf.kernel, "col, row" = [33 : index, 3 : index], ivs = [2 : index, 3 : index, 7 : index], kernel_gemm = 238 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%895, %c34, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%893, %c33, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%892, %c33, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %896 = adf.buffer.create @L1_L1_A_239() : memref<32x32xf32, 2>
-    %897 = adf.buffer.create @L1_L1_B_239() : memref<32x32xf32, 2>
-    %898 = adf.buffer.create @L1_L1_C_239() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %896) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %897) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%895, %898) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %899 = call @kernel_gemm(%896, %897, %898) {adf.kernel, "col, row" = [34 : index, 3 : index], ivs = [3 : index, 3 : index, 7 : index], kernel_gemm = 239 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%899, %c35, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%897, %c34, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%896, %c34, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%899, %arg123) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %900 = adf.buffer.create @L1_L1_A_240() : memref<32x32xf32, 2>
-    %901 = adf.buffer.create @L1_L1_B_240() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %900) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %901) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %902 = call @kernel_gemm0(%900, %901) {adf.kernel, "col, row" = [31 : index, 4 : index], ivs = [0 : index, 4 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 240 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%902, %c31, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%901, %c31, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%900, %c31, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %903 = adf.buffer.create @L1_L1_A_241() : memref<32x32xf32, 2>
-    %904 = adf.buffer.create @L1_L1_B_241() : memref<32x32xf32, 2>
-    %905 = adf.buffer.create @L1_L1_C_241() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %903) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %904) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%902, %905) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %906 = call @kernel_gemm(%903, %904, %905) {adf.kernel, "col, row" = [32 : index, 4 : index], ivs = [1 : index, 4 : index, 7 : index], kernel_gemm = 241 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%906, %c32, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%904, %c32, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%903, %c32, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %907 = adf.buffer.create @L1_L1_A_242() : memref<32x32xf32, 2>
-    %908 = adf.buffer.create @L1_L1_B_242() : memref<32x32xf32, 2>
-    %909 = adf.buffer.create @L1_L1_C_242() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %907) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %908) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%906, %909) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %910 = call @kernel_gemm(%907, %908, %909) {adf.kernel, "col, row" = [33 : index, 4 : index], ivs = [2 : index, 4 : index, 7 : index], kernel_gemm = 242 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%910, %c33, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%908, %c33, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%907, %c33, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %911 = adf.buffer.create @L1_L1_A_243() : memref<32x32xf32, 2>
-    %912 = adf.buffer.create @L1_L1_B_243() : memref<32x32xf32, 2>
-    %913 = adf.buffer.create @L1_L1_C_243() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %911) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %912) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%910, %913) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %914 = call @kernel_gemm(%911, %912, %913) {adf.kernel, "col, row" = [34 : index, 4 : index], ivs = [3 : index, 4 : index, 7 : index], kernel_gemm = 243 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%914, %c34, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%912, %c34, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%911, %c34, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%914, %arg124) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %915 = adf.buffer.create @L1_L1_A_244() : memref<32x32xf32, 2>
-    %916 = adf.buffer.create @L1_L1_B_244() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %915) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %916) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %917 = call @kernel_gemm0(%915, %916) {adf.kernel, "col, row" = [31 : index, 5 : index], ivs = [0 : index, 5 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 244 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%917, %c32, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%916, %c31, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%915, %c31, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %918 = adf.buffer.create @L1_L1_A_245() : memref<32x32xf32, 2>
-    %919 = adf.buffer.create @L1_L1_B_245() : memref<32x32xf32, 2>
-    %920 = adf.buffer.create @L1_L1_C_245() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %918) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %919) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%917, %920) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %921 = call @kernel_gemm(%918, %919, %920) {adf.kernel, "col, row" = [32 : index, 5 : index], ivs = [1 : index, 5 : index, 7 : index], kernel_gemm = 245 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%921, %c33, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%919, %c32, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%918, %c32, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %922 = adf.buffer.create @L1_L1_A_246() : memref<32x32xf32, 2>
-    %923 = adf.buffer.create @L1_L1_B_246() : memref<32x32xf32, 2>
-    %924 = adf.buffer.create @L1_L1_C_246() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %922) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %923) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%921, %924) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %925 = call @kernel_gemm(%922, %923, %924) {adf.kernel, "col, row" = [33 : index, 5 : index], ivs = [2 : index, 5 : index, 7 : index], kernel_gemm = 246 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%925, %c34, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%923, %c33, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%922, %c33, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %926 = adf.buffer.create @L1_L1_A_247() : memref<32x32xf32, 2>
-    %927 = adf.buffer.create @L1_L1_B_247() : memref<32x32xf32, 2>
-    %928 = adf.buffer.create @L1_L1_C_247() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %926) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %927) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%925, %928) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %929 = call @kernel_gemm(%926, %927, %928) {adf.kernel, "col, row" = [34 : index, 5 : index], ivs = [3 : index, 5 : index, 7 : index], kernel_gemm = 247 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%929, %c35, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%927, %c34, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%926, %c34, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%929, %arg125) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %930 = adf.buffer.create @L1_L1_A_248() : memref<32x32xf32, 2>
-    %931 = adf.buffer.create @L1_L1_B_248() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %930) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %931) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %932 = call @kernel_gemm0(%930, %931) {adf.kernel, "col, row" = [31 : index, 6 : index], ivs = [0 : index, 6 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 248 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%932, %c31, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%931, %c31, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%930, %c31, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %933 = adf.buffer.create @L1_L1_A_249() : memref<32x32xf32, 2>
-    %934 = adf.buffer.create @L1_L1_B_249() : memref<32x32xf32, 2>
-    %935 = adf.buffer.create @L1_L1_C_249() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %933) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %934) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%932, %935) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %936 = call @kernel_gemm(%933, %934, %935) {adf.kernel, "col, row" = [32 : index, 6 : index], ivs = [1 : index, 6 : index, 7 : index], kernel_gemm = 249 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%936, %c32, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%934, %c32, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%933, %c32, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %937 = adf.buffer.create @L1_L1_A_250() : memref<32x32xf32, 2>
-    %938 = adf.buffer.create @L1_L1_B_250() : memref<32x32xf32, 2>
-    %939 = adf.buffer.create @L1_L1_C_250() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %937) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %938) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%936, %939) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %940 = call @kernel_gemm(%937, %938, %939) {adf.kernel, "col, row" = [33 : index, 6 : index], ivs = [2 : index, 6 : index, 7 : index], kernel_gemm = 250 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%940, %c33, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%938, %c33, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%937, %c33, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %941 = adf.buffer.create @L1_L1_A_251() : memref<32x32xf32, 2>
-    %942 = adf.buffer.create @L1_L1_B_251() : memref<32x32xf32, 2>
-    %943 = adf.buffer.create @L1_L1_C_251() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %941) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %942) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%940, %943) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %944 = call @kernel_gemm(%941, %942, %943) {adf.kernel, "col, row" = [34 : index, 6 : index], ivs = [3 : index, 6 : index, 7 : index], kernel_gemm = 251 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%944, %c34, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%942, %c34, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%941, %c34, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%944, %arg126) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %945 = adf.buffer.create @L1_L1_A_252() : memref<32x32xf32, 2>
-    %946 = adf.buffer.create @L1_L1_B_252() : memref<32x32xf32, 2>
-    adf.connect(%arg116, %945) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %946) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %947 = call @kernel_gemm0(%945, %946) {adf.kernel, "col, row" = [31 : index, 7 : index], ivs = [0 : index, 7 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 252 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%947, %c32, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%946, %c31, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%945, %c31, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %948 = adf.buffer.create @L1_L1_A_253() : memref<32x32xf32, 2>
-    %949 = adf.buffer.create @L1_L1_B_253() : memref<32x32xf32, 2>
-    %950 = adf.buffer.create @L1_L1_C_253() : memref<32x32xf32, 2>
-    adf.connect(%arg117, %948) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %949) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%947, %950) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %951 = call @kernel_gemm(%948, %949, %950) {adf.kernel, "col, row" = [32 : index, 7 : index], ivs = [1 : index, 7 : index, 7 : index], kernel_gemm = 253 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%951, %c33, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%949, %c32, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%948, %c32, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %952 = adf.buffer.create @L1_L1_A_254() : memref<32x32xf32, 2>
-    %953 = adf.buffer.create @L1_L1_B_254() : memref<32x32xf32, 2>
-    %954 = adf.buffer.create @L1_L1_C_254() : memref<32x32xf32, 2>
-    adf.connect(%arg118, %952) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %953) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%951, %954) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %955 = call @kernel_gemm(%952, %953, %954) {adf.kernel, "col, row" = [33 : index, 7 : index], ivs = [2 : index, 7 : index, 7 : index], kernel_gemm = 254 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%955, %c34, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%953, %c33, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%952, %c33, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %956 = adf.buffer.create @L1_L1_A_255() : memref<32x32xf32, 2>
-    %957 = adf.buffer.create @L1_L1_B_255() : memref<32x32xf32, 2>
-    %958 = adf.buffer.create @L1_L1_C_255() : memref<32x32xf32, 2>
-    adf.connect(%arg119, %956) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %957) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%955, %958) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %959 = call @kernel_gemm(%956, %957, %958) {adf.kernel, "col, row" = [34 : index, 7 : index], ivs = [3 : index, 7 : index, 7 : index], kernel_gemm = 255 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%959, %c35, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%957, %c34, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%956, %c34, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%959, %arg127) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %960 = adf.buffer.create @L1_L1_A_256() : memref<32x32xf32, 2>
-    %961 = adf.buffer.create @L1_L1_B_256() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %960) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %961) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %962 = call @kernel_gemm0(%960, %961) {adf.kernel, "col, row" = [35 : index, 0 : index], ivs = [0 : index, 0 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 256 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%962, %c35, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%961, %c34, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%960, %c35, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %963 = adf.buffer.create @L1_L1_A_257() : memref<32x32xf32, 2>
-    %964 = adf.buffer.create @L1_L1_B_257() : memref<32x32xf32, 2>
-    %965 = adf.buffer.create @L1_L1_C_257() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %963) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %964) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%962, %965) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %966 = call @kernel_gemm(%963, %964, %965) {adf.kernel, "col, row" = [36 : index, 0 : index], ivs = [1 : index, 0 : index, 8 : index], kernel_gemm = 257 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%966, %c36, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%964, %c35, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%963, %c36, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %967 = adf.buffer.create @L1_L1_A_258() : memref<32x32xf32, 2>
-    %968 = adf.buffer.create @L1_L1_B_258() : memref<32x32xf32, 2>
-    %969 = adf.buffer.create @L1_L1_C_258() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %967) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %968) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%966, %969) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %970 = call @kernel_gemm(%967, %968, %969) {adf.kernel, "col, row" = [37 : index, 0 : index], ivs = [2 : index, 0 : index, 8 : index], kernel_gemm = 258 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%970, %c37, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%968, %c36, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%967, %c37, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %971 = adf.buffer.create @L1_L1_A_259() : memref<32x32xf32, 2>
-    %972 = adf.buffer.create @L1_L1_B_259() : memref<32x32xf32, 2>
-    %973 = adf.buffer.create @L1_L1_C_259() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %971) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %972) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%970, %973) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %974 = call @kernel_gemm(%971, %972, %973) {adf.kernel, "col, row" = [38 : index, 0 : index], ivs = [3 : index, 0 : index, 8 : index], kernel_gemm = 259 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%974, %c38, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%972, %c37, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%971, %c38, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%974, %arg132) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %975 = adf.buffer.create @L1_L1_A_260() : memref<32x32xf32, 2>
-    %976 = adf.buffer.create @L1_L1_B_260() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %975) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %976) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %977 = call @kernel_gemm0(%975, %976) {adf.kernel, "col, row" = [35 : index, 1 : index], ivs = [0 : index, 1 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 260 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%977, %c36, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%976, %c35, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%975, %c35, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %978 = adf.buffer.create @L1_L1_A_261() : memref<32x32xf32, 2>
-    %979 = adf.buffer.create @L1_L1_B_261() : memref<32x32xf32, 2>
-    %980 = adf.buffer.create @L1_L1_C_261() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %978) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %979) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%977, %980) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %981 = call @kernel_gemm(%978, %979, %980) {adf.kernel, "col, row" = [36 : index, 1 : index], ivs = [1 : index, 1 : index, 8 : index], kernel_gemm = 261 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%981, %c37, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%979, %c36, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%978, %c36, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %982 = adf.buffer.create @L1_L1_A_262() : memref<32x32xf32, 2>
-    %983 = adf.buffer.create @L1_L1_B_262() : memref<32x32xf32, 2>
-    %984 = adf.buffer.create @L1_L1_C_262() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %982) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %983) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%981, %984) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %985 = call @kernel_gemm(%982, %983, %984) {adf.kernel, "col, row" = [37 : index, 1 : index], ivs = [2 : index, 1 : index, 8 : index], kernel_gemm = 262 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%985, %c38, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%983, %c37, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%982, %c37, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %986 = adf.buffer.create @L1_L1_A_263() : memref<32x32xf32, 2>
-    %987 = adf.buffer.create @L1_L1_B_263() : memref<32x32xf32, 2>
-    %988 = adf.buffer.create @L1_L1_C_263() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %986) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %987) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%985, %988) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %989 = call @kernel_gemm(%986, %987, %988) {adf.kernel, "col, row" = [38 : index, 1 : index], ivs = [3 : index, 1 : index, 8 : index], kernel_gemm = 263 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%989, %c39, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%987, %c38, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%986, %c38, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%989, %arg133) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %990 = adf.buffer.create @L1_L1_A_264() : memref<32x32xf32, 2>
-    %991 = adf.buffer.create @L1_L1_B_264() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %990) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %991) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %992 = call @kernel_gemm0(%990, %991) {adf.kernel, "col, row" = [35 : index, 2 : index], ivs = [0 : index, 2 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 264 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%992, %c35, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%991, %c35, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%990, %c35, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %993 = adf.buffer.create @L1_L1_A_265() : memref<32x32xf32, 2>
-    %994 = adf.buffer.create @L1_L1_B_265() : memref<32x32xf32, 2>
-    %995 = adf.buffer.create @L1_L1_C_265() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %993) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %994) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%992, %995) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %996 = call @kernel_gemm(%993, %994, %995) {adf.kernel, "col, row" = [36 : index, 2 : index], ivs = [1 : index, 2 : index, 8 : index], kernel_gemm = 265 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%996, %c36, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%994, %c36, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%993, %c36, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %997 = adf.buffer.create @L1_L1_A_266() : memref<32x32xf32, 2>
-    %998 = adf.buffer.create @L1_L1_B_266() : memref<32x32xf32, 2>
-    %999 = adf.buffer.create @L1_L1_C_266() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %997) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %998) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%996, %999) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1000 = call @kernel_gemm(%997, %998, %999) {adf.kernel, "col, row" = [37 : index, 2 : index], ivs = [2 : index, 2 : index, 8 : index], kernel_gemm = 266 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1000, %c37, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%998, %c37, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%997, %c37, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1001 = adf.buffer.create @L1_L1_A_267() : memref<32x32xf32, 2>
-    %1002 = adf.buffer.create @L1_L1_B_267() : memref<32x32xf32, 2>
-    %1003 = adf.buffer.create @L1_L1_C_267() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1001) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %1002) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1000, %1003) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1004 = call @kernel_gemm(%1001, %1002, %1003) {adf.kernel, "col, row" = [38 : index, 2 : index], ivs = [3 : index, 2 : index, 8 : index], kernel_gemm = 267 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1004, %c38, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1002, %c38, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1001, %c38, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1004, %arg134) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1005 = adf.buffer.create @L1_L1_A_268() : memref<32x32xf32, 2>
-    %1006 = adf.buffer.create @L1_L1_B_268() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %1005) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %1006) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1007 = call @kernel_gemm0(%1005, %1006) {adf.kernel, "col, row" = [35 : index, 3 : index], ivs = [0 : index, 3 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 268 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1007, %c36, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1006, %c35, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1005, %c35, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1008 = adf.buffer.create @L1_L1_A_269() : memref<32x32xf32, 2>
-    %1009 = adf.buffer.create @L1_L1_B_269() : memref<32x32xf32, 2>
-    %1010 = adf.buffer.create @L1_L1_C_269() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %1008) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %1009) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1007, %1010) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1011 = call @kernel_gemm(%1008, %1009, %1010) {adf.kernel, "col, row" = [36 : index, 3 : index], ivs = [1 : index, 3 : index, 8 : index], kernel_gemm = 269 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1011, %c37, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1009, %c36, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1008, %c36, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1012 = adf.buffer.create @L1_L1_A_270() : memref<32x32xf32, 2>
-    %1013 = adf.buffer.create @L1_L1_B_270() : memref<32x32xf32, 2>
-    %1014 = adf.buffer.create @L1_L1_C_270() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %1012) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %1013) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1011, %1014) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1015 = call @kernel_gemm(%1012, %1013, %1014) {adf.kernel, "col, row" = [37 : index, 3 : index], ivs = [2 : index, 3 : index, 8 : index], kernel_gemm = 270 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1015, %c38, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1013, %c37, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1012, %c37, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1016 = adf.buffer.create @L1_L1_A_271() : memref<32x32xf32, 2>
-    %1017 = adf.buffer.create @L1_L1_B_271() : memref<32x32xf32, 2>
-    %1018 = adf.buffer.create @L1_L1_C_271() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1016) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %1017) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1015, %1018) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1019 = call @kernel_gemm(%1016, %1017, %1018) {adf.kernel, "col, row" = [38 : index, 3 : index], ivs = [3 : index, 3 : index, 8 : index], kernel_gemm = 271 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1019, %c39, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1017, %c38, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1016, %c38, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1019, %arg135) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1020 = adf.buffer.create @L1_L1_A_272() : memref<32x32xf32, 2>
-    %1021 = adf.buffer.create @L1_L1_B_272() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %1020) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %1021) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1022 = call @kernel_gemm0(%1020, %1021) {adf.kernel, "col, row" = [35 : index, 4 : index], ivs = [0 : index, 4 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 272 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1022, %c35, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1021, %c35, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1020, %c35, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1023 = adf.buffer.create @L1_L1_A_273() : memref<32x32xf32, 2>
-    %1024 = adf.buffer.create @L1_L1_B_273() : memref<32x32xf32, 2>
-    %1025 = adf.buffer.create @L1_L1_C_273() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %1023) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %1024) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1022, %1025) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1026 = call @kernel_gemm(%1023, %1024, %1025) {adf.kernel, "col, row" = [36 : index, 4 : index], ivs = [1 : index, 4 : index, 8 : index], kernel_gemm = 273 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1026, %c36, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1024, %c36, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1023, %c36, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1027 = adf.buffer.create @L1_L1_A_274() : memref<32x32xf32, 2>
-    %1028 = adf.buffer.create @L1_L1_B_274() : memref<32x32xf32, 2>
-    %1029 = adf.buffer.create @L1_L1_C_274() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %1027) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %1028) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1026, %1029) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1030 = call @kernel_gemm(%1027, %1028, %1029) {adf.kernel, "col, row" = [37 : index, 4 : index], ivs = [2 : index, 4 : index, 8 : index], kernel_gemm = 274 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1030, %c37, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1028, %c37, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1027, %c37, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1031 = adf.buffer.create @L1_L1_A_275() : memref<32x32xf32, 2>
-    %1032 = adf.buffer.create @L1_L1_B_275() : memref<32x32xf32, 2>
-    %1033 = adf.buffer.create @L1_L1_C_275() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1031) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %1032) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1030, %1033) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1034 = call @kernel_gemm(%1031, %1032, %1033) {adf.kernel, "col, row" = [38 : index, 4 : index], ivs = [3 : index, 4 : index, 8 : index], kernel_gemm = 275 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1034, %c38, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1032, %c38, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1031, %c38, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1034, %arg136) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1035 = adf.buffer.create @L1_L1_A_276() : memref<32x32xf32, 2>
-    %1036 = adf.buffer.create @L1_L1_B_276() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %1035) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %1036) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1037 = call @kernel_gemm0(%1035, %1036) {adf.kernel, "col, row" = [35 : index, 5 : index], ivs = [0 : index, 5 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 276 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1037, %c36, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1036, %c35, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1035, %c35, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1038 = adf.buffer.create @L1_L1_A_277() : memref<32x32xf32, 2>
-    %1039 = adf.buffer.create @L1_L1_B_277() : memref<32x32xf32, 2>
-    %1040 = adf.buffer.create @L1_L1_C_277() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %1038) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %1039) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1037, %1040) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1041 = call @kernel_gemm(%1038, %1039, %1040) {adf.kernel, "col, row" = [36 : index, 5 : index], ivs = [1 : index, 5 : index, 8 : index], kernel_gemm = 277 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1041, %c37, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1039, %c36, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1038, %c36, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1042 = adf.buffer.create @L1_L1_A_278() : memref<32x32xf32, 2>
-    %1043 = adf.buffer.create @L1_L1_B_278() : memref<32x32xf32, 2>
-    %1044 = adf.buffer.create @L1_L1_C_278() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %1042) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %1043) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1041, %1044) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1045 = call @kernel_gemm(%1042, %1043, %1044) {adf.kernel, "col, row" = [37 : index, 5 : index], ivs = [2 : index, 5 : index, 8 : index], kernel_gemm = 278 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1045, %c38, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1043, %c37, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1042, %c37, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1046 = adf.buffer.create @L1_L1_A_279() : memref<32x32xf32, 2>
-    %1047 = adf.buffer.create @L1_L1_B_279() : memref<32x32xf32, 2>
-    %1048 = adf.buffer.create @L1_L1_C_279() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1046) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %1047) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1045, %1048) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1049 = call @kernel_gemm(%1046, %1047, %1048) {adf.kernel, "col, row" = [38 : index, 5 : index], ivs = [3 : index, 5 : index, 8 : index], kernel_gemm = 279 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1049, %c39, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1047, %c38, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1046, %c38, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1049, %arg137) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1050 = adf.buffer.create @L1_L1_A_280() : memref<32x32xf32, 2>
-    %1051 = adf.buffer.create @L1_L1_B_280() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %1050) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %1051) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1052 = call @kernel_gemm0(%1050, %1051) {adf.kernel, "col, row" = [35 : index, 6 : index], ivs = [0 : index, 6 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 280 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1052, %c35, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1051, %c35, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1050, %c35, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1053 = adf.buffer.create @L1_L1_A_281() : memref<32x32xf32, 2>
-    %1054 = adf.buffer.create @L1_L1_B_281() : memref<32x32xf32, 2>
-    %1055 = adf.buffer.create @L1_L1_C_281() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %1053) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %1054) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1052, %1055) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1056 = call @kernel_gemm(%1053, %1054, %1055) {adf.kernel, "col, row" = [36 : index, 6 : index], ivs = [1 : index, 6 : index, 8 : index], kernel_gemm = 281 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1056, %c36, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1054, %c36, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1053, %c36, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1057 = adf.buffer.create @L1_L1_A_282() : memref<32x32xf32, 2>
-    %1058 = adf.buffer.create @L1_L1_B_282() : memref<32x32xf32, 2>
-    %1059 = adf.buffer.create @L1_L1_C_282() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %1057) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %1058) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1056, %1059) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1060 = call @kernel_gemm(%1057, %1058, %1059) {adf.kernel, "col, row" = [37 : index, 6 : index], ivs = [2 : index, 6 : index, 8 : index], kernel_gemm = 282 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1060, %c37, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1058, %c37, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1057, %c37, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1061 = adf.buffer.create @L1_L1_A_283() : memref<32x32xf32, 2>
-    %1062 = adf.buffer.create @L1_L1_B_283() : memref<32x32xf32, 2>
-    %1063 = adf.buffer.create @L1_L1_C_283() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1061) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %1062) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1060, %1063) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1064 = call @kernel_gemm(%1061, %1062, %1063) {adf.kernel, "col, row" = [38 : index, 6 : index], ivs = [3 : index, 6 : index, 8 : index], kernel_gemm = 283 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1064, %c38, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1062, %c38, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1061, %c38, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1064, %arg138) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1065 = adf.buffer.create @L1_L1_A_284() : memref<32x32xf32, 2>
-    %1066 = adf.buffer.create @L1_L1_B_284() : memref<32x32xf32, 2>
-    adf.connect(%arg128, %1065) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %1066) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1067 = call @kernel_gemm0(%1065, %1066) {adf.kernel, "col, row" = [35 : index, 7 : index], ivs = [0 : index, 7 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 284 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1067, %c36, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1066, %c35, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1065, %c35, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1068 = adf.buffer.create @L1_L1_A_285() : memref<32x32xf32, 2>
-    %1069 = adf.buffer.create @L1_L1_B_285() : memref<32x32xf32, 2>
-    %1070 = adf.buffer.create @L1_L1_C_285() : memref<32x32xf32, 2>
-    adf.connect(%arg129, %1068) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %1069) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1067, %1070) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1071 = call @kernel_gemm(%1068, %1069, %1070) {adf.kernel, "col, row" = [36 : index, 7 : index], ivs = [1 : index, 7 : index, 8 : index], kernel_gemm = 285 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1071, %c37, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1069, %c36, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1068, %c36, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1072 = adf.buffer.create @L1_L1_A_286() : memref<32x32xf32, 2>
-    %1073 = adf.buffer.create @L1_L1_B_286() : memref<32x32xf32, 2>
-    %1074 = adf.buffer.create @L1_L1_C_286() : memref<32x32xf32, 2>
-    adf.connect(%arg130, %1072) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %1073) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1071, %1074) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1075 = call @kernel_gemm(%1072, %1073, %1074) {adf.kernel, "col, row" = [37 : index, 7 : index], ivs = [2 : index, 7 : index, 8 : index], kernel_gemm = 286 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1075, %c38, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1073, %c37, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1072, %c37, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1076 = adf.buffer.create @L1_L1_A_287() : memref<32x32xf32, 2>
-    %1077 = adf.buffer.create @L1_L1_B_287() : memref<32x32xf32, 2>
-    %1078 = adf.buffer.create @L1_L1_C_287() : memref<32x32xf32, 2>
-    adf.connect(%arg131, %1076) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %1077) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1075, %1078) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1079 = call @kernel_gemm(%1076, %1077, %1078) {adf.kernel, "col, row" = [38 : index, 7 : index], ivs = [3 : index, 7 : index, 8 : index], kernel_gemm = 287 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1079, %c39, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1077, %c38, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1076, %c38, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1079, %arg139) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1080 = adf.buffer.create @L1_L1_A_288() : memref<32x32xf32, 2>
-    %1081 = adf.buffer.create @L1_L1_B_288() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1080) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %1081) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1082 = call @kernel_gemm0(%1080, %1081) {adf.kernel, "col, row" = [39 : index, 0 : index], ivs = [0 : index, 0 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 288 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1082, %c39, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1081, %c38, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1080, %c39, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1083 = adf.buffer.create @L1_L1_A_289() : memref<32x32xf32, 2>
-    %1084 = adf.buffer.create @L1_L1_B_289() : memref<32x32xf32, 2>
-    %1085 = adf.buffer.create @L1_L1_C_289() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1083) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %1084) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1082, %1085) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1086 = call @kernel_gemm(%1083, %1084, %1085) {adf.kernel, "col, row" = [40 : index, 0 : index], ivs = [1 : index, 0 : index, 9 : index], kernel_gemm = 289 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1086, %c40, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1084, %c39, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1083, %c40, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1087 = adf.buffer.create @L1_L1_A_290() : memref<32x32xf32, 2>
-    %1088 = adf.buffer.create @L1_L1_B_290() : memref<32x32xf32, 2>
-    %1089 = adf.buffer.create @L1_L1_C_290() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1087) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %1088) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1086, %1089) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1090 = call @kernel_gemm(%1087, %1088, %1089) {adf.kernel, "col, row" = [41 : index, 0 : index], ivs = [2 : index, 0 : index, 9 : index], kernel_gemm = 290 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1090, %c41, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1088, %c40, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1087, %c41, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1091 = adf.buffer.create @L1_L1_A_291() : memref<32x32xf32, 2>
-    %1092 = adf.buffer.create @L1_L1_B_291() : memref<32x32xf32, 2>
-    %1093 = adf.buffer.create @L1_L1_C_291() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1091) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %1092) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1090, %1093) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1094 = call @kernel_gemm(%1091, %1092, %1093) {adf.kernel, "col, row" = [42 : index, 0 : index], ivs = [3 : index, 0 : index, 9 : index], kernel_gemm = 291 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1094, %c42, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1092, %c41, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1091, %c42, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1094, %arg144) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1095 = adf.buffer.create @L1_L1_A_292() : memref<32x32xf32, 2>
-    %1096 = adf.buffer.create @L1_L1_B_292() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1095) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %1096) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1097 = call @kernel_gemm0(%1095, %1096) {adf.kernel, "col, row" = [39 : index, 1 : index], ivs = [0 : index, 1 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 292 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1097, %c40, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1096, %c39, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1095, %c39, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1098 = adf.buffer.create @L1_L1_A_293() : memref<32x32xf32, 2>
-    %1099 = adf.buffer.create @L1_L1_B_293() : memref<32x32xf32, 2>
-    %1100 = adf.buffer.create @L1_L1_C_293() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1098) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %1099) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1097, %1100) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1101 = call @kernel_gemm(%1098, %1099, %1100) {adf.kernel, "col, row" = [40 : index, 1 : index], ivs = [1 : index, 1 : index, 9 : index], kernel_gemm = 293 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1101, %c41, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1099, %c40, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1098, %c40, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1102 = adf.buffer.create @L1_L1_A_294() : memref<32x32xf32, 2>
-    %1103 = adf.buffer.create @L1_L1_B_294() : memref<32x32xf32, 2>
-    %1104 = adf.buffer.create @L1_L1_C_294() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1102) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %1103) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1101, %1104) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1105 = call @kernel_gemm(%1102, %1103, %1104) {adf.kernel, "col, row" = [41 : index, 1 : index], ivs = [2 : index, 1 : index, 9 : index], kernel_gemm = 294 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1105, %c42, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1103, %c41, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1102, %c41, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1106 = adf.buffer.create @L1_L1_A_295() : memref<32x32xf32, 2>
-    %1107 = adf.buffer.create @L1_L1_B_295() : memref<32x32xf32, 2>
-    %1108 = adf.buffer.create @L1_L1_C_295() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1106) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %1107) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1105, %1108) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1109 = call @kernel_gemm(%1106, %1107, %1108) {adf.kernel, "col, row" = [42 : index, 1 : index], ivs = [3 : index, 1 : index, 9 : index], kernel_gemm = 295 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1109, %c43, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1107, %c42, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1106, %c42, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1109, %arg145) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1110 = adf.buffer.create @L1_L1_A_296() : memref<32x32xf32, 2>
-    %1111 = adf.buffer.create @L1_L1_B_296() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1110) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %1111) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1112 = call @kernel_gemm0(%1110, %1111) {adf.kernel, "col, row" = [39 : index, 2 : index], ivs = [0 : index, 2 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 296 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1112, %c39, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1111, %c39, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1110, %c39, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1113 = adf.buffer.create @L1_L1_A_297() : memref<32x32xf32, 2>
-    %1114 = adf.buffer.create @L1_L1_B_297() : memref<32x32xf32, 2>
-    %1115 = adf.buffer.create @L1_L1_C_297() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1113) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %1114) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1112, %1115) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1116 = call @kernel_gemm(%1113, %1114, %1115) {adf.kernel, "col, row" = [40 : index, 2 : index], ivs = [1 : index, 2 : index, 9 : index], kernel_gemm = 297 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1116, %c40, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1114, %c40, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1113, %c40, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1117 = adf.buffer.create @L1_L1_A_298() : memref<32x32xf32, 2>
-    %1118 = adf.buffer.create @L1_L1_B_298() : memref<32x32xf32, 2>
-    %1119 = adf.buffer.create @L1_L1_C_298() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1117) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %1118) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1116, %1119) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1120 = call @kernel_gemm(%1117, %1118, %1119) {adf.kernel, "col, row" = [41 : index, 2 : index], ivs = [2 : index, 2 : index, 9 : index], kernel_gemm = 298 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1120, %c41, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1118, %c41, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1117, %c41, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1121 = adf.buffer.create @L1_L1_A_299() : memref<32x32xf32, 2>
-    %1122 = adf.buffer.create @L1_L1_B_299() : memref<32x32xf32, 2>
-    %1123 = adf.buffer.create @L1_L1_C_299() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1121) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %1122) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1120, %1123) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1124 = call @kernel_gemm(%1121, %1122, %1123) {adf.kernel, "col, row" = [42 : index, 2 : index], ivs = [3 : index, 2 : index, 9 : index], kernel_gemm = 299 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1124, %c42, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1122, %c42, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1121, %c42, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1124, %arg146) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1125 = adf.buffer.create @L1_L1_A_300() : memref<32x32xf32, 2>
-    %1126 = adf.buffer.create @L1_L1_B_300() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1125) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %1126) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1127 = call @kernel_gemm0(%1125, %1126) {adf.kernel, "col, row" = [39 : index, 3 : index], ivs = [0 : index, 3 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 300 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1127, %c40, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1126, %c39, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1125, %c39, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1128 = adf.buffer.create @L1_L1_A_301() : memref<32x32xf32, 2>
-    %1129 = adf.buffer.create @L1_L1_B_301() : memref<32x32xf32, 2>
-    %1130 = adf.buffer.create @L1_L1_C_301() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1128) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %1129) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1127, %1130) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1131 = call @kernel_gemm(%1128, %1129, %1130) {adf.kernel, "col, row" = [40 : index, 3 : index], ivs = [1 : index, 3 : index, 9 : index], kernel_gemm = 301 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1131, %c41, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1129, %c40, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1128, %c40, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1132 = adf.buffer.create @L1_L1_A_302() : memref<32x32xf32, 2>
-    %1133 = adf.buffer.create @L1_L1_B_302() : memref<32x32xf32, 2>
-    %1134 = adf.buffer.create @L1_L1_C_302() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1132) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %1133) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1131, %1134) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1135 = call @kernel_gemm(%1132, %1133, %1134) {adf.kernel, "col, row" = [41 : index, 3 : index], ivs = [2 : index, 3 : index, 9 : index], kernel_gemm = 302 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1135, %c42, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1133, %c41, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1132, %c41, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1136 = adf.buffer.create @L1_L1_A_303() : memref<32x32xf32, 2>
-    %1137 = adf.buffer.create @L1_L1_B_303() : memref<32x32xf32, 2>
-    %1138 = adf.buffer.create @L1_L1_C_303() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1136) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %1137) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1135, %1138) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1139 = call @kernel_gemm(%1136, %1137, %1138) {adf.kernel, "col, row" = [42 : index, 3 : index], ivs = [3 : index, 3 : index, 9 : index], kernel_gemm = 303 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1139, %c43, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1137, %c42, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1136, %c42, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1139, %arg147) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1140 = adf.buffer.create @L1_L1_A_304() : memref<32x32xf32, 2>
-    %1141 = adf.buffer.create @L1_L1_B_304() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1140) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %1141) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1142 = call @kernel_gemm0(%1140, %1141) {adf.kernel, "col, row" = [39 : index, 4 : index], ivs = [0 : index, 4 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 304 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1142, %c39, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1141, %c39, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1140, %c39, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1143 = adf.buffer.create @L1_L1_A_305() : memref<32x32xf32, 2>
-    %1144 = adf.buffer.create @L1_L1_B_305() : memref<32x32xf32, 2>
-    %1145 = adf.buffer.create @L1_L1_C_305() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1143) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %1144) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1142, %1145) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1146 = call @kernel_gemm(%1143, %1144, %1145) {adf.kernel, "col, row" = [40 : index, 4 : index], ivs = [1 : index, 4 : index, 9 : index], kernel_gemm = 305 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1146, %c40, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1144, %c40, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1143, %c40, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1147 = adf.buffer.create @L1_L1_A_306() : memref<32x32xf32, 2>
-    %1148 = adf.buffer.create @L1_L1_B_306() : memref<32x32xf32, 2>
-    %1149 = adf.buffer.create @L1_L1_C_306() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1147) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %1148) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1146, %1149) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1150 = call @kernel_gemm(%1147, %1148, %1149) {adf.kernel, "col, row" = [41 : index, 4 : index], ivs = [2 : index, 4 : index, 9 : index], kernel_gemm = 306 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1150, %c41, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1148, %c41, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1147, %c41, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1151 = adf.buffer.create @L1_L1_A_307() : memref<32x32xf32, 2>
-    %1152 = adf.buffer.create @L1_L1_B_307() : memref<32x32xf32, 2>
-    %1153 = adf.buffer.create @L1_L1_C_307() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1151) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %1152) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1150, %1153) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1154 = call @kernel_gemm(%1151, %1152, %1153) {adf.kernel, "col, row" = [42 : index, 4 : index], ivs = [3 : index, 4 : index, 9 : index], kernel_gemm = 307 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1154, %c42, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1152, %c42, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1151, %c42, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1154, %arg148) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1155 = adf.buffer.create @L1_L1_A_308() : memref<32x32xf32, 2>
-    %1156 = adf.buffer.create @L1_L1_B_308() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1155) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %1156) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1157 = call @kernel_gemm0(%1155, %1156) {adf.kernel, "col, row" = [39 : index, 5 : index], ivs = [0 : index, 5 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 308 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1157, %c40, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1156, %c39, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1155, %c39, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1158 = adf.buffer.create @L1_L1_A_309() : memref<32x32xf32, 2>
-    %1159 = adf.buffer.create @L1_L1_B_309() : memref<32x32xf32, 2>
-    %1160 = adf.buffer.create @L1_L1_C_309() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1158) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %1159) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1157, %1160) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1161 = call @kernel_gemm(%1158, %1159, %1160) {adf.kernel, "col, row" = [40 : index, 5 : index], ivs = [1 : index, 5 : index, 9 : index], kernel_gemm = 309 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1161, %c41, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1159, %c40, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1158, %c40, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1162 = adf.buffer.create @L1_L1_A_310() : memref<32x32xf32, 2>
-    %1163 = adf.buffer.create @L1_L1_B_310() : memref<32x32xf32, 2>
-    %1164 = adf.buffer.create @L1_L1_C_310() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1162) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %1163) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1161, %1164) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1165 = call @kernel_gemm(%1162, %1163, %1164) {adf.kernel, "col, row" = [41 : index, 5 : index], ivs = [2 : index, 5 : index, 9 : index], kernel_gemm = 310 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1165, %c42, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1163, %c41, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1162, %c41, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1166 = adf.buffer.create @L1_L1_A_311() : memref<32x32xf32, 2>
-    %1167 = adf.buffer.create @L1_L1_B_311() : memref<32x32xf32, 2>
-    %1168 = adf.buffer.create @L1_L1_C_311() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1166) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %1167) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1165, %1168) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1169 = call @kernel_gemm(%1166, %1167, %1168) {adf.kernel, "col, row" = [42 : index, 5 : index], ivs = [3 : index, 5 : index, 9 : index], kernel_gemm = 311 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1169, %c43, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1167, %c42, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1166, %c42, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1169, %arg149) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1170 = adf.buffer.create @L1_L1_A_312() : memref<32x32xf32, 2>
-    %1171 = adf.buffer.create @L1_L1_B_312() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1170) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %1171) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1172 = call @kernel_gemm0(%1170, %1171) {adf.kernel, "col, row" = [39 : index, 6 : index], ivs = [0 : index, 6 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 312 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1172, %c39, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1171, %c39, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1170, %c39, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1173 = adf.buffer.create @L1_L1_A_313() : memref<32x32xf32, 2>
-    %1174 = adf.buffer.create @L1_L1_B_313() : memref<32x32xf32, 2>
-    %1175 = adf.buffer.create @L1_L1_C_313() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1173) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %1174) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1172, %1175) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1176 = call @kernel_gemm(%1173, %1174, %1175) {adf.kernel, "col, row" = [40 : index, 6 : index], ivs = [1 : index, 6 : index, 9 : index], kernel_gemm = 313 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1176, %c40, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1174, %c40, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1173, %c40, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1177 = adf.buffer.create @L1_L1_A_314() : memref<32x32xf32, 2>
-    %1178 = adf.buffer.create @L1_L1_B_314() : memref<32x32xf32, 2>
-    %1179 = adf.buffer.create @L1_L1_C_314() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1177) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %1178) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1176, %1179) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1180 = call @kernel_gemm(%1177, %1178, %1179) {adf.kernel, "col, row" = [41 : index, 6 : index], ivs = [2 : index, 6 : index, 9 : index], kernel_gemm = 314 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1180, %c41, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1178, %c41, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1177, %c41, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1181 = adf.buffer.create @L1_L1_A_315() : memref<32x32xf32, 2>
-    %1182 = adf.buffer.create @L1_L1_B_315() : memref<32x32xf32, 2>
-    %1183 = adf.buffer.create @L1_L1_C_315() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1181) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %1182) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1180, %1183) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1184 = call @kernel_gemm(%1181, %1182, %1183) {adf.kernel, "col, row" = [42 : index, 6 : index], ivs = [3 : index, 6 : index, 9 : index], kernel_gemm = 315 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1184, %c42, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1182, %c42, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1181, %c42, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1184, %arg150) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1185 = adf.buffer.create @L1_L1_A_316() : memref<32x32xf32, 2>
-    %1186 = adf.buffer.create @L1_L1_B_316() : memref<32x32xf32, 2>
-    adf.connect(%arg140, %1185) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %1186) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1187 = call @kernel_gemm0(%1185, %1186) {adf.kernel, "col, row" = [39 : index, 7 : index], ivs = [0 : index, 7 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 316 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1187, %c40, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1186, %c39, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1185, %c39, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1188 = adf.buffer.create @L1_L1_A_317() : memref<32x32xf32, 2>
-    %1189 = adf.buffer.create @L1_L1_B_317() : memref<32x32xf32, 2>
-    %1190 = adf.buffer.create @L1_L1_C_317() : memref<32x32xf32, 2>
-    adf.connect(%arg141, %1188) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %1189) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1187, %1190) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1191 = call @kernel_gemm(%1188, %1189, %1190) {adf.kernel, "col, row" = [40 : index, 7 : index], ivs = [1 : index, 7 : index, 9 : index], kernel_gemm = 317 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1191, %c41, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1189, %c40, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1188, %c40, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1192 = adf.buffer.create @L1_L1_A_318() : memref<32x32xf32, 2>
-    %1193 = adf.buffer.create @L1_L1_B_318() : memref<32x32xf32, 2>
-    %1194 = adf.buffer.create @L1_L1_C_318() : memref<32x32xf32, 2>
-    adf.connect(%arg142, %1192) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %1193) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1191, %1194) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1195 = call @kernel_gemm(%1192, %1193, %1194) {adf.kernel, "col, row" = [41 : index, 7 : index], ivs = [2 : index, 7 : index, 9 : index], kernel_gemm = 318 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1195, %c42, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1193, %c41, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1192, %c41, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1196 = adf.buffer.create @L1_L1_A_319() : memref<32x32xf32, 2>
-    %1197 = adf.buffer.create @L1_L1_B_319() : memref<32x32xf32, 2>
-    %1198 = adf.buffer.create @L1_L1_C_319() : memref<32x32xf32, 2>
-    adf.connect(%arg143, %1196) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %1197) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1195, %1198) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1199 = call @kernel_gemm(%1196, %1197, %1198) {adf.kernel, "col, row" = [42 : index, 7 : index], ivs = [3 : index, 7 : index, 9 : index], kernel_gemm = 319 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1199, %c43, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1197, %c42, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1196, %c42, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1199, %arg151) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1200 = adf.buffer.create @L1_L1_A_320() : memref<32x32xf32, 2>
-    %1201 = adf.buffer.create @L1_L1_B_320() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1200) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg1, %1201) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1202 = call @kernel_gemm0(%1200, %1201) {adf.kernel, "col, row" = [43 : index, 0 : index], ivs = [0 : index, 0 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 320 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1202, %c43, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1201, %c42, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1200, %c43, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1203 = adf.buffer.create @L1_L1_A_321() : memref<32x32xf32, 2>
-    %1204 = adf.buffer.create @L1_L1_B_321() : memref<32x32xf32, 2>
-    %1205 = adf.buffer.create @L1_L1_C_321() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1203) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg3, %1204) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1202, %1205) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1206 = call @kernel_gemm(%1203, %1204, %1205) {adf.kernel, "col, row" = [44 : index, 0 : index], ivs = [1 : index, 0 : index, 10 : index], kernel_gemm = 321 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1206, %c44, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1204, %c43, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1203, %c44, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1207 = adf.buffer.create @L1_L1_A_322() : memref<32x32xf32, 2>
-    %1208 = adf.buffer.create @L1_L1_B_322() : memref<32x32xf32, 2>
-    %1209 = adf.buffer.create @L1_L1_C_322() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1207) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg5, %1208) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1206, %1209) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1210 = call @kernel_gemm(%1207, %1208, %1209) {adf.kernel, "col, row" = [45 : index, 0 : index], ivs = [2 : index, 0 : index, 10 : index], kernel_gemm = 322 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1210, %c45, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1208, %c44, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1207, %c45, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1211 = adf.buffer.create @L1_L1_A_323() : memref<32x32xf32, 2>
-    %1212 = adf.buffer.create @L1_L1_B_323() : memref<32x32xf32, 2>
-    %1213 = adf.buffer.create @L1_L1_C_323() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1211) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg7, %1212) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1210, %1213) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1214 = call @kernel_gemm(%1211, %1212, %1213) {adf.kernel, "col, row" = [46 : index, 0 : index], ivs = [3 : index, 0 : index, 10 : index], kernel_gemm = 323 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1214, %c46, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1212, %c45, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1211, %c46, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1214, %arg156) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1215 = adf.buffer.create @L1_L1_A_324() : memref<32x32xf32, 2>
-    %1216 = adf.buffer.create @L1_L1_B_324() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1215) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg9, %1216) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1217 = call @kernel_gemm0(%1215, %1216) {adf.kernel, "col, row" = [43 : index, 1 : index], ivs = [0 : index, 1 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 324 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1217, %c44, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1216, %c43, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1215, %c43, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1218 = adf.buffer.create @L1_L1_A_325() : memref<32x32xf32, 2>
-    %1219 = adf.buffer.create @L1_L1_B_325() : memref<32x32xf32, 2>
-    %1220 = adf.buffer.create @L1_L1_C_325() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1218) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg10, %1219) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1217, %1220) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1221 = call @kernel_gemm(%1218, %1219, %1220) {adf.kernel, "col, row" = [44 : index, 1 : index], ivs = [1 : index, 1 : index, 10 : index], kernel_gemm = 325 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1221, %c45, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1219, %c44, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1218, %c44, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1222 = adf.buffer.create @L1_L1_A_326() : memref<32x32xf32, 2>
-    %1223 = adf.buffer.create @L1_L1_B_326() : memref<32x32xf32, 2>
-    %1224 = adf.buffer.create @L1_L1_C_326() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1222) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg11, %1223) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1221, %1224) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1225 = call @kernel_gemm(%1222, %1223, %1224) {adf.kernel, "col, row" = [45 : index, 1 : index], ivs = [2 : index, 1 : index, 10 : index], kernel_gemm = 326 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1225, %c46, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1223, %c45, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1222, %c45, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1226 = adf.buffer.create @L1_L1_A_327() : memref<32x32xf32, 2>
-    %1227 = adf.buffer.create @L1_L1_B_327() : memref<32x32xf32, 2>
-    %1228 = adf.buffer.create @L1_L1_C_327() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1226) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg12, %1227) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1225, %1228) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1229 = call @kernel_gemm(%1226, %1227, %1228) {adf.kernel, "col, row" = [46 : index, 1 : index], ivs = [3 : index, 1 : index, 10 : index], kernel_gemm = 327 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1229, %c47, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1227, %c46, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1226, %c46, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1229, %arg157) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1230 = adf.buffer.create @L1_L1_A_328() : memref<32x32xf32, 2>
-    %1231 = adf.buffer.create @L1_L1_B_328() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1230) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg14, %1231) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1232 = call @kernel_gemm0(%1230, %1231) {adf.kernel, "col, row" = [43 : index, 2 : index], ivs = [0 : index, 2 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 328 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1232, %c43, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1231, %c43, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1230, %c43, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1233 = adf.buffer.create @L1_L1_A_329() : memref<32x32xf32, 2>
-    %1234 = adf.buffer.create @L1_L1_B_329() : memref<32x32xf32, 2>
-    %1235 = adf.buffer.create @L1_L1_C_329() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1233) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg15, %1234) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1232, %1235) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1236 = call @kernel_gemm(%1233, %1234, %1235) {adf.kernel, "col, row" = [44 : index, 2 : index], ivs = [1 : index, 2 : index, 10 : index], kernel_gemm = 329 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1236, %c44, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1234, %c44, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1233, %c44, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1237 = adf.buffer.create @L1_L1_A_330() : memref<32x32xf32, 2>
-    %1238 = adf.buffer.create @L1_L1_B_330() : memref<32x32xf32, 2>
-    %1239 = adf.buffer.create @L1_L1_C_330() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1237) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg16, %1238) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1236, %1239) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1240 = call @kernel_gemm(%1237, %1238, %1239) {adf.kernel, "col, row" = [45 : index, 2 : index], ivs = [2 : index, 2 : index, 10 : index], kernel_gemm = 330 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1240, %c45, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1238, %c45, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1237, %c45, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1241 = adf.buffer.create @L1_L1_A_331() : memref<32x32xf32, 2>
-    %1242 = adf.buffer.create @L1_L1_B_331() : memref<32x32xf32, 2>
-    %1243 = adf.buffer.create @L1_L1_C_331() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1241) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg17, %1242) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1240, %1243) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1244 = call @kernel_gemm(%1241, %1242, %1243) {adf.kernel, "col, row" = [46 : index, 2 : index], ivs = [3 : index, 2 : index, 10 : index], kernel_gemm = 331 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1244, %c46, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1242, %c46, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1241, %c46, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1244, %arg158) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1245 = adf.buffer.create @L1_L1_A_332() : memref<32x32xf32, 2>
-    %1246 = adf.buffer.create @L1_L1_B_332() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1245) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg19, %1246) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1247 = call @kernel_gemm0(%1245, %1246) {adf.kernel, "col, row" = [43 : index, 3 : index], ivs = [0 : index, 3 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 332 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1247, %c44, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1246, %c43, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1245, %c43, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1248 = adf.buffer.create @L1_L1_A_333() : memref<32x32xf32, 2>
-    %1249 = adf.buffer.create @L1_L1_B_333() : memref<32x32xf32, 2>
-    %1250 = adf.buffer.create @L1_L1_C_333() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1248) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg20, %1249) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1247, %1250) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1251 = call @kernel_gemm(%1248, %1249, %1250) {adf.kernel, "col, row" = [44 : index, 3 : index], ivs = [1 : index, 3 : index, 10 : index], kernel_gemm = 333 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1251, %c45, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1249, %c44, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1248, %c44, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1252 = adf.buffer.create @L1_L1_A_334() : memref<32x32xf32, 2>
-    %1253 = adf.buffer.create @L1_L1_B_334() : memref<32x32xf32, 2>
-    %1254 = adf.buffer.create @L1_L1_C_334() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1252) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg21, %1253) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1251, %1254) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1255 = call @kernel_gemm(%1252, %1253, %1254) {adf.kernel, "col, row" = [45 : index, 3 : index], ivs = [2 : index, 3 : index, 10 : index], kernel_gemm = 334 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1255, %c46, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1253, %c45, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1252, %c45, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1256 = adf.buffer.create @L1_L1_A_335() : memref<32x32xf32, 2>
-    %1257 = adf.buffer.create @L1_L1_B_335() : memref<32x32xf32, 2>
-    %1258 = adf.buffer.create @L1_L1_C_335() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1256) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg22, %1257) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1255, %1258) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1259 = call @kernel_gemm(%1256, %1257, %1258) {adf.kernel, "col, row" = [46 : index, 3 : index], ivs = [3 : index, 3 : index, 10 : index], kernel_gemm = 335 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1259, %c47, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1257, %c46, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1256, %c46, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1259, %arg159) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1260 = adf.buffer.create @L1_L1_A_336() : memref<32x32xf32, 2>
-    %1261 = adf.buffer.create @L1_L1_B_336() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1260) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg24, %1261) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1262 = call @kernel_gemm0(%1260, %1261) {adf.kernel, "col, row" = [43 : index, 4 : index], ivs = [0 : index, 4 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 336 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1262, %c43, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1261, %c43, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1260, %c43, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1263 = adf.buffer.create @L1_L1_A_337() : memref<32x32xf32, 2>
-    %1264 = adf.buffer.create @L1_L1_B_337() : memref<32x32xf32, 2>
-    %1265 = adf.buffer.create @L1_L1_C_337() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1263) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg25, %1264) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1262, %1265) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1266 = call @kernel_gemm(%1263, %1264, %1265) {adf.kernel, "col, row" = [44 : index, 4 : index], ivs = [1 : index, 4 : index, 10 : index], kernel_gemm = 337 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1266, %c44, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1264, %c44, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1263, %c44, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1267 = adf.buffer.create @L1_L1_A_338() : memref<32x32xf32, 2>
-    %1268 = adf.buffer.create @L1_L1_B_338() : memref<32x32xf32, 2>
-    %1269 = adf.buffer.create @L1_L1_C_338() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1267) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg26, %1268) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1266, %1269) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1270 = call @kernel_gemm(%1267, %1268, %1269) {adf.kernel, "col, row" = [45 : index, 4 : index], ivs = [2 : index, 4 : index, 10 : index], kernel_gemm = 338 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1270, %c45, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1268, %c45, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1267, %c45, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1271 = adf.buffer.create @L1_L1_A_339() : memref<32x32xf32, 2>
-    %1272 = adf.buffer.create @L1_L1_B_339() : memref<32x32xf32, 2>
-    %1273 = adf.buffer.create @L1_L1_C_339() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1271) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg27, %1272) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1270, %1273) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1274 = call @kernel_gemm(%1271, %1272, %1273) {adf.kernel, "col, row" = [46 : index, 4 : index], ivs = [3 : index, 4 : index, 10 : index], kernel_gemm = 339 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1274, %c46, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1272, %c46, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1271, %c46, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1274, %arg160) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1275 = adf.buffer.create @L1_L1_A_340() : memref<32x32xf32, 2>
-    %1276 = adf.buffer.create @L1_L1_B_340() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1275) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg29, %1276) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1277 = call @kernel_gemm0(%1275, %1276) {adf.kernel, "col, row" = [43 : index, 5 : index], ivs = [0 : index, 5 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 340 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1277, %c44, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1276, %c43, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1275, %c43, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1278 = adf.buffer.create @L1_L1_A_341() : memref<32x32xf32, 2>
-    %1279 = adf.buffer.create @L1_L1_B_341() : memref<32x32xf32, 2>
-    %1280 = adf.buffer.create @L1_L1_C_341() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1278) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg30, %1279) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1277, %1280) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1281 = call @kernel_gemm(%1278, %1279, %1280) {adf.kernel, "col, row" = [44 : index, 5 : index], ivs = [1 : index, 5 : index, 10 : index], kernel_gemm = 341 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1281, %c45, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1279, %c44, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1278, %c44, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1282 = adf.buffer.create @L1_L1_A_342() : memref<32x32xf32, 2>
-    %1283 = adf.buffer.create @L1_L1_B_342() : memref<32x32xf32, 2>
-    %1284 = adf.buffer.create @L1_L1_C_342() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1282) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg31, %1283) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1281, %1284) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1285 = call @kernel_gemm(%1282, %1283, %1284) {adf.kernel, "col, row" = [45 : index, 5 : index], ivs = [2 : index, 5 : index, 10 : index], kernel_gemm = 342 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1285, %c46, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1283, %c45, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1282, %c45, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1286 = adf.buffer.create @L1_L1_A_343() : memref<32x32xf32, 2>
-    %1287 = adf.buffer.create @L1_L1_B_343() : memref<32x32xf32, 2>
-    %1288 = adf.buffer.create @L1_L1_C_343() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1286) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg32, %1287) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1285, %1288) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1289 = call @kernel_gemm(%1286, %1287, %1288) {adf.kernel, "col, row" = [46 : index, 5 : index], ivs = [3 : index, 5 : index, 10 : index], kernel_gemm = 343 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1289, %c47, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1287, %c46, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1286, %c46, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1289, %arg161) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1290 = adf.buffer.create @L1_L1_A_344() : memref<32x32xf32, 2>
-    %1291 = adf.buffer.create @L1_L1_B_344() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1290) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg34, %1291) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1292 = call @kernel_gemm0(%1290, %1291) {adf.kernel, "col, row" = [43 : index, 6 : index], ivs = [0 : index, 6 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 344 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1292, %c43, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1291, %c43, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1290, %c43, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1293 = adf.buffer.create @L1_L1_A_345() : memref<32x32xf32, 2>
-    %1294 = adf.buffer.create @L1_L1_B_345() : memref<32x32xf32, 2>
-    %1295 = adf.buffer.create @L1_L1_C_345() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1293) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg35, %1294) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1292, %1295) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1296 = call @kernel_gemm(%1293, %1294, %1295) {adf.kernel, "col, row" = [44 : index, 6 : index], ivs = [1 : index, 6 : index, 10 : index], kernel_gemm = 345 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1296, %c44, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1294, %c44, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1293, %c44, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1297 = adf.buffer.create @L1_L1_A_346() : memref<32x32xf32, 2>
-    %1298 = adf.buffer.create @L1_L1_B_346() : memref<32x32xf32, 2>
-    %1299 = adf.buffer.create @L1_L1_C_346() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1297) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg36, %1298) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1296, %1299) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1300 = call @kernel_gemm(%1297, %1298, %1299) {adf.kernel, "col, row" = [45 : index, 6 : index], ivs = [2 : index, 6 : index, 10 : index], kernel_gemm = 346 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1300, %c45, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1298, %c45, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1297, %c45, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1301 = adf.buffer.create @L1_L1_A_347() : memref<32x32xf32, 2>
-    %1302 = adf.buffer.create @L1_L1_B_347() : memref<32x32xf32, 2>
-    %1303 = adf.buffer.create @L1_L1_C_347() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1301) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg37, %1302) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1300, %1303) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1304 = call @kernel_gemm(%1301, %1302, %1303) {adf.kernel, "col, row" = [46 : index, 6 : index], ivs = [3 : index, 6 : index, 10 : index], kernel_gemm = 347 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1304, %c46, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1302, %c46, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1301, %c46, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.connect(%1304, %arg162) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
-    %1305 = adf.buffer.create @L1_L1_A_348() : memref<32x32xf32, 2>
-    %1306 = adf.buffer.create @L1_L1_B_348() : memref<32x32xf32, 2>
-    adf.connect(%arg152, %1305) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg39, %1306) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    %1307 = call @kernel_gemm0(%1305, %1306) {adf.kernel, "col, row" = [43 : index, 7 : index], ivs = [0 : index, 7 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 348 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1307, %c44, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1306, %c43, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1305, %c43, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1308 = adf.buffer.create @L1_L1_A_349() : memref<32x32xf32, 2>
-    %1309 = adf.buffer.create @L1_L1_B_349() : memref<32x32xf32, 2>
-    %1310 = adf.buffer.create @L1_L1_C_349() : memref<32x32xf32, 2>
-    adf.connect(%arg153, %1308) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg40, %1309) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1307, %1310) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1311 = call @kernel_gemm(%1308, %1309, %1310) {adf.kernel, "col, row" = [44 : index, 7 : index], ivs = [1 : index, 7 : index, 10 : index], kernel_gemm = 349 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1311, %c45, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1309, %c44, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1308, %c44, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1312 = adf.buffer.create @L1_L1_A_350() : memref<32x32xf32, 2>
-    %1313 = adf.buffer.create @L1_L1_B_350() : memref<32x32xf32, 2>
-    %1314 = adf.buffer.create @L1_L1_C_350() : memref<32x32xf32, 2>
-    adf.connect(%arg154, %1312) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg41, %1313) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1311, %1314) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1315 = call @kernel_gemm(%1312, %1313, %1314) {adf.kernel, "col, row" = [45 : index, 7 : index], ivs = [2 : index, 7 : index, 10 : index], kernel_gemm = 350 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
-    adf.buffer.location(%1315, %c46, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1313, %c45, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1312, %c45, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    %1316 = adf.buffer.create @L1_L1_A_351() : memref<32x32xf32, 2>
-    %1317 = adf.buffer.create @L1_L1_B_351() : memref<32x32xf32, 2>
-    %1318 = adf.buffer.create @L1_L1_C_351() : memref<32x32xf32, 2>
-    adf.connect(%arg155, %1316) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%arg42, %1317) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
-    adf.connect(%1315, %1318) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
-    %1319 = call @kernel_gemm(%1316, %1317, %1318) {adf.kernel, "col, row" = [46 : index, 7 : index], ivs = [3 : index, 7 : index, 10 : index], kernel_gemm = 351 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    %1208 = call @kernel_gemm0(%660, %661) {adf.kernel, "col, row" = [31 : index, 4 : index], ivs = [0 : index, 4 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 240 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1208, %c31, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%661, %c31, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%660, %c31, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %662) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %663) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1208, %664) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1209 = call @kernel_gemm(%662, %663, %664) {adf.kernel, "col, row" = [32 : index, 4 : index], ivs = [1 : index, 4 : index, 7 : index], kernel_gemm = 241 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1209, %c32, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%663, %c32, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%662, %c32, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %665) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %666) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1209, %667) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1210 = call @kernel_gemm(%665, %666, %667) {adf.kernel, "col, row" = [33 : index, 4 : index], ivs = [2 : index, 4 : index, 7 : index], kernel_gemm = 242 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1210, %c33, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%666, %c33, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%665, %c33, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %668) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %669) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1210, %670) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1211 = call @kernel_gemm(%668, %669, %670) {adf.kernel, "col, row" = [34 : index, 4 : index], ivs = [3 : index, 4 : index, 7 : index], kernel_gemm = 243 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1211, %c34, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%669, %c34, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%668, %c34, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1211, %arg124) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %671) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %672) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1212 = call @kernel_gemm0(%671, %672) {adf.kernel, "col, row" = [31 : index, 5 : index], ivs = [0 : index, 5 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 244 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1212, %c32, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%672, %c31, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%671, %c31, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %673) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %674) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1212, %675) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1213 = call @kernel_gemm(%673, %674, %675) {adf.kernel, "col, row" = [32 : index, 5 : index], ivs = [1 : index, 5 : index, 7 : index], kernel_gemm = 245 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1213, %c33, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%674, %c32, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%673, %c32, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %676) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %677) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1213, %678) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1214 = call @kernel_gemm(%676, %677, %678) {adf.kernel, "col, row" = [33 : index, 5 : index], ivs = [2 : index, 5 : index, 7 : index], kernel_gemm = 246 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1214, %c34, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%677, %c33, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%676, %c33, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %679) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %680) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1214, %681) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1215 = call @kernel_gemm(%679, %680, %681) {adf.kernel, "col, row" = [34 : index, 5 : index], ivs = [3 : index, 5 : index, 7 : index], kernel_gemm = 247 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1215, %c35, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%680, %c34, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%679, %c34, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1215, %arg125) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %682) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %683) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1216 = call @kernel_gemm0(%682, %683) {adf.kernel, "col, row" = [31 : index, 6 : index], ivs = [0 : index, 6 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 248 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1216, %c31, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%683, %c31, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%682, %c31, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %684) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %685) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1216, %686) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1217 = call @kernel_gemm(%684, %685, %686) {adf.kernel, "col, row" = [32 : index, 6 : index], ivs = [1 : index, 6 : index, 7 : index], kernel_gemm = 249 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1217, %c32, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%685, %c32, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%684, %c32, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %687) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %688) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1217, %689) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1218 = call @kernel_gemm(%687, %688, %689) {adf.kernel, "col, row" = [33 : index, 6 : index], ivs = [2 : index, 6 : index, 7 : index], kernel_gemm = 250 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1218, %c33, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%688, %c33, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%687, %c33, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %690) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %691) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1218, %692) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1219 = call @kernel_gemm(%690, %691, %692) {adf.kernel, "col, row" = [34 : index, 6 : index], ivs = [3 : index, 6 : index, 7 : index], kernel_gemm = 251 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1219, %c34, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%691, %c34, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%690, %c34, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1219, %arg126) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg116, %693) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %694) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1220 = call @kernel_gemm0(%693, %694) {adf.kernel, "col, row" = [31 : index, 7 : index], ivs = [0 : index, 7 : index, 7 : index], kernel = 0 : index, kernel_gemm0 = 252 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1220, %c32, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%694, %c31, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%693, %c31, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg117, %695) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %696) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1220, %697) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1221 = call @kernel_gemm(%695, %696, %697) {adf.kernel, "col, row" = [32 : index, 7 : index], ivs = [1 : index, 7 : index, 7 : index], kernel_gemm = 253 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1221, %c33, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%696, %c32, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%695, %c32, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg118, %698) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %699) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1221, %700) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1222 = call @kernel_gemm(%698, %699, %700) {adf.kernel, "col, row" = [33 : index, 7 : index], ivs = [2 : index, 7 : index, 7 : index], kernel_gemm = 254 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1222, %c34, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%699, %c33, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%698, %c33, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg119, %701) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %702) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1222, %703) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1223 = call @kernel_gemm(%701, %702, %703) {adf.kernel, "col, row" = [34 : index, 7 : index], ivs = [3 : index, 7 : index, 7 : index], kernel_gemm = 255 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1223, %c35, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%702, %c34, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%701, %c34, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1223, %arg127) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %704) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %705) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1224 = call @kernel_gemm0(%704, %705) {adf.kernel, "col, row" = [35 : index, 0 : index], ivs = [0 : index, 0 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 256 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1224, %c35, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%705, %c34, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%704, %c35, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %706) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %707) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1224, %708) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1225 = call @kernel_gemm(%706, %707, %708) {adf.kernel, "col, row" = [36 : index, 0 : index], ivs = [1 : index, 0 : index, 8 : index], kernel_gemm = 257 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1225, %c36, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%707, %c35, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%706, %c36, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %709) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %710) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1225, %711) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1226 = call @kernel_gemm(%709, %710, %711) {adf.kernel, "col, row" = [37 : index, 0 : index], ivs = [2 : index, 0 : index, 8 : index], kernel_gemm = 258 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1226, %c37, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%710, %c36, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%709, %c37, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %712) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %713) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1226, %714) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1227 = call @kernel_gemm(%712, %713, %714) {adf.kernel, "col, row" = [38 : index, 0 : index], ivs = [3 : index, 0 : index, 8 : index], kernel_gemm = 259 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1227, %c38, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%713, %c37, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%712, %c38, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1227, %arg132) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %715) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %716) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1228 = call @kernel_gemm0(%715, %716) {adf.kernel, "col, row" = [35 : index, 1 : index], ivs = [0 : index, 1 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 260 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1228, %c36, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%716, %c35, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%715, %c35, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %717) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %718) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1228, %719) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1229 = call @kernel_gemm(%717, %718, %719) {adf.kernel, "col, row" = [36 : index, 1 : index], ivs = [1 : index, 1 : index, 8 : index], kernel_gemm = 261 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1229, %c37, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%718, %c36, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%717, %c36, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %720) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %721) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1229, %722) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1230 = call @kernel_gemm(%720, %721, %722) {adf.kernel, "col, row" = [37 : index, 1 : index], ivs = [2 : index, 1 : index, 8 : index], kernel_gemm = 262 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1230, %c38, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%721, %c37, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%720, %c37, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %723) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %724) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1230, %725) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1231 = call @kernel_gemm(%723, %724, %725) {adf.kernel, "col, row" = [38 : index, 1 : index], ivs = [3 : index, 1 : index, 8 : index], kernel_gemm = 263 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1231, %c39, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%724, %c38, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%723, %c38, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1231, %arg133) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %726) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %727) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1232 = call @kernel_gemm0(%726, %727) {adf.kernel, "col, row" = [35 : index, 2 : index], ivs = [0 : index, 2 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 264 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1232, %c35, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%727, %c35, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%726, %c35, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %728) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %729) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1232, %730) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1233 = call @kernel_gemm(%728, %729, %730) {adf.kernel, "col, row" = [36 : index, 2 : index], ivs = [1 : index, 2 : index, 8 : index], kernel_gemm = 265 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1233, %c36, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%729, %c36, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%728, %c36, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %731) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %732) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1233, %733) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1234 = call @kernel_gemm(%731, %732, %733) {adf.kernel, "col, row" = [37 : index, 2 : index], ivs = [2 : index, 2 : index, 8 : index], kernel_gemm = 266 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1234, %c37, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%732, %c37, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%731, %c37, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %734) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %735) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1234, %736) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1235 = call @kernel_gemm(%734, %735, %736) {adf.kernel, "col, row" = [38 : index, 2 : index], ivs = [3 : index, 2 : index, 8 : index], kernel_gemm = 267 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1235, %c38, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%735, %c38, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%734, %c38, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1235, %arg134) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %737) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %738) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1236 = call @kernel_gemm0(%737, %738) {adf.kernel, "col, row" = [35 : index, 3 : index], ivs = [0 : index, 3 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 268 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1236, %c36, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%738, %c35, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%737, %c35, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %739) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %740) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1236, %741) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1237 = call @kernel_gemm(%739, %740, %741) {adf.kernel, "col, row" = [36 : index, 3 : index], ivs = [1 : index, 3 : index, 8 : index], kernel_gemm = 269 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1237, %c37, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%740, %c36, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%739, %c36, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %742) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %743) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1237, %744) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1238 = call @kernel_gemm(%742, %743, %744) {adf.kernel, "col, row" = [37 : index, 3 : index], ivs = [2 : index, 3 : index, 8 : index], kernel_gemm = 270 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1238, %c38, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%743, %c37, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%742, %c37, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %745) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %746) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1238, %747) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1239 = call @kernel_gemm(%745, %746, %747) {adf.kernel, "col, row" = [38 : index, 3 : index], ivs = [3 : index, 3 : index, 8 : index], kernel_gemm = 271 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1239, %c39, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%746, %c38, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%745, %c38, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1239, %arg135) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %748) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %749) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1240 = call @kernel_gemm0(%748, %749) {adf.kernel, "col, row" = [35 : index, 4 : index], ivs = [0 : index, 4 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 272 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1240, %c35, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%749, %c35, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%748, %c35, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %750) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %751) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1240, %752) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1241 = call @kernel_gemm(%750, %751, %752) {adf.kernel, "col, row" = [36 : index, 4 : index], ivs = [1 : index, 4 : index, 8 : index], kernel_gemm = 273 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1241, %c36, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%751, %c36, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%750, %c36, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %753) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %754) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1241, %755) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1242 = call @kernel_gemm(%753, %754, %755) {adf.kernel, "col, row" = [37 : index, 4 : index], ivs = [2 : index, 4 : index, 8 : index], kernel_gemm = 274 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1242, %c37, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%754, %c37, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%753, %c37, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %756) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %757) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1242, %758) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1243 = call @kernel_gemm(%756, %757, %758) {adf.kernel, "col, row" = [38 : index, 4 : index], ivs = [3 : index, 4 : index, 8 : index], kernel_gemm = 275 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1243, %c38, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%757, %c38, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%756, %c38, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1243, %arg136) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %759) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %760) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1244 = call @kernel_gemm0(%759, %760) {adf.kernel, "col, row" = [35 : index, 5 : index], ivs = [0 : index, 5 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 276 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1244, %c36, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%760, %c35, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%759, %c35, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %761) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %762) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1244, %763) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1245 = call @kernel_gemm(%761, %762, %763) {adf.kernel, "col, row" = [36 : index, 5 : index], ivs = [1 : index, 5 : index, 8 : index], kernel_gemm = 277 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1245, %c37, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%762, %c36, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%761, %c36, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %764) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %765) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1245, %766) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1246 = call @kernel_gemm(%764, %765, %766) {adf.kernel, "col, row" = [37 : index, 5 : index], ivs = [2 : index, 5 : index, 8 : index], kernel_gemm = 278 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1246, %c38, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%765, %c37, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%764, %c37, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %767) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %768) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1246, %769) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1247 = call @kernel_gemm(%767, %768, %769) {adf.kernel, "col, row" = [38 : index, 5 : index], ivs = [3 : index, 5 : index, 8 : index], kernel_gemm = 279 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1247, %c39, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%768, %c38, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%767, %c38, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1247, %arg137) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %770) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %771) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1248 = call @kernel_gemm0(%770, %771) {adf.kernel, "col, row" = [35 : index, 6 : index], ivs = [0 : index, 6 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 280 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1248, %c35, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%771, %c35, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%770, %c35, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %772) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %773) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1248, %774) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1249 = call @kernel_gemm(%772, %773, %774) {adf.kernel, "col, row" = [36 : index, 6 : index], ivs = [1 : index, 6 : index, 8 : index], kernel_gemm = 281 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1249, %c36, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%773, %c36, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%772, %c36, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %775) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %776) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1249, %777) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1250 = call @kernel_gemm(%775, %776, %777) {adf.kernel, "col, row" = [37 : index, 6 : index], ivs = [2 : index, 6 : index, 8 : index], kernel_gemm = 282 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1250, %c37, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%776, %c37, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%775, %c37, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %778) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %779) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1250, %780) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1251 = call @kernel_gemm(%778, %779, %780) {adf.kernel, "col, row" = [38 : index, 6 : index], ivs = [3 : index, 6 : index, 8 : index], kernel_gemm = 283 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1251, %c38, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%779, %c38, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%778, %c38, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1251, %arg138) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg128, %781) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %782) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1252 = call @kernel_gemm0(%781, %782) {adf.kernel, "col, row" = [35 : index, 7 : index], ivs = [0 : index, 7 : index, 8 : index], kernel = 0 : index, kernel_gemm0 = 284 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1252, %c36, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%782, %c35, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%781, %c35, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg129, %783) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %784) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1252, %785) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1253 = call @kernel_gemm(%783, %784, %785) {adf.kernel, "col, row" = [36 : index, 7 : index], ivs = [1 : index, 7 : index, 8 : index], kernel_gemm = 285 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1253, %c37, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%784, %c36, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%783, %c36, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg130, %786) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %787) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1253, %788) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1254 = call @kernel_gemm(%786, %787, %788) {adf.kernel, "col, row" = [37 : index, 7 : index], ivs = [2 : index, 7 : index, 8 : index], kernel_gemm = 286 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1254, %c38, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%787, %c37, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%786, %c37, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg131, %789) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %790) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1254, %791) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1255 = call @kernel_gemm(%789, %790, %791) {adf.kernel, "col, row" = [38 : index, 7 : index], ivs = [3 : index, 7 : index, 8 : index], kernel_gemm = 287 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1255, %c39, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%790, %c38, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%789, %c38, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1255, %arg139) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %792) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %793) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1256 = call @kernel_gemm0(%792, %793) {adf.kernel, "col, row" = [39 : index, 0 : index], ivs = [0 : index, 0 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 288 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1256, %c39, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%793, %c38, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%792, %c39, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %794) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %795) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1256, %796) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1257 = call @kernel_gemm(%794, %795, %796) {adf.kernel, "col, row" = [40 : index, 0 : index], ivs = [1 : index, 0 : index, 9 : index], kernel_gemm = 289 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1257, %c40, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%795, %c39, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%794, %c40, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %797) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %798) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1257, %799) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1258 = call @kernel_gemm(%797, %798, %799) {adf.kernel, "col, row" = [41 : index, 0 : index], ivs = [2 : index, 0 : index, 9 : index], kernel_gemm = 290 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1258, %c41, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%798, %c40, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%797, %c41, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %800) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %801) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1258, %802) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1259 = call @kernel_gemm(%800, %801, %802) {adf.kernel, "col, row" = [42 : index, 0 : index], ivs = [3 : index, 0 : index, 9 : index], kernel_gemm = 291 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1259, %c42, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%801, %c41, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%800, %c42, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1259, %arg144) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %803) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %804) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1260 = call @kernel_gemm0(%803, %804) {adf.kernel, "col, row" = [39 : index, 1 : index], ivs = [0 : index, 1 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 292 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1260, %c40, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%804, %c39, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%803, %c39, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %805) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %806) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1260, %807) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1261 = call @kernel_gemm(%805, %806, %807) {adf.kernel, "col, row" = [40 : index, 1 : index], ivs = [1 : index, 1 : index, 9 : index], kernel_gemm = 293 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1261, %c41, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%806, %c40, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%805, %c40, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %808) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %809) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1261, %810) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1262 = call @kernel_gemm(%808, %809, %810) {adf.kernel, "col, row" = [41 : index, 1 : index], ivs = [2 : index, 1 : index, 9 : index], kernel_gemm = 294 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1262, %c42, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%809, %c41, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%808, %c41, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %811) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %812) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1262, %813) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1263 = call @kernel_gemm(%811, %812, %813) {adf.kernel, "col, row" = [42 : index, 1 : index], ivs = [3 : index, 1 : index, 9 : index], kernel_gemm = 295 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1263, %c43, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%812, %c42, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%811, %c42, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1263, %arg145) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %814) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %815) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1264 = call @kernel_gemm0(%814, %815) {adf.kernel, "col, row" = [39 : index, 2 : index], ivs = [0 : index, 2 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 296 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1264, %c39, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%815, %c39, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%814, %c39, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %816) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %817) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1264, %818) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1265 = call @kernel_gemm(%816, %817, %818) {adf.kernel, "col, row" = [40 : index, 2 : index], ivs = [1 : index, 2 : index, 9 : index], kernel_gemm = 297 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1265, %c40, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%817, %c40, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%816, %c40, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %819) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %820) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1265, %821) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1266 = call @kernel_gemm(%819, %820, %821) {adf.kernel, "col, row" = [41 : index, 2 : index], ivs = [2 : index, 2 : index, 9 : index], kernel_gemm = 298 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1266, %c41, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%820, %c41, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%819, %c41, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %822) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %823) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1266, %824) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1267 = call @kernel_gemm(%822, %823, %824) {adf.kernel, "col, row" = [42 : index, 2 : index], ivs = [3 : index, 2 : index, 9 : index], kernel_gemm = 299 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1267, %c42, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%823, %c42, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%822, %c42, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1267, %arg146) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %825) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %826) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1268 = call @kernel_gemm0(%825, %826) {adf.kernel, "col, row" = [39 : index, 3 : index], ivs = [0 : index, 3 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 300 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1268, %c40, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%826, %c39, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%825, %c39, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %827) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %828) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1268, %829) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1269 = call @kernel_gemm(%827, %828, %829) {adf.kernel, "col, row" = [40 : index, 3 : index], ivs = [1 : index, 3 : index, 9 : index], kernel_gemm = 301 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1269, %c41, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%828, %c40, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%827, %c40, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %830) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %831) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1269, %832) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1270 = call @kernel_gemm(%830, %831, %832) {adf.kernel, "col, row" = [41 : index, 3 : index], ivs = [2 : index, 3 : index, 9 : index], kernel_gemm = 302 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1270, %c42, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%831, %c41, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%830, %c41, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %833) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %834) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1270, %835) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1271 = call @kernel_gemm(%833, %834, %835) {adf.kernel, "col, row" = [42 : index, 3 : index], ivs = [3 : index, 3 : index, 9 : index], kernel_gemm = 303 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1271, %c43, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%834, %c42, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%833, %c42, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1271, %arg147) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %836) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %837) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1272 = call @kernel_gemm0(%836, %837) {adf.kernel, "col, row" = [39 : index, 4 : index], ivs = [0 : index, 4 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 304 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1272, %c39, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%837, %c39, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%836, %c39, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %838) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %839) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1272, %840) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1273 = call @kernel_gemm(%838, %839, %840) {adf.kernel, "col, row" = [40 : index, 4 : index], ivs = [1 : index, 4 : index, 9 : index], kernel_gemm = 305 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1273, %c40, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%839, %c40, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%838, %c40, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %841) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %842) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1273, %843) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1274 = call @kernel_gemm(%841, %842, %843) {adf.kernel, "col, row" = [41 : index, 4 : index], ivs = [2 : index, 4 : index, 9 : index], kernel_gemm = 306 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1274, %c41, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%842, %c41, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%841, %c41, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %844) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %845) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1274, %846) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1275 = call @kernel_gemm(%844, %845, %846) {adf.kernel, "col, row" = [42 : index, 4 : index], ivs = [3 : index, 4 : index, 9 : index], kernel_gemm = 307 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1275, %c42, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%845, %c42, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%844, %c42, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1275, %arg148) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %847) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %848) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1276 = call @kernel_gemm0(%847, %848) {adf.kernel, "col, row" = [39 : index, 5 : index], ivs = [0 : index, 5 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 308 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1276, %c40, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%848, %c39, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%847, %c39, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %849) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %850) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1276, %851) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1277 = call @kernel_gemm(%849, %850, %851) {adf.kernel, "col, row" = [40 : index, 5 : index], ivs = [1 : index, 5 : index, 9 : index], kernel_gemm = 309 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1277, %c41, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%850, %c40, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%849, %c40, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %852) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %853) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1277, %854) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1278 = call @kernel_gemm(%852, %853, %854) {adf.kernel, "col, row" = [41 : index, 5 : index], ivs = [2 : index, 5 : index, 9 : index], kernel_gemm = 310 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1278, %c42, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%853, %c41, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%852, %c41, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %855) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %856) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1278, %857) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1279 = call @kernel_gemm(%855, %856, %857) {adf.kernel, "col, row" = [42 : index, 5 : index], ivs = [3 : index, 5 : index, 9 : index], kernel_gemm = 311 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1279, %c43, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%856, %c42, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%855, %c42, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1279, %arg149) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %858) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %859) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1280 = call @kernel_gemm0(%858, %859) {adf.kernel, "col, row" = [39 : index, 6 : index], ivs = [0 : index, 6 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 312 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1280, %c39, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%859, %c39, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%858, %c39, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %860) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %861) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1280, %862) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1281 = call @kernel_gemm(%860, %861, %862) {adf.kernel, "col, row" = [40 : index, 6 : index], ivs = [1 : index, 6 : index, 9 : index], kernel_gemm = 313 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1281, %c40, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%861, %c40, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%860, %c40, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %863) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %864) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1281, %865) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1282 = call @kernel_gemm(%863, %864, %865) {adf.kernel, "col, row" = [41 : index, 6 : index], ivs = [2 : index, 6 : index, 9 : index], kernel_gemm = 314 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1282, %c41, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%864, %c41, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%863, %c41, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %866) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %867) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1282, %868) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1283 = call @kernel_gemm(%866, %867, %868) {adf.kernel, "col, row" = [42 : index, 6 : index], ivs = [3 : index, 6 : index, 9 : index], kernel_gemm = 315 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1283, %c42, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%867, %c42, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%866, %c42, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1283, %arg150) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg140, %869) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %870) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1284 = call @kernel_gemm0(%869, %870) {adf.kernel, "col, row" = [39 : index, 7 : index], ivs = [0 : index, 7 : index, 9 : index], kernel = 0 : index, kernel_gemm0 = 316 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1284, %c40, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%870, %c39, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%869, %c39, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg141, %871) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %872) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1284, %873) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1285 = call @kernel_gemm(%871, %872, %873) {adf.kernel, "col, row" = [40 : index, 7 : index], ivs = [1 : index, 7 : index, 9 : index], kernel_gemm = 317 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1285, %c41, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%872, %c40, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%871, %c40, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg142, %874) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %875) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1285, %876) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1286 = call @kernel_gemm(%874, %875, %876) {adf.kernel, "col, row" = [41 : index, 7 : index], ivs = [2 : index, 7 : index, 9 : index], kernel_gemm = 318 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1286, %c42, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%875, %c41, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%874, %c41, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg143, %877) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %878) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1286, %879) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1287 = call @kernel_gemm(%877, %878, %879) {adf.kernel, "col, row" = [42 : index, 7 : index], ivs = [3 : index, 7 : index, 9 : index], kernel_gemm = 319 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1287, %c43, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%878, %c42, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%877, %c42, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1287, %arg151) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %880) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg1, %881) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1288 = call @kernel_gemm0(%880, %881) {adf.kernel, "col, row" = [43 : index, 0 : index], ivs = [0 : index, 0 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 320 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1288, %c43, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%881, %c42, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%880, %c43, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %882) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg3, %883) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1288, %884) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1289 = call @kernel_gemm(%882, %883, %884) {adf.kernel, "col, row" = [44 : index, 0 : index], ivs = [1 : index, 0 : index, 10 : index], kernel_gemm = 321 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1289, %c44, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%883, %c43, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%882, %c44, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %885) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg5, %886) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1289, %887) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1290 = call @kernel_gemm(%885, %886, %887) {adf.kernel, "col, row" = [45 : index, 0 : index], ivs = [2 : index, 0 : index, 10 : index], kernel_gemm = 322 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1290, %c45, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%886, %c44, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%885, %c45, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %888) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg7, %889) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1290, %890) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1291 = call @kernel_gemm(%888, %889, %890) {adf.kernel, "col, row" = [46 : index, 0 : index], ivs = [3 : index, 0 : index, 10 : index], kernel_gemm = 323 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1291, %c46, %c0, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%889, %c45, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%888, %c46, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1291, %arg156) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %891) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg9, %892) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1292 = call @kernel_gemm0(%891, %892) {adf.kernel, "col, row" = [43 : index, 1 : index], ivs = [0 : index, 1 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 324 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1292, %c44, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%892, %c43, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%891, %c43, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %893) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg10, %894) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1292, %895) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1293 = call @kernel_gemm(%893, %894, %895) {adf.kernel, "col, row" = [44 : index, 1 : index], ivs = [1 : index, 1 : index, 10 : index], kernel_gemm = 325 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1293, %c45, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%894, %c44, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%893, %c44, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %896) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg11, %897) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1293, %898) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1294 = call @kernel_gemm(%896, %897, %898) {adf.kernel, "col, row" = [45 : index, 1 : index], ivs = [2 : index, 1 : index, 10 : index], kernel_gemm = 326 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1294, %c46, %c1, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%897, %c45, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%896, %c45, %c0, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %899) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg12, %900) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1294, %901) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1295 = call @kernel_gemm(%899, %900, %901) {adf.kernel, "col, row" = [46 : index, 1 : index], ivs = [3 : index, 1 : index, 10 : index], kernel_gemm = 327 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1295, %c47, %c1, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%900, %c46, %c2, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%899, %c46, %c0, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1295, %arg157) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %902) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg14, %903) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1296 = call @kernel_gemm0(%902, %903) {adf.kernel, "col, row" = [43 : index, 2 : index], ivs = [0 : index, 2 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 328 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1296, %c43, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%903, %c43, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%902, %c43, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %904) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg15, %905) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1296, %906) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1297 = call @kernel_gemm(%904, %905, %906) {adf.kernel, "col, row" = [44 : index, 2 : index], ivs = [1 : index, 2 : index, 10 : index], kernel_gemm = 329 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1297, %c44, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%905, %c44, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%904, %c44, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %907) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg16, %908) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1297, %909) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1298 = call @kernel_gemm(%907, %908, %909) {adf.kernel, "col, row" = [45 : index, 2 : index], ivs = [2 : index, 2 : index, 10 : index], kernel_gemm = 330 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1298, %c45, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%908, %c45, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%907, %c45, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %910) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg17, %911) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1298, %912) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1299 = call @kernel_gemm(%910, %911, %912) {adf.kernel, "col, row" = [46 : index, 2 : index], ivs = [3 : index, 2 : index, 10 : index], kernel_gemm = 331 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1299, %c46, %c2, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%911, %c46, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%910, %c46, %c1, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1299, %arg158) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %913) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg19, %914) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1300 = call @kernel_gemm0(%913, %914) {adf.kernel, "col, row" = [43 : index, 3 : index], ivs = [0 : index, 3 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 332 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1300, %c44, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%914, %c43, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%913, %c43, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %915) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg20, %916) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1300, %917) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1301 = call @kernel_gemm(%915, %916, %917) {adf.kernel, "col, row" = [44 : index, 3 : index], ivs = [1 : index, 3 : index, 10 : index], kernel_gemm = 333 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1301, %c45, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%916, %c44, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%915, %c44, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %918) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg21, %919) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1301, %920) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1302 = call @kernel_gemm(%918, %919, %920) {adf.kernel, "col, row" = [45 : index, 3 : index], ivs = [2 : index, 3 : index, 10 : index], kernel_gemm = 334 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1302, %c46, %c3, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%919, %c45, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%918, %c45, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %921) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg22, %922) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1302, %923) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1303 = call @kernel_gemm(%921, %922, %923) {adf.kernel, "col, row" = [46 : index, 3 : index], ivs = [3 : index, 3 : index, 10 : index], kernel_gemm = 335 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1303, %c47, %c3, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%922, %c46, %c4, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%921, %c46, %c2, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1303, %arg159) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %924) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg24, %925) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1304 = call @kernel_gemm0(%924, %925) {adf.kernel, "col, row" = [43 : index, 4 : index], ivs = [0 : index, 4 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 336 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1304, %c43, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%925, %c43, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%924, %c43, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %926) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg25, %927) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1304, %928) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1305 = call @kernel_gemm(%926, %927, %928) {adf.kernel, "col, row" = [44 : index, 4 : index], ivs = [1 : index, 4 : index, 10 : index], kernel_gemm = 337 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1305, %c44, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%927, %c44, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%926, %c44, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %929) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg26, %930) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1305, %931) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1306 = call @kernel_gemm(%929, %930, %931) {adf.kernel, "col, row" = [45 : index, 4 : index], ivs = [2 : index, 4 : index, 10 : index], kernel_gemm = 338 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1306, %c45, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%930, %c45, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%929, %c45, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %932) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg27, %933) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1306, %934) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1307 = call @kernel_gemm(%932, %933, %934) {adf.kernel, "col, row" = [46 : index, 4 : index], ivs = [3 : index, 4 : index, 10 : index], kernel_gemm = 339 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1307, %c46, %c4, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%933, %c46, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%932, %c46, %c3, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1307, %arg160) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %935) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg29, %936) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1308 = call @kernel_gemm0(%935, %936) {adf.kernel, "col, row" = [43 : index, 5 : index], ivs = [0 : index, 5 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 340 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1308, %c44, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%936, %c43, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%935, %c43, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %937) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg30, %938) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1308, %939) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1309 = call @kernel_gemm(%937, %938, %939) {adf.kernel, "col, row" = [44 : index, 5 : index], ivs = [1 : index, 5 : index, 10 : index], kernel_gemm = 341 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1309, %c45, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%938, %c44, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%937, %c44, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %940) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg31, %941) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1309, %942) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1310 = call @kernel_gemm(%940, %941, %942) {adf.kernel, "col, row" = [45 : index, 5 : index], ivs = [2 : index, 5 : index, 10 : index], kernel_gemm = 342 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1310, %c46, %c5, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%941, %c45, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%940, %c45, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %943) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg32, %944) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1310, %945) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1311 = call @kernel_gemm(%943, %944, %945) {adf.kernel, "col, row" = [46 : index, 5 : index], ivs = [3 : index, 5 : index, 10 : index], kernel_gemm = 343 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1311, %c47, %c5, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%944, %c46, %c6, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%943, %c46, %c4, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1311, %arg161) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %946) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg34, %947) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1312 = call @kernel_gemm0(%946, %947) {adf.kernel, "col, row" = [43 : index, 6 : index], ivs = [0 : index, 6 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 344 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1312, %c43, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%947, %c43, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%946, %c43, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %948) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg35, %949) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1312, %950) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1313 = call @kernel_gemm(%948, %949, %950) {adf.kernel, "col, row" = [44 : index, 6 : index], ivs = [1 : index, 6 : index, 10 : index], kernel_gemm = 345 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1313, %c44, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%949, %c44, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%948, %c44, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %951) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg36, %952) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1313, %953) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1314 = call @kernel_gemm(%951, %952, %953) {adf.kernel, "col, row" = [45 : index, 6 : index], ivs = [2 : index, 6 : index, 10 : index], kernel_gemm = 346 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1314, %c45, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%952, %c45, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%951, %c45, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %954) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg37, %955) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1314, %956) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1315 = call @kernel_gemm(%954, %955, %956) {adf.kernel, "col, row" = [46 : index, 6 : index], ivs = [3 : index, 6 : index, 10 : index], kernel_gemm = 347 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1315, %c46, %c6, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%955, %c46, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%954, %c46, %c5, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%1315, %arg162) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
+    adf.connect(%arg152, %957) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg39, %958) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    %1316 = call @kernel_gemm0(%957, %958) {adf.kernel, "col, row" = [43 : index, 7 : index], ivs = [0 : index, 7 : index, 10 : index], kernel = 0 : index, kernel_gemm0 = 348 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1316, %c44, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%958, %c43, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%957, %c43, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg153, %959) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg40, %960) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1316, %961) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1317 = call @kernel_gemm(%959, %960, %961) {adf.kernel, "col, row" = [44 : index, 7 : index], ivs = [1 : index, 7 : index, 10 : index], kernel_gemm = 349 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1317, %c45, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%960, %c44, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%959, %c44, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg154, %962) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg41, %963) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1317, %964) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1318 = call @kernel_gemm(%962, %963, %964) {adf.kernel, "col, row" = [45 : index, 7 : index], ivs = [2 : index, 7 : index, 10 : index], kernel_gemm = 350 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
+    adf.buffer.location(%1318, %c46, %c7, %c16384, %c24576) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%963, %c45, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%962, %c45, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.connect(%arg155, %965) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%arg42, %966) : (!adf.plio<In, 128>, memref<32x32xf32, 2>)
+    adf.connect(%1318, %967) : (memref<32x32xf32, 2>, memref<32x32xf32, 2>)
+    %1319 = call @kernel_gemm(%965, %966, %967) {adf.kernel, "col, row" = [46 : index, 7 : index], ivs = [3 : index, 7 : index, 10 : index], kernel_gemm = 351 : index} : (memref<32x32xf32, 2>, memref<32x32xf32, 2>, memref<32x32xf32, 2>) -> memref<32x32xf32, 2>
     adf.buffer.location(%1319, %c47, %c7, %c0, %c8192) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1317, %c46, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
-    adf.buffer.location(%1316, %c46, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%966, %c46, %c7, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
+    adf.buffer.location(%965, %c46, %c6, %c4096, %c12288) : (memref<32x32xf32, 2>, index, index, index, index)
     adf.connect(%1319, %arg163) {write = 3 : index} : (memref<32x32xf32, 2>, !adf.plio<Out, 128>)
     return
   }
   func.func @receive13(%arg0: memref<1xi128, "plio">, %arg1: memref<1xi128, "stream">) attributes {adf.pl, inline = false, receive, template} {
-    %c96 = arith.constant 96 : index
-    %c127 = arith.constant 127 : index
     %c64 = arith.constant 64 : index
-    %c0 = arith.constant 0 : index
-    %c31 = arith.constant 31 : index
     %c95 = arith.constant 95 : index
     %c32 = arith.constant 32 : index
-    %c0_i128 = arith.constant 0 : i128
     %c63 = arith.constant 63 : index
+    %c0 = arith.constant 0 : index
+    %c31 = arith.constant 31 : index
+    %c0_i128 = arith.constant 0 : i128
+    %c96 = arith.constant 96 : index
+    %c127 = arith.constant 127 : index
     %alloc = memref.alloc() {buffer_type = "uram_t2p"} : memref<128x48xi128, 1>
     affine.for %arg2 = 0 to 128 {
       affine.for %arg3 = 0 to 48 {
@@ -4203,40 +4203,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg70[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg8[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg54[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg61[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg3[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg2[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg37[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg65[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg21[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg28[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg41[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg31[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg33[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg82[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg19[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg67[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4262,40 +4262,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg10[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg80[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg81[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg35[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg88[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg69[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg48[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg59[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg32[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg81[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg76[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg27[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg8[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg14[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg79[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg5[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4321,40 +4321,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg52[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg40[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg68[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg76[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg47[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg87[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg80[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg79[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg78[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg4[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg57[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg18[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg66[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg30[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg86[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg42[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4380,40 +4380,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg7[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg41[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg4[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg74[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg16[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg66[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg25[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg53[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg40[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg37[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg62[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg34[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg58[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg22[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg46[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg16[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4439,40 +4439,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg55[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg7[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg59[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg20[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg69[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg15[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg74[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg56[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg64[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg63[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg45[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg50[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg38[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg44[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg39[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg21[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4498,32 +4498,32 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg28[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg75[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg2[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg72[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg6[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg60[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg72[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg9[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg20[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg12[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg61[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg11[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
@@ -4531,7 +4531,7 @@ module {
                               %14 = affine.load %arg85[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg50[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg24[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4557,40 +4557,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg53[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg77[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg11[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg3[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg43[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg29[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg9[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg52[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg36[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg55[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg71[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg68[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg51[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg38[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg22[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg78[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4616,40 +4616,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg5[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg49[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg26[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg51[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg60[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg19[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg73[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg10[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg65[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg64[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg42[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg46[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg75[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg13[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg30[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg54[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4675,40 +4675,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg63[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg17[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg29[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg45[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg82[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg25[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg27[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg39[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg12[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg26[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg44[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg86[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg56[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg62[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg67[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg88[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4734,40 +4734,40 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg49[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg47[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg18[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg48[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
                     %5 = scf.if %4 -> (i512) {
-                      %6 = affine.load %arg83[0] : memref<1xi512, "stream2">
+                      %6 = affine.load %arg57[0] : memref<1xi512, "stream2">
                       scf.yield %6 : i512
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg84[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg32[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg77[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg1[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg17[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg33[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg87[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg58[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg14[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg83[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4793,12 +4793,12 @@ module {
               affine.for %arg94 = 0 to 16 {
                 %0 = arith.cmpi slt, %arg94, %c2 : index
                 %1 = scf.if %0 -> (i512) {
-                  %2 = affine.load %arg35[0] : memref<1xi512, "stream2">
+                  %2 = affine.load %arg70[0] : memref<1xi512, "stream2">
                   scf.yield %2 : i512
                 } else {
                   %2 = arith.cmpi slt, %arg94, %c4 : index
                   %3 = scf.if %2 -> (i512) {
-                    %4 = affine.load %arg13[0] : memref<1xi512, "stream2">
+                    %4 = affine.load %arg43[0] : memref<1xi512, "stream2">
                     scf.yield %4 : i512
                   } else {
                     %4 = arith.cmpi slt, %arg94, %c6 : index
@@ -4808,25 +4808,25 @@ module {
                     } else {
                       %6 = arith.cmpi slt, %arg94, %c8 : index
                       %7 = scf.if %6 -> (i512) {
-                        %8 = affine.load %arg24[0] : memref<1xi512, "stream2">
+                        %8 = affine.load %arg71[0] : memref<1xi512, "stream2">
                         scf.yield %8 : i512
                       } else {
                         %8 = arith.cmpi slt, %arg94, %c10 : index
                         %9 = scf.if %8 -> (i512) {
-                          %10 = affine.load %arg34[0] : memref<1xi512, "stream2">
+                          %10 = affine.load %arg73[0] : memref<1xi512, "stream2">
                           scf.yield %10 : i512
                         } else {
                           %10 = arith.cmpi slt, %arg94, %c12 : index
                           %11 = scf.if %10 -> (i512) {
-                            %12 = affine.load %arg15[0] : memref<1xi512, "stream2">
+                            %12 = affine.load %arg6[0] : memref<1xi512, "stream2">
                             scf.yield %12 : i512
                           } else {
                             %12 = arith.cmpi slt, %arg94, %c14 : index
                             %13 = scf.if %12 -> (i512) {
-                              %14 = affine.load %arg31[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg36[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             } else {
-                              %14 = affine.load %arg1[0] : memref<1xi512, "stream2">
+                              %14 = affine.load %arg84[0] : memref<1xi512, "stream2">
                               scf.yield %14 : i512
                             }
                             scf.yield %13 : i512
@@ -4868,17 +4868,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg16[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg34[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg3[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg14[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg1[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg21[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg24[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg12[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -4893,15 +4893,15 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 32, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg28[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg9[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg32[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg4[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg36[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg18[0] : memref<1xi512, "stream2">
                       } else {
                         affine.store %0, %arg17[0] : memref<1xi512, "stream2">
                       }
@@ -4918,17 +4918,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 64, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg10[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg11[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg41[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg31[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg2[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg43[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg20[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg1[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -4943,17 +4943,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 96, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg29[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg5[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg21[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg16[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg22[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg30[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg14[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg8[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -4968,17 +4968,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 128, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg19[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg20[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg34[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg23[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg11[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg33[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg4[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg3[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -4993,17 +4993,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 160, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg42[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg28[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg25[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg29[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg40[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg41[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg26[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg22[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -5018,17 +5018,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 192, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg15[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg2[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg27[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg32[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg5[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg15[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg37[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg27[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -5043,15 +5043,15 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 224, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg8[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg6[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg18[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg19[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg23[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg35[0] : memref<1xi512, "stream2">
                       } else {
                         affine.store %0, %arg7[0] : memref<1xi512, "stream2">
                       }
@@ -5068,15 +5068,15 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 256, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg30[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg26[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg38[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg24[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg12[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg38[0] : memref<1xi512, "stream2">
                       } else {
                         affine.store %0, %arg13[0] : memref<1xi512, "stream2">
                       }
@@ -5093,17 +5093,17 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 288, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg6[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg36[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg9[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg10[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg39[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg25[0] : memref<1xi512, "stream2">
                       } else {
-                        affine.store %0, %arg35[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg37[0] : memref<1xi512, "stream2">
                       }
                     }
                   }
@@ -5118,15 +5118,15 @@ module {
                   %0 = affine.load %arg0[%arg49 + %arg48 * 352 + %arg45 * 1408 + 320, %arg51 + %arg50 * 8 + %arg47 * 8] : memref<2816x512xi512>
                   %1 = arith.cmpi slt, %arg51, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg33[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg39[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg51, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg31[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg40[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg51, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg43[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg42[0] : memref<1xi512, "stream2">
                       } else {
                         affine.store %0, %arg44[0] : memref<1xi512, "stream2">
                       }
@@ -5234,33 +5234,33 @@ module {
                   %0 = affine.load %arg0[%arg37 + %arg36 * 128 + %arg35 * 128, %arg39 + %arg38 * 16 + %arg34 * 96] : memref<8192x192xi512>
                   %1 = arith.cmpi slt, %arg39, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg31[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg6[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg39, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg8[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg3[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg39, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg17[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg27[0] : memref<1xi512, "stream2">
                       } else {
                         %4 = arith.cmpi slt, %arg39, %c8 : index
                         scf.if %4 {
-                          affine.store %0, %arg3[0] : memref<1xi512, "stream2">
+                          affine.store %0, %arg29[0] : memref<1xi512, "stream2">
                         } else {
                           %5 = arith.cmpi slt, %arg39, %c10 : index
                           scf.if %5 {
-                            affine.store %0, %arg15[0] : memref<1xi512, "stream2">
+                            affine.store %0, %arg20[0] : memref<1xi512, "stream2">
                           } else {
                             %6 = arith.cmpi slt, %arg39, %c12 : index
                             scf.if %6 {
-                              affine.store %0, %arg18[0] : memref<1xi512, "stream2">
+                              affine.store %0, %arg5[0] : memref<1xi512, "stream2">
                             } else {
                               %7 = arith.cmpi slt, %arg39, %c14 : index
                               scf.if %7 {
-                                affine.store %0, %arg5[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg19[0] : memref<1xi512, "stream2">
                               } else {
-                                affine.store %0, %arg14[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg2[0] : memref<1xi512, "stream2">
                               }
                             }
                           }
@@ -5279,33 +5279,33 @@ module {
                   %0 = affine.load %arg0[%arg37 + %arg36 * 128 + %arg35 * 128 + 32, %arg39 + %arg38 * 16 + %arg34 * 96] : memref<8192x192xi512>
                   %1 = arith.cmpi slt, %arg39, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg6[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg8[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg39, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg1[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg12[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg39, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg29[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg17[0] : memref<1xi512, "stream2">
                       } else {
                         %4 = arith.cmpi slt, %arg39, %c8 : index
                         scf.if %4 {
-                          affine.store %0, %arg11[0] : memref<1xi512, "stream2">
+                          affine.store %0, %arg18[0] : memref<1xi512, "stream2">
                         } else {
                           %5 = arith.cmpi slt, %arg39, %c10 : index
                           scf.if %5 {
-                            affine.store %0, %arg4[0] : memref<1xi512, "stream2">
+                            affine.store %0, %arg21[0] : memref<1xi512, "stream2">
                           } else {
                             %6 = arith.cmpi slt, %arg39, %c12 : index
                             scf.if %6 {
-                              affine.store %0, %arg22[0] : memref<1xi512, "stream2">
+                              affine.store %0, %arg14[0] : memref<1xi512, "stream2">
                             } else {
                               %7 = arith.cmpi slt, %arg39, %c14 : index
                               scf.if %7 {
-                                affine.store %0, %arg20[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg15[0] : memref<1xi512, "stream2">
                               } else {
-                                affine.store %0, %arg16[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg10[0] : memref<1xi512, "stream2">
                               }
                             }
                           }
@@ -5324,31 +5324,31 @@ module {
                   %0 = affine.load %arg0[%arg37 + %arg36 * 128 + %arg35 * 128 + 64, %arg39 + %arg38 * 16 + %arg34 * 96] : memref<8192x192xi512>
                   %1 = arith.cmpi slt, %arg39, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg28[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg1[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg39, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg25[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg22[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg39, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg19[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg11[0] : memref<1xi512, "stream2">
                       } else {
                         %4 = arith.cmpi slt, %arg39, %c8 : index
                         scf.if %4 {
-                          affine.store %0, %arg21[0] : memref<1xi512, "stream2">
+                          affine.store %0, %arg32[0] : memref<1xi512, "stream2">
                         } else {
                           %5 = arith.cmpi slt, %arg39, %c10 : index
                           scf.if %5 {
-                            affine.store %0, %arg12[0] : memref<1xi512, "stream2">
+                            affine.store %0, %arg26[0] : memref<1xi512, "stream2">
                           } else {
                             %6 = arith.cmpi slt, %arg39, %c12 : index
                             scf.if %6 {
-                              affine.store %0, %arg32[0] : memref<1xi512, "stream2">
+                              affine.store %0, %arg23[0] : memref<1xi512, "stream2">
                             } else {
                               %7 = arith.cmpi slt, %arg39, %c14 : index
                               scf.if %7 {
-                                affine.store %0, %arg26[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg9[0] : memref<1xi512, "stream2">
                               } else {
                                 affine.store %0, %arg7[0] : memref<1xi512, "stream2">
                               }
@@ -5369,33 +5369,33 @@ module {
                   %0 = affine.load %arg0[%arg37 + %arg36 * 128 + %arg35 * 128 + 96, %arg39 + %arg38 * 16 + %arg34 * 96] : memref<8192x192xi512>
                   %1 = arith.cmpi slt, %arg39, %c2 : index
                   scf.if %1 {
-                    affine.store %0, %arg27[0] : memref<1xi512, "stream2">
+                    affine.store %0, %arg13[0] : memref<1xi512, "stream2">
                   } else {
                     %2 = arith.cmpi slt, %arg39, %c4 : index
                     scf.if %2 {
-                      affine.store %0, %arg24[0] : memref<1xi512, "stream2">
+                      affine.store %0, %arg4[0] : memref<1xi512, "stream2">
                     } else {
                       %3 = arith.cmpi slt, %arg39, %c6 : index
                       scf.if %3 {
-                        affine.store %0, %arg30[0] : memref<1xi512, "stream2">
+                        affine.store %0, %arg28[0] : memref<1xi512, "stream2">
                       } else {
                         %4 = arith.cmpi slt, %arg39, %c8 : index
                         scf.if %4 {
-                          affine.store %0, %arg2[0] : memref<1xi512, "stream2">
+                          affine.store %0, %arg25[0] : memref<1xi512, "stream2">
                         } else {
                           %5 = arith.cmpi slt, %arg39, %c10 : index
                           scf.if %5 {
-                            affine.store %0, %arg9[0] : memref<1xi512, "stream2">
+                            affine.store %0, %arg16[0] : memref<1xi512, "stream2">
                           } else {
                             %6 = arith.cmpi slt, %arg39, %c12 : index
                             scf.if %6 {
-                              affine.store %0, %arg10[0] : memref<1xi512, "stream2">
+                              affine.store %0, %arg24[0] : memref<1xi512, "stream2">
                             } else {
                               %7 = arith.cmpi slt, %arg39, %c14 : index
                               scf.if %7 {
-                                affine.store %0, %arg23[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg31[0] : memref<1xi512, "stream2">
                               } else {
-                                affine.store %0, %arg13[0] : memref<1xi512, "stream2">
+                                affine.store %0, %arg30[0] : memref<1xi512, "stream2">
                               }
                             }
                           }
@@ -5804,346 +5804,346 @@ module {
     %alloc_324 = memref.alloc() : memref<1xi512, "stream2">
     %alloc_325 = memref.alloc() : memref<1xi512, "stream2">
     %alloc_326 = memref.alloc() : memref<1xi512, "stream2">
-    call @receive13_top(%arg104, %alloc_12, %arg49, %alloc_26, %arg163, %alloc_1, %arg71, %alloc_41, %arg42, %alloc_11, %arg166, %alloc_43, %arg142, %alloc_86, %arg61, %alloc_72, %arg152, %alloc_62, %arg37, %alloc_9, %arg46, %alloc_50, %arg31, %alloc, %arg45, %alloc_60, %arg126, %alloc_55, %arg95, %alloc_23, %arg109, %alloc_52, %arg41, %alloc_71, %arg68, %alloc_57, %arg106, %alloc_61, %arg125, %alloc_30, %arg140, %alloc_42, %arg78, %alloc_44, %arg57, %alloc_28, %arg76, %alloc_73, %arg98, %alloc_79, %arg59, %alloc_53, %arg134, %alloc_20, %arg103, %alloc_76, %arg118, %alloc_49, %arg33, %alloc_78, %arg132, %alloc_58, %arg72, %alloc_16, %arg90, %alloc_54, %arg7, %alloc_51, %arg40, %alloc_68, %arg39, %alloc_38, %arg53, %alloc_83, %arg96, %alloc_59, %arg92, %alloc_46, %arg11, %alloc_17, %arg50, %alloc_70, %arg141, %alloc_74, %arg121, %alloc_8, %arg63, %alloc_7, %arg8, %alloc_39, %arg147, %alloc_14, %arg9, %alloc_47, %arg161, %alloc_19, %arg18, %alloc_18, %arg69, %alloc_37, %arg124, %alloc_13, %arg120, %alloc_40, %arg20, %alloc_48, %arg88, %alloc_0, %arg97, %alloc_21, %arg3, %alloc_69, %arg43, %alloc_36, %arg99, %alloc_32, %arg102, %alloc_45, %arg135, %alloc_15, %arg84, %alloc_34, %arg17, %alloc_4, %arg34, %alloc_77, %arg67, %alloc_65, %arg74, %alloc_27, %arg22, %alloc_10, %arg107, %alloc_5, %arg153, %alloc_84, %arg24, %alloc_82, %arg6, %alloc_33, %arg145, %alloc_6, %arg137, %alloc_81, %arg151, %alloc_66, %arg129, %alloc_64, %arg52, %alloc_75, %arg162, %alloc_56, %arg60, %alloc_22, %arg112, %alloc_67, %arg119, %alloc_2, %arg139, %alloc_85, %arg55, %alloc_63, %arg146, %alloc_29, %arg156, %alloc_35, %arg30, %alloc_24, %arg48, %alloc_3, %arg105, %alloc_25, %arg65, %alloc_31, %arg136, %alloc_80) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
-    call @send29_top(%arg130, %alloc_133, %arg4, %alloc_141, %arg16, %alloc_140, %arg133, %alloc_145, %arg123, %alloc_136, %arg150, %alloc_132, %arg160, %alloc_130, %arg77, %alloc_142, %arg138, %alloc_138, %arg80, %alloc_159, %arg110, %alloc_143, %arg114, %alloc_134, %arg12, %alloc_154, %arg23, %alloc_149, %arg85, %alloc_135, %arg62, %alloc_150, %arg28, %alloc_147, %arg54, %alloc_146, %arg111, %alloc_137, %arg117, %alloc_144, %arg13, %alloc_131, %arg81, %alloc_155, %arg56, %alloc_139, %arg127, %alloc_151, %arg155, %alloc_153, %arg149, %alloc_127, %arg157, %alloc_152, %arg131, %alloc_128, %arg89, %alloc_148, %arg26, %alloc_129, %arg35, %alloc_157, %arg100, %alloc_161) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
-    call @send39_top(%arg5, %alloc_123, %arg73, %alloc_87, %arg113, %alloc_102, %arg144, %alloc_88, %arg143, %alloc_116, %arg51, %alloc_103, %arg14, %alloc_119, %arg116, %alloc_91, %arg79, %alloc_94, %arg25, %alloc_114, %arg75, %alloc_156, %arg66, %alloc_113, %arg27, %alloc_109, %arg94, %alloc_112, %arg128, %alloc_124, %arg91, %alloc_120, %arg83, %alloc_160, %arg159, %alloc_98, %arg10, %alloc_105, %arg47, %alloc_107, %arg36, %alloc_89, %arg148, %alloc_108, %arg164, %alloc_106, %arg38, %alloc_101, %arg32, %alloc_92, %arg19, %alloc_90, %arg122, %alloc_162, %arg87, %alloc_158, %arg70, %alloc_117, %arg58, %alloc_115, %arg154, %alloc_97, %arg115, %alloc_126, %arg165, %alloc_122, %arg82, %alloc_95, %arg44, %alloc_118, %arg158, %alloc_111, %arg29, %alloc_93, %arg101, %alloc_104, %arg108, %alloc_110, %arg64, %alloc_96, %arg21, %alloc_100, %arg86, %alloc_121, %arg93, %alloc_99, %arg15, %alloc_125) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
+    call @receive13_top(%arg3, %alloc_12, %arg18, %alloc_26, %arg28, %alloc_1, %arg44, %alloc_41, %arg8, %alloc_11, %arg97, %alloc_43, %arg9, %alloc_86, %arg56, %alloc_72, %arg138, %alloc_62, %arg74, %alloc_9, %arg104, %alloc_50, %arg69, %alloc, %arg108, %alloc_60, %arg34, %alloc_55, %arg150, %alloc_23, %arg59, %alloc_52, %arg30, %alloc_71, %arg83, %alloc_57, %arg47, %alloc_61, %arg40, %alloc_30, %arg149, %alloc_42, %arg165, %alloc_44, %arg14, %alloc_28, %arg85, %alloc_73, %arg67, %alloc_79, %arg64, %alloc_53, %arg87, %alloc_20, %arg55, %alloc_76, %arg16, %alloc_49, %arg141, %alloc_78, %arg137, %alloc_58, %arg151, %alloc_16, %arg144, %alloc_54, %arg112, %alloc_51, %arg158, %alloc_68, %arg6, %alloc_38, %arg37, %alloc_83, %arg45, %alloc_59, %arg39, %alloc_46, %arg147, %alloc_17, %arg159, %alloc_70, %arg41, %alloc_74, %arg68, %alloc_8, %arg86, %alloc_7, %arg166, %alloc_39, %arg129, %alloc_14, %arg57, %alloc_47, %arg135, %alloc_19, %arg62, %alloc_18, %arg153, %alloc_37, %arg73, %alloc_13, %arg96, %alloc_40, %arg103, %alloc_48, %arg139, %alloc_0, %arg20, %alloc_21, %arg101, %alloc_69, %arg155, %alloc_36, %arg70, %alloc_32, %arg54, %alloc_45, %arg66, %alloc_15, %arg33, %alloc_34, %arg7, %alloc_4, %arg145, %alloc_77, %arg19, %alloc_65, %arg12, %alloc_27, %arg29, %alloc_10, %arg36, %alloc_5, %arg161, %alloc_84, %arg113, %alloc_82, %arg27, %alloc_33, %arg58, %alloc_6, %arg50, %alloc_81, %arg90, %alloc_66, %arg125, %alloc_64, %arg89, %alloc_75, %arg43, %alloc_56, %arg119, %alloc_22, %arg72, %alloc_67, %arg52, %alloc_2, %arg116, %alloc_85, %arg118, %alloc_63, %arg102, %alloc_29, %arg65, %alloc_35, %arg120, %alloc_24, %arg81, %alloc_3, %arg35, %alloc_25, %arg121, %alloc_31, %arg92, %alloc_80) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
+    call @send29_top(%arg100, %alloc_133, %arg61, %alloc_141, %arg78, %alloc_140, %arg142, %alloc_145, %arg71, %alloc_136, %arg76, %alloc_132, %arg105, %alloc_130, %arg128, %alloc_142, %arg130, %alloc_138, %arg146, %alloc_159, %arg49, %alloc_143, %arg127, %alloc_134, %arg152, %alloc_154, %arg115, %alloc_149, %arg156, %alloc_135, %arg131, %alloc_150, %arg117, %alloc_147, %arg94, %alloc_146, %arg48, %alloc_137, %arg124, %alloc_144, %arg25, %alloc_131, %arg82, %alloc_155, %arg46, %alloc_139, %arg109, %alloc_151, %arg114, %alloc_153, %arg126, %alloc_127, %arg10, %alloc_152, %arg110, %alloc_128, %arg163, %alloc_148, %arg160, %alloc_129, %arg136, %alloc_157, %arg32, %alloc_161) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
+    call @send39_top(%arg106, %alloc_123, %arg26, %alloc_87, %arg132, %alloc_102, %arg123, %alloc_88, %arg77, %alloc_116, %arg122, %alloc_103, %arg111, %alloc_119, %arg93, %alloc_91, %arg98, %alloc_94, %arg162, %alloc_114, %arg24, %alloc_156, %arg22, %alloc_113, %arg148, %alloc_109, %arg88, %alloc_112, %arg143, %alloc_124, %arg133, %alloc_120, %arg17, %alloc_160, %arg91, %alloc_98, %arg4, %alloc_105, %arg75, %alloc_107, %arg11, %alloc_89, %arg99, %alloc_108, %arg15, %alloc_106, %arg23, %alloc_101, %arg13, %alloc_92, %arg164, %alloc_90, %arg154, %alloc_162, %arg60, %alloc_158, %arg5, %alloc_117, %arg51, %alloc_115, %arg107, %alloc_97, %arg53, %alloc_126, %arg31, %alloc_122, %arg80, %alloc_95, %arg157, %alloc_118, %arg134, %alloc_111, %arg84, %alloc_93, %arg140, %alloc_104, %arg38, %alloc_110, %arg79, %alloc_96, %arg42, %alloc_100, %arg63, %alloc_121, %arg95, %alloc_99, %arg21, %alloc_125) : (memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">, memref<1xi128, "plio">, memref<1xi128, "stream">) -> ()
     call @store0_0_top(%alloc, %alloc_163, %alloc_0, %alloc_164, %alloc_1, %alloc_165, %alloc_2, %alloc_166, %alloc_3, %alloc_167, %alloc_4, %alloc_168, %alloc_5, %alloc_169, %alloc_6, %alloc_170, %alloc_7, %alloc_171, %alloc_8, %alloc_172, %alloc_9, %alloc_173, %alloc_10, %alloc_174, %alloc_11, %alloc_175, %alloc_12, %alloc_176, %alloc_13, %alloc_177, %alloc_14, %alloc_178, %alloc_15, %alloc_179, %alloc_16, %alloc_180, %alloc_17, %alloc_181, %alloc_18, %alloc_182, %alloc_19, %alloc_183, %alloc_20, %alloc_184, %alloc_21, %alloc_185, %alloc_22, %alloc_186, %alloc_23, %alloc_187, %alloc_24, %alloc_188, %alloc_25, %alloc_189, %alloc_26, %alloc_190, %alloc_27, %alloc_191, %alloc_28, %alloc_192, %alloc_29, %alloc_193, %alloc_30, %alloc_194, %alloc_31, %alloc_195, %alloc_32, %alloc_196, %alloc_33, %alloc_197, %alloc_34, %alloc_198, %alloc_35, %alloc_199, %alloc_36, %alloc_200, %alloc_37, %alloc_201, %alloc_38, %alloc_202, %alloc_39, %alloc_203, %alloc_40, %alloc_204, %alloc_41, %alloc_205, %alloc_42, %alloc_206, %alloc_43, %alloc_207, %alloc_44, %alloc_208, %alloc_45, %alloc_209, %alloc_46, %alloc_210, %alloc_47, %alloc_211, %alloc_48, %alloc_212, %alloc_49, %alloc_213, %alloc_50, %alloc_214, %alloc_51, %alloc_215, %alloc_52, %alloc_216, %alloc_53, %alloc_217, %alloc_54, %alloc_218, %alloc_55, %alloc_219, %alloc_56, %alloc_220, %alloc_57, %alloc_221, %alloc_58, %alloc_222, %alloc_59, %alloc_223, %alloc_60, %alloc_224, %alloc_61, %alloc_225, %alloc_62, %alloc_226, %alloc_63, %alloc_227, %alloc_64, %alloc_228, %alloc_65, %alloc_229, %alloc_66, %alloc_230, %alloc_67, %alloc_231, %alloc_68, %alloc_232, %alloc_69, %alloc_233, %alloc_70, %alloc_234, %alloc_71, %alloc_235, %alloc_72, %alloc_236, %alloc_73, %alloc_237, %alloc_74, %alloc_238, %alloc_75, %alloc_239, %alloc_76, %alloc_240, %alloc_77, %alloc_241, %alloc_78, %alloc_242, %alloc_79, %alloc_243, %alloc_80, %alloc_244, %alloc_81, %alloc_245, %alloc_82, %alloc_246, %alloc_83, %alloc_247, %alloc_84, %alloc_248, %alloc_85, %alloc_249, %alloc_86, %alloc_250) : (memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">) -> ()
-    call @store0_top(%arg2, %alloc_250, %alloc_204, %alloc_165, %alloc_188, %alloc_219, %alloc_205, %alloc_187, %alloc_177, %alloc_214, %alloc_171, %alloc_212, %alloc_231, %alloc_244, %alloc_242, %alloc_248, %alloc_189, %alloc_240, %alloc_236, %alloc_170, %alloc_207, %alloc_167, %alloc_218, %alloc_245, %alloc_246, %alloc_190, %alloc_220, %alloc_230, %alloc_203, %alloc_228, %alloc_226, %alloc_249, %alloc_175, %alloc_169, %alloc_247, %alloc_243, %alloc_215, %alloc_166, %alloc_201, %alloc_202, %alloc_191, %alloc_168, %alloc_224, %alloc_213, %alloc_232, %alloc_200, %alloc_194, %alloc_181, %alloc_174, %alloc_235, %alloc_210, %alloc_217, %alloc_179, %alloc_211, %alloc_164, %alloc_195, %alloc_233, %alloc_184, %alloc_193, %alloc_196, %alloc_221, %alloc_208, %alloc_192, %alloc_227, %alloc_199, %alloc_223, %alloc_185, %alloc_234, %alloc_180, %alloc_197, %alloc_163, %alloc_216, %alloc_206, %alloc_222, %alloc_198, %alloc_225, %alloc_176, %alloc_239, %alloc_183, %alloc_178, %alloc_182, %alloc_172, %alloc_229, %alloc_237, %alloc_238, %alloc_209, %alloc_186, %alloc_241, %alloc_173) : (memref<2816x192xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
-    call @load0_top(%arg0, %alloc_292, %alloc_284, %alloc_293, %alloc_275, %alloc_268, %alloc_258, %alloc_263, %alloc_266, %alloc_257, %alloc_286, %alloc_276, %alloc_260, %alloc_259, %alloc_279, %alloc_270, %alloc_294, %alloc_287, %alloc_265, %alloc_278, %alloc_283, %alloc_281, %alloc_280, %alloc_264, %alloc_291, %alloc_273, %alloc_271, %alloc_269, %alloc_290, %alloc_282, %alloc_262, %alloc_253, %alloc_289, %alloc_254, %alloc_277, %alloc_255, %alloc_288, %alloc_267, %alloc_261, %alloc_256, %alloc_272, %alloc_285, %alloc_274, %alloc_252, %alloc_251) : (memref<2816x512xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
+    call @store0_top(%arg2, %alloc_239, %alloc_165, %alloc_212, %alloc_183, %alloc_178, %alloc_248, %alloc_195, %alloc_163, %alloc_206, %alloc_222, %alloc_208, %alloc_207, %alloc_225, %alloc_177, %alloc_197, %alloc_194, %alloc_227, %alloc_184, %alloc_221, %alloc_196, %alloc_202, %alloc_193, %alloc_245, %alloc_210, %alloc_229, %alloc_231, %alloc_176, %alloc_167, %alloc_213, %alloc_185, %alloc_168, %alloc_238, %alloc_240, %alloc_192, %alloc_172, %alloc_249, %alloc_191, %alloc_217, %alloc_230, %alloc_179, %alloc_187, %alloc_186, %alloc_244, %alloc_201, %alloc_228, %alloc_224, %alloc_235, %alloc_236, %alloc_219, %alloc_200, %alloc_220, %alloc_214, %alloc_190, %alloc_226, %alloc_215, %alloc_198, %alloc_237, %alloc_241, %alloc_174, %alloc_205, %alloc_164, %alloc_233, %alloc_199, %alloc_223, %alloc_166, %alloc_189, %alloc_170, %alloc_216, %alloc_173, %alloc_243, %alloc_246, %alloc_204, %alloc_247, %alloc_188, %alloc_203, %alloc_180, %alloc_211, %alloc_218, %alloc_182, %alloc_171, %alloc_175, %alloc_169, %alloc_242, %alloc_250, %alloc_209, %alloc_232, %alloc_181, %alloc_234) : (memref<2816x192xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
+    call @load0_top(%arg0, %alloc_283, %alloc_270, %alloc_275, %alloc_289, %alloc_282, %alloc_266, %alloc_263, %alloc_279, %alloc_290, %alloc_257, %alloc_286, %alloc_291, %alloc_259, %alloc_293, %alloc_268, %alloc_281, %alloc_287, %alloc_288, %alloc_265, %alloc_278, %alloc_292, %alloc_271, %alloc_277, %alloc_261, %alloc_256, %alloc_262, %alloc_267, %alloc_274, %alloc_273, %alloc_280, %alloc_285, %alloc_269, %alloc_276, %alloc_294, %alloc_264, %alloc_258, %alloc_255, %alloc_260, %alloc_254, %alloc_253, %alloc_272, %alloc_252, %alloc_284, %alloc_251) : (memref<2816x512xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
     call @load0_43_top(%alloc_294, %alloc_162, %alloc_293, %alloc_160, %alloc_292, %alloc_158, %alloc_291, %alloc_156, %alloc_290, %alloc_126, %alloc_289, %alloc_125, %alloc_288, %alloc_124, %alloc_287, %alloc_123, %alloc_286, %alloc_122, %alloc_285, %alloc_121, %alloc_284, %alloc_120, %alloc_283, %alloc_119, %alloc_282, %alloc_118, %alloc_281, %alloc_117, %alloc_280, %alloc_116, %alloc_279, %alloc_115, %alloc_278, %alloc_114, %alloc_277, %alloc_113, %alloc_276, %alloc_112, %alloc_275, %alloc_111, %alloc_274, %alloc_110, %alloc_273, %alloc_109, %alloc_272, %alloc_108, %alloc_271, %alloc_107, %alloc_270, %alloc_106, %alloc_269, %alloc_105, %alloc_268, %alloc_104, %alloc_267, %alloc_103, %alloc_266, %alloc_102, %alloc_265, %alloc_101, %alloc_264, %alloc_100, %alloc_263, %alloc_99, %alloc_262, %alloc_98, %alloc_261, %alloc_97, %alloc_260, %alloc_96, %alloc_259, %alloc_95, %alloc_258, %alloc_94, %alloc_257, %alloc_93, %alloc_256, %alloc_92, %alloc_255, %alloc_91, %alloc_254, %alloc_90, %alloc_253, %alloc_89, %alloc_252, %alloc_88, %alloc_251, %alloc_87) : (memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">) -> ()
-    call @load1_top(%arg1, %alloc_321, %alloc_311, %alloc_314, %alloc_309, %alloc_302, %alloc_325, %alloc_296, %alloc_322, %alloc_307, %alloc_303, %alloc_313, %alloc_308, %alloc_295, %alloc_298, %alloc_310, %alloc_297, %alloc_318, %alloc_306, %alloc_316, %alloc_301, %alloc_312, %alloc_305, %alloc_299, %alloc_319, %alloc_320, %alloc_300, %alloc_323, %alloc_324, %alloc_317, %alloc_315, %alloc_326, %alloc_304) : (memref<8192x192xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
+    call @load1_top(%arg1, %alloc_324, %alloc_298, %alloc_322, %alloc_319, %alloc_306, %alloc_326, %alloc_296, %alloc_325, %alloc_300, %alloc_297, %alloc_316, %alloc_321, %alloc_323, %alloc_305, %alloc_301, %alloc_307, %alloc_317, %alloc_313, %alloc_302, %alloc_310, %alloc_309, %alloc_320, %alloc_304, %alloc_303, %alloc_311, %alloc_308, %alloc_318, %alloc_315, %alloc_314, %alloc_295, %alloc_299, %alloc_312) : (memref<8192x192xi512>, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">, memref<1xi512, "stream2">) -> ()
     call @load1_31_top(%alloc_326, %alloc_161, %alloc_325, %alloc_159, %alloc_324, %alloc_157, %alloc_323, %alloc_155, %alloc_322, %alloc_154, %alloc_321, %alloc_153, %alloc_320, %alloc_152, %alloc_319, %alloc_151, %alloc_318, %alloc_150, %alloc_317, %alloc_149, %alloc_316, %alloc_148, %alloc_315, %alloc_147, %alloc_314, %alloc_146, %alloc_313, %alloc_145, %alloc_312, %alloc_144, %alloc_311, %alloc_143, %alloc_310, %alloc_142, %alloc_309, %alloc_141, %alloc_308, %alloc_140, %alloc_307, %alloc_139, %alloc_306, %alloc_138, %alloc_305, %alloc_137, %alloc_304, %alloc_136, %alloc_303, %alloc_135, %alloc_302, %alloc_134, %alloc_301, %alloc_133, %alloc_300, %alloc_132, %alloc_299, %alloc_131, %alloc_298, %alloc_130, %alloc_297, %alloc_129, %alloc_296, %alloc_128, %alloc_295, %alloc_127) : (memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">, memref<1xi512, "stream2">, memref<1xi128, "stream">) -> ()
     return
   }
   func.func @gemm(%arg0: memref<2816x512xi512>, %arg1: memref<8192x192xi512>, %arg2: memref<2816x192xi512>, %arg3: memref<1xi128, "plio">, %arg4: memref<1xi128, "plio">, %arg5: memref<1xi128, "plio">, %arg6: memref<1xi128, "plio">, %arg7: memref<1xi128, "plio">, %arg8: memref<1xi128, "plio">, %arg9: memref<1xi128, "plio">, %arg10: memref<1xi128, "plio">, %arg11: memref<1xi128, "plio">, %arg12: memref<1xi128, "plio">, %arg13: memref<1xi128, "plio">, %arg14: memref<1xi128, "plio">, %arg15: memref<1xi128, "plio">, %arg16: memref<1xi128, "plio">, %arg17: memref<1xi128, "plio">, %arg18: memref<1xi128, "plio">, %arg19: memref<1xi128, "plio">, %arg20: memref<1xi128, "plio">, %arg21: memref<1xi128, "plio">, %arg22: memref<1xi128, "plio">, %arg23: memref<1xi128, "plio">, %arg24: memref<1xi128, "plio">, %arg25: memref<1xi128, "plio">, %arg26: memref<1xi128, "plio">, %arg27: memref<1xi128, "plio">, %arg28: memref<1xi128, "plio">, %arg29: memref<1xi128, "plio">, %arg30: memref<1xi128, "plio">, %arg31: memref<1xi128, "plio">, %arg32: memref<1xi128, "plio">, %arg33: memref<1xi128, "plio">, %arg34: memref<1xi128, "plio">, %arg35: memref<1xi128, "plio">, %arg36: memref<1xi128, "plio">, %arg37: memref<1xi128, "plio">, %arg38: memref<1xi128, "plio">, %arg39: memref<1xi128, "plio">, %arg40: memref<1xi128, "plio">, %arg41: memref<1xi128, "plio">, %arg42: memref<1xi128, "plio">, %arg43: memref<1xi128, "plio">, %arg44: memref<1xi128, "plio">, %arg45: memref<1xi128, "plio">, %arg46: memref<1xi128, "plio">, %arg47: memref<1xi128, "plio">, %arg48: memref<1xi128, "plio">, %arg49: memref<1xi128, "plio">, %arg50: memref<1xi128, "plio">, %arg51: memref<1xi128, "plio">, %arg52: memref<1xi128, "plio">, %arg53: memref<1xi128, "plio">, %arg54: memref<1xi128, "plio">, %arg55: memref<1xi128, "plio">, %arg56: memref<1xi128, "plio">, %arg57: memref<1xi128, "plio">, %arg58: memref<1xi128, "plio">, %arg59: memref<1xi128, "plio">, %arg60: memref<1xi128, "plio">, %arg61: memref<1xi128, "plio">, %arg62: memref<1xi128, "plio">, %arg63: memref<1xi128, "plio">, %arg64: memref<1xi128, "plio">, %arg65: memref<1xi128, "plio">, %arg66: memref<1xi128, "plio">, %arg67: memref<1xi128, "plio">, %arg68: memref<1xi128, "plio">, %arg69: memref<1xi128, "plio">, %arg70: memref<1xi128, "plio">, %arg71: memref<1xi128, "plio">, %arg72: memref<1xi128, "plio">, %arg73: memref<1xi128, "plio">, %arg74: memref<1xi128, "plio">, %arg75: memref<1xi128, "plio">, %arg76: memref<1xi128, "plio">, %arg77: memref<1xi128, "plio">, %arg78: memref<1xi128, "plio">, %arg79: memref<1xi128, "plio">, %arg80: memref<1xi128, "plio">, %arg81: memref<1xi128, "plio">, %arg82: memref<1xi128, "plio">, %arg83: memref<1xi128, "plio">, %arg84: memref<1xi128, "plio">, %arg85: memref<1xi128, "plio">, %arg86: memref<1xi128, "plio">, %arg87: memref<1xi128, "plio">, %arg88: memref<1xi128, "plio">, %arg89: memref<1xi128, "plio">, %arg90: memref<1xi128, "plio">, %arg91: memref<1xi128, "plio">, %arg92: memref<1xi128, "plio">, %arg93: memref<1xi128, "plio">, %arg94: memref<1xi128, "plio">, %arg95: memref<1xi128, "plio">, %arg96: memref<1xi128, "plio">, %arg97: memref<1xi128, "plio">, %arg98: memref<1xi128, "plio">, %arg99: memref<1xi128, "plio">, %arg100: memref<1xi128, "plio">, %arg101: memref<1xi128, "plio">, %arg102: memref<1xi128, "plio">, %arg103: memref<1xi128, "plio">, %arg104: memref<1xi128, "plio">, %arg105: memref<1xi128, "plio">, %arg106: memref<1xi128, "plio">, %arg107: memref<1xi128, "plio">, %arg108: memref<1xi128, "plio">, %arg109: memref<1xi128, "plio">, %arg110: memref<1xi128, "plio">, %arg111: memref<1xi128, "plio">, %arg112: memref<1xi128, "plio">, %arg113: memref<1xi128, "plio">, %arg114: memref<1xi128, "plio">, %arg115: memref<1xi128, "plio">, %arg116: memref<1xi128, "plio">, %arg117: memref<1xi128, "plio">, %arg118: memref<1xi128, "plio">, %arg119: memref<1xi128, "plio">, %arg120: memref<1xi128, "plio">, %arg121: memref<1xi128, "plio">, %arg122: memref<1xi128, "plio">, %arg123: memref<1xi128, "plio">, %arg124: memref<1xi128, "plio">, %arg125: memref<1xi128, "plio">, %arg126: memref<1xi128, "plio">, %arg127: memref<1xi128, "plio">, %arg128: memref<1xi128, "plio">, %arg129: memref<1xi128, "plio">, %arg130: memref<1xi128, "plio">, %arg131: memref<1xi128, "plio">, %arg132: memref<1xi128, "plio">, %arg133: memref<1xi128, "plio">, %arg134: memref<1xi128, "plio">, %arg135: memref<1xi128, "plio">, %arg136: memref<1xi128, "plio">, %arg137: memref<1xi128, "plio">, %arg138: memref<1xi128, "plio">, %arg139: memref<1xi128, "plio">, %arg140: memref<1xi128, "plio">, %arg141: memref<1xi128, "plio">, %arg142: memref<1xi128, "plio">, %arg143: memref<1xi128, "plio">, %arg144: memref<1xi128, "plio">, %arg145: memref<1xi128, "plio">, %arg146: memref<1xi128, "plio">, %arg147: memref<1xi128, "plio">, %arg148: memref<1xi128, "plio">, %arg149: memref<1xi128, "plio">, %arg150: memref<1xi128, "plio">, %arg151: memref<1xi128, "plio">, %arg152: memref<1xi128, "plio">, %arg153: memref<1xi128, "plio">, %arg154: memref<1xi128, "plio">, %arg155: memref<1xi128, "plio">, %arg156: memref<1xi128, "plio">, %arg157: memref<1xi128, "plio">, %arg158: memref<1xi128, "plio">, %arg159: memref<1xi128, "plio">, %arg160: memref<1xi128, "plio">, %arg161: memref<1xi128, "plio">, %arg162: memref<1xi128, "plio">, %arg163: memref<1xi128, "plio">, %arg164: memref<1xi128, "plio">, %arg165: memref<1xi128, "plio">, %arg166: memref<1xi128, "plio">) attributes {adf.func, plio = true} {
     %0 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%0, %arg142) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%0, %arg9) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %1 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%1, %arg139) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%1, %arg116) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %2 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%2, %arg153) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%2, %arg161) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %3 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%3, %arg53) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%3, %arg37) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %4 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%4, %arg24) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%4, %arg113) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %5 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%5, %arg137) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%5, %arg50) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %6 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%6, %arg136) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%6, %arg92) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %7 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%7, %arg98) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%7, %arg67) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %8 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg73, %8) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg26, %8) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %9 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg144, %9) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg123, %9) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %10 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg36, %10) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg11, %10) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %11 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg19, %11) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg164, %11) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %12 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%12, %arg33) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%12, %arg141) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %13 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%13, %arg34) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%13, %arg145) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %14 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%14, %arg103) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%14, %arg55) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %15 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%15, %arg52) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%15, %arg89) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %16 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%16, %arg141) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%16, %arg41) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %17 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%17, %arg76) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%17, %arg85) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %18 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%18, %arg61) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%18, %arg56) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %19 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%19, %arg41) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%19, %arg30) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %20 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg116, %20) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg93, %20) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %21 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg32, %21) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg13, %21) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %22 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg29, %22) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg84, %22) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %23 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg79, %23) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg98, %23) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %24 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%24, %arg50) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%24, %arg159) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %25 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%25, %arg3) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%25, %arg101) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %26 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%26, %arg40) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%26, %arg158) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %27 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%27, %arg112) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%27, %arg72) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %28 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%28, %arg151) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%28, %arg90) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %29 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%29, %arg67) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%29, %arg19) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %30 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%30, %arg129) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%30, %arg125) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %31 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%31, %arg55) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%31, %arg118) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %32 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg82, %32) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg80, %32) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %33 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg64, %33) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg79, %33) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %34 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg154, %34) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg107, %34) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %35 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg159, %35) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg91, %35) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %36 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%36, %arg152) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%36, %arg138) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %37 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%37, %arg106) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%37, %arg47) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %38 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%38, %arg45) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%38, %arg108) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %39 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%39, %arg96) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%39, %arg45) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %40 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%40, %arg132) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%40, %arg137) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %41 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%41, %arg68) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%41, %arg83) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %42 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%42, %arg162) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%42, %arg43) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %43 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%43, %arg126) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%43, %arg34) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %44 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg93, %44) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg95, %44) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %45 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg21, %45) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg42, %45) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %46 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg38, %46) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg23, %46) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %47 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg113, %47) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg132, %47) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %48 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%48, %arg90) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%48, %arg144) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %49 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%49, %arg59) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%49, %arg64) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %50 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%50, %arg109) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%50, %arg59) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %51 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%51, %arg7) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%51, %arg112) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %52 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%52, %arg46) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%52, %arg104) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %53 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%53, %arg118) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%53, %arg16) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %54 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%54, %arg20) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%54, %arg103) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %55 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%55, %arg9) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%55, %arg57) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %56 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg51, %56) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg122, %56) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %57 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg101, %57) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg140, %57) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %58 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg10, %58) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg4, %58) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %59 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg164, %59) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg15, %59) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %60 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%60, %arg92) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%60, %arg39) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %61 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%61, %arg102) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%61, %arg54) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %62 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%62, %arg78) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%62, %arg165) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %63 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%63, %arg166) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%63, %arg97) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %64 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%64, %arg140) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%64, %arg149) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %65 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%65, %arg71) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%65, %arg44) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %66 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%66, %arg120) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%66, %arg96) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %67 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%67, %arg8) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%67, %arg166) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %68 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg47, %68) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg75, %68) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %69 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg148, %69) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg99, %69) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %70 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg27, %70) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg148, %70) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %71 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg108, %71) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg38, %71) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %72 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%72, %arg39) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%72, %arg6) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %73 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%73, %arg69) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%73, %arg153) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %74 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%74, %arg43) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%74, %arg155) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %75 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%75, %arg156) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%75, %arg65) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %76 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%76, %arg84) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%76, %arg33) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %77 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%77, %arg6) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%77, %arg27) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %78 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%78, %arg99) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%78, %arg70) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %79 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%79, %arg65) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%79, %arg121) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %80 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg158, %80) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg134, %80) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %81 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg94, %81) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg88, %81) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %82 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg66, %82) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg22, %82) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %83 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg25, %83) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg162, %83) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %84 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%84, %arg125) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%84, %arg40) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %85 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%85, %arg146) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%85, %arg102) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %86 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%86, %arg57) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%86, %arg14) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %87 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%87, %arg74) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%87, %arg12) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %88 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%88, %arg49) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%88, %arg18) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %89 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%89, %arg105) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%89, %arg35) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %90 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%90, %arg30) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%90, %arg120) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %91 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%91, %arg95) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%91, %arg150) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %92 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg58, %92) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg51, %92) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %93 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg143, %93) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg77, %93) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %94 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg70, %94) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg5, %94) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %95 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg44, %95) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg157, %95) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %96 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%96, %arg60) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%96, %arg119) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %97 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%97, %arg97) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%97, %arg20) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %98 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%98, %arg134) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%98, %arg87) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %99 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%99, %arg161) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%99, %arg135) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %100 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%100, %arg18) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%100, %arg62) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %101 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%101, %arg11) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%101, %arg147) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %102 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%102, %arg72) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%102, %arg151) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %103 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%103, %arg135) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%103, %arg66) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %104 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg14, %104) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg111, %104) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %105 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg91, %105) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg133, %105) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %106 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg86, %106) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg63, %106) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %107 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg165, %107) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg31, %107) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %108 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%108, %arg147) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%108, %arg129) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %109 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%109, %arg124) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%109, %arg73) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %110 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%110, %arg104) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%110, %arg3) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %111 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%111, %arg42) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%111, %arg8) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %112 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%112, %arg22) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%112, %arg29) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %113 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%113, %arg37) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%113, %arg74) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %114 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%114, %arg121) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%114, %arg68) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %115 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%115, %arg63) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%115, %arg86) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %116 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg5, %116) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg106, %116) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %117 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg128, %117) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg143, %117) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %118 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg15, %118) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg21, %118) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %119 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg115, %119) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg53, %119) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %120 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%120, %arg145) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%120, %arg58) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %121 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg149, %121) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg126, %121) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %122 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg131, %122) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg110, %122) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %123 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg26, %123) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg160, %123) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %124 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg160, %124) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg105, %124) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %125 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%125, %arg107) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%125, %arg36) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %126 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg13, %126) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg25, %126) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %127 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg150, %127) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg76, %127) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %128 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg130, %128) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg100, %128) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %129 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg114, %129) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg127, %129) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %130 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%130, %arg17) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%130, %arg7) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %131 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg85, %131) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg156, %131) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %132 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg123, %132) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg71, %132) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %133 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg111, %133) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg48, %133) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %134 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg138, %134) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg130, %134) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %135 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%135, %arg48) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%135, %arg81) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %136 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg56, %136) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg46, %136) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %137 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg16, %137) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg78, %137) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %138 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg4, %138) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg61, %138) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %139 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg77, %139) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg128, %139) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %140 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%140, %arg119) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%140, %arg52) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %141 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg110, %141) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg49, %141) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %142 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg117, %142) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg124, %142) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %143 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg133, %143) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg142, %143) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %144 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg54, %144) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg94, %144) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %145 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%145, %arg163) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%145, %arg28) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %146 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg28, %146) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg117, %146) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %147 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg89, %147) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg163, %147) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %148 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg23, %148) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg115, %148) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %149 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg62, %149) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg131, %149) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %150 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%150, %arg88) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%150, %arg139) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %151 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg127, %151) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg109, %151) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %152 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg157, %152) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg10, %152) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %153 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg155, %153) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg114, %153) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %154 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg12, %154) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg152, %154) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %155 = adf.graph.io(PLIO) : !adf.plio<Out, 128>
-    adf.connect(%155, %arg31) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
+    adf.connect(%155, %arg69) {top_config} : (!adf.plio<Out, 128>, memref<1xi128, "plio">)
     %156 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg81, %156) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg82, %156) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %157 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg75, %157) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg24, %157) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %158 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg35, %158) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg136, %158) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %159 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg87, %159) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg60, %159) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %160 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg80, %160) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg146, %160) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %161 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg83, %161) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg17, %161) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %162 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg100, %162) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg32, %162) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     %163 = adf.graph.io(PLIO) : !adf.plio<In, 128>
-    adf.connect(%arg122, %163) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
+    adf.connect(%arg154, %163) {top_config} : (memref<1xi128, "plio">, !adf.plio<In, 128>)
     adf.cell.launch @adf_cell0 {
       func.call @adf_cell0(%163, %162, %161, %160, %159, %158, %157, %156, %155, %154, %153, %152, %151, %150, %149, %148, %147, %146, %145, %144, %143, %142, %141, %140, %139, %138, %137, %136, %135, %134, %133, %132, %131, %130, %129, %128, %127, %126, %125, %124, %123, %122, %121, %120, %119, %118, %117, %116, %115, %114, %113, %112, %111, %110, %109, %108, %107, %106, %105, %104, %103, %102, %101, %100, %99, %98, %97, %96, %95, %94, %93, %92, %91, %90, %89, %88, %87, %86, %85, %84, %83, %82, %81, %80, %79, %78, %77, %76, %75, %74, %73, %72, %71, %70, %69, %68, %67, %66, %65, %64, %63, %62, %61, %60, %59, %58, %57, %56, %55, %54, %53, %52, %51, %50, %49, %48, %47, %46, %45, %44, %43, %42, %41, %40, %39, %38, %37, %36, %35, %34, %33, %32, %31, %30, %29, %28, %27, %26, %25, %24, %23, %22, %21, %20, %19, %18, %17, %16, %15, %14, %13, %12, %11, %10, %9, %8, %7, %6, %5, %4, %3, %2, %1, %0) {adf.cell} : (!adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<In, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>, !adf.plio<Out, 128>) -> ()
       adf.cell.launch.end
