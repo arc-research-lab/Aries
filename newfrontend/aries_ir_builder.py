@@ -173,7 +173,7 @@ class MLIRGenerator(ast.NodeVisitor):
         # Process affine.for loop
         loop_var = node.target.id  # e.g., i0, j0, k0
         loop_Name = self.add_var_name(loop_var, loop_var)
-        loop_call = node.iter.func.id
+        loop_call = node.iter.func
         if len(node.iter.args) == 1 :
           loop_lb = 0
           loop_ub = node.iter.args[0].value
@@ -185,8 +185,8 @@ class MLIRGenerator(ast.NodeVisitor):
         self.indent += 2
         self.generic_visit(node)
         self.indent -= 2
-            
-        if loop_call == "reduction_range":
+        
+        if isinstance(loop_call, ast.Attribute) and loop_call.attr == "reduce_range":
             self.emit("}{reduction}")
         else:
             self.emit("}")
@@ -1070,7 +1070,7 @@ class TileToLoop(ast.NodeTransformer):
         for idx, (var, max_range) in enumerate(reversed(loop_vars.items())):
             loopId = len(loop_vars) -1 - idx
             if self.loopIds and loopId in self.loopIds:
-              idName = "reduction_range"
+              idName = "reduce_range"
             else:
               idName = "range"
             new_body = [ast.For(
@@ -1353,7 +1353,7 @@ class Schedule:
         tileTrans = TileToLoop(task.grid_dims, ids)
         tree = tileTrans.visit(parsed_ast)
         ast.fix_missing_locations(tree)
-        # print("Parsed New AST 0", ast.dump(tree, indent=4))
+        print("Parsed New AST 0", ast.dump(tree, indent=4))
         # print("\n\n\n=== Python AST 0 code ===")
         # print(astor.to_source(tree))
         
@@ -1379,6 +1379,7 @@ class Schedule:
         # print(func_code)
     
     def task_top_emit(self, parsed_ast):
+        return
         # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
         func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
         self.mlir_func_code.append(func_code)

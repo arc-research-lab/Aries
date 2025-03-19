@@ -8,6 +8,15 @@ class aries:
         return slice(start, stop, step)
 
     @staticmethod
+    def reduce_range(start, stop=None, step=1,):
+        """Create and return a range iterator with an optional attribute name."""
+        if stop is None:
+            start, stop = 0, start
+        # Create the range iterator
+        r = range(start, stop, step)    
+        return r
+        
+    @staticmethod
     def buffer(shape: Tuple[int, ...], dtype: str) -> Tensor:
         if isinstance(shape, int):
             shape = (shape,)
