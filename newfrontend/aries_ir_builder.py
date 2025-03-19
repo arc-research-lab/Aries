@@ -174,8 +174,12 @@ class MLIRGenerator(ast.NodeVisitor):
         loop_var = node.target.id  # e.g., i0, j0, k0
         loop_Name = self.add_var_name(loop_var, loop_var)
         loop_call = node.iter.func.id
-        loop_lb = node.iter.args[0].value 
-        loop_ub = node.iter.args[1].value 
+        if len(node.iter.args) == 1 :
+          loop_lb = 0
+          loop_ub = node.iter.args[0].value
+        else:
+          loop_lb = node.iter.args[0].value
+          loop_ub = node.iter.args[1].value
         self.emit(f"affine.for {loop_Name} = {loop_lb} to {loop_ub} {{")
 
         self.indent += 2
@@ -921,10 +925,8 @@ class HostCPPGenerator:
             self.emitNPUHost()
         return self.code
 
-class ConstantPropagation(ast.NodeTransformer):
-    """Propagate the global constant to the wrapper functions"""
-    def __init__(self, constants= {}):
-        self.constant_mapping = constants
+class FuncCollect(ast.NodeTransformer):
+    def __init__(self):
         self.funcs = []
         self.topFunc = None
     
@@ -934,15 +936,110 @@ class ConstantPropagation(ast.NodeTransformer):
             decorator_id = node.decorator_list[0].func.id
             if decorator_id in ('task_kernel', 'task_top', 'task_tile'):
                 self.funcs.append(node)
-                self.generic_visit(node) 
                 if decorator_id == 'task_top':
                     self.topFunc = node
 
+class ConstantPropagation(ast.NodeTransformer):
+    def __init__(self):
+        # Store constant values for propagation
+        self.constant_mapping = {}
+        # Worklist to process modified nodes iteratively
+        self.worklist = []
+        self.funcs = []
+        self.topFunc = None
+        
+    # def visit_FunctionDef(self, node):
+    #     # Assume there's only one decorator for each func
+    #     if node.decorator_list:
+    #         decorator_id = node.decorator_list[0].func.id
+    #         if decorator_id in ('task_kernel', 'task_top', 'task_tile'):
+    #             self.funcs.append(node)
+    #             self.generic_visit(node) 
+    #             if decorator_id == 'task_top':
+    #                 self.topFunc = node
+    
+    def _clear_targets(self, targets):
+      """Clear constants for modified targets."""
+      for target in targets:
+          if isinstance(target, ast.Name):
+              self.constant_mapping.pop(target.id, None)
+    
+    def visit_Assign(self, node):
+      """Process assignment and propagate constants."""
+      self.generic_visit(node)  # Visit child nodes
+      assert len(node.targets) == 1, f"Chained assignments are not supported, got {len(node.targets)}: {ast.dump(node)}"
+      # Handle multiple assignments: I, J, K = 64, 64, 64
+      if isinstance(node.value, (ast.Tuple, ast.List)):
+          target = node.targets[0]
+
+          # Check if target is a tuple or list of names
+          if isinstance(target, (ast.Tuple, ast.List)) and len(target.elts) == len(node.value.elts):
+              for idx, elt in enumerate(target.elts):
+                  if isinstance(elt, ast.Name) and isinstance(node.value.elts[idx], ast.Constant):
+                      # Propagate constants for tuple unpacking
+                      var_name = elt.id
+                      self.constant_mapping[var_name] = node.value.elts[idx]
+          else:
+              # Handle case where unpacking doesn't match or is invalid
+              self._clear_targets(node.targets)
+          return node
+
+      # Handle simple assignment: a = 5
+      if isinstance(node.value, ast.Constant) and isinstance(node.targets[0], ast.Name):
+          var_name = node.targets[0].id
+          self.constant_mapping[var_name] = node.value
+      else:
+          # Clear constants if assigned to non-constant or unknown type
+        self._clear_targets(node.targets)
+      return node
+
     def visit_Name(self, node):
-        # Replace variable names in constant_mapping with their corresponding values
-        if node.id in self.constant_mapping:
-            return ast.Constant(value=self.constant_mapping[node.id], kind=None)
+        """Replace variable with its constant value if available."""
+        if isinstance(node, ast.Name) and node.id in self.constant_mapping:
+            # Replace with constant if propagated value exists
+            return self.constant_mapping[node.id]
         return node
+
+    def visit_BinOp(self, node):
+        """Fold constant binary operations."""
+        self.generic_visit(node)  # Visit child nodes
+
+        # Check if both sides are constants
+        if isinstance(node.left, ast.Constant) and isinstance(node.right, ast.Constant):
+            folded_node = self._fold_constants(node)
+            if folded_node is not None:
+                return folded_node
+        return node
+
+    def _fold_constants(self, node):
+        """Perform constant folding of binary operations."""
+        try:
+            left_val = node.left.value
+            right_val = node.right.value
+            op_type = type(node.op)
+
+            # Evaluate the binary operation
+            if op_type == ast.Add:
+                result = left_val + right_val
+            elif op_type == ast.Sub:
+                result = left_val - right_val
+            elif op_type == ast.Mult:
+                result = left_val * right_val
+            elif op_type == ast.Div:
+                result = left_val / right_val
+            elif op_type == ast.Mod:
+                result = left_val % right_val
+            elif op_type == ast.Pow:
+                result = left_val ** right_val
+            elif op_type == ast.FloorDiv:
+                result = left_val // right_val
+            else:
+                return None
+
+            # Return a new Constant node with the result
+            return ast.Constant(value=result)
+        except Exception:
+            return None
 
 class TileToLoop(ast.NodeTransformer):
     """Transform tile ranks to loops"""
@@ -1198,16 +1295,16 @@ class Schedule:
         self.funName = ""
         self.device = ""
     
-    # A helper function to collect constant values given module
-    def collect_constant(self, module):
-        for name, value in vars(module).items():
-            if callable(value) and isinstance(value, (TaskKernelWrapper, TaskTileWrapper, TaskTopWrapper)):
-                break  # Stop once encountering a decorated function
+    # # A helper function to collect constant values given module
+    # def collect_constant(self, module):
+    #     for name, value in vars(module).items():
+    #         if callable(value) and isinstance(value, (TaskKernelWrapper, TaskTileWrapper, TaskTopWrapper)):
+    #             break  # Stop once encountering a decorated function
               
-            if (not callable(value)  # Exclude functions and methods
-                and not isinstance(value, (types.ModuleType, type))  # Exclude modules and classes
-                and isinstance(value, (int, float))):  # Include only primitive constants
-                self.constants[name] = value
+    #         if (not callable(value)  # Exclude functions and methods
+    #             and not isinstance(value, (types.ModuleType, type))  # Exclude modules and classes
+    #             and isinstance(value, (int, float))):  # Include only primitive constants
+    #             self.constants[name] = value
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -1223,16 +1320,25 @@ class Schedule:
             self.paraList = instance.paraList
         self.funName = instance.funcName
     
-    def constant_propagation(self, module):
-        """Propagate the global constant to the function_wappers"""
-        self.collect_constant(module) # Collect the constants
+    def preprocess(self, module):
+        """Propagate the global constant to the function_wappers and get the
+        function wappers"""
+        # self.collect_constant(module) # Collect the constants
+        # Perform constant folding
         source_code = inspect.getsource(module)
         parsed_ast = ast.parse(source_code)
-        ins_propagate = ConstantPropagation(self.constants)
+        ins_propagate = ConstantPropagation()
         tree = ins_propagate.visit(parsed_ast)
         ast.fix_missing_locations(tree)
-        self.funcs = ins_propagate.funcs
-        self.topFunc = ins_propagate.topFunc
+        # print("Parsed AST after constant folding", ast.dump(tree, indent=4))
+        # print(astor.to_source(tree))
+        
+        # Collect the function wrappers
+        ins_func = FuncCollect()
+        ins_func.visit(tree)
+        self.funcs = ins_func.funcs
+        self.topFunc = ins_func.topFunc
+        
     
     def task_tile_emit(self, func_name, parsed_ast):
         # print("Parsed New AST 0", ast.dump(parsed_ast, indent=4))
@@ -1412,7 +1518,7 @@ class Schedule:
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
         self.folder_create(sub_dir)
-        self.constant_propagation(module)
+        self.preprocess(module)
         self.code_emit(prj_dir)
         self.host_emit(sub_dir)
         self.genAriesMake(prj_dir, temp_dir)

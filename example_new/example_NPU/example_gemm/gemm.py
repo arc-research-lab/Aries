@@ -13,15 +13,16 @@ bi, bj, bk = TI//ii, TJ//ij, TK//ik
 
 @task_kernel(external_path="aie2/origin/kernel_mm/aie_int16", para = [TI, TJ, TK])
 def kernel_gemm(TileA: int16[TI, TK],
-                   TileB: int16[TK, TJ], 
-                   TileC: int16[TI, TJ]):
-    local_A = AriesWrapper(TileA).detranspose([ii,ik], [[1,ik,bk],[0,ii,bi]])
-    local_B = AriesWrapper(TileB).detranspose([ik,ij], [[1,ij,bj],[0,ik,bk]])
+                TileB: int16[TK, TJ], 
+                TileC: int16[TI, TJ]):
+    local_A = aries.detranspose(TileA, [ii,ik], [[1,ik,bk],[0,ii,bi]])
+    local_B = aries.detranspose(TileB, [ik,ij], [[1,ij,bj],[0,ik,bk]])
     for i0 in range(0, TI):
         for j0 in range(0, TJ):
             for k0 in range(0, TK):
                 TileC[i0, j0] += local_A[i0, k0] * local_B[k0, j0]
-    TileC = AriesWrapper(TileC).transpose([ii,ij], [[1,ij,bj],[0,ii,bi]])
+    tepmC = aries.transpose(TileC, [ii,ij], [[1,ij,bj],[0,ii,bi]])
+    np.copyto(TileC, tepmC)
 
 @task_tile(False)
 def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):

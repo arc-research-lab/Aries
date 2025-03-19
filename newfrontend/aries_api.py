@@ -14,28 +14,32 @@ class aries:
         return Tensor(shape, dtype)
     
     @staticmethod
-    def load(array, slices):
-        return AriesWrapper(array[slices])
+    def transpose(array, tile_shape=[], transpose_params=[]):
+        return AriesWrapper(array).transpose(tile_shape, transpose_params)
+
+    @staticmethod
+    def detranspose(array, tile_shape=[], transpose_params=[]):
+        return AriesWrapper(array).detranspose(tile_shape, transpose_params)
     
     @staticmethod
     def load(array, slices, tile_shape=[], transpose_params=[]):
         if not tile_shape and not transpose_params:
-            return AriesWrapper(array[slices])
+            return AriesWrapper(array[slices]).array
         elif tile_shape and transpose_params:
-            return AriesWrapper(array[slices]).transpose(tile_shape, transpose_params)
+            return aries.transpose(array[slices], tile_shape, transpose_params)
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
     
     @staticmethod
     def store(data, array, slices, tile_shape=[], transpose_params=[]):
         if not tile_shape and not transpose_params:
-            array[slices] = AriesWrapper(data)
+            array[slices] = AriesWrapper(data).array
         elif tile_shape and transpose_params:
-            transposed_data = AriesWrapper(data).detranspose(tile_shape, transpose_params)
+            transposed_data = aries.detranspose(data, tile_shape, transpose_params)
             array[slices] = transposed_data
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
-
+    
     @staticmethod
     def tile_ranks(**kwargs):
         ivs = kwargs.get('IVs')
