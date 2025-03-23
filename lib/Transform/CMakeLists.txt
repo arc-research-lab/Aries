@@ -28,6 +28,11 @@ add_mlir_library(MLIRAriesPasses
     Passes.cpp
     Utils.cpp
 
+    aries/AriesAffineUnroll.cpp
+    aries/AriesParallelReduction.cpp
+    aries/AriesLowerDMAToIO.cpp
+    aries/AriesIOPacking.cpp
+
     ADDITIONAL_HEADER_DIRS
     ${PROJECT_SOURCE_DIR}/include/aries
 

@@ -177,8 +177,17 @@ std::unique_ptr<Pass> createAriesKernelSplitPass();
 std::unique_ptr<Pass> createAriesFileSplitPass();
 std::unique_ptr<Pass> createAriesFileSplitPass(const AriesOptions &opts);
 
+// Passes for new release
+std::unique_ptr<Pass> createAriesAffineUnrollPass();
+std::unique_ptr<Pass> createAriesParallelReductionPass();
+std::unique_ptr<Pass> createAriesLowerDMAToIOPass();
+std::unique_ptr<Pass> createAriesLowerDMAToIOPass(const AriesOptions &opts);
+std::unique_ptr<Pass> createAriesIOPackingPass();
+std::unique_ptr<Pass> createAriesIOPackingPass(const AriesOptions &opts);
+
 void registerAriesPasses();
 void registerAriesPassPipeline();
+void registerAriesOptPipeline();
 
 #define GEN_PASS_CLASSES
 #include "aries/Transform/Passes.h.inc"
