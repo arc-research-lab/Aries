@@ -7,6 +7,7 @@
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
 #include "aries/Dialect/ADF/ADFDialect.h"
+#define DEBUG_TYPE "aries-kernel-interface-create"
 
 using namespace mlir;
 using namespace aries;

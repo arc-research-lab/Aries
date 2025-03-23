@@ -7,6 +7,7 @@
 #include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/Affine/Analysis/LoopAnalysis.h"
+#define DEBUG_TYPE "aries-func-unroll"
 
 using namespace mlir;
 using namespace aries;
@@ -38,7 +39,7 @@ private:
       if(!cellOp)
         return true;
       SmallVector<AffineForOp, 6> band;
-      getNestedLoopBand(cellOp.getBody(), band, true);
+      getPerfectNestedLoopBand(cellOp.getBody(), band, true);
       SmallVector<Attribute, 3> tripCountList;
       SmallVector<unsigned, 3> indexList; //Record loop with tripcount>1
       auto indexType = builder.getIndexType();

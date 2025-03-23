@@ -266,7 +266,10 @@ private:
           return WalkResult::interrupt();
         builder.setInsertionPoint(newOp);
         auto iopushOp = builder.create<IOPushOp>(loc, DmaSrc, src_offsets,
-                                                 src_sizes, src_strides, port);
+                                                 src_sizes, src_strides, 
+                                                 ValueRange(), ValueRange(), 
+                                                 ValueRange(), ValueRange(), 
+                                                 port);
         auto elementType = srcType.getElementType();
         auto elementTypeAttr = TypeAttr::get(elementType);
         iopushOp->setAttr("type", elementTypeAttr);
@@ -300,7 +303,9 @@ private:
           return WalkResult::interrupt();
         builder.setInsertionPointAfter(newOp);
         auto iopopOp = builder.create<IOPopOp>(loc, port, DmaDst, dst_offsets, 
-                                               dst_sizes, dst_strides);
+                                               dst_sizes, dst_strides,
+                                               ValueRange(), ValueRange(), 
+                                               ValueRange(), ValueRange());
         auto elementType = dstType.getElementType();
         auto elementTypeAttr = TypeAttr::get(elementType);
         iopopOp->setAttr("type", elementTypeAttr);
@@ -458,7 +463,8 @@ private:
       SmallVector<Value> src_strides=op.getSrcStrides();
       builder.setInsertionPoint(op);
       builder.create<IOPushOp>(loc, srcDMA, src_offsets, src_sizes, 
-                               src_strides, port);
+                               src_strides, ValueRange(), ValueRange(), 
+                               ValueRange(), ValueRange(), port);
       op.erase();
     }else if(srcSpace == (int)MemorySpace::L2 && !dstSpace){
       auto portOut = GMIOType::get(context, PortDir::Out);
@@ -478,7 +484,8 @@ private:
       SmallVector<Value> dst_strides=op.getDstStrides();
       builder.setInsertionPoint(op);
       builder.create<IOPopOp>(loc, port, dstDMA, dst_offsets, 
-                              dst_sizes, dst_strides);
+                              dst_sizes, dst_strides, ValueRange(), 
+                              ValueRange(), ValueRange(), ValueRange());
       op.erase();
     }
     return true;

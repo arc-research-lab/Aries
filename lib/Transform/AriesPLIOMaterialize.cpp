@@ -499,7 +499,9 @@ private:
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);
       auto pushOp = builder.create<IOPushOp>(loc, allocOp, IOOffsets, 
-                                             localSizes, localStrides, dst);
+                                             localSizes, localStrides, 
+                                             ValueRange(), ValueRange(), 
+                                             ValueRange(), ValueRange(), dst);
       pushOp->setAttr("type", attr);
     }else{
       // Create dma op to store data from L2 buffer to external mem
@@ -513,7 +515,9 @@ private:
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);
       auto popOp = builder.create<IOPopOp>(loc, src, allocOp, 
-                                           IOOffsets, localSizes, localStrides);
+                                           IOOffsets, localSizes, localStrides,
+                                           ValueRange(), ValueRange(), 
+                                           ValueRange(), ValueRange());
       popOp->setAttr("type", attr);
       // check if there is output buffer reuse and set an Attr
       if (loopIndices.size()!=band.size())

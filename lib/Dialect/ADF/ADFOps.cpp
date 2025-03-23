@@ -78,3 +78,24 @@ LogicalResult DmaOp::verify(){
     return emitOpError()<<"the rank of dst in DmaOp is less than 1";
   return success();
 }
+
+void CreateGraphIOOp::setGraphIOType(Type newType) {
+  auto currentType = getResult().getType();
+  if (currentType == newType) {
+    return;
+  }
+  OpBuilder builder(getContext());
+  builder.setInsertionPointAfter(*this);
+  CreateGraphIOOp newOp;
+  if(auto plio = dyn_cast<PLIOType>(newType)){
+    newOp = builder.create<CreateGraphIOOp>(getLoc(), plio, GraphIOName::PLIO);
+  }else if(auto gmio = dyn_cast<GMIOType>(newType)){
+    newOp = builder.create<CreateGraphIOOp>(getLoc(), gmio, GraphIOName::GMIO);
+  }else if(auto port = dyn_cast<PortType>(newType)){
+    newOp = builder.create<CreateGraphIOOp>(getLoc(), port, GraphIOName::PORT);
+  }else{
+    llvm::errs() << "Set to invalid graphio type\n";
+  }
+  getResult().replaceAllUsesWith(newOp.getResult());
+  this->erase();
+}

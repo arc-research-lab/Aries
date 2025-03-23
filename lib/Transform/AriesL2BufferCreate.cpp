@@ -36,40 +36,6 @@ public:
   }
 
 private:
-  // This function split one broadcast function to multiple broadcasts.
-  // This is to be align with both Vitis and MLIR-AIE backend
-  void splitBroadCast(OpBuilder builder, DmaBroadcastOp broadcast){
-    auto loc = builder.getUnknownLoc();
-    auto src = broadcast.getSrc();
-    auto dsts = broadcast.getDst();
-    auto srcOffsets = broadcast.getSrcOffsets();
-    auto srcSizes   = broadcast.getSrcSizes();
-    auto srcStrides = broadcast.getSrcStrides();
-    auto srcTiles   = broadcast.getSrcTiles();
-    auto srcDims    = broadcast.getSrcDims();
-    auto srcSteps   = broadcast.getSrcSteps();
-    auto srcWraps   = broadcast.getSrcWraps();
-    auto dstOffsets = broadcast.getDstOffsets();
-    auto dstSizes   = broadcast.getDstSizes();
-    auto dstStrides = broadcast.getDstStrides();
-    auto dstTiles   = broadcast.getDstTiles();
-    auto dstDims    = broadcast.getDstDims();
-    auto dstSteps   = broadcast.getDstSteps();
-    auto dstWraps   = broadcast.getDstWraps();
-    for(auto dst: dsts){
-      //auto defineOp = dst.getDefiningOp();
-      builder.setInsertionPointAfter(broadcast);
-      auto newDma = builder.create<DmaBroadcastOp>(loc, 
-                                    src, srcOffsets, srcSizes, srcStrides,
-                                    srcTiles, srcDims, srcSteps, srcWraps,
-                                    dst, dstOffsets, dstSizes, dstStrides,
-                                    dstTiles, dstDims, dstSteps, dstWraps);
-      if(broadcast->hasAttr("initialize"))
-        newDma->setAttr("initialize", builder.getUnitAttr());
-    }
-    broadcast.erase();
-  }
-
   bool L2BuffExtract(OpBuilder builder, Operation* op, 
           unsigned& loadIdx, unsigned& storeIdx, unsigned& cnt, 
           SmallVector<AffineForOp, 6>& band){
@@ -238,10 +204,18 @@ private:
     // Allocate L2 buffer before the outer point loop
     builder.setInsertionPoint(outerloop);
     auto bufName = "L2_buf" + std::to_string(cnt++);
-    auto allocOp 
-         = builder.create<BufferOp>(loc, MemRefType::get(bufSizes,
+    Value allocRes;
+    if(EnablePL){
+      auto allocOp = builder.create<AllocOp>(loc, MemRefType::get(bufSizes,
+                                        srcType.getElementType(), AffineMap(),
+                                        (int)MemorySpace::L2));
+      allocRes= allocOp.getResult();
+    }else{
+      auto allocOp = builder.create<BufferOp>(loc, MemRefType::get(bufSizes,
                                     srcType.getElementType(), AffineMap(),
-                                   (int)MemorySpace::L2), bufName);
+                                    (int)MemorySpace::L2), bufName);
+      allocRes= allocOp.getResult();
+    }
     // Create L2 Stride = 1
     auto indexType = builder.getIndexType();
     auto zeroAttr = builder.getIntegerAttr(indexType, 0);
@@ -338,18 +312,29 @@ private:
       auto oldDma = builder.create<DmaOp>(loc, 
                         src, srcOffsets, srcSizes, srcStrides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange(),
-                        allocOp, newL2Applys, srcSizes, L2Strides,
+                        allocRes, newL2Applys, srcSizes, L2Strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
-      for(auto dst: dsts){
-        //auto defineOp = dst.getDefiningOp();
+      if(EnablePL){
         builder.setInsertionPointAfter(op);
         auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
-                        allocOp, oriL2Applys, srcSizes, L2StridesL1,
+                        allocRes, oriL2Applys, srcSizes, L2StridesL1,
                         srcTiles, srcDims, srcSteps, srcWraps,
-                        dst, dstOffsets, dstSizes, dstStrides,
+                        dsts, dstOffsets, dstSizes, dstStrides,
                         dstTiles, dstDims, dstSteps, dstWraps);
         if(op->hasAttr("initialize"))
           newBroadCast->setAttr("initialize", builder.getUnitAttr());
+      }else{
+        for(auto dst: dsts){
+          //auto defineOp = dst.getDefiningOp();
+          builder.setInsertionPointAfter(op);
+          auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
+                          allocRes, oriL2Applys, srcSizes, L2StridesL1,
+                          srcTiles, srcDims, srcSteps, srcWraps,
+                          dst, dstOffsets, dstSizes, dstStrides,
+                          dstTiles, dstDims, dstSteps, dstWraps);
+          if(op->hasAttr("initialize"))
+            newBroadCast->setAttr("initialize", builder.getUnitAttr());
+        }
       }
       auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
       newOuterDMALoop->setAttr("load", loadAttr);
@@ -363,11 +348,11 @@ private:
         auto oldDma = builder.create<DmaOp>(loc, 
                         src, srcOffsets, srcSizes, srcStrides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange(),
-                        allocOp, newL2Applys, srcSizes, L2Strides,
+                        allocRes, newL2Applys, srcSizes, L2Strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
         builder.setInsertionPoint(op);
         auto newDma = builder.create<DmaOp>(loc, 
-                        allocOp, oriL2Applys, srcSizes, L2StridesL1,
+                        allocRes, oriL2Applys, srcSizes, L2StridesL1,
                         srcTiles, srcDims, srcSteps, srcWraps,
                         dst, dstOffsets, dstSizes, dstStrides,
                         dstTiles, dstDims, dstSteps, dstWraps);
@@ -378,19 +363,22 @@ private:
           newDma->setAttr("initialize", builder.getUnitAttr());
           newOuterDMALoop->setAttr("initialize", builder.getUnitAttr());
         }
-      }else{ // Create L1 -> L2 DmaOp, L2 -> L3 DamOp
+      }else{ // Create L2 -> L3 DamOp, L1 -> L2 DmaOp
         builder.setInsertionPoint(newInnerDMAYiled);
-        builder.create<DmaOp>(loc, allocOp, newL2Applys, dstSizes, L2Strides,
+        builder.create<DmaOp>(loc, allocRes, newL2Applys, dstSizes, L2Strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange(),
                         dst, dstOffsets, dstSizes, dstStrides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
         builder.setInsertionPoint(op);
-        builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, srcStrides,
-                        srcTiles, srcDims, srcSteps, srcWraps,
-                        allocOp, oriL2Applys, dstSizes, L2StridesL1,
+        auto dma = builder.create<DmaOp>(loc, src, srcOffsets, srcSizes, 
+                        srcStrides, srcTiles, srcDims, srcSteps, srcWraps,
+                        allocRes, oriL2Applys, dstSizes, L2StridesL1,
                         dstTiles, dstDims, dstSteps, dstWraps);
         auto storeAttr = builder.getIntegerAttr(indexType, storeIdx++);
         newOuterDMALoop->setAttr("store", storeAttr);
+        auto dmaOp = dyn_cast<DmaOp>(op);
+        if(dmaOp->hasAttr("accumulator"))
+          dma->setAttr("accumulator",builder.getUnitAttr());
       }
     }
     // Replace the loop variant in newInnerDMALoop
