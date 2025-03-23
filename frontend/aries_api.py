@@ -22,6 +22,15 @@ class aries:
             shape = (shape,)
         return Tensor(shape, dtype)
     
+    
+    # Nothing different than buffer in the frontend, but will provide more info
+    # in the backend to hint the compiler reduction might be needed
+    @staticmethod
+    def accbuffer(shape: Tuple[int, ...], dtype: str) -> Tensor:
+        if isinstance(shape, int):
+            shape = (shape,)
+        return Tensor(shape, dtype)
+    
     @staticmethod
     def transpose(array, tile_shape=[], transpose_params=[]):
         return AriesWrapper(array).transpose(tile_shape, transpose_params)
@@ -46,6 +55,17 @@ class aries:
         elif tile_shape and transpose_params:
             transposed_data = aries.detranspose(data, tile_shape, transpose_params)
             array[slices] = transposed_data
+        else:
+            raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
+    
+    # Similar to store, but data will be loaded and add to array
+    @staticmethod
+    def accstore(data, array, slices, tile_shape=[], transpose_params=[]):
+        if not tile_shape and not transpose_params:
+            array[slices] += AriesWrapper(data).array
+        elif tile_shape and transpose_params:
+            transposed_data = aries.detranspose(data, tile_shape, transpose_params)
+            array[slices] += transposed_data
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
     
