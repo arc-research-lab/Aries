@@ -507,9 +507,9 @@ private:
       // Create dma op to store data from L2 buffer to external mem
       // Replace IOPop: Receive data from L1 buffer to L2 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
-      auto dmaOp = builder.create<DmaOp>(loc,allocOp, localOffsets, localSizes,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange(), 
-                        localStrides, dst, offsets, sizes, strides,
+      auto dmaOp = builder.create<DmaOp>(loc, allocOp, localOffsets, localSizes,
+                        localStrides, ValueRange(), ValueRange(), ValueRange(), 
+                        ValueRange(), dst, offsets, sizes, strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       auto attr = iopopOp->getAttr("type");
       dmaOp->setAttr("type", attr);
@@ -1390,6 +1390,7 @@ private:
       llvm::errs() << "Alloc L2 buffer failed\n";
       return false;
     }
+    return true;
     // Tranverse the IOPushOps/IOPopOps and convert them to affine load/store
     if(!ConvertIODMAToAffine(builder, plFunc, plForOp))
       return false;
