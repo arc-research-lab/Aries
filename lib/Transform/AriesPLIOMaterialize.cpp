@@ -1390,7 +1390,7 @@ private:
       llvm::errs() << "Alloc L2 buffer failed\n";
       return false;
     }
-    return true;
+    
     // Tranverse the IOPushOps/IOPopOps and convert them to affine load/store
     if(!ConvertIODMAToAffine(builder, plFunc, plForOp))
       return false;
