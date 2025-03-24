@@ -357,6 +357,28 @@ def AriesLowerDMAToIO : Pass<"aries-lower-dma-to-io"> {
   ];
 }
 
+def AriesPLFuncExtract : Pass<"aries-pl-func-extract"> {
+  let summary = "Create PL function";
+  let description = [{
+    This pass extracts the DMA logics in the PL side.
+  }];
+  let constructor = "mlir::aries::createAriesPLFuncExtractPass()";
+}
+
+def AriesPLBufferExtract : Pass<"aries-pl-buffer-extract"> {
+  let summary = "Create L2 buffer on the PL side";
+  let description = [{
+    This pass extracts the L2 buffer on the PL side.
+  }];
+  let constructor = "mlir::aries::createAriesPLBufferExtractPass()";
+  let dependentDialects = ["mlir::memref::MemRefDialect"];
+  let options = [
+    ListOption<"BuffSels", "buf-sels", "unsigned",
+               "Specify a list of buffer selection 1:BRAM, 0:URAM",
+               "llvm::cl::ZeroOrMore">
+  ];
+}
+
 def AriesIOPacking : Pass<"aries-io-packing"> {
   let summary = "Packing AIE IO to specified width";
   let description = [{

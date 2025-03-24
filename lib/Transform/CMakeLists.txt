@@ -31,6 +31,8 @@ add_mlir_library(MLIRAriesPasses
     aries/AriesAffineUnroll.cpp
     aries/AriesParallelReduction.cpp
     aries/AriesLowerDMAToIO.cpp
+    aries/AriesPLFuncExtract.cpp
+    aries/AriesPLBufferExtract.cpp
     aries/AriesIOPacking.cpp
 
     ADDITIONAL_HEADER_DIRS

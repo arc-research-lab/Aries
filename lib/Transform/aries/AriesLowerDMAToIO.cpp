@@ -290,9 +290,11 @@ private:
         builder.setInsertionPoint(op);
         auto newOp = builder.create<ConnectOp>(loc, dmaSrc, port);
         builder.setInsertionPointAfter(newOp);
-        builder.create<IOPopOp>(loc, port, dmaDst, dst_offsets, dst_sizes, 
-                                dst_strides, dst_tiles, dst_dims, 
-                                dst_steps, dst_wraps);
+        auto IOPop = builder.create<IOPopOp>(loc, port, dmaDst, dst_offsets, 
+                                             dst_sizes, dst_strides, dst_tiles, 
+                                             dst_dims, dst_steps, dst_wraps);
+        if(op->hasAttr("accumulator"))
+          IOPop->setAttr("accumulator", builder.getUnitAttr());
       }else if(srcSpace == (int)MemorySpace::L1 && 
                dstSpace == (int)MemorySpace::L1){
         builder.setInsertionPoint(op);
