@@ -185,6 +185,7 @@ std::unique_ptr<Pass> createAriesLowerDMAToIOPass(const AriesOptions &opts);
 std::unique_ptr<Pass> createAriesPLFuncExtractPass();
 std::unique_ptr<Pass> createAriesPLBufferExtractPass();
 std::unique_ptr<Pass> createAriesPLBufferExtractPass(const AriesOptions &opts);
+std::unique_ptr<Pass> createAriesPLDMAToAffinePass();
 std::unique_ptr<Pass> createAriesIOPackingPass();
 std::unique_ptr<Pass> createAriesIOPackingPass(const AriesOptions &opts);
 

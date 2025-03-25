@@ -379,6 +379,17 @@ def AriesPLBufferExtract : Pass<"aries-pl-buffer-extract"> {
   ];
 }
 
+def AriesPLDMAToAffine : Pass<"aries-pl-dma-to-affine"> {
+  let summary = "Materialize IOPush/IOPop and DMAOp in PL to affine load/store";
+  let description = [{
+    This pass materializes IOPush/IOPop and DMAOp in PL to affine for loops and
+    load/store operations.
+  }];
+  let constructor = "mlir::aries::createAriesPLDMAToAffinePass()";
+  let dependentDialects = ["mlir::memref::MemRefDialect"];
+}
+
+
 def AriesIOPacking : Pass<"aries-io-packing"> {
   let summary = "Packing AIE IO to specified width";
   let description = [{
