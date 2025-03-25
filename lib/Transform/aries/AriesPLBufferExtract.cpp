@@ -166,6 +166,8 @@ private:
     }
   }
 
+  // TODO:: Currently DMA only support hyper-recutangular data slicing
+  // Now assume each affineApply Op is only constructed by one loop
   WalkResult IOProcesses(OpBuilder builder, FuncOp plFunc, Operation* op, 
                          SmallVector<AffineForOp, 6> band, 
                          unsigned& loadIdx, unsigned& storeIdx, 
@@ -203,7 +205,6 @@ private:
     // The size of the L2 buffer = loop tripcount  * L1 size
     auto outerloop = band[0];
     SmallVector<int64_t, 4> bufSizes; // Record the size of the L2 buffer
-    // TODO:: Currently DMA only support hyper-recutangular data slicing
     // Now assume each affineApply Op is only constructed by one loop
     SmallVector<unsigned, 4> loopIndices;
     // Record the original applyOps of offset
@@ -337,6 +338,7 @@ private:
       auto loadAttr = builder.getIntegerAttr(indexType, index);
       auto sendAttr = builder.getIntegerAttr(indexType, sendIdx++);
       newOuterDMALoop->setAttr("load", loadAttr);
+      newOuterDMALoop->setAttr("send", sendAttr);
       newOuterIOLoop->setAttr("send", sendAttr);
     }else{
       auto it 
@@ -354,6 +356,9 @@ private:
       auto storeAttr = builder.getIntegerAttr(indexType, index);
       auto receiveAttr = builder.getIntegerAttr(indexType, receiveIdx++);
       newOuterDMALoop->setAttr("store", storeAttr);
+      newOuterDMALoop->setAttr("receive", receiveAttr);
+      if(auto redAttr = op->getAttr("reduction"))
+        newOuterDMALoop->setAttr("reduction", redAttr);
       newOuterIOLoop->setAttr("receive", receiveAttr);
     }
     // Clone and create AffineApplyOps for L3 and L2 memory respectively

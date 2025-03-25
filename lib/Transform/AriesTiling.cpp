@@ -143,6 +143,94 @@ private:
     topFunc->setAttr("outArgs",outAttrs);
   }
 
+  // This is a helper function to add or update attribute to an operation
+  void addUpdateAtr(Operation *op, StringRef attrName, int64_t newValue){
+    auto *context = op->getContext();
+    Builder builder(context);
+
+    auto attr = op->getAttr(attrName);
+    if(!attr){
+      SmallVector<Attribute, 1> values = {builder.getI64IntegerAttr(newValue)};
+      op->setAttr(attrName, builder.getArrayAttr(values));
+      return;
+    }
+
+    // If it's an IntegerAttr, convert it to an ArrayAttr 
+    // with the old value and new value
+    if (auto intAttr = dyn_cast<IntegerAttr>(attr)) {
+      // Create an array with the existing integer and the new value
+      SmallVector<Attribute, 4> values;
+      values.push_back(intAttr);
+      values.push_back(builder.getI64IntegerAttr(newValue));
+      // Create and set the new ArrayAttr
+      op->setAttr(attrName, builder.getArrayAttr(values));
+    }else if(auto arrayAttr = dyn_cast<ArrayAttr>(attr)) {
+      // If it's already an ArrayAttr, append the new value if it's not present
+      SmallVector<Attribute, 4> values(arrayAttr.begin(), arrayAttr.end());
+      // Check if the value is already present
+      for (auto val : values) {
+        if (auto intVal = dyn_cast<IntegerAttr>(val)) {
+          if (intVal.getInt() == newValue)
+            return;
+        }
+      }
+      // Append the new value and set the updated ArrayAttr
+      values.push_back(builder.getI64IntegerAttr(newValue));
+      op->setAttr(attrName, builder.getArrayAttr(values));
+    }
+  }
+
+  // Annotate the reduction loops
+  // Now only consider hyper-rectangular access
+  // For accumulator dmas, mark the loops that are not involved as reduction
+  // Record the reduction in dmaOp as well
+  void reductionAnnotate(OpBuilder builder, SmallVector<AffineForOp, 6> band){
+    auto outerLoop = band[0];
+    unsigned redCnt = 0;
+    outerLoop.walk([&](DmaOp dmaOp){
+      if(!dmaOp->hasAttr("accumulator"))
+        return WalkResult::advance();
+      // Record the index of ivs that defines the offset
+      llvm::DenseSet<unsigned> ivIds;
+      auto offsets = dmaOp.getDstOffsets();
+      for(auto offset: offsets){
+        auto defineOp = offset.getDefiningOp();
+        if(!defineOp || !dyn_cast<AffineApplyOp>(defineOp))
+          continue;
+        auto applyOp = dyn_cast<AffineApplyOp>(defineOp);
+        for(auto operand: applyOp.getOperands()){
+          auto loop = getForInductionVarOwner(operand);
+          if(!loop)
+            llvm::errs() << "Find offset not defined by loop ivs\n";
+          auto itLoop = llvm::find(band, loop);
+          if(itLoop==band.end())
+            llvm::errs() << "Find reduction loop not in the band\n";
+          auto pos = std::distance(band.begin(), itLoop); 
+          if(ivIds.contains(pos))
+            continue;
+          ivIds.insert(pos);
+        }
+      }
+      // Find the unused loops and mark with reduction
+      for(unsigned i=0; i< band.size(); i++){
+        if(ivIds.contains(i))
+          continue;
+        auto loop = band[i];
+        if(auto attr = loop->getAttr("reduction")){
+          if(auto intAttr = dyn_cast<IntegerAttr>(attr)){
+            auto intVal = intAttr.getInt();
+            addUpdateAtr(dmaOp, "reduction", intVal);
+            continue;
+          }
+        }
+        auto intAttr = builder.getI64IntegerAttr(redCnt);
+        loop->setAttr("reduction", intAttr);
+        addUpdateAtr(dmaOp, "reduction", redCnt++);
+      }
+      return WalkResult::advance();
+    });
+  }
+
   // Clone the original functions for host emission
   void preprocess(ModuleOp mod, OpBuilder builder, FuncOp topFunc){
     auto loc = builder.getUnknownLoc();
@@ -198,16 +286,19 @@ private:
       return true;
     outAnnotate(builder, topFunc, func);
     preprocess(mod, builder, topFunc);
-
+    
     // Tile the functions specified in the command line.
     SmallVector<AffineForOp, 6> band;
     getPerfectNestedLoopBand(func.getBody(), band);
+    reductionAnnotate(builder, band);
     auto bandSize = band.size();
     SmallVector<unsigned ,6> redIndeices;
+    SmallVector<Attribute, 6> redAttrs;
     for(unsigned i=0; i < bandSize; i++){
       auto loop = band[i];
       if(loop->hasAttr("reduction")){
         redIndeices.push_back(i);
+        redAttrs.push_back(loop->getAttr("reduction"));
       }
     }
     // Set the default tiling fatctor
@@ -238,9 +329,11 @@ private:
         return false;
       L2tileBand[bandSize-1]->setAttr("Array_Partition", builder.getUnitAttr());
       // Mark L2 reduction loops
-      for(auto idx : redIndeices){
-        L2tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-        L2tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L2tileBand[idx]->setAttr("reduction", attr);
+        L2tileBand[idx+bandSize]->setAttr("reduction", attr);
       }
       //Noralize L2 loops
       for(unsigned i =0; i < L2tileBand.size(); i++){
@@ -255,8 +348,11 @@ private:
           return false;
       }
       // Mark L1 inner bands
-      for(auto idx : redIndeices)
-        L1tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L1tileBand[idx+bandSize]->setAttr("reduction", attr);
+      }
     }else{
       //Noralize L1 bands
       for(unsigned i = 0; i < L1tileBand.size(); i++){
@@ -265,9 +361,11 @@ private:
           return false;
       }
       // Mark L1 reduction loops
-      for(auto idx : redIndeices){
-        L1tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-        L1tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L1tileBand[idx]->setAttr("reduction", attr);
+        L1tileBand[idx+bandSize]->setAttr("reduction", attr);
       }
     }
     PassManager pm(&getContext());

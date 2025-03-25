@@ -295,6 +295,8 @@ private:
                                              dst_dims, dst_steps, dst_wraps);
         if(op->hasAttr("accumulator"))
           IOPop->setAttr("accumulator", builder.getUnitAttr());
+        if(auto redAttr = op->getAttr("reduction"))
+          IOPop->setAttr("reduction", redAttr);
       }else if(srcSpace == (int)MemorySpace::L1 && 
                dstSpace == (int)MemorySpace::L1){
         builder.setInsertionPoint(op);
