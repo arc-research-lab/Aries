@@ -162,7 +162,6 @@ private:
       else
         bufferType = "bram_s2p";
       allocOp->setAttr("buffer_type", builder.getStringAttr(bufferType));
-      allocOp->setAttr("init", builder.getUnitAttr());
     }
   }
 
@@ -428,8 +427,12 @@ private:
       builder.setInsertionPoint(newInnerIOYiled);
       auto popOp = builder.create<IOPopOp>(loc, src, allocOp, L2L1Applys, sizes, 
                                           L2Strides, tiles, dims, steps, wraps);
-      if(op->hasAttr("accumulator"))
+      if(op->hasAttr("accumulator")){
+        // Mark accumulator to hint need to accumulate to the same buffer
         popOp->setAttr("accumulator", builder.getUnitAttr());
+        // For accumulator need to mark init to hint zero initialization
+        allocOp->setAttr("init", builder.getUnitAttr());
+      }
       auto attr = iopopOp->getAttr("type");
       dmaOp->setAttr("type", attr);
       popOp->setAttr("type", attr);

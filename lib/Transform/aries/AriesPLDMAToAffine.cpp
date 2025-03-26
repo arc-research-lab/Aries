@@ -20,6 +20,7 @@ using namespace aries;
 using namespace adf;
 using namespace mlir::func;
 using namespace mlir::memref;
+using namespace mlir::arith;
 
 namespace {
 
@@ -37,6 +38,8 @@ public:
     if (failed(pm.run(mod)))
       signalPassFailure();
     if (!PLDMAToAffine(mod))
+      signalPassFailure();
+    if (failed(pm.run(mod)))
       signalPassFailure();
   }
 
@@ -139,13 +142,54 @@ private:
       auto result = builder.create<IOReadOp>(loc, elementType, src);
       // Need to do reduction meaning load data from IO sum and store back to L2
       if(op->hasAttr("accumulator")){
+        // Check the original type and handle reduction properly
         auto loadOp = builder.create<AffineLoadOp>(loc, dst, newApplyopIOs);
-        Value addOp;
-        if (isa<FloatType>(elementType))
-          addOp = builder.create<arith::AddFOp>(loc, loadOp, result);
-        else
-          addOp = builder.create<arith::AddIOp>(loc, loadOp, result);
-        builder.create<AffineStoreOp>(loc, addOp, dst, newApplyopIOs);
+        auto typeAttr = dyn_cast<TypeAttr>(iopopOp->getAttr("type"));
+        auto originType = typeAttr.getValue();
+        auto originWidth = originType.getIntOrFloatBitWidth();
+        auto newType = builder.getIntegerType(originWidth);
+        auto width = type.getElementTypeBitWidth();
+        auto splitNum = (unsigned)(width/originWidth);
+        if(splitNum==1){
+          Value addOp;
+          if (isa<FloatType>(elementType))
+            addOp = builder.create<arith::AddFOp>(loc, loadOp, result);
+          else
+            addOp = builder.create<arith::AddIOp>(loc, loadOp, result);
+          builder.create<AffineStoreOp>(loc, addOp, dst, newApplyopIOs);
+        }else{
+          auto castL = builder.create<IntToAPInt>(loc, elementType, result);
+          auto castR = builder.create<IntToAPInt>(loc, elementType, loadOp);
+          auto zeroAttr = builder.getIntegerAttr(elementType, 0);
+          auto zeroVal
+               = builder.create<arith::ConstantOp>(loc, elementType, zeroAttr);
+          auto temp = builder.create<IntToAPInt>(loc, elementType, zeroVal);
+          for (unsigned i = 0; i < splitNum; i++){
+            auto hiAttr = builder.getIntegerAttr(idxType,originWidth*(i+1)-1);
+            auto hiVal= builder.create<arith::ConstantOp>(loc,idxType,hiAttr);
+            auto loAttr = builder.getIntegerAttr(idxType,originWidth*i);
+            auto loVal= builder.create<arith::ConstantOp>(loc,idxType,loAttr);
+            auto sliceL = builder.create<GetIntSliceOp>(loc, newType, castL,
+                                                        hiVal, loVal);
+            auto sliceR = builder.create<GetIntSliceOp>(loc, newType, castR,
+                                                        hiVal, loVal);
+            if(auto floatType = dyn_cast<FloatType>(originType)){                                       
+              auto castlhs = builder.create<BitcastOp>(loc, floatType, sliceL);                                            
+              auto castrhs = builder.create<BitcastOp>(loc, floatType, sliceR);
+              auto addOp = builder.create<arith::AddFOp>(loc, castlhs, castrhs);
+              auto castout = builder.create<BitcastOp>(loc, newType, addOp);
+              builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, castout);
+            }else if(auto intType = dyn_cast<IntegerType>(originType)){
+              auto addOp = builder.create<arith::AddIOp>(loc, sliceL, sliceR);
+              builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, addOp);
+            }else{
+              llvm::errs() << "Find IOPop marked by non-float/int type\n";
+              return WalkResult::interrupt();
+            }
+          }
+          auto castO = builder.create<APIntToInt>(loc, elementType, temp);
+          builder.create<AffineStoreOp>(loc, castO, dst, newApplyopIOs);
+        }
       }else{
         builder.create<AffineStoreOp>(loc, result, dst, newApplyopIOs);
       }
@@ -613,8 +657,7 @@ private:
         val = storeOp.getValueToStore();
         indices = storeOp.getIndices();
         load_flag = true;
-      }
-      else{
+      }else{
         loadOp = getFirstOpOfType<AffineLoadOp>(innerLoop.getRegion());
         memref = loadOp.getMemRef();
         val = loadOp.getResult();
@@ -668,6 +711,28 @@ private:
         auto newVal = newStore.getValueToStore();
         builder.setInsertionPoint(newStore);
         builder.create<AffineStoreOp>(loc, newVal, allocOp, zeroValues);
+        auto defineOp = newVal.getDefiningOp();
+        if(!defineOp || !dyn_cast<AffineLoadOp>(defineOp))
+          llvm::errs() << "newVal defined by AffineLoadOp\n";
+        auto clonedLoad = dyn_cast<AffineLoadOp>(defineOp);
+        auto clonedMem = clonedLoad.getMemRef();
+        auto clonedIndices = clonedLoad.getIndices();
+        // Check if the L2 mem is marked by init, if it is then initialize it
+        // by zero
+        auto l2mem = dyn_cast<AllocOp>(clonedMem.getDefiningOp());
+        if(l2mem && l2mem->hasAttr("init")){
+          Value zeroVal;
+          if (isa<IntegerType>(elementType)) {
+            auto intAttr = builder.getIntegerAttr(elementType, 0);
+            zeroVal 
+              = builder.create<arith::ConstantOp>(loc, elementType, intAttr);
+          }else{
+            auto floatAttr = builder.getF32FloatAttr(0.0);
+            zeroVal 
+              = builder.create<arith::ConstantOp>(loc, elementType, floatAttr);
+          }
+          builder.create<AffineStoreOp>(loc, zeroVal, clonedMem, clonedIndices);
+        }
         clonedLoop->removeAttr("store");
         newStore.erase();
         // In the original loop, load from stream
@@ -680,6 +745,100 @@ private:
         loadOp->erase();
       }
     }
+  }
+
+  // Split the loops marked by "load,store,send,receive" and then merge them
+  // into the outmost tileBand by identify there attributes
+  void PLLoopSplit(OpBuilder builder, FuncOp plFunc, AffineForOp plForOp){
+    auto loc = builder.getUnknownLoc();
+    SmallVector<AffineForOp, 6> tileBand;
+    getLoopBandFromInnermost(plForOp, tileBand);
+    auto outerTileBand = tileBand[0];
+    // Tranverse the forOps and group then by the attribute 
+    llvm::StringMap<SmallVector<unsigned, 4>> groups;
+    SmallVector<AffineForOp, 4> forOps;
+    unsigned index = 0;
+    for (auto forOp: llvm::make_early_inc_range(plForOp.getOps<AffineForOp>())){
+      if(auto Attr = forOp->getAttrOfType<IntegerAttr>("load")){
+        std::string str = "load" + std::to_string(Attr.getInt());
+        StringRef strRef(str);
+        groups[strRef].push_back(index++);
+        forOps.push_back(forOp);
+      }else if(auto Attr = forOp->getAttrOfType<IntegerAttr>("store")){
+        std::string str = "store" + std::to_string(Attr.getInt());
+        StringRef strRef(str);
+        groups[strRef].push_back(index++);
+        forOps.push_back(forOp);
+      }else if(auto Attr = forOp->getAttrOfType<IntegerAttr>("send")){
+        std::string str = "send" + std::to_string(Attr.getInt());
+        StringRef strRef(str);
+        groups[strRef].push_back(index++);
+        forOps.push_back(forOp);
+      }else if(auto Attr = forOp->getAttrOfType<IntegerAttr>("receive")){
+        std::string str = "receive" + std::to_string(Attr.getInt());
+        StringRef strRef(str);
+        groups[strRef].push_back(index++);
+        forOps.push_back(forOp);
+      }
+    }
+    // Move the forOps with the same attribute to the same tileBand
+    for (const auto &group : groups) {
+      SmallVector<AffineForOp, 4> newForOps;
+      builder.setInsertionPoint(outerTileBand);
+      for (auto loop: tileBand){
+        auto newForOp 
+             = builder.create<AffineForOp>(loc,
+                                           loop.getLowerBoundOperands(),
+                                           loop.getLowerBoundMap(),
+                                           loop.getUpperBoundOperands(),
+                                           loop.getUpperBoundMap(),
+                                           loop.getStepAsInt());
+        newForOps.push_back(newForOp);
+        if(loop->hasAttr("Array_Partition"))
+          newForOp->setAttr("Array_Partition",builder.getUnitAttr());
+        if(auto redAttr = loop->getAttr("reduction"))
+          newForOp->setAttr("reduction", redAttr);
+        builder.setInsertionPointToStart(newForOp.getBody());
+      }
+      auto outerNewloop = newForOps[0];
+      auto innerNewLoop = newForOps[newForOps.size()-1];
+      auto innerNewYiled = innerNewLoop.getBody()->getTerminator();
+      unsigned cnt = 0;
+      for (unsigned idx : group.second) {
+        // Move the forOp to the new loop nests and set new Attrs
+        auto forOp = forOps[idx];
+        forOp->moveBefore(innerNewYiled);
+        auto indexType = builder.getIndexType();
+        auto newAttr = builder.getIntegerAttr(indexType, cnt++);
+        if(auto Attr = forOp->getAttr("load")){
+          outerNewloop->setAttr("load", Attr);
+          forOp->removeAttr("load");
+          forOp->setAttr("merge", builder.getUnitAttr()); // Used for burst
+        }else if(auto Attr = forOp->getAttr("store")){
+          outerNewloop->setAttr("store", Attr);
+          forOp->removeAttr("store");
+          forOp->setAttr("merge", builder.getUnitAttr());
+          forOp->setAttr("hoist",builder.getUnitAttr()); // Used for pldataflow
+        }else if(auto Attr = forOp->getAttr("send")){
+          outerNewloop->setAttr("send", Attr);
+          forOp->removeAttr("send");
+          forOp->setAttr("module", newAttr);
+        }else if(auto Attr = forOp->getAttr("receive")){
+          outerNewloop->setAttr("receive", Attr);
+          forOp->removeAttr("receive");
+        }
+      }
+      // Update the loop variables
+      auto numVi = newForOps.size();
+      for (unsigned i = 0; i < numVi; ++i) {
+        auto oldvi = tileBand[i].getInductionVar();
+        auto newvi = newForOps[i].getInductionVar();
+        oldvi.replaceUsesWithIf(newvi,[&](OpOperand &use){
+            return innerNewLoop->isProperAncestor(use.getOwner());
+        });
+      }
+    }
+    outerTileBand.erase();
   }
   
   // This pass infers the L2 buffer from the adf.dma op and the corresponding
@@ -723,6 +882,10 @@ private:
 
       // For access between L3 <-> L2, use stream to connect
       L2MemProcess(builder, func, plForOp);
+      
+      // Move each loop marked by "load,store,receive,send" to the
+      // outermost temporal tileBand 
+      PLLoopSplit(builder, func, plForOp);
 
     }
     return true;
