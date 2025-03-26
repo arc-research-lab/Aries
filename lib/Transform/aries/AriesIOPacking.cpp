@@ -106,29 +106,14 @@ private:
     return true;
   }
 
-  void updateTop(Value val, Value& arg, FuncOp topFunc, 
-                 MemRefType newMemRefType,
-                 SmallVector<Type,8>& inTopTypes,
-                 SmallVector<Value, 4> arg_list,
-                 SmallVector<Value, 4>& igArgs){
-    auto igIt = std::find(igArgs.begin(), igArgs.end(), val);
-    if(igIt!=igArgs.end())
-      return;
-    igArgs.push_back(val);
-    auto it = std::find(arg_list.begin(), arg_list.end(), val);
-    auto idx_arg = std::distance(arg_list.begin(), it);
-    arg = topFunc.getArgument(idx_arg);
-    inTopTypes[idx_arg] = newMemRefType;
-    arg.setType(newMemRefType);
-  }
-
-  void performPacking(OpBuilder builder, FuncOp topFunc, FuncOp func){
+  // Perform GraphIO data packing
+  void packing(OpBuilder builder, FuncOp func, 
+               SmallVector<std::pair<MemRefType, unsigned>, 4>& typePairs){
     auto loc = builder.getUnknownLoc();
     auto context = builder.getContext();
     auto &entryBlock = func.getBody().front();
     auto indexType = builder.getIndexType();
     builder.setInsertionPointToStart(&entryBlock);
-    SmallVector<std::pair<MemRefType, unsigned>, 4> typePairs;
     func.walk([&](CreateGraphIOOp graphio){
       auto ioType = dyn_cast<PLIOType>(graphio.getType());
       auto width = ioType.getWidth();
@@ -228,7 +213,49 @@ private:
       }
       return WalkResult::advance();
     });
+  }
 
+  // Mark the original data type
+  void markMemType(OpBuilder builder, FuncOp func){
+    SmallVector<Attribute> idxAttrs;
+    SmallVector<Attribute> argAttrs;
+    for(unsigned idx=0; idx < func.getNumArguments(); idx++){
+      auto arg = func.getArgument(idx);
+      auto type = arg.getType();
+      if(!dyn_cast<MemRefType>(type))
+        continue;
+      idxAttrs.push_back(builder.getI32IntegerAttr(idx));
+      auto memType = dyn_cast<MemRefType>(type);
+      auto eleType = memType.getElementType();
+      auto eleTypeAttr = TypeAttr::get(eleType);
+      argAttrs.push_back(eleTypeAttr);
+    }
+    auto arrayAttr = builder.getArrayAttr(idxAttrs);
+    func->setAttr("mem_idx", arrayAttr);
+    auto arrayTypeAttr = builder.getArrayAttr(argAttrs);
+    func->setAttr("mem_type", arrayTypeAttr);
+  }
+
+  void updateTop(Value val, Value& arg, FuncOp topFunc, 
+                 MemRefType newMemRefType,
+                 SmallVector<Type,8>& inTopTypes,
+                 SmallVector<Value, 4> arg_list,
+                 SmallVector<Value, 4>& igArgs){
+    auto igIt = std::find(igArgs.begin(), igArgs.end(), val);
+    if(igIt!=igArgs.end())
+      return;
+    igArgs.push_back(val);
+    auto it = std::find(arg_list.begin(), arg_list.end(), val);
+    auto idx_arg = std::distance(arg_list.begin(), it);
+    arg = topFunc.getArgument(idx_arg);
+    inTopTypes[idx_arg] = newMemRefType;
+    arg.setType(newMemRefType);
+  }
+
+  // After IO packing need to update the caller and callee
+  void topFuncUpdate(OpBuilder builder, FuncOp topFunc, FuncOp func,
+                    SmallVector<std::pair<MemRefType, unsigned>, 4>& typePairs){
+    auto loc = builder.getUnknownLoc();
     // Update func InputTypes
     auto inTypes =SmallVector<Type,8>(func.getArgumentTypes().begin(),
                                       func.getArgumentTypes().end());
@@ -290,6 +317,13 @@ private:
       }
     }
     topFunc.setType(builder.getFunctionType(inTopTypes, outTopTypes));
+  }
+  
+  void performPacking(OpBuilder builder, FuncOp topFunc, FuncOp func){
+    SmallVector<std::pair<MemRefType, unsigned>, 4> typePairs;
+    packing(builder, func, typePairs);
+    markMemType(builder, func);
+    topFuncUpdate(builder, topFunc, func, typePairs);
   }
 
   bool IOPacking (ModuleOp mod) {

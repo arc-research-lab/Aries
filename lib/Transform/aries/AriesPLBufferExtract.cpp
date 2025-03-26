@@ -407,26 +407,32 @@ private:
       // Create dma op to load data from external mem to L2 buffer
       // Replace IOPush: Send data from L2 buffer to PLIO port
       builder.setInsertionPoint(newInnerDMAYiled);
-      builder.create<DmaOp>(loc, src, L3Applys, sizes, strides,
+      auto dmaOp = builder.create<DmaOp>(loc, src, L3Applys, sizes, strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange(),
                         allocOp, L3L2Applys, sizes, L2Strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       builder.setInsertionPoint(newInnerIOYiled);
-      builder.create<IOPushOp>(loc, allocOp, L2L1Applys, sizes, L2Strides, 
-                               tiles, dims, steps, wraps, dst);
+      auto pushOp = builder.create<IOPushOp>(loc, allocOp, L2L1Applys, sizes, 
+                                  L2Strides, tiles, dims, steps, wraps, dst);
+      auto attr = iopushOp->getAttr("type");
+      dmaOp->setAttr("type", attr);
+      pushOp->setAttr("type", attr);
     }else{
       // Create dma op to store data from L2 buffer to external mem
       // Replace IOPop: Receive data from PLIO to L2 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
-      builder.create<DmaOp>(loc, allocOp, L3L2Applys, sizes, L2Strides, 
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange(), 
-                        dst, L3Applys, sizes, strides,
+      auto dmaOp =builder.create<DmaOp>(loc, allocOp, L3L2Applys, sizes, 
+                        L2Strides,  ValueRange(), ValueRange(), ValueRange(), 
+                        ValueRange(), dst, L3Applys, sizes, strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       builder.setInsertionPoint(newInnerIOYiled);
       auto popOp = builder.create<IOPopOp>(loc, src, allocOp, L2L1Applys, sizes, 
                                           L2Strides, tiles, dims, steps, wraps);
       if(op->hasAttr("accumulator"))
         popOp->setAttr("accumulator", builder.getUnitAttr());
+      auto attr = iopopOp->getAttr("type");
+      dmaOp->setAttr("type", attr);
+      popOp->setAttr("type", attr);
     }
     return WalkResult::advance();
   }

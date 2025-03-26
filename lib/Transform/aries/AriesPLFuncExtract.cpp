@@ -47,6 +47,45 @@ private:
     });
   }
 
+  // Mark the original data type of the MemRefType for plfunc
+  void markMemType(OpBuilder builder, FuncOp adfFunc, CallOp call,
+                   FuncOp plFunc){
+    if(!adfFunc->getAttrOfType<ArrayAttr>("mem_idx"))
+      return;
+    auto memIdxAttr = adfFunc->getAttrOfType<ArrayAttr>("mem_idx");
+    auto memTypeAttr = adfFunc->getAttrOfType<ArrayAttr>("mem_type");
+    SmallVector<unsigned> memIdxs;
+    SmallVector<Attribute> idxAttrs;
+    SmallVector<Attribute> argAttrs;
+    for (auto attr : memIdxAttr) {
+      auto intAttr = dyn_cast<IntegerAttr>(attr);
+      memIdxs.push_back(intAttr.getInt());
+    }
+    for (unsigned i = 0; i < call.getNumOperands(); ++i) {
+      auto operand = call.getOperand(i);
+      auto type = operand.getType();
+      if(!dyn_cast<MemRefType>(type))
+        continue;
+      // Check if the operand is an argument of the parent function
+      if (auto arg = dyn_cast<BlockArgument>(operand)) {
+        unsigned argIdx = arg.getArgNumber();
+        auto it = llvm::find(memIdxs, argIdx);
+        if(it==memIdxs.end())
+          llvm::errs() << "PLfunc has argument not marked in the adfFunc\n";
+        auto pos = std::distance(memIdxs.begin(), it);
+        auto typeAttr = memTypeAttr[pos];
+        idxAttrs.push_back(builder.getI32IntegerAttr(i));
+        argAttrs.push_back(typeAttr);
+      }else{
+        llvm::errs() << "Found pl call operands not in the adfFunc args\n";
+      }
+    }
+    auto arrayAttr = builder.getArrayAttr(idxAttrs);
+    plFunc->setAttr("mem_idx", arrayAttr);
+    auto arrayTypeAttr = builder.getArrayAttr(argAttrs);
+    plFunc->setAttr("mem_type", arrayTypeAttr);
+  }
+
   // Move the collected adf.cell to adf.cell.launch
   void Postprocess(OpBuilder builder, LaunchCellOp launchcell, 
                    SmallVectorImpl<CallOp>& calls){
@@ -115,6 +154,9 @@ private:
     builder.setInsertionPoint(endLaunchPL);
     auto callop = builder.create<CallOp>(loc, plFunc, inputs);
     callop->setAttr("adf.pl",builder.getUnitAttr());
+
+    // Mark the original type of the memref arguments of plFunc
+    markMemType(builder, adfFunc, callop, plFunc);
 
     // Update the references in the plFunc after move
     for (unsigned i = 0, num_arg = destBlock->getNumArguments(); 
