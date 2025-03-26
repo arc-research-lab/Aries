@@ -231,6 +231,33 @@ private:
     });
   }
 
+  bool checkRed(SmallVector<AffineForOp, 6> band){
+    // Check if the marked reduction loops are innermost and consecutive
+    SmallVector<unsigned, 4> redIds;
+    // Collect indices of loops marked with 'reduction'
+    for (unsigned i = 0; i < band.size(); ++i) {
+      auto loop = band[i];
+      if (loop->hasAttr("reduction")) {
+        redIds.push_back(i);
+      }
+    }
+    if (redIds.empty())
+      return true;
+    // Check if reductions start from innermost (last in band)
+    if (redIds.back() != band.size() - 1) {
+      llvm::errs() << "Reduction loops do not start from the innermost loop\n";
+      return false;
+    }
+    // Check if reductions are consecutive (from innermost to outermost)
+    for (unsigned i = 1; i < redIds.size(); ++i) {
+      if (redIds[i] != redIds[i - 1] + 1) {
+        llvm::errs() << "Reduction loops are not consecutive.\n";
+        return false;
+      }
+    }
+    return true;
+  }
+
   // Clone the original functions for host emission
   void preprocess(ModuleOp mod, OpBuilder builder, FuncOp topFunc){
     auto loc = builder.getUnknownLoc();
@@ -291,6 +318,10 @@ private:
     SmallVector<AffineForOp, 6> band;
     getPerfectNestedLoopBand(func.getBody(), band);
     reductionAnnotate(builder, band);
+    if(!checkRed(band)){
+      llvm::errs() << "Reduction loop check failed\n";
+      return false;
+    }
     auto bandSize = band.size();
     SmallVector<unsigned ,6> redIndeices;
     SmallVector<Attribute, 6> redAttrs;
