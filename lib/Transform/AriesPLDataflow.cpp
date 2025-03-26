@@ -273,12 +273,7 @@ private:
 
   // Hoist the loops beyond loops marked by reduction, 
   // this is to implement the output stationary dataflow
-  // If has reduction, then need to initialize L2 buffer marked by init
-  void hoistBufferStore(OpBuilder builder, FuncOp plFunc){
-    auto loc = builder.getUnknownLoc();
-    auto indexType = builder.getIndexType();
-    auto oneAttr = builder.getIntegerAttr(indexType, 1);
-    
+  void hoistBufferStore(FuncOp plFunc){
     AffineForOp plforOp;
     plFunc.walk([&](AffineForOp op){
       if(op->hasAttr("Array_Partition")){
@@ -320,6 +315,13 @@ private:
       return;
     for(auto forOp : forOps)
       forOp->moveAfter(finalLoop);
+  }
+
+  // Initialize L2 buffer marked by init
+  void initBuffer(OpBuilder builder, FuncOp plFunc){
+    auto loc = builder.getUnknownLoc();
+    auto indexType = builder.getIndexType();
+    auto oneAttr = builder.getIntegerAttr(indexType, 1);
     // Initialize output buffer as zero
     for(auto alloc : plFunc.getOps<AllocOp>()){
       if(alloc->hasAttr("init")){
@@ -377,7 +379,8 @@ private:
     mod.walk([&](FuncOp func){
       if(!func->hasAttr("adf.pl"))
         return WalkResult::advance();
-      hoistBufferStore(builder, func);
+      hoistBufferStore(func);
+      initBuffer(builder, func);
       return WalkResult::advance();
     });
     return true;

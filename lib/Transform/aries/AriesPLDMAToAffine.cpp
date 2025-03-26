@@ -818,7 +818,7 @@ private:
           outerNewloop->setAttr("store", Attr);
           forOp->removeAttr("store");
           forOp->setAttr("merge", builder.getUnitAttr());
-          forOp->setAttr("hoist",builder.getUnitAttr()); // Used for pldataflow
+          // forOp->setAttr("hoist",builder.getUnitAttr()); // Used for pldataflow
         }else if(auto Attr = forOp->getAttr("send")){
           outerNewloop->setAttr("send", Attr);
           forOp->removeAttr("send");
@@ -839,6 +839,92 @@ private:
       }
     }
     outerTileBand.erase();
+  }
+
+  // Hoist the loops beyond loops marked by reduction, 
+  // this is to implement the output stationary dataflow
+  // This function assumes the modules inside plFunc have already been moved
+  // inside the temporal loops
+  bool hoistStore(FuncOp plFunc){
+    // Tranverse each store forOp inside plFunc
+    for(auto forOp: plFunc.getOps<AffineForOp>()){
+      if(!forOp->hasAttr("store"))
+        continue;
+      // Get the Array_Partition forOp
+      AffineForOp partforOp;
+      forOp.walk([&](AffineForOp op){
+        if(op->hasAttr("Array_Partition")){
+          partforOp = op;
+          return WalkResult::interrupt();
+        }
+        return WalkResult::advance();
+      });
+      if(!partforOp)
+        return true;
+      // Get the temporal loops from outermost
+      SmallVector<AffineForOp, 6> tileBand;
+      getLoopBandFromInnermost(partforOp, tileBand);
+      // Find forOp marked by reduction
+      AffineForOp redLoop;
+      for(auto forOp : partforOp.getOps<AffineForOp>()){
+        if(forOp->hasAttr("reduction")){
+          redLoop = forOp;
+          break;
+        }
+      }
+      if(!redLoop)
+        return true;
+      // Collect the reduction temporal loops and its loop id
+      SmallVector<int64_t> loopids;
+      SmallVector<int64_t> redIds;
+      for(unsigned i=0; i< tileBand.size(); i++){
+        auto loop = tileBand[i];
+        if(loop->hasAttr("reduction")){
+          auto redAttr =  dyn_cast<IntegerAttr>(loop->getAttr("reduction"));
+          loopids.push_back(i);
+          redIds.push_back(redAttr.getInt());
+        }
+      }
+      // Collect the reduction ids marked inside the array_part loop
+      auto arrayAttr = dyn_cast<ArrayAttr>(redLoop->getAttr("reduction"));
+      SmallVector<int64_t> redArrayIds;
+      for(auto attr: arrayAttr){
+        if(auto intAttr = dyn_cast<IntegerAttr>(attr)){
+          auto intVal = intAttr.getInt();
+          redArrayIds.push_back(intVal);
+        }
+      }
+      // Find the loop idx or marked loops
+      SmallVector<int64_t> markedLoops;
+      for(auto redId: redArrayIds){
+        auto it = llvm::find(redIds, redId);
+        if(it == redIds.end()){
+          llvm::errs() << "Marked reduction loop not found\n";
+          return false;
+        }
+        auto pos = std::distance(redIds.begin(), it);
+        markedLoops.push_back(loopids[pos]);
+      }
+      llvm::sort(markedLoops);
+      // Check for consecutiveness
+      for (unsigned i = 0; i < markedLoops.size() - 1; i++) {
+        if (markedLoops[i] + 1 != markedLoops[i + 1]) {
+          llvm::errs() << "Marked reduction loop are not consecutive\n";
+          return false;
+        }
+      }
+      // Check if from innermost
+      if(markedLoops.back()+1 != (int)tileBand.size()){
+        llvm::errs() << "Reduction loops do not start from innermost\n";
+        return false;
+      }
+      // Move redLoop outside of the outermost reduction loop
+      auto targetLoop = tileBand[markedLoops[0]];
+      redLoop->moveAfter(targetLoop);
+      redLoop->removeAttr("reduction");
+      targetLoop.erase();
+    }
+    return true;
   }
   
   // This pass infers the L2 buffer from the adf.dma op and the corresponding
@@ -887,6 +973,10 @@ private:
       // outermost temporal tileBand 
       PLLoopSplit(builder, func, plForOp);
 
+      // Initialize L2 Mem and hoist the store to outside of the marked 
+      // reduction loops
+      if(!hoistStore(func))
+        return false;
     }
     return true;
   }
