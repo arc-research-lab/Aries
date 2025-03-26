@@ -314,4 +314,93 @@ def AriesFileSplit : Pass<"aries-file-split"> {
   ];
 }
 
+//----------------------------------------------------------------------------//
+// Passes for new release
+//----------------------------------------------------------------------------//
+
+def AriesAffineUnroll : Pass<"aries-affine-unroll"> {
+  let summary = "Unroll all the block loops as seperated function calls";
+  let description = [{
+    This pass unrolls all the block loops to function calls with different 
+    arguments.
+  }];
+  let constructor = "mlir::aries::createAriesAffineUnrollPass()";
+}
+
+def AriesParallelReduction : Pass<"aries-parallel-reduction"> {
+  let summary = "Handle parallel reduction variables";
+  let description = [{
+    This pass handles the parallel reductin variables that write to the same
+    location of the memory. In ARIES, a reduction chain is created among AIEs
+    to reduce the subsums together.
+  }];
+  let constructor = "mlir::aries::createAriesParallelReductionPass()";
+}
+
+def AriesLowerDMAToIO : Pass<"aries-lower-dma-to-io"> {
+  let summary = "Convert DmaOp to GraphIOs";
+  let description = [{
+    This pass converts the DmaOps to the GraphIOs(PORT,GMIO,PLIO).
+  }];
+  let constructor = "mlir::aries::createAriesLowerDMAToIOPass()";
+  let options = [
+    Option<"PortType", "port-type", "std::string", /*default=*/"\"PLIO\"", 
+           "Specify the type of the ports(PORT,GMIO,PLIO)">,
+    Option<"PortWidth", "plio-width", "int64_t", /*default=*/"32",
+           "Specify the plio width of a port in bits (32,64,128)">,
+    Option<"PLIOFreq", "plio-freq", "int64_t", /*default=*/"250",
+           "Specify the plio frequency in MHz">,
+    Option<"PortBurst", "gmio-burst", "int64_t", /*default=*/"64",
+           "Specify the gmio burst in bytes (64,128,256)">,
+    Option<"GMIOBW", "gmio-bw", "int64_t", /*default=*/"1000",
+           "Specify the required gmio bandwidth in MB/s">
+  ];
+}
+
+def AriesPLFuncExtract : Pass<"aries-pl-func-extract"> {
+  let summary = "Create PL function";
+  let description = [{
+    This pass extracts the DMA logics in the PL side.
+  }];
+  let constructor = "mlir::aries::createAriesPLFuncExtractPass()";
+}
+
+def AriesPLBufferExtract : Pass<"aries-pl-buffer-extract"> {
+  let summary = "Create L2 buffer on the PL side";
+  let description = [{
+    This pass extracts the L2 buffer on the PL side.
+  }];
+  let constructor = "mlir::aries::createAriesPLBufferExtractPass()";
+  let dependentDialects = ["mlir::memref::MemRefDialect"];
+  let options = [
+    ListOption<"BuffSels", "buf-sels", "unsigned",
+               "Specify a list of buffer selection 1:BRAM, 0:URAM",
+               "llvm::cl::ZeroOrMore">
+  ];
+}
+
+def AriesPLDMAToAffine : Pass<"aries-pl-dma-to-affine"> {
+  let summary = "Materialize IOPush/IOPop and DMAOp in PL to affine load/store";
+  let description = [{
+    This pass materializes IOPush/IOPop and DMAOp in PL to affine for loops and
+    load/store operations.
+  }];
+  let constructor = "mlir::aries::createAriesPLDMAToAffinePass()";
+  let dependentDialects = ["mlir::memref::MemRefDialect"];
+}
+
+
+def AriesIOPacking : Pass<"aries-io-packing"> {
+  let summary = "Packing AIE IO to specified width";
+  let description = [{
+    This pass tries to pack the IO to large width if data access pattern meets
+    the requirement. The memories are assumed to be row major.
+  }];
+  let constructor = "mlir::aries::createAriesIOPackingPass()";
+  let options = [
+    Option<"PortWidth", "plio-width", "int64_t", /*default=*/"32",
+           "Specify the plio width of a port in bits (32,64,128)">
+  ];
+}
+
 #endif  // ARIES_TRANSFORM_PASSES_TD

@@ -499,21 +499,25 @@ private:
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);
       auto pushOp = builder.create<IOPushOp>(loc, allocOp, IOOffsets, 
-                                             localSizes, localStrides, dst);
+                                             localSizes, localStrides, 
+                                             ValueRange(), ValueRange(), 
+                                             ValueRange(), ValueRange(), dst);
       pushOp->setAttr("type", attr);
     }else{
       // Create dma op to store data from L2 buffer to external mem
       // Replace IOPop: Receive data from L1 buffer to L2 buffer
       builder.setInsertionPoint(newInnerDMAYiled);
-      auto dmaOp = builder.create<DmaOp>(loc,allocOp, localOffsets, localSizes,
-                        ValueRange(), ValueRange(), ValueRange(), ValueRange(), 
-                        localStrides, dst, offsets, sizes, strides,
+      auto dmaOp = builder.create<DmaOp>(loc, allocOp, localOffsets, localSizes,
+                        localStrides, ValueRange(), ValueRange(), ValueRange(), 
+                        ValueRange(), dst, offsets, sizes, strides,
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       auto attr = iopopOp->getAttr("type");
       dmaOp->setAttr("type", attr);
       builder.setInsertionPoint(newInnerIOYiled);
       auto popOp = builder.create<IOPopOp>(loc, src, allocOp, 
-                                           IOOffsets, localSizes, localStrides);
+                                           IOOffsets, localSizes, localStrides,
+                                           ValueRange(), ValueRange(), 
+                                           ValueRange(), ValueRange());
       popOp->setAttr("type", attr);
       // check if there is output buffer reuse and set an Attr
       if (loopIndices.size()!=band.size())
@@ -1386,6 +1390,7 @@ private:
       llvm::errs() << "Alloc L2 buffer failed\n";
       return false;
     }
+    
     // Tranverse the IOPushOps/IOPopOps and convert them to affine load/store
     if(!ConvertIODMAToAffine(builder, plFunc, plForOp))
       return false;

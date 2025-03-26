@@ -68,8 +68,9 @@ private:
                         ValueRange(), ValueRange(), ValueRange(), ValueRange());
       dmaOp->setAttr("in",builder.getUnitAttr());
       builder.setInsertionPoint(op);
-      builder.create<IOPushOp>(loc, newMem, 
-                               ValueRange(), ValueRange(), ValueRange(), dst);
+      builder.create<IOPushOp>(loc, newMem, ValueRange(), ValueRange(), 
+                               ValueRange(), ValueRange(), ValueRange(), 
+                               ValueRange(), ValueRange(), dst);
       op.erase();
       return WalkResult::advance();
     });
@@ -120,8 +121,9 @@ private:
       auto dealloc = builder.create<DeallocOp>(loc,newMem);
       dealloc->setAttr("gmio",builder.getUnitAttr()); 
       builder.setInsertionPoint(op);
-      builder.create<IOPopOp>(loc, src, newMem, 
-                              ValueRange(), ValueRange(), ValueRange());             
+      builder.create<IOPopOp>(loc, src, newMem, ValueRange(), ValueRange(), 
+                              ValueRange(), ValueRange(), ValueRange(), 
+                              ValueRange(), ValueRange());             
       op.erase();
       return WalkResult::advance();
     });

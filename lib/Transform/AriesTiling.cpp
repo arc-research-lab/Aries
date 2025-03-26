@@ -8,6 +8,7 @@
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
 #include "aries/Dialect/ADF/ADFDialect.h"
+#define DEBUG_TYPE "aries-tiling"
 
 using namespace mlir;
 using namespace mlir::affine;
@@ -25,107 +26,16 @@ public:
     L1TileSizes=opts.OptL1TileSize;
     L2TileSizes=opts.OptL2TileSize;
     L3TileSizes=opts.OptL3TileSize;
-    EnableNewTiling = opts.OptEnableNewTiling;
   }
   
   void runOnOperation() override {
       auto mod = dyn_cast<ModuleOp>(getOperation());
       unsigned defaultTileSizes = 32;
-      if(!EnableNewTiling){
-        if(!applyLoopTiling(mod, defaultTileSizes))
-          return signalPassFailure();
-      }else{
-        if(!applyLoopTilingNew(mod, defaultTileSizes))
-          return signalPassFailure();
-      }
+      if(!applyLoopTiling(mod, defaultTileSizes))
+        return signalPassFailure();
   }
 
 private:
-  // Clone the original functions for host emission
-  void preprocess(ModuleOp mod, OpBuilder builder, FuncOp topFunc){
-    auto topName = topFunc.getName();
-    auto hostFunc = dyn_cast<FuncOp>(topFunc->clone());
-    auto hostName = topName.str() + "_host";
-    hostFunc->setAttr("top_host", builder.getUnitAttr());
-    auto nameAttr = builder.getStringAttr(topName.str());
-    hostFunc->setAttr("origin_func", nameAttr);
-    hostFunc->removeAttr("top_func");
-    hostFunc.setName(hostName);
-    builder.setInsertionPointAfter(topFunc);
-    builder.insert(hostFunc);
-    builder.setInsertionPoint(hostFunc);
-    SmallVector<std::string, 4> strList;
-    for(auto caller: hostFunc.getOps<CallOp>()){
-      auto func = mod.lookupSymbol<FuncOp>(caller.getCallee());
-      auto funcName = func.getName();
-      auto newAttr = builder.getStringAttr(funcName.str());
-      auto newName = funcName.str() + "_host";
-      auto it = llvm::find(strList, newName);
-      // If the caller has been cloned, then change the callee name
-      if(it != strList.end()){
-        caller.setCallee(newName);
-        caller->setAttr("origin_func", newAttr);
-      }else{// Clone the callee func
-        auto newFunc = dyn_cast<FuncOp>(func->clone());
-        newFunc->setAttr("origin_func", newAttr);
-        newFunc.setName(newName);
-        caller.setCallee(newName);
-        caller->setAttr("origin_func", newAttr);
-        builder.insert(newFunc);
-        strList.push_back(newName);
-      }
-    }
-  }
-
-  // Annotate the output arguments
-  void outAnnotate(OpBuilder builder, FuncOp topFunc, FuncOp func){
-    SmallVector<Attribute, 4> attrs;
-    SmallVector<int64_t, 4> ids;
-    func.walk([&](AffineStoreOp op){
-      auto dst = op.getMemRef();
-      unsigned index = 0;
-      for(auto arg : func.getArguments()){
-        if(arg == dst){
-          auto it = llvm::find(ids, index);
-          if(it == ids.end()){
-            ids.push_back(index);
-            break;
-          }
-        }
-        index++;
-      }
-    });
-    // Record the output arguments at the top
-    for (auto call: topFunc.getOps<CallOp>()){
-      if(call.getCallee() != func.getName())
-        continue;
-      for(auto id: ids){
-        unsigned idx = 0;
-        auto dst = call.getOperand(id);
-        auto defineOp = dst.getDefiningOp();
-        Value operand;
-        //TODO::Handle more defining operations
-        if(!defineOp){
-          operand= dst;
-        }else if(auto castOp = dyn_cast<memref::CastOp>(defineOp)){
-          operand = castOp.getSource();
-        }
-        for(auto arg : topFunc.getArguments()){
-          if(arg == operand){
-            auto intAttr = builder.getI32IntegerAttr(idx);
-            if(!llvm::is_contained(attrs, intAttr)){
-              attrs.push_back(intAttr);
-              break;
-            }
-          }
-          idx++;
-        }
-      }
-    }
-    auto outAttrs = builder.getArrayAttr(attrs);
-    topFunc->setAttr("outArgs",outAttrs);
-  }
-
   // For memory with dynamic size, only reserve the celldiv at the outermost
   // band. Eliminate all the min function if one of the operand is an argument.
   // TODO: Handle cases that need padding
@@ -172,211 +82,9 @@ private:
     }
     return true;
   }
-
-  bool applyLoopTiling(ModuleOp mod, unsigned defaultTileSizes){
-    auto builder = OpBuilder(mod);
-    auto loc = builder.getUnknownLoc();
-    FuncOp topFunc, func;
-    if(!topFind(mod, topFunc, "top_func"))
-      return true;
-    for(auto tileFunc: mod.getOps<FuncOp>()){
-      if(tileFunc.getName() == TileFuncName){
-        func = tileFunc;
-        break;
-      }
-    }
-    if(!func)
-      return true;
-    outAnnotate(builder, topFunc, func);
-    preprocess(mod, builder, topFunc);
-    // Tile the functions specified in the command line.
-    func->setAttr("adf.func", builder.getUnitAttr());
-    SmallVector<AffineForOp, 6> band;
-    getNestedLoopBand(func.getBody(), band);
-    auto bandSize = band.size();
-    SmallVector<unsigned ,6> redIndeices;
-    for(unsigned i=0; i < bandSize; i++){
-      auto loop = band[i];
-      if(loop->hasAttr("reduction")){
-        redIndeices.push_back(i);
-      }
-    }
-    // Set the default tiling fatctor
-    SmallVector<unsigned,6> L1tileSizes(bandSize,defaultTileSizes);
-    SmallVector<unsigned,6> L2tileSizes(bandSize,defaultTileSizes);
-    SmallVector<unsigned,6> L3tileSizes(bandSize,defaultTileSizes);
-    // Assign received tiling factors to the tilable loop bands
-    for (unsigned i = 0; i < std::min(bandSize,L1TileSizes.size()); ++i)
-      L1tileSizes[i] = L1TileSizes[i];
-    
-    // Call Affine tiling functions for perfectly nested loops
-    SmallVector<AffineForOp,6> L1tileBand;
-    SmallVector<AffineForOp,6> L2tileBand;
-    SmallVector<AffineForOp,6> L3tileBand;
-    if (failed(tilePerfectlyNested(band, L1tileSizes, &L1tileBand)))
-      return false;
-    if(!postprocess(func, L1tileBand))
-      return false;
-    // L2 tiling if specified
-    if(L2TileSizes.size()){
-      for (unsigned i = 0; i <std::min(bandSize,L2TileSizes.size());++i)
-        L2tileSizes[i] = L2TileSizes[i];
-      
-      SmallVector<AffineForOp, 6> blockL1tileBand(
-        L1tileBand.begin(), L1tileBand.begin() + bandSize);
-      
-      if (failed(tilePerfectlyNested(
-                            blockL1tileBand, L2tileSizes, &L2tileBand)))
-        return false;
-      if(!postprocess(func, L2tileBand))
-        return false;
-      // Mark L2 reduction loops
-      for(auto idx : redIndeices)
-        L2tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-      
-      // L3 tiling if specified
-      if(L3TileSizes.size()){
-        for (unsigned i = 0; i <std::min(bandSize,L3TileSizes.size());++i)
-          L3tileSizes[i] = L3TileSizes[i];
-        SmallVector<AffineForOp, 6> blocktileBandL2(
-          L2tileBand.begin(), L2tileBand.begin() + bandSize);
-        if (failed(tilePerfectlyNested(
-                              blocktileBandL2, L3tileSizes, &L3tileBand)))
-            return false;
-        if(!postprocess(func, L3tileBand))
-          return false;
-        L3tileBand[bandSize-1]->setAttr(
-                              "Array_Partition", builder.getUnitAttr());
-        // Mark L3 reduction loops
-        for(auto idx : redIndeices){
-          L3tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-          L3tileBand[idx + bandSize]->setAttr(
-                                      "reduction", builder.getUnitAttr());
-        }
-        //Noralize L3 & L2 loops
-        for(unsigned i =0; i < L3tileBand.size(); i++){
-          auto forOp = L3tileBand[i];
-          if(failed(normalizeAffineFor(forOp)))
-            return false;
-        }
-      }else{
-        //Noralize L2 loops
-        for(unsigned i =0; i < bandSize; i++){
-          auto forOp = L2tileBand[i];
-          if(failed(normalizeAffineFor(forOp)))
-            return false;
-        }
-      }
-    }
-    
-    // Replace the affine.for Ops to affine.parallel Ops according to
-    // the level of tiling
-    auto outerBlockLoop = L1tileBand[0];
-    if(L2TileSizes.size()){
-      outerBlockLoop = L2tileBand[bandSize];
-    }
-    // Create nested parallel loops
-    builder.setInsertionPoint(outerBlockLoop);
-    SmallVector<AffineParallelOp, 6U> parallelops;
-    AffineParallelOp innerparallelop;
-    for (unsigned i=0; i<bandSize; i++){
-      auto blockloop = L1tileBand[i];
-      if(L2TileSizes.size()){
-        blockloop = L2tileBand[bandSize+i];
-      }
-      AffineMap lbMap = blockloop.getLowerBoundMap();
-      AffineMap ubMap = blockloop.getUpperBoundMap();
-      SmallVector<Value, 6> lbs;
-      SmallVector<Value, 6> ubs;
-      for(auto operand: blockloop.getLowerBoundOperands())
-        lbs.push_back(operand);
-      for(auto operand: blockloop.getUpperBoundOperands())
-        ubs.push_back(operand);
-      auto step = blockloop.getStepAsInt();
-      auto parallelOp = builder.create<AffineParallelOp>(
-        loc, ArrayRef<Type>{}, ArrayRef<arith::AtomicRMWKind>{}, 
-        lbMap, lbs, ubMap, ubs, step);
-      builder.setInsertionPointToStart(parallelOp.getBody());
-      parallelops.push_back(parallelOp);
-      innerparallelop = parallelOp;
-    }
-    // Move the operation from original loops to the nested parallel loops
-    for (unsigned i=0; i<bandSize; i++){
-      auto blockloop = L1tileBand[i];
-      if(L2TileSizes.size()){
-        blockloop = L2tileBand[bandSize+i];
-      }
-      blockloop.getBody()->back().erase();
-      innerparallelop.getBody()->getOperations().splice(
-                                  innerparallelop.getBody()->begin(), 
-                                  blockloop.getBody()->getOperations());
-      blockloop.getInductionVar().replaceAllUsesWith(
-                                  parallelops[i].getIVs()[0]);
-      blockloop.erase();
-    }
-    // Normalize the affine.parallel Ops
-    for(auto parallelop: parallelops){
-      normalizeAffineParallel(parallelop);
-    }
-
-    PassManager pm(&getContext());
-    pm.addPass(createCanonicalizerPass());
-    pm.addPass(createCSEPass());
-    if (failed(pm.run(func)))
-      return false;
-
-    // Merge the nested parallelOps to a single parallelOp
-    SmallVector<AffineMap, 6> lbMaps;
-    SmallVector<AffineMap, 6> ubMaps;
-    SmallVector<Value, 6> lbs;
-    SmallVector<Value, 6> ubs;
-    SmallVector<int64_t, 6> steps;
-    auto outerBlockParallelLoop = parallelops[0];
-
-    for (unsigned i=0; i<bandSize; i++){
-      auto blockParallelloop = parallelops[i];
-      if(!blockParallelloop.getLowerBoundsMap().isSingleConstant()||
-         !blockParallelloop.getUpperBoundsMap().isSingleConstant())
-        return false;
-      lbMaps.push_back(blockParallelloop.getLowerBoundsMap());
-      ubMaps.push_back(blockParallelloop.getUpperBoundsMap());
-      for(auto operand: blockParallelloop.getLowerBoundsOperands())
-        lbs.push_back(operand);
-      for(auto operand: blockParallelloop.getUpperBoundsOperands())
-        ubs.push_back(operand);
-      steps.push_back(blockParallelloop.getSteps()[0]);
-    }
-    builder.setInsertionPoint(outerBlockParallelLoop);
-    auto parallelOp = builder.create<AffineParallelOp>(
-      loc, ArrayRef<Type>{}, ArrayRef<arith::AtomicRMWKind>{}, 
-      lbMaps, lbs, ubMaps, ubs, steps);
-    // Add attributes to mark the reduction dims
-    auto indexType = builder.getIndexType();
-    SmallVector<Attribute, 3> newAttrList;
-    for (auto idx: redIndeices){
-      auto valueAttr = builder.getIntegerAttr(indexType, idx);
-      newAttrList.push_back(valueAttr);
-    }
-    if(newAttrList.size()!=0){
-      auto newArrayAttr = builder.getArrayAttr(newAttrList);
-      parallelOp->setAttr("redDim", newArrayAttr);
-    }
-
-    for (unsigned i=0; i<bandSize; i++){
-      auto blockParallelloop = parallelops[i];
-      blockParallelloop.getBody()->back().erase();
-      parallelOp.getBody()->getOperations().splice(
-          parallelOp.getBody()->begin(), 
-          blockParallelloop.getBody()->getOperations());
-      blockParallelloop.getBody()->getArgument(0).replaceAllUsesWith(
-                                                      parallelOp.getIVs()[i]);
-      blockParallelloop.erase();
-    }
-    return true;
-  }
   
   // Annotate the output arguments
-  void outAnnotate1(OpBuilder builder, FuncOp topFunc, FuncOp func){
+  void outAnnotate(OpBuilder builder, FuncOp topFunc, FuncOp func){
     SmallVector<Attribute, 4> attrs;
     SmallVector<int64_t, 4> ids;
     func.walk([&](DmaOp op){
@@ -435,8 +143,123 @@ private:
     topFunc->setAttr("outArgs",outAttrs);
   }
 
+  // This is a helper function to add or update attribute to an operation
+  void addUpdateAtr(Operation *op, StringRef attrName, int64_t newValue){
+    auto *context = op->getContext();
+    Builder builder(context);
+
+    auto attr = op->getAttr(attrName);
+    if(!attr){
+      SmallVector<Attribute, 1> values = {builder.getI64IntegerAttr(newValue)};
+      op->setAttr(attrName, builder.getArrayAttr(values));
+      return;
+    }
+
+    // If it's an IntegerAttr, convert it to an ArrayAttr 
+    // with the old value and new value
+    if (auto intAttr = dyn_cast<IntegerAttr>(attr)) {
+      // Create an array with the existing integer and the new value
+      SmallVector<Attribute, 4> values;
+      values.push_back(intAttr);
+      values.push_back(builder.getI64IntegerAttr(newValue));
+      // Create and set the new ArrayAttr
+      op->setAttr(attrName, builder.getArrayAttr(values));
+    }else if(auto arrayAttr = dyn_cast<ArrayAttr>(attr)) {
+      // If it's already an ArrayAttr, append the new value if it's not present
+      SmallVector<Attribute, 4> values(arrayAttr.begin(), arrayAttr.end());
+      // Check if the value is already present
+      for (auto val : values) {
+        if (auto intVal = dyn_cast<IntegerAttr>(val)) {
+          if (intVal.getInt() == newValue)
+            return;
+        }
+      }
+      // Append the new value and set the updated ArrayAttr
+      values.push_back(builder.getI64IntegerAttr(newValue));
+      op->setAttr(attrName, builder.getArrayAttr(values));
+    }
+  }
+
+  // Annotate the reduction loops
+  // Now only consider hyper-rectangular access
+  // For accumulator dmas, mark the loops that are not involved as reduction
+  // Record the reduction in dmaOp as well
+  void reductionAnnotate(OpBuilder builder, SmallVector<AffineForOp, 6> band){
+    auto outerLoop = band[0];
+    unsigned redCnt = 0;
+    outerLoop.walk([&](DmaOp dmaOp){
+      if(!dmaOp->hasAttr("accumulator"))
+        return WalkResult::advance();
+      // Record the index of ivs that defines the offset
+      llvm::DenseSet<unsigned> ivIds;
+      auto offsets = dmaOp.getDstOffsets();
+      for(auto offset: offsets){
+        auto defineOp = offset.getDefiningOp();
+        if(!defineOp || !dyn_cast<AffineApplyOp>(defineOp))
+          continue;
+        auto applyOp = dyn_cast<AffineApplyOp>(defineOp);
+        for(auto operand: applyOp.getOperands()){
+          auto loop = getForInductionVarOwner(operand);
+          if(!loop)
+            llvm::errs() << "Find offset not defined by loop ivs\n";
+          auto itLoop = llvm::find(band, loop);
+          if(itLoop==band.end())
+            llvm::errs() << "Find reduction loop not in the band\n";
+          auto pos = std::distance(band.begin(), itLoop); 
+          if(ivIds.contains(pos))
+            continue;
+          ivIds.insert(pos);
+        }
+      }
+      // Find the unused loops and mark with reduction
+      for(unsigned i=0; i< band.size(); i++){
+        if(ivIds.contains(i))
+          continue;
+        auto loop = band[i];
+        if(auto attr = loop->getAttr("reduction")){
+          if(auto intAttr = dyn_cast<IntegerAttr>(attr)){
+            auto intVal = intAttr.getInt();
+            addUpdateAtr(dmaOp, "reduction", intVal);
+            continue;
+          }
+        }
+        auto intAttr = builder.getI64IntegerAttr(redCnt);
+        loop->setAttr("reduction", intAttr);
+        addUpdateAtr(dmaOp, "reduction", redCnt++);
+      }
+      return WalkResult::advance();
+    });
+  }
+
+  bool checkRed(SmallVector<AffineForOp, 6> band){
+    // Check if the marked reduction loops are innermost and consecutive
+    SmallVector<unsigned, 4> redIds;
+    // Collect indices of loops marked with 'reduction'
+    for (unsigned i = 0; i < band.size(); ++i) {
+      auto loop = band[i];
+      if (loop->hasAttr("reduction")) {
+        redIds.push_back(i);
+      }
+    }
+    if (redIds.empty())
+      return true;
+    // Check if reductions start from innermost (last in band)
+    if (redIds.back() != band.size() - 1) {
+      llvm::errs() << "Reduction loops do not start from the innermost loop\n";
+      return false;
+    }
+    // Check if reductions are consecutive (from innermost to outermost)
+    for (unsigned i = 1; i < redIds.size(); ++i) {
+      if (redIds[i] != redIds[i - 1] + 1) {
+        llvm::errs() << "Reduction loops are not consecutive.\n";
+        return false;
+      }
+    }
+    return true;
+  }
+
   // Clone the original functions for host emission
-  void preprocess1(ModuleOp mod, OpBuilder builder, FuncOp topFunc){
+  void preprocess(ModuleOp mod, OpBuilder builder, FuncOp topFunc){
     auto loc = builder.getUnknownLoc();
     auto topName = topFunc.getName();
     auto hostFunc = dyn_cast<FuncOp>(topFunc->clone());
@@ -474,7 +297,7 @@ private:
     }
   }
 
-  bool applyLoopTilingNew(ModuleOp mod, unsigned defaultTileSizes){
+  bool applyLoopTiling(ModuleOp mod, unsigned defaultTileSizes){
     auto builder = OpBuilder(mod);
     auto loc = builder.getUnknownLoc();
     FuncOp topFunc, func;
@@ -488,18 +311,25 @@ private:
     }
     if(!func)
       return true;
-    outAnnotate1(builder, topFunc, func);
-    preprocess1(mod, builder, topFunc);
-
+    outAnnotate(builder, topFunc, func);
+    preprocess(mod, builder, topFunc);
+    
     // Tile the functions specified in the command line.
     SmallVector<AffineForOp, 6> band;
-    getNestedLoopBand(func.getBody(), band);
+    getPerfectNestedLoopBand(func.getBody(), band);
+    reductionAnnotate(builder, band);
+    if(!checkRed(band)){
+      llvm::errs() << "Reduction loop check failed\n";
+      return false;
+    }
     auto bandSize = band.size();
     SmallVector<unsigned ,6> redIndeices;
+    SmallVector<Attribute, 6> redAttrs;
     for(unsigned i=0; i < bandSize; i++){
       auto loop = band[i];
       if(loop->hasAttr("reduction")){
         redIndeices.push_back(i);
+        redAttrs.push_back(loop->getAttr("reduction"));
       }
     }
     // Set the default tiling fatctor
@@ -530,9 +360,11 @@ private:
         return false;
       L2tileBand[bandSize-1]->setAttr("Array_Partition", builder.getUnitAttr());
       // Mark L2 reduction loops
-      for(auto idx : redIndeices){
-        L2tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-        L2tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L2tileBand[idx]->setAttr("reduction", attr);
+        L2tileBand[idx+bandSize]->setAttr("reduction", attr);
       }
       //Noralize L2 loops
       for(unsigned i =0; i < L2tileBand.size(); i++){
@@ -547,8 +379,11 @@ private:
           return false;
       }
       // Mark L1 inner bands
-      for(auto idx : redIndeices)
-        L1tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L1tileBand[idx+bandSize]->setAttr("reduction", attr);
+      }
     }else{
       //Noralize L1 bands
       for(unsigned i = 0; i < L1tileBand.size(); i++){
@@ -557,9 +392,11 @@ private:
           return false;
       }
       // Mark L1 reduction loops
-      for(auto idx : redIndeices){
-        L1tileBand[idx]->setAttr("reduction", builder.getUnitAttr());
-        L1tileBand[idx+bandSize]->setAttr("reduction", builder.getUnitAttr());
+      for(unsigned id=0; id < redIndeices.size(); id++){
+        auto idx = redIndeices[id];
+        auto attr = redAttrs[id];
+        L1tileBand[idx]->setAttr("reduction", attr);
+        L1tileBand[idx+bandSize]->setAttr("reduction", attr);
       }
     }
     PassManager pm(&getContext());

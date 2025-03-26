@@ -69,8 +69,17 @@ void mlir::aries::registerAriesPassPipeline() {
   });
 }
 
+void mlir::aries::registerAriesOptPipeline() {
+  PassPipelineRegistration<AriesOptions>(
+  "aries-opt-pipeline", "Compile to AIE array",
+  [](OpPassManager &pm, const AriesOptions &opts) {
+    // Perform multi-level tiling
+  });
+}
+
 
 void mlir::aries::registerAriesPasses() {
   registerPasses();
   registerAriesPassPipeline();
+  registerAriesOptPipeline();
 }

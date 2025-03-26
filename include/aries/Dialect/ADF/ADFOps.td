@@ -157,6 +157,9 @@ def CreateGraphIOOp : ADF_Op<"graph.io", []> {
   let assemblyFormat = " `(` $name `)` attr-dict `:` type(results)";
 
   let hasCanonicalizer = 1;
+  let extraClassDeclaration = [{
+    void setGraphIOType(Type newType);
+  }];
 }
 
 def ConfigPLIOOp : ADF_Op<"config.plio", []> {
@@ -372,10 +375,15 @@ def IOPushOp: ADF_Op<"io.push", [AttrSizedOperandSegments]> {
         Variadic<Index>:$src_offsets,
         Variadic<Index>:$src_sizes,
         Variadic<Index>:$src_strides,
+        Variadic<Index>:$src_tiles,
+        Variadic<Index>:$src_dims,
+        Variadic<Index>:$src_steps,
+        Variadic<Index>:$src_wraps,
         GraphIOType:$dst
   );
   let assemblyFormat = [{
-    `(` $src `[` ($src_offsets^)? `]``[` ($src_sizes^)? `]``[` ($src_strides^)? `]` `,`
+    `(` $src `[` ($src_offsets^)? `]``[` ($src_sizes^)? `]``[` ($src_strides^)? `]`
+             `[` ($src_tiles^)? `]``[` ($src_dims^)? `]``[` ($src_steps^)? `]` `[` ($src_wraps^)? `]` `,`
         $dst `)`  attr-dict `:` `(` type($src) `,` type($dst) `)`
   }];
   let hasCanonicalizer = 1;
@@ -401,11 +409,16 @@ def IOPopOp: ADF_Op<"io.pop", [AttrSizedOperandSegments]> {
         AnyMemRef:$dst,
         Variadic<Index>:$dst_offsets,
         Variadic<Index>:$dst_sizes,
-        Variadic<Index>:$dst_strides
+        Variadic<Index>:$dst_strides,
+        Variadic<Index>:$dst_tiles,
+        Variadic<Index>:$dst_dims,
+        Variadic<Index>:$dst_steps,
+        Variadic<Index>:$dst_wraps
   );
   let assemblyFormat = [{
     `(` $src `,` 
     $dst `[` ($dst_offsets^)? `]``[` ($dst_sizes^)? `]``[` ($dst_strides^)? `]`
+         `[` ($dst_tiles^)? `]``[` ($dst_dims^)? `]``[` ($dst_steps^)? `]` `[` ($dst_wraps^)? `]`
      `)`  attr-dict `:` `(` type($src) `,` type($dst) `)`
   }];
 }

@@ -48,6 +48,10 @@ void getLoopBandFromInnermost(AffineForOp forOp,
 void getNestedLoops(SmallVectorImpl<AffineForOp> &nestedLoops, 
                     AffineForOp root);
 
+// Get the perfect nested for loops within a region and return them in the band
+void getPerfectNestedLoopBand(Region &region, SmallVector<AffineForOp, 6> &band, 
+  bool reverse = false);
+
 // Get all the affine.for loops within a region and return them in the band
 void getNestedLoopBand(Region &region, SmallVector<AffineForOp, 6> &band, 
                        bool reverse = false);

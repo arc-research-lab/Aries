@@ -390,6 +390,18 @@ class TileMLIRGenerator(MLIRGenerator):
                 bufferName = self.get_var_name(buffer)
                 self.emit(f"{bufferName} = adf.buffer.create @L1_{buffer}() : {typeName}")
                 return
+            
+            elif node.value.func.attr == "accbuffer":
+                buffer = target.id
+                self.add_var_name(buffer, buffer)
+                shape_node = node.value.args[0]
+                type_node = node.value.args[1]
+                shape = tuple(constant.value for constant in shape_node.elts)
+                type = type_node.value
+                typeName = self.add_type_name(buffer, type, shape, "L1")
+                bufferName = self.get_var_name(buffer)
+                self.emit(f"{bufferName} = adf.buffer.create @L1_{buffer}() {{accumulator}} : {typeName} ")
+                return
     
     def visit_Expr(self, node):
         if isinstance(node.value, ast.Call):
@@ -414,6 +426,16 @@ class TileMLIRGenerator(MLIRGenerator):
                     dstType = self.get_type_name(dstMemName)
                     tiles, dims, steps, wraps = self.getTransInfo(call)
                     self.emit(f"adf.dma({srcMem}[] [] [] [] [] [] [], {dstMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}] [{' ,'.join(tiles)}] [{' ,'.join(dims)}] [{' ,'.join(steps)}] [{' ,'.join(wraps)}]) : ({srcType} , {dstType})")  
+                    return
+                elif node.value.func.attr == 'accstore':
+                    call = node.value
+                    offsets, sizes, strides, srcMemName, dstMemName = self.getDmaInfo(call)
+                    srcMem = self.get_var_name(srcMemName)
+                    srcType = self.get_type_name(srcMemName)
+                    dstMem = self.get_var_name(dstMemName)
+                    dstType = self.get_type_name(dstMemName)
+                    tiles, dims, steps, wraps = self.getTransInfo(call)
+                    self.emit(f"adf.dma({srcMem}[] [] [] [] [] [] [], {dstMem}[{' ,'.join(offsets)}] [{' ,'.join(sizes)}] [{' ,'.join(strides)}] [{' ,'.join(tiles)}] [{' ,'.join(dims)}] [{' ,'.join(steps)}] [{' ,'.join(wraps)}]) {{accumulator}} : ({srcType} , {dstType})")  
                     return
                 
 # =========== Emitter for task kernel ===========
@@ -1191,13 +1213,13 @@ class TilePreprocess(ast.NodeTransformer):
                 self.dmaInfo[target.id] = (self.startExpr, sizeExpr, self.stepExpr)
                 return node
             
-            elif node.value.func.attr == "buffer":
+            elif node.value.func.attr == "buffer" or node.value.func.attr == "accbuffer":
                 call = node.value
                 # Recursively visit and propagate constants
                 call.args = [self.visit(arg) for arg in call.args]
                 return node
             
-            elif node.value.func.attr in ["load", "store"]:
+            elif node.value.func.attr in ["load", "store", "accstore"]:
                 return node
             
             else:

@@ -7,7 +7,7 @@
 #include "mlir/Dialect/Func/IR/FuncOps.h"
 #include "mlir/Dialect/MemRef/IR/MemRef.h"
 #include "mlir/Dialect/Affine/Analysis/LoopAnalysis.h"
-#define DEBUG_TYPE "aries-func-unroll"
+#define DEBUG_TYPE "aries-affine-unroll"
 
 using namespace mlir;
 using namespace aries;
@@ -19,7 +19,7 @@ using namespace func;
 
 namespace {
 
-struct AriesFuncUnroll : public AriesFuncUnrollBase<AriesFuncUnroll> {
+struct AriesAffineUnroll : public AriesAffineUnrollBase<AriesAffineUnroll> {
 public:
   void runOnOperation() override {
     auto mod = dyn_cast<ModuleOp>(getOperation());  
@@ -46,7 +46,7 @@ private:
       auto zeroAttr = builder.getIntegerAttr(indexType, 0);
       auto oneAttr = builder.getIntegerAttr(indexType, 1);
       //Start from the innermost loop
-      bool flowFull = false;
+      bool fullFlow =false;
       bool hasRedLoop = false;
       for (unsigned index=0; index < band.size(); index++) {
         // Keep the tripCount info after unrolling
@@ -61,71 +61,63 @@ private:
           indexList.push_back(index);
           if (loop->hasAttr("reduction"))
             hasRedLoop = true;
+          if(fullFlow)
+            llvm::errs() << "Support only one reduction loop\n";
+          fullFlow = true;
         }
-        // Unroll reduction loop
-        if (loop->getAttr("flow")){
-          auto annotateFn = [](unsigned i, Operation *op, OpBuilder builder) {
-            auto indexType = builder.getIndexType();
-            auto valueAttr = builder.getIntegerAttr(indexType,i);
-            if (auto dmaop = dyn_cast<DmaOp>(op)){
-              if(auto attr = dmaop->getAttr("write"))
-                dmaop->setAttr("write", valueAttr);
-              else if(auto attr = dmaop->getAttr("read"))
-                dmaop->setAttr("read", valueAttr);
-            }else if (auto callop = dyn_cast<CallOp>(op)){
-              // Mark kernel in the reduction chain to update kernel interface
-              callop->setAttr("kernel", valueAttr);
-              // Mark each loop iteration info for placement
-              if(auto attr = callop->getAttr("ivs")){
-                auto arrayAttr = dyn_cast<ArrayAttr>(attr);
-                SmallVector<Attribute, 3> newAttrList;
-                for (auto oldAttr : arrayAttr){
-                  newAttrList.push_back(oldAttr);
-                }
-                newAttrList.push_back(valueAttr);
-                auto newArrayAttr = builder.getArrayAttr(newAttrList);
-                callop->setAttr("ivs", newArrayAttr);
-              }else{
-                auto arrayAttr = builder.getArrayAttr({valueAttr});
-                callop->setAttr("ivs", arrayAttr);
+        auto annotateFn0 = [](unsigned i, Operation *op, OpBuilder builder) {
+          auto indexType = builder.getIndexType();
+          auto valueAttr = builder.getIntegerAttr(indexType,i);
+          if (auto callop = dyn_cast<CallOp>(op)){
+            // Mark kernel in the reduction chain to modify the kernel interface 
+            // Mark each loop iteration info for placement
+            if(auto attr = callop->getAttr("ivs")){
+              auto arrayAttr = dyn_cast<ArrayAttr>(attr);
+              SmallVector<Attribute, 3> newAttrList;
+              for (auto oldAttr : arrayAttr){
+                newAttrList.push_back(oldAttr);
               }
+              newAttrList.push_back(valueAttr);
+              auto newArrayAttr = builder.getArrayAttr(newAttrList);
+              callop->setAttr("ivs", newArrayAttr);
+            }else{
+              auto arrayAttr = builder.getArrayAttr({valueAttr});
+              callop->setAttr("ivs", arrayAttr);
             }
-          };
-          // loopUnrollFull won't mark the loops with tripcount = 1 
-          if (failed(loopUnrollFull(loop, annotateFn)))
-            return false;
-          if(flowFull){ // Only support one reduction loop
-            assert("Support only one reduction loop\n");
-            return false;
           }
-          if(tripCount>1)
-            flowFull = true;
-        }
-        // Unroll non-reduction loop
-        else {
-          auto annotateFn = [](unsigned i, Operation *op, OpBuilder builder) {
-            auto indexType = builder.getIndexType();
-            auto valueAttr = builder.getIntegerAttr(indexType,i);
-            if (auto callop = dyn_cast<CallOp>(op)){
-              // Mark kernel in the reduction chain to modify the kernel interface 
-              // Mark each loop iteration info for placement
-              if(auto attr = callop->getAttr("ivs")){
-                auto arrayAttr = dyn_cast<ArrayAttr>(attr);
-                SmallVector<Attribute, 3> newAttrList;
-                for (auto oldAttr : arrayAttr){
-                  newAttrList.push_back(oldAttr);
-                }
-                newAttrList.push_back(valueAttr);
-                auto newArrayAttr = builder.getArrayAttr(newAttrList);
-                callop->setAttr("ivs", newArrayAttr);
-              }else{
-                auto arrayAttr = builder.getArrayAttr({valueAttr});
-                callop->setAttr("ivs", arrayAttr);
+        };
+        auto annotateFn1 = [](unsigned i, Operation *op, OpBuilder builder) {
+          auto indexType = builder.getIndexType();
+          auto valueAttr = builder.getIntegerAttr(indexType,i);
+          if (auto callop = dyn_cast<CallOp>(op)){
+            // Mark kernel in the reduction chain to modify the kernel interface 
+            // Mark each loop iteration info for placement
+            if(auto attr = callop->getAttr("ivs")){
+              auto arrayAttr = dyn_cast<ArrayAttr>(attr);
+              SmallVector<Attribute, 3> newAttrList;
+              for (auto oldAttr : arrayAttr){
+                newAttrList.push_back(oldAttr);
               }
+              newAttrList.push_back(valueAttr);
+              auto newArrayAttr = builder.getArrayAttr(newAttrList);
+              callop->setAttr("ivs", newArrayAttr);
+            }else{
+              auto arrayAttr = builder.getArrayAttr({valueAttr});
+              callop->setAttr("ivs", arrayAttr);
             }
-          };
-          // loopUnrollFull won't mark the loops with tripcount = 1 
-          if (failed(loopUnrollFull(loop, annotateFn)))
+          }else if(auto dmaOp = dyn_cast<DmaOp>(op)){
+            if(dmaOp->hasAttr("accumulator")){
+              auto attr = builder.getIntegerAttr(indexType, i);
+              dmaOp->setAttr("accumulator", attr);
+            }
+          }
+        };
+        if(loop->hasAttr("reduction")){
+          // loopUnrollFull won't mark the loops with tripcount = 1
+          if (failed(loopUnrollFull(loop, annotateFn1)))
+            return false;
+        }else{
+          if (failed(loopUnrollFull(loop, annotateFn0)))
             return false;
         }
       }
@@ -258,8 +250,8 @@ private:
 namespace mlir {
 namespace aries {
 
-std::unique_ptr<Pass> createAriesFuncUnrollPass() {
-  return std::make_unique<AriesFuncUnroll>();
+std::unique_ptr<Pass> createAriesAffineUnrollPass() {
+  return std::make_unique<AriesAffineUnroll>();
 }
 
 } // namespace aries
