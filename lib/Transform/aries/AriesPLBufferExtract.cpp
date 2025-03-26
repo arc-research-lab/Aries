@@ -193,7 +193,7 @@ private:
     for(auto size : sizes){
       auto constantOp = dyn_cast<arith::ConstantOp>(size.getDefiningOp());
       if(!constantOp){
-        llvm::errs() << "Involve non-consant size!\n";
+        llvm::errs() << "Involve non-constant size!\n";
         return WalkResult::interrupt();
       }
       auto intAttr = dyn_cast<IntegerAttr>(constantOp.getValue());
@@ -256,7 +256,7 @@ private:
     }
 
     // Allocate L2 buffer before the outer point loop
-    builder.setInsertionPoint(outerloop);
+    builder.setInsertionPointToStart(&plFunc.getBody().front());
     auto allocOp = builder.create<AllocOp>(loc, MemRefType::get(bufSizes,
                                            type.getElementType(), AffineMap(),
                                            (int)MemorySpace::L2));

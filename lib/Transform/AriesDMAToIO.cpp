@@ -103,8 +103,8 @@ private:
       auto originalMap = applyOp.getAffineMap();
       SmallVector<AffineExpr, 4> modifiedExprs;
       for (auto expr : originalMap.getResults()) {
-          auto dividedExpr = expr.floorDiv(packNum);
-          modifiedExprs.push_back(dividedExpr);
+        auto dividedExpr = expr.floorDiv(packNum);
+        modifiedExprs.push_back(dividedExpr);
       }
       auto newMap = AffineMap::get(originalMap.getNumDims(), 
                                    originalMap.getNumSymbols(), modifiedExprs, 
