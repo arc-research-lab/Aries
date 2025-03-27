@@ -92,6 +92,9 @@ class aries:
                 fmt = '%.6f'
             else:
                 fmt = '%s'
+            # Flatten or reshape 3D arrays to 2D
+            if np_arg.ndim > 2:
+                np_arg = np_arg.reshape(-1, np_arg.shape[-1])  # Reshape to 2D
             np.savetxt(f'data{i}.sim', np_arg, fmt=fmt)
 
 class AriesWrapper:
