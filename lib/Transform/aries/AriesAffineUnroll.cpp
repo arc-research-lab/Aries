@@ -91,6 +91,7 @@ private:
           auto valueAttr = builder.getIntegerAttr(indexType,i);
           if (auto callop = dyn_cast<CallOp>(op)){
             // Mark kernel in the reduction chain to modify the kernel interface 
+            callop->setAttr("kernel", valueAttr);
             // Mark each loop iteration info for placement
             if(auto attr = callop->getAttr("ivs")){
               auto arrayAttr = dyn_cast<ArrayAttr>(attr);
