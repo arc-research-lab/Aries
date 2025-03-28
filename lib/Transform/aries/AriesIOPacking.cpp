@@ -149,8 +149,25 @@ private:
       auto packNum = (int)(PortWidth / width);
       auto newTypeWidth = width * packNum;
       auto newType = builder.getIntegerType(newTypeWidth);
-      if (packNum==1)
+      if (packNum==1){ // Mark the original type
+        auto plio = graphio.getGraphio();
+        for (auto user : plio.getUsers()) {
+          if (auto iopushOp = dyn_cast<IOPushOp>(user)){
+            auto val = iopushOp.getSrc();
+            auto memrefType = dyn_cast<MemRefType>(val.getType());
+            auto eleType = memrefType.getElementType();
+            auto eleTypeAttr = TypeAttr::get(eleType);
+            user->setAttr("type", eleTypeAttr);
+          }else if(auto iopopOp = dyn_cast<IOPopOp>(user)){
+            auto val = iopopOp.getDst();
+            auto memrefType = dyn_cast<MemRefType>(val.getType());
+            auto eleType = memrefType.getElementType();
+            auto eleTypeAttr = TypeAttr::get(eleType);
+            user->setAttr("type", eleTypeAttr);
+          }
+        }
         return WalkResult::advance();
+      }
       // Update the GraphIO type
       builder.setInsertionPointAfter(graphio);
       CreateGraphIOOp newio;
