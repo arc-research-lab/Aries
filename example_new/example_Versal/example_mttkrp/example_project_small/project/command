@@ -1,1 +1,0 @@
-PLIOWidth=128, AXIWidth=512, ColNum=50, RowNum=8, ColOffset=0 , RowOffset=0, ColGap=0, CoreAlgo=2, FirstCol=6, NumShim=39, MidLine=24, ChalIn=3, ChalOut=3, EnableIOCons=true, EN_Link=true, l1-tile-sizes=2,2,1,2, l2-tile-sizes=2,2,2,2, l3-tile-sizes=, buf_sel=0,1,0,1, EN_PL=true, EN_AIE2=false, EN_SERIAL=false, IOType=PLIO

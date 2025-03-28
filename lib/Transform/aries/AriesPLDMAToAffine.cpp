@@ -818,7 +818,6 @@ private:
           outerNewloop->setAttr("store", Attr);
           forOp->removeAttr("store");
           forOp->setAttr("merge", builder.getUnitAttr());
-          // forOp->setAttr("hoist",builder.getUnitAttr()); // Used for pldataflow
         }else if(auto Attr = forOp->getAttr("send")){
           outerNewloop->setAttr("send", Attr);
           forOp->removeAttr("send");

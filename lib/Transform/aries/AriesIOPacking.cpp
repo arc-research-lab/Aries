@@ -255,6 +255,8 @@ private:
           newPop->setAttr("type", eleTypeAttr);
           if(ioOp->hasAttr("accumulator"))
             newPop->setAttr("accumulator", builder.getUnitAttr());
+          if(auto redAttr = ioOp->getAttr("reduction"))
+            newPop->setAttr("reduction", redAttr);
         }
         ioOp->erase();
         // Record the arguments that need to be changed and the corresponding
