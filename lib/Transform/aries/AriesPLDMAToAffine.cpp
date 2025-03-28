@@ -848,7 +848,7 @@ private:
   bool hoistStore(FuncOp plFunc){
     // Tranverse each store forOp inside plFunc
     for(auto forOp: plFunc.getOps<AffineForOp>()){
-      if(!forOp->hasAttr("store"))
+      if(!forOp->hasAttr("store") && !forOp->hasAttr("receive"))
         continue;
       // Get the Array_Partition forOp
       AffineForOp partforOp;
@@ -864,16 +864,7 @@ private:
       // Get the temporal loops from outermost
       SmallVector<AffineForOp, 6> tileBand;
       getLoopBandFromInnermost(partforOp, tileBand);
-      // Find forOp marked by reduction
-      AffineForOp redLoop;
-      for(auto forOp : partforOp.getOps<AffineForOp>()){
-        if(forOp->hasAttr("reduction")){
-          redLoop = forOp;
-          break;
-        }
-      }
-      if(!redLoop)
-        return true;
+
       // Collect the reduction temporal loops and its loop id
       SmallVector<int64_t> loopids;
       SmallVector<int64_t> redIds;
@@ -885,44 +876,48 @@ private:
           redIds.push_back(redAttr.getInt());
         }
       }
-      // Collect the reduction ids marked inside the array_part loop
-      auto arrayAttr = dyn_cast<ArrayAttr>(redLoop->getAttr("reduction"));
-      SmallVector<int64_t> redArrayIds;
-      for(auto attr: arrayAttr){
-        if(auto intAttr = dyn_cast<IntegerAttr>(attr)){
-          auto intVal = intAttr.getInt();
-          redArrayIds.push_back(intVal);
+      // Tranverse the forOp marked by hoist
+      for(auto hoistLoop : llvm::make_early_inc_range(partforOp.getOps<AffineForOp>())){
+        if(!hoistLoop->hasAttr("hoist"))
+          continue;
+        // Collect the hoist ids marked inside the array_part loop
+        auto arrayAttr = dyn_cast<ArrayAttr>(hoistLoop->getAttr("hoist"));
+        SmallVector<int64_t> hoistIds;
+        for(auto attr: arrayAttr){
+          if(auto intAttr = dyn_cast<IntegerAttr>(attr)){
+            auto intVal = intAttr.getInt();
+            hoistIds.push_back(intVal);
+          }
         }
-      }
-      // Find the loop idx or marked loops
-      SmallVector<int64_t> markedLoops;
-      for(auto redId: redArrayIds){
-        auto it = llvm::find(redIds, redId);
-        if(it == redIds.end()){
-          llvm::errs() << "Marked reduction loop not found\n";
+        // Find the loop idx or the loops marked by hoist ids
+        SmallVector<int64_t> markedLoops;
+        for(auto hoistId: hoistIds){
+          auto it = llvm::find(redIds, hoistId);
+          if(it == redIds.end()){
+            llvm::errs() << "Marked reduction loop not found\n";
+            return false;
+          }
+          auto pos = std::distance(redIds.begin(), it);
+          markedLoops.push_back(loopids[pos]);
+        }
+        llvm::sort(markedLoops);
+        // Check for consecutiveness
+        for (unsigned i = 0; i < markedLoops.size() - 1; i++) {
+          if (markedLoops[i] + 1 != markedLoops[i + 1]) {
+            llvm::errs() << "Marked reduction loop are not consecutive\n";
+            return false;
+          }
+        }
+        // Check if from innermost
+        if(markedLoops.back()+1 != (int)tileBand.size()){
+          llvm::errs() << "Reduction loops do not start from innermost\n";
           return false;
         }
-        auto pos = std::distance(redIds.begin(), it);
-        markedLoops.push_back(loopids[pos]);
+        // Move redLoop outside of the outermost reduction loop
+        auto targetLoop = tileBand[markedLoops[0]];
+        hoistLoop->moveAfter(targetLoop);
+        hoistLoop->removeAttr("hoist");
       }
-      llvm::sort(markedLoops);
-      // Check for consecutiveness
-      for (unsigned i = 0; i < markedLoops.size() - 1; i++) {
-        if (markedLoops[i] + 1 != markedLoops[i + 1]) {
-          llvm::errs() << "Marked reduction loop are not consecutive\n";
-          return false;
-        }
-      }
-      // Check if from innermost
-      if(markedLoops.back()+1 != (int)tileBand.size()){
-        llvm::errs() << "Reduction loops do not start from innermost\n";
-        return false;
-      }
-      // Move redLoop outside of the outermost reduction loop
-      auto targetLoop = tileBand[markedLoops[0]];
-      redLoop->moveAfter(targetLoop);
-      redLoop->removeAttr("reduction");
-      targetLoop.erase();
     }
     return true;
   }
