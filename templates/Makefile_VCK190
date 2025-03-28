@@ -153,6 +153,9 @@ ${HOST_EXE}: ${AIE_O} $(GRAPH_O)
 	$(CXX) -o $@ $^ ${GCC_LIB}
 endif
 
+SIM_FILES := $(wildcard *.sim)
+SIM_FLAGS := $(foreach file, $(SIM_FILES), --package.sd_file $(file))
+
 package: guard-ROOTFS guard-IMAGE guard-PLATFORM_REPO_PATHS package_${TARGET} 
 package_${TARGET}: ${LIBADF} ${XSA} ${HOST_EXE}
 	${VCC} -p -t ${TARGET} -f ${PLATFORM} \
@@ -162,6 +165,7 @@ package_${TARGET}: ${LIBADF} ${XSA} ${HOST_EXE}
 		--package.boot_mode=sd \
 		--package.image_format=ext4 \
 		--package.defer_aie_run \
+		${SIM_FLAGS} \
 		--package.sd_file ${HOST_EXE} ${LIBADF} ${XSA} -o ${XCLBIN}
 
 	@echo "COMPLETE: Package created."
