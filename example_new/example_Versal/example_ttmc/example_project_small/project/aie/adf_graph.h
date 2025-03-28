@@ -120,10 +120,10 @@ public:
     location<buffer>(kernel_ttmc0_k0.in[1]) =
     { address(24, 0, 0x0000),
       address(24, 0, 0x2000)};
-    location<buffer>(kernel_ttmc0_k0.in[0]) =
+    location<buffer>(kernel_ttmc0_k0.in[2]) =
     { address(24, 1, 0x4000),
       address(24, 1, 0x6000)};
-    location<buffer>(kernel_ttmc0_k0.in[2]) =
+    location<buffer>(kernel_ttmc0_k0.in[0]) =
     { address(24, 1, 0x0000),
       address(24, 1, 0x2000)};
     adf::connect<>(kernel_ttmc0_k0.out[0], kernel_ttmc_k1.in[3]);
@@ -139,10 +139,10 @@ public:
     location<buffer>(kernel_ttmc_k1.in[1]) =
     { address(25, 1, 0x4000),
       address(25, 1, 0x6000)};
-    location<buffer>(kernel_ttmc_k1.in[0]) =
+    location<buffer>(kernel_ttmc_k1.in[2]) =
     { address(25, 1, 0x0000),
       address(25, 1, 0x2000)};
-    location<buffer>(kernel_ttmc_k1.in[2]) =
+    location<buffer>(kernel_ttmc_k1.in[0]) =
     { address(24, 0, 0x1000),
       address(24, 0, 0x3000)};
     adf::connect<>(kernel_ttmc_k1.out[0], v5.in[0]);
@@ -154,10 +154,10 @@ public:
     location<buffer>(kernel_ttmc0_k2.in[1]) =
     { address(24, 4, 0x0000),
       address(24, 4, 0x2000)};
-    location<buffer>(kernel_ttmc0_k2.in[0]) =
+    location<buffer>(kernel_ttmc0_k2.in[2]) =
     { address(24, 5, 0x4000),
       address(24, 5, 0x6000)};
-    location<buffer>(kernel_ttmc0_k2.in[2]) =
+    location<buffer>(kernel_ttmc0_k2.in[0]) =
     { address(24, 5, 0x0000),
       address(24, 5, 0x2000)};
     adf::connect<>(kernel_ttmc0_k2.out[0], kernel_ttmc_k3.in[3]);
@@ -169,10 +169,10 @@ public:
     location<buffer>(kernel_ttmc_k3.in[1]) =
     { address(25, 5, 0x4000),
       address(25, 5, 0x6000)};
-    location<buffer>(kernel_ttmc_k3.in[0]) =
+    location<buffer>(kernel_ttmc_k3.in[2]) =
     { address(25, 5, 0x0000),
       address(25, 5, 0x2000)};
-    location<buffer>(kernel_ttmc_k3.in[2]) =
+    location<buffer>(kernel_ttmc_k3.in[0]) =
     { address(24, 4, 0x1000),
       address(24, 4, 0x3000)};
     adf::connect<>(kernel_ttmc_k3.out[0], v8.in[0]);
@@ -186,10 +186,10 @@ public:
     location<buffer>(kernel_ttmc0_k4.in[1]) =
     { address(24, 2, 0x0000),
       address(24, 2, 0x2000)};
-    location<buffer>(kernel_ttmc0_k4.in[0]) =
+    location<buffer>(kernel_ttmc0_k4.in[2]) =
     { address(24, 3, 0x4000),
       address(24, 3, 0x6000)};
-    location<buffer>(kernel_ttmc0_k4.in[2]) =
+    location<buffer>(kernel_ttmc0_k4.in[0]) =
     { address(24, 3, 0x0000),
       address(24, 3, 0x2000)};
     adf::connect<>(kernel_ttmc0_k4.out[0], kernel_ttmc_k5.in[3]);
@@ -199,10 +199,10 @@ public:
     location<buffer>(kernel_ttmc_k5.in[1]) =
     { address(25, 3, 0x4000),
       address(25, 3, 0x6000)};
-    location<buffer>(kernel_ttmc_k5.in[0]) =
+    location<buffer>(kernel_ttmc_k5.in[2]) =
     { address(25, 3, 0x0000),
       address(25, 3, 0x2000)};
-    location<buffer>(kernel_ttmc_k5.in[2]) =
+    location<buffer>(kernel_ttmc_k5.in[0]) =
     { address(24, 2, 0x1000),
       address(24, 2, 0x3000)};
     adf::connect<>(kernel_ttmc_k5.out[0], v10.in[0]);
@@ -212,10 +212,10 @@ public:
     location<buffer>(kernel_ttmc0_k6.in[1]) =
     { address(24, 6, 0x0000),
       address(24, 6, 0x2000)};
-    location<buffer>(kernel_ttmc0_k6.in[0]) =
+    location<buffer>(kernel_ttmc0_k6.in[2]) =
     { address(24, 7, 0x4000),
       address(24, 7, 0x6000)};
-    location<buffer>(kernel_ttmc0_k6.in[2]) =
+    location<buffer>(kernel_ttmc0_k6.in[0]) =
     { address(24, 7, 0x0000),
       address(24, 7, 0x2000)};
     adf::connect<>(kernel_ttmc0_k6.out[0], kernel_ttmc_k7.in[3]);
@@ -225,10 +225,10 @@ public:
     location<buffer>(kernel_ttmc_k7.in[1]) =
     { address(25, 7, 0x4000),
       address(25, 7, 0x6000)};
-    location<buffer>(kernel_ttmc_k7.in[0]) =
+    location<buffer>(kernel_ttmc_k7.in[2]) =
     { address(25, 7, 0x0000),
       address(25, 7, 0x2000)};
-    location<buffer>(kernel_ttmc_k7.in[2]) =
+    location<buffer>(kernel_ttmc_k7.in[0]) =
     { address(24, 6, 0x1000),
       address(24, 6, 0x3000)};
     adf::connect<>(kernel_ttmc_k7.out[0], v11.in[0]);

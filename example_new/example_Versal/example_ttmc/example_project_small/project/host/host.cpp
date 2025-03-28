@@ -86,22 +86,22 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto in_bohdl1 = xrt::bo(device, 1024 * sizeof(float), top_0.group_id(0));
+  auto in_bohdl1 = xrt::bo(device, 2048 * sizeof(float), top_0.group_id(0));
   auto in_bomapped1 = in_bohdl1.map<float*>();
   if(verify){
-    for (unsigned i=0; i < 1024; i++){
+    for (unsigned i=0; i < 2048; i++){
       float num;
       ifile1>> num;
       srcVec1.push_back(num);
     }
   }
   else{
-    for (unsigned i=0; i < 1024; i++){
+    for (unsigned i=0; i < 2048; i++){
       float num = (float)(rand()%5);
       srcVec1.push_back(num);
     }
   }
-  memcpy(in_bomapped1, srcVec1.data(), srcVec1.size() * sizeof(float));  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 1024 * sizeof(float), 0);
+  memcpy(in_bomapped1, srcVec1.data(), srcVec1.size() * sizeof(float));  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 2048 * sizeof(float), 0);
 
   std::vector<float> srcVec2;
   std::ifstream ifile2;
@@ -138,21 +138,9 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto out_bohdl0 = xrt::bo(device, 16384 * sizeof(float), top_0.group_id(0));
+  auto out_bohdl0 = xrt::bo(device, 8192 * sizeof(float), top_0.group_id(0));
   auto out_bomapped0 = out_bohdl0.map<float*>();
-  if(verify){
-    for (unsigned i=0; i < 16384; i++){
-      float num;
-      ifile3>> num;
-      srcVec3.push_back(num);
-    }
-  }
-  else{
-    for (unsigned i=0; i < 16384; i++){
-      float num = (float)(0);
-      srcVec3.push_back(num);
-    }
-  }
+
   // AI Engine Graph Control
   std::cout << "Graph run\n";
   auto adf_cell0_gr0= xrt::graph(device, uuid, "adf_cell0_gr0");
@@ -176,15 +164,15 @@ int main(int argc, char **argv) {
   std::cout << "Kernel run finished!\n";
   std::cout << "Total time is: "<< kernel_time_in_sec<< "s" << std::endl;
   // Sync output buffer back to host
-  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 16384 * sizeof(float), 0);
+  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 8192 * sizeof(float), 0);
   std::cout << "Output buffer sync back finished\n";
 
   int errorCount = 0;
   if(verify){
     std::cout << "Start results verification\n";
-    for (unsigned i=0; i < 16384; i++){
+    for (unsigned i=0; i < 8192; i++){
       if(abs((float)(srcVec3[i]-out_bomapped0[i])>=1e-4)){
-        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f \n", i, i, srcVec3[i], out_bomapped0[i]);
+        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f ", i, i, srcVec3[i], out_bomapped0[i]);
         errorCount++;
       }
     }

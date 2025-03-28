@@ -5,7 +5,7 @@ PROJECT_PATH=./project
 PROJECT_AIE_PATH=${PROJECT_PATH}/aie
 PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
-TEMPLATE_PATH = /home/arclab/research/local_Aries/Aries/example_new/example_Versal/example_ttmc/../../..//templates
+TEMPLATE_PATH = /home/jinming/project/Aries/example_new/example_Versal/example_ttmc/../../..//templates
 
 ColNum = 50
 RowNum = 8
@@ -22,7 +22,7 @@ EnableIOCons = "true"
 EN_Link = "true"
 AIEUnroll = 1
 L1_0 = 1
-L2_0 = 2
+L2_0 = 1
 L1_1 = 2
 L2_1 = 2
 L1_2 = 2

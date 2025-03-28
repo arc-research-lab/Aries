@@ -11,7 +11,7 @@ using namespace adf;
 const int I=2;
 const int J=16;
 const int K=16;
-const int L=4;
+const int L=8;
 const int M=32;
 const int A_SIZE=I*L*M;
 const int B_SIZE=L*J;
