@@ -6,8 +6,8 @@ sys.path.append(aries_path)
 from frontend import *
 
 # TTMc: D[i0, j0, k0] += A[i0, l0, m0] * B[l0, j0] * C[m0, k0]
-I, J, K, L, M = 8, 32, 64, 16, 128
-TI, TJ, TK, TL, TM = 2, 4, 8, 4, 16
+I, J, K, L, M = 4, 64, 64, 16, 128
+TI, TJ, TK, TL, TM = 2, 16, 16, 4, 32
 
 @task_kernel(external_path="aie1/adf/kernel_ttmc/aie_fp32", para = [TI, TJ, TK, TL, TM])
 def kernel_ttmc(TileA: float32[TI, TL, TM],
@@ -68,6 +68,7 @@ temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
 # Initialize the buffers
+np.random.seed(0)
 A = np.random.rand(I, L, M).astype(np.float32)
 B = np.random.rand(L, J).astype(np.float32)
 C = np.random.rand(M, K).astype(np.float32)
@@ -85,7 +86,7 @@ print(np.allclose(D, E))
 # # Applying schedulings
 sch = Schedule(ttmc_task)
 sch.parallel(ttmc_task, [1, 2, 2, 1, 2]) # AIE Array Parallelism
-sch.l2buffer(ttmc_task, [2, 2, 2, 2, 2]) # L2 buffer data reuse
+sch.l2buffer(ttmc_task, [2, 2, 2, 2, 1]) # L2 buffer data reuse
 sch.bufsel(ttmc_task, [0, 1, 0, 1]) # Select the type of buffer of A, B, C, 1:BRAM; 0:URAM
 sch.to("VCK190")
 

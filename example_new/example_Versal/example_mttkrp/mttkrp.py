@@ -65,6 +65,7 @@ temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
 # Initialize the buffers
+np.random.seed(0)
 A = np.random.rand(I, K, L).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
 C = np.random.rand(L, J).astype(np.float32)

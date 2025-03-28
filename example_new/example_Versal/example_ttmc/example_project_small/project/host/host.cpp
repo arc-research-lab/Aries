@@ -112,22 +112,22 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto in_bohdl2 = xrt::bo(device, 16384 * sizeof(float), top_0.group_id(0));
+  auto in_bohdl2 = xrt::bo(device, 8192 * sizeof(float), top_0.group_id(0));
   auto in_bomapped2 = in_bohdl2.map<float*>();
   if(verify){
-    for (unsigned i=0; i < 16384; i++){
+    for (unsigned i=0; i < 8192; i++){
       float num;
       ifile2>> num;
       srcVec2.push_back(num);
     }
   }
   else{
-    for (unsigned i=0; i < 16384; i++){
+    for (unsigned i=0; i < 8192; i++){
       float num = (float)(rand()%5);
       srcVec2.push_back(num);
     }
   }
-  memcpy(in_bomapped2, srcVec2.data(), srcVec2.size() * sizeof(float));  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 16384 * sizeof(float), 0);
+  memcpy(in_bomapped2, srcVec2.data(), srcVec2.size() * sizeof(float));  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 8192 * sizeof(float), 0);
 
   std::vector<float> srcVec3;
   std::ifstream ifile3;
@@ -138,17 +138,17 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto out_bohdl0 = xrt::bo(device, 131072 * sizeof(float), top_0.group_id(0));
+  auto out_bohdl0 = xrt::bo(device, 16384 * sizeof(float), top_0.group_id(0));
   auto out_bomapped0 = out_bohdl0.map<float*>();
   if(verify){
-    for (unsigned i=0; i < 131072; i++){
+    for (unsigned i=0; i < 16384; i++){
       float num;
       ifile3>> num;
       srcVec3.push_back(num);
     }
   }
   else{
-    for (unsigned i=0; i < 131072; i++){
+    for (unsigned i=0; i < 16384; i++){
       float num = (float)(0);
       srcVec3.push_back(num);
     }
@@ -176,13 +176,13 @@ int main(int argc, char **argv) {
   std::cout << "Kernel run finished!\n";
   std::cout << "Total time is: "<< kernel_time_in_sec<< "s" << std::endl;
   // Sync output buffer back to host
-  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 131072 * sizeof(float), 0);
+  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 16384 * sizeof(float), 0);
   std::cout << "Output buffer sync back finished\n";
 
   int errorCount = 0;
   if(verify){
     std::cout << "Start results verification\n";
-    for (unsigned i=0; i < 131072; i++){
+    for (unsigned i=0; i < 16384; i++){
       if(abs((float)(srcVec3[i]-out_bomapped0[i])>=1e-4)){
         printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f \n", i, i, srcVec3[i], out_bomapped0[i]);
         errorCount++;
