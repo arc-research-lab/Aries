@@ -102,10 +102,22 @@ private:
     Preprocess(builder, launchcell, calls);
     auto loc = builder.getUnknownLoc();
     SmallVector<Value> liveins;
+    SmallVector<Operation*, 4> Ops;
     auto liveness = Liveness(launchcell);
-    for (auto livein: liveness.getLiveIn(&launchcell.getBody().front()))
-      if (!launchcell->isProperAncestor(livein.getParentBlock()->getParentOp()))
+    for (auto livein: liveness.getLiveIn(&launchcell.getBody().front())){
+      if(launchcell->isProperAncestor(livein.getParentBlock()->getParentOp()))
+        continue;
+      auto definedOp = livein.getDefiningOp();
+      if (!definedOp){
         liveins.push_back(livein);
+        continue;
+      }
+      if(auto constOp = dyn_cast<arith::ConstantOp>(definedOp)){
+        Ops.push_back(definedOp);
+      }else{
+        liveins.push_back(livein);
+      }
+    }
     
     //reorder inputs to be correspond with the adfFunc arguments
     SmallVector<Value, 6> inputs;
@@ -116,10 +128,23 @@ private:
     }
     SmallVector<Attribute, 4> newMetaArray;
     addMetaData(builder, adfFunc, inputs, newMetaArray);
+
+    SmallVector<Value> definedLiveins;
     for(auto livein : liveins){
       auto it = llvm::find(inputs, livein);
       if(it == inputs.end())
-        inputs.push_back(livein);
+        definedLiveins.push_back(livein);
+    }
+    
+    llvm::sort(definedLiveins, [](Value a, Value b) {
+      Operation *opA = a.getDefiningOp();
+      Operation *opB = b.getDefiningOp();
+      if (!opA || !opB) return opA != nullptr;
+      return opA->isBeforeInBlock(opB);
+    });
+
+    for(auto livein : definedLiveins){
+      inputs.push_back(livein);
     }
 
     // Define the dma function with the detected inputs as arguments
@@ -136,6 +161,16 @@ private:
     auto destBlock = plFunc.addEntryBlock();
     builder.setInsertionPointToEnd(destBlock);
     auto returnOp = builder.create<ReturnOp>(builder.getUnknownLoc());
+
+    // Move the collected Constant Op defined outside of adf.cell.launch 
+    // before the returnOp
+    builder.setInsertionPointToStart(destBlock);
+    SmallVector<Operation*, 4> newOps;
+    for(auto *op : Ops){
+      auto newOp = op->clone();
+      builder.insert(newOp);
+      newOps.push_back(newOp);
+    }
     
     // Move the operations in the adf.cell.launch before the returnOp
     builder.setInsertionPointToEnd(destBlock);
@@ -164,6 +199,15 @@ private:
       auto sourceArg = inputs[i];
       auto destArg = destBlock->getArgument(i);
       sourceArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
+          return plFunc->isProperAncestor(use.getOwner());
+      });
+    }
+    // Replace the oldOp with the newOp
+    auto opSize = newOps.size();
+    for (unsigned i = 0; i < opSize; ++i) {
+      auto oldVal = Ops[i]->getResult(0);
+      auto newVal = newOps[i]->getResult(0);
+      oldVal.replaceUsesWithIf(newVal,[&](OpOperand &use){
           return plFunc->isProperAncestor(use.getOwner());
       });
     }
