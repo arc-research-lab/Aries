@@ -28,9 +28,8 @@ config.host_ldflags = '@HOST_LDFLAGS@'
 config.llvm_use_sanitizer = "@LLVM_USE_SANITIZER@"
 config.llvm_host_triple = '@LLVM_HOST_TRIPLE@'
 config.host_arch = "@HOST_ARCH@"
-config.aries_src_root = "@ARIES_SOURCE_DIR@"
-config.aries_obj_root = "@ARIES_BINARY_DIR@"
-config.aries_tools_dir = "@ARIES_TOOLS_DIR@"
+config.aries_src_root = "@CMAKE_SOURCE_DIR@"
+config.aries_obj_root = "@CMAKE_BINARY_DIR@"
 
 # Support substitution of the tools_dir with user parameters. This is
 # used when we can't determine the tool dir at configuration time.
@@ -47,4 +46,4 @@ import lit.llvm
 lit.llvm.initialize(lit_config, config)
 
 # Let the main config do the real work.
-lit_config.load_config(config, "@ARIES_SOURCE_DIR@/tests/lit.cmake.cfg.py")
+lit_config.load_config(config, "@CMAKE_SOURCE_DIR@/test/lit.cfg.py")
