@@ -164,6 +164,9 @@ private:
 
     // Move the collected Constant Op defined outside of adf.cell.launch 
     // before the returnOp
+    llvm::sort(Ops, [](Operation* a, Operation* b) {
+      return a->isBeforeInBlock(b);
+    });
     builder.setInsertionPointToStart(destBlock);
     SmallVector<Operation*, 4> newOps;
     for(auto *op : Ops){
