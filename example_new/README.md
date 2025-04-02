@@ -31,3 +31,11 @@ make all
 cd project
 make package EDGE_COMMON_SW_PATH=${PATH_Include_xilinx-versal-common-v2023.2}
 ```
+
+### On-board execution (After booting the device in petalinux)
+#### Run: [executable] [xclbin] [device] [verify] (device is 0, Enable verify result or not by setting it to 1 or 0)
+```sh
+sudo su
+cd /run/media/mmcblk0p1
+./hostexe vck190_aie_base_graph_hw.xclbin 0 1
+```

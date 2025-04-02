@@ -140,7 +140,19 @@ int main(int argc, char **argv) {
   }
   auto out_bohdl0 = xrt::bo(device, 8192 * sizeof(float), top_0.group_id(0));
   auto out_bomapped0 = out_bohdl0.map<float*>();
-
+  if(verify){
+    for (unsigned i=0; i < 8192; i++){
+      float num;
+      ifile3>> num;
+      srcVec3.push_back(num);
+    }
+  }
+  else{
+    for (unsigned i=0; i < 8192; i++){
+      float num = (float)(0);
+      srcVec3.push_back(num);
+    }
+  }
   // AI Engine Graph Control
   std::cout << "Graph run\n";
   auto adf_cell0_gr0= xrt::graph(device, uuid, "adf_cell0_gr0");
@@ -172,7 +184,7 @@ int main(int argc, char **argv) {
     std::cout << "Start results verification\n";
     for (unsigned i=0; i < 8192; i++){
       if(abs((float)(srcVec3[i]-out_bomapped0[i])>=1e-4)){
-        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f ", i, i, srcVec3[i], out_bomapped0[i]);
+        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f \n", i, i, srcVec3[i], out_bomapped0[i]);
         errorCount++;
       }
     }
