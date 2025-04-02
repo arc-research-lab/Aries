@@ -357,7 +357,7 @@ private:
       newOuterDMALoop->setAttr("store", storeAttr);
       newOuterDMALoop->setAttr("receive", receiveAttr);
       if(auto redAttr = op->getAttr("reduction"))
-        newOuterDMALoop->setAttr("reduction", redAttr);
+        newOuterDMALoop->setAttr("hoist", redAttr);
       newOuterIOLoop->setAttr("receive", receiveAttr);
     }
     // Clone and create AffineApplyOps for L3 and L2 memory respectively
@@ -387,7 +387,7 @@ private:
       auto L3L2Apply = builder.create<AffineApplyOp>(loc, map, dmaIv);
       L3L2Applys.push_back(L3L2Apply);
 
-      auto ioLoop = newIOLoops[i];
+      auto ioLoop = newIOLoops[loopIndices[i]];
       auto ioIv = ioLoop.getInductionVar();
       builder.setInsertionPoint(newInnerIOYiled);
       auto L2L1Apply = builder.create<AffineApplyOp>(loc, map, ioIv);

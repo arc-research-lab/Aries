@@ -95,6 +95,8 @@ private:
       for (auto &group : dmaGroups) {
         auto &dmaOps = group.second;
         auto numDma = dmaOps.size();
+        if(numDma<=1)
+          continue;
         auto itFirst = llvm::find_if(dmaOps, [&](const DmaOp &op) {
           auto attr = dyn_cast<IntegerAttr>(op->getAttr("accumulator"));
           auto intVal = attr.getInt();

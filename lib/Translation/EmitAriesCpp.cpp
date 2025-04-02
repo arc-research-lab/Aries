@@ -2643,7 +2643,43 @@ int main(int argc, char **argv) {
          << krlName      << ".group_id(0));\n";
       indent();
       os << "auto " << outMapName    << " = "  << getName(arg)
-         << ".map<" << getTypeName(arg)    << "*>();\n\n";
+         << ".map<" << getTypeName(arg)    << "*>();\n";
+      // Initialize output arguments
+      indent();
+      os << "if(verify){\n";
+      addIndent();
+      indent();
+      os << "for (unsigned i=0; i < " << size << "; i++){\n";
+      addIndent();
+      indent();
+      os << getTypeName(arg) << " num;\n";
+      indent();
+      os << fileVarName << ">> num;\n";
+      indent();
+      os << srcVecName << ".push_back(num);\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      indent();
+      os << "else{\n";
+      addIndent();
+      indent();
+      os << "for (unsigned i=0; i < " << size << "; i++){\n";
+      addIndent();
+      indent();
+      os << getTypeName(arg) << " num = (" << getTypeName(arg) 
+         << ")(0);\n";
+      indent();
+      os << srcVecName << ".push_back(num);\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
+      reduceIndent();
+      indent();
+      os << "}\n";
     }else if(auto memrefType = dyn_cast<MemRefType>(arg.getType())){
       auto size = memrefType.getNumElements();
       std::string inHandleName = "in_bohdl" + std::to_string(indexIn);
@@ -2789,7 +2825,7 @@ int main(int argc, char **argv) {
     addIndent();
     indent();
     os << "printf(\"Error found " << srcVecName << "[%d]!=" 
-       << outMapName << "[%d], %f!=%f \", i, i, " << srcVecName << "[i], "
+       << outMapName << "[%d], %f!=%f \\n\", i, i, " << srcVecName << "[i], "
        << outMapName << "[i]);\n";
     indent();
     os << "errorCount++;\n"; 

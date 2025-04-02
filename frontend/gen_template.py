@@ -4,7 +4,7 @@ import re
 
 def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size, 
                    placement, placeAlgo, linkFile, aieUnroll, bufSel,
-                   ioWidth, en_pl, en_aie2):
+                   ioWidth, en_pl, en_aie2, pipeline_op):
     environment = Environment(loader=FileSystemLoader(template_dir))
     file_name = 'Makefile_ARIES'
     template = environment.get_template(file_name)
@@ -28,6 +28,7 @@ def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size,
         ioWidth = ioWidth,
         en_pl = en_pl,
         en_aie2 = en_aie2,
+        pipeline_op = pipeline_op,
         template_dir = template_dir
     )
     with open(filename, mode="w", encoding="utf-8") as message:

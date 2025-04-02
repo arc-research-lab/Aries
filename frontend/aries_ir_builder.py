@@ -1466,10 +1466,13 @@ class Schedule:
           self.AIEUnroll = 8
         else:
           self.AIEUnroll = 1
+        pipeline_op = "aries-pipeline-versal"
+        if self.device == "npu":
+          pipeline_op = "aries-pipeline"
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
                        self.placement, self.placeAlgo, self.linkFile, 
                        self.AIEUnroll, bufSel, self.ioWidth, self.en_pl,
-                       self.en_aie2)
+                       self.en_aie2, pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
         task = self.tasks[0]

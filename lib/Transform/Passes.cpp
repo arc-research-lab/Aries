@@ -71,9 +71,35 @@ void mlir::aries::registerAriesPassPipeline() {
 
 void mlir::aries::registerAriesOptPipeline() {
   PassPipelineRegistration<AriesOptions>(
-  "aries-opt-pipeline", "Compile to AIE array",
+  "aries-pipeline-versal", "Compile to Versal Devices",
   [](OpPassManager &pm, const AriesOptions &opts) {
-    // Perform multi-level tiling
+    pm.addPass(createAriesTilingPass(opts));
+    pm.addPass(createAriesAffineUnrollPass());
+    pm.addPass(createAriesParallelReductionPass());
+    pm.addPass(createAriesBroadcastDetectPass());
+    pm.addPass(createAriesKernelInterfaceCreatePass(opts));
+    pm.addPass(createAriesLowerDMAToIOPass(opts));
+    pm.addPass(createAriesIOPackingPass(opts));
+    pm.addPass(createAriesADFCellCreatePass(opts));
+    pm.addPass(createAriesCorePlacementPass(opts));
+    pm.addPass(createAriesIOPlacementPass(opts));
+    pm.addPass(createAriesPLFuncExtractPass());
+    pm.addPass(createAriesPLBufferExtractPass(opts));
+    pm.addPass(createAriesPLDMAToAffinePass());
+    pm.addPass(createAriesAXIPackingPass(opts));
+    pm.addPass(createAriesPLDataflowPass());
+    pm.addPass(mlir::createCanonicalizerPass());
+    pm.addPass(mlir::createCSEPass());
+    pm.addPass(createAriesBurstDetectionPass());
+    pm.addPass(createAriesFuncEliminatePass());
+    pm.addPass(createAriesPLDoubleBufferPass());
+    pm.addPass(mlir::createCanonicalizerPass());
+    pm.addPass(mlir::createCSEPass());
+    if(opts.OptEnableSerial){
+      pm.addPass(createAriesPLSerializePass());
+      pm.addPass(mlir::createCanonicalizerPass());
+      pm.addPass(mlir::createCSEPass());
+    }
   });
 }
 

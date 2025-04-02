@@ -66,10 +66,11 @@ ARIES_OPTIONS+= buf-sels=${buf_sel}
 ARIES_OPTIONS+= axi-width=${AXIWidth}
 ARIES_OPTIONS+= en-serial=${EN_SERIAL}
 
+PIPELINE_OP=-{{pipeline_op}}
 pass: ${PROJECT_PATH}/${FUNC}.adf.mlir
 ${PROJECT_PATH}/${FUNC}.adf.mlir: ${MLIR}.mlir
 	aries-opt -o $@ $< \
-			-aries-pipeline="${ARIES_OPTIONS}"
+			${PIPELINE_OP}="${ARIES_OPTIONS}"
 
 ifeq ($(EN_PL),"true")
   ifeq ($(EN_AIE2),"false")

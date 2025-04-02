@@ -46,8 +46,7 @@ private:
       auto zeroAttr = builder.getIntegerAttr(indexType, 0);
       auto oneAttr = builder.getIntegerAttr(indexType, 1);
       //Start from the innermost loop
-      bool fullFlow =false;
-      bool hasRedLoop = false;
+      unsigned hasRedLoop = 0;
       for (unsigned index=0; index < band.size(); index++) {
         // Keep the tripCount info after unrolling
         auto loop = band[index];
@@ -60,10 +59,11 @@ private:
           tripCountList.push_back(tripCountAttr);
           indexList.push_back(index);
           if (loop->hasAttr("reduction"))
-            hasRedLoop = true;
-          if(fullFlow)
+            hasRedLoop++;
+          if(hasRedLoop>1){
             llvm::errs() << "Support only one reduction loop\n";
-          fullFlow = true;
+            return false;
+          }
         }
         auto annotateFn0 = [](unsigned i, Operation *op, OpBuilder builder) {
           auto indexType = builder.getIndexType();
@@ -91,6 +91,7 @@ private:
           auto valueAttr = builder.getIntegerAttr(indexType,i);
           if (auto callop = dyn_cast<CallOp>(op)){
             // Mark kernel in the reduction chain to modify the kernel interface 
+            callop->setAttr("kernel", valueAttr);
             // Mark each loop iteration info for placement
             if(auto attr = callop->getAttr("ivs")){
               auto arrayAttr = dyn_cast<ArrayAttr>(attr);

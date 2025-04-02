@@ -106,6 +106,35 @@ private:
     return true;
   }
 
+  void getIOInfo(Operation* user, Value& val, bool& push_flag,
+                 SmallVector<Value>& offsets, SmallVector<Value>& sizes,
+                 SmallVector<Value>& strides, SmallVector<Value>& tiles,
+                 SmallVector<Value>&dims,     SmallVector<Value>& steps, 
+                 SmallVector<Value>& wraps){
+    if(auto iopushOp = dyn_cast<IOPushOp>(user)){
+      push_flag = true;
+      val = iopushOp.getSrc();
+      offsets = iopushOp.getSrcOffsets();
+      sizes   = iopushOp.getSrcSizes();
+      strides = iopushOp.getSrcStrides();
+      tiles   = iopushOp.getSrcTiles();
+      dims    = iopushOp.getSrcDims();
+      steps   = iopushOp.getSrcSteps();
+      wraps   = iopushOp.getSrcWraps();
+    }else{
+      push_flag = false;
+      auto iopopOp = dyn_cast<IOPopOp>(user);
+      val = iopopOp.getDst();
+      offsets = iopopOp.getDstOffsets();
+      sizes   = iopopOp.getDstSizes();
+      strides = iopopOp.getDstStrides();
+      tiles   = iopopOp.getDstTiles();
+      dims    = iopopOp.getDstDims();
+      steps   = iopopOp.getDstSteps();
+      wraps   = iopopOp.getDstWraps();
+    }
+  }
+
   // Perform GraphIO data packing
   void packing(OpBuilder builder, FuncOp func, 
                SmallVector<std::pair<MemRefType, unsigned>, 4>& typePairs){
@@ -113,51 +142,71 @@ private:
     auto context = builder.getContext();
     auto &entryBlock = func.getBody().front();
     auto indexType = builder.getIndexType();
-    builder.setInsertionPointToStart(&entryBlock);
     func.walk([&](CreateGraphIOOp graphio){
       auto ioType = dyn_cast<PLIOType>(graphio.getType());
       auto width = ioType.getWidth();
+      auto dir = ioType.getDir();
       auto packNum = (int)(PortWidth / width);
       auto newTypeWidth = width * packNum;
       auto newType = builder.getIntegerType(newTypeWidth);
-      if (packNum==1)
-        return WalkResult::advance();
-      // Update the size and offset of IOPush/IOPop
-      auto plio = graphio.getResult();
-      for(auto user: plio.getUsers()){
-        if(!dyn_cast<IOPushOp>(user) && !dyn_cast<IOPopOp>(user))
-          continue;
-        SmallVector<Value> sizes, offsets;
-        Value size, offset, val;
-        if(auto iopushOp = dyn_cast<IOPushOp>(user)){
-          val = iopushOp.getSrc();
-          sizes = iopushOp.getSrcSizes();
-          offsets = iopushOp.getSrcSizes();
-          size = sizes[sizes.size()-1];
-          offset = offsets[offsets.size()-1];
-          // Update the graphio type
-          auto portIn = PLIOType::get(context, PortDir::In, PortWidth);
-          graphio.setGraphIOType(portIn);
-        }else{
-          auto iopopOp = dyn_cast<IOPopOp>(user);
-          val = iopopOp.getDst();
-          sizes = iopopOp.getDstSizes();
-          offsets = iopopOp.getDstOffsets();
-          size = sizes[sizes.size()-1];
-          offset = offsets[offsets.size()-1];
-          auto portOut = PLIOType::get(context, PortDir::Out, PortWidth);
-          graphio.setGraphIOType(portOut);
+      if (packNum==1){ // Mark the original type
+        auto plio = graphio.getGraphio();
+        for (auto user : plio.getUsers()) {
+          if (auto iopushOp = dyn_cast<IOPushOp>(user)){
+            auto val = iopushOp.getSrc();
+            auto memrefType = dyn_cast<MemRefType>(val.getType());
+            auto eleType = memrefType.getElementType();
+            auto eleTypeAttr = TypeAttr::get(eleType);
+            user->setAttr("type", eleTypeAttr);
+          }else if(auto iopopOp = dyn_cast<IOPopOp>(user)){
+            auto val = iopopOp.getDst();
+            auto memrefType = dyn_cast<MemRefType>(val.getType());
+            auto eleType = memrefType.getElementType();
+            auto eleTypeAttr = TypeAttr::get(eleType);
+            user->setAttr("type", eleTypeAttr);
+          }
         }
+        return WalkResult::advance();
+      }
+      // Update the GraphIO type
+      builder.setInsertionPointAfter(graphio);
+      CreateGraphIOOp newio;
+      if(dir == PortDir::In){
+        auto pin = PLIOType::get(context, PortDir::In, PortWidth);
+        newio = builder.create<CreateGraphIOOp>(loc, pin, GraphIOName::PLIO);
+      }else{
+        auto pout = PLIOType::get(context, PortDir::Out, PortWidth);
+        newio = builder.create<CreateGraphIOOp>(loc, pout, GraphIOName::PLIO);
+      }
+      auto plio = newio.getResult();
+      graphio.getResult().replaceAllUsesWith(plio);
+      graphio.erase();
+      // Collect ioOps before tranversal
+      SmallVector<Operation *, 4> ioOps;
+      for (auto user : plio.getUsers()) {
+        if (isa<IOPushOp>(user) || isa<IOPopOp>(user)) {
+          ioOps.push_back(user);
+        }
+      }
+      // Update the size and offset of IOPush/IOPop
+      for(auto ioOp: llvm::make_early_inc_range(ioOps)){
+        SmallVector<Value> offsets, sizes, strides, tiles, dims, steps, wraps;
+        Value val;
+        bool push_flag;
+        getIOInfo(ioOp, val, push_flag, offsets, sizes, strides, tiles, dims, 
+                  steps, wraps);
+        Value size = sizes.back();
+        Value offset = offsets.back();
         // Mark the original type
         auto memrefType = dyn_cast<MemRefType>(val.getType());
         auto shape = memrefType.getShape();
         auto rank = memrefType.getRank();
         auto eleType = memrefType.getElementType();
         auto eleTypeAttr = TypeAttr::get(eleType);
-        user->setAttr("type", eleTypeAttr); 
         SmallVector<int64_t> shapeInt(shape.begin(),shape.end());
 
         // Create new size and update the IO ops
+        builder.setInsertionPointToStart(&entryBlock);
         auto constantOp = dyn_cast<arith::ConstantOp>(size.getDefiningOp());
         auto intSizeAttr = dyn_cast<IntegerAttr>(constantOp.getValue());
         auto intSize = intSizeAttr.getInt();
@@ -174,6 +223,7 @@ private:
           auto intOffset = intOffAttr.getInt();
           auto packedOffset = intOffset/packNum;
           auto offsetAttr = builder.getIntegerAttr(indexType, packedOffset);
+          builder.setInsertionPoint(constOp);
           auto offsetValue 
                = builder.create<arith::ConstantOp>(loc, indexType, offsetAttr);
           offsets[offsets.size()-1] = offsetValue;
@@ -191,7 +241,24 @@ private:
           auto newApplyOp = builder.create<AffineApplyOp>(loc, newMap, operands);
           offsets[offsets.size()-1] = newApplyOp.getResult();
         }
-
+        // Erase old push/pop op and create new one
+        builder.setInsertionPointAfter(ioOp);
+        if(push_flag) {
+          auto newPush = builder.create<IOPushOp>(loc, val, offsets, sizes, 
+                                                  strides, tiles, dims, steps, 
+                                                  wraps, newio);
+          newPush->setAttr("type", eleTypeAttr);
+        }else{
+          auto newPop = builder.create<IOPopOp>(loc, newio, val, offsets, 
+                                                sizes, strides, tiles, dims, 
+                                                steps, wraps);
+          newPop->setAttr("type", eleTypeAttr);
+          if(ioOp->hasAttr("accumulator"))
+            newPop->setAttr("accumulator", builder.getUnitAttr());
+          if(auto redAttr = ioOp->getAttr("reduction"))
+            newPop->setAttr("reduction", redAttr);
+        }
+        ioOp->erase();
         // Record the arguments that need to be changed and the corresponding
         // memrefType
         for(unsigned idx = 0; idx < func.getNumArguments(); idx++){
