@@ -179,6 +179,7 @@ def AriesADFCellCreate : Pass<"aries-adf-cell-create"> {
 def AriesCorePlacement : Pass<"aries-core-placement"> {
   let summary = "Place the AIE cores";
   let constructor = "mlir::aries::createAriesCorePlacementPass()";
+  let dependentDialects = ["mlir::arith::ArithDialect"];
   let options = [
     Option<"ColNum", "col-num", "int64_t", /*default=*/"50",
            "Specify the number of columns of the AIE array">,
