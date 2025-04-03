@@ -661,38 +661,6 @@ void gemm_pl(
   hls::stream< ap_int<128> > v327 /* v327[1] */;	// L588
   hls::stream< ap_int<128> > v328 /* v328[1] */;	// L589
   hls::stream< ap_int<128> > v329 /* v329[1] */;	// L590
-  ap_int<128> v330[64][16];	// L591
-  #pragma HLS bind_storage variable=v330 type=ram_t2p impl=uram
-  for (int v331 = 0; v331 < 64; v331++) {	// L592
-    for (int v332 = 0; v332 < 16; v332++) {	// L593
-    #pragma HLS pipeline II=1
-      v330[v331][v332] = 0;	// L594
-    }
-  }
-  ap_int<128> v333[64][16];	// L597
-  #pragma HLS bind_storage variable=v333 type=ram_t2p impl=uram
-  for (int v334 = 0; v334 < 64; v334++) {	// L598
-    for (int v335 = 0; v335 < 16; v335++) {	// L599
-    #pragma HLS pipeline II=1
-      v333[v334][v335] = 0;	// L600
-    }
-  }
-  ap_int<128> v336[64][16];	// L603
-  #pragma HLS bind_storage variable=v336 type=ram_t2p impl=uram
-  for (int v337 = 0; v337 < 64; v337++) {	// L604
-    for (int v338 = 0; v338 < 16; v338++) {	// L605
-    #pragma HLS pipeline II=1
-      v336[v337][v338] = 0;	// L606
-    }
-  }
-  ap_int<128> v339[64][16];	// L609
-  #pragma HLS bind_storage variable=v339 type=ram_t2p impl=uram
-  for (int v340 = 0; v340 < 64; v340++) {	// L610
-    for (int v341 = 0; v341 < 16; v341++) {	// L611
-    #pragma HLS pipeline II=1
-      v339[v340][v341] = 0;	// L612
-    }
-  }
   hls::stream< ap_int<512> > v342 /* v342[1] */;	// L615
   #pragma HLS stream variable=v342 depth=2
   hls::stream< ap_int<512> > v343 /* v343[1] */;	// L616
