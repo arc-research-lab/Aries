@@ -7,4 +7,7 @@ install
 *pyc
 Aries
 .vscode
-./aries/
+externals
+aries
+project
+my_project
