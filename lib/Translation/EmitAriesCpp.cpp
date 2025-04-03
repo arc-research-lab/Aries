@@ -2810,12 +2810,18 @@ int main(int argc, char **argv) {
   indent();
   os << "std::cout << \"Start results verification\\n\";\n";
   for (unsigned idx=0; idx < outMems.size(); idx++){
-    auto outMem = outMems[0];
+    auto outMem = outMems[idx];
     auto index = outIndices[idx];
     auto memrefType = dyn_cast<MemRefType>(outMem.getType());
+    auto eleType = memrefType.getElementType();
     auto size = memrefType.getNumElements();
     auto srcVecName = "srcVec" + std::to_string(index);
     std::string outMapName = "out_bomapped" + std::to_string(idx);
+    std::string printType;
+    if(isa<FloatType>(eleType))
+      printType = "%f";
+    else
+      printType = "%d";
     indent();
     os << "for (unsigned i=0; i < " << size << "; i++){\n";
     addIndent();
@@ -2824,9 +2830,9 @@ int main(int argc, char **argv) {
        << ")>=1e-4)){\n";
     addIndent();
     indent();
-    os << "printf(\"Error found " << srcVecName << "[%d]!=" 
-       << outMapName << "[%d], %f!=%f \\n\", i, i, " << srcVecName << "[i], "
-       << outMapName << "[i]);\n";
+    os << "printf(\"Error found " << srcVecName << "[%d] != "
+       << outMapName << "[%d], " << printType << " != " << printType 
+       << "\\n\", i, i, " << srcVecName << "[i], " << outMapName << "[i]);\n";
     indent();
     os << "errorCount++;\n"; 
     reduceIndent();
