@@ -9,21 +9,21 @@ from frontend import *
 I, J, K, L = 8, 128, 32, 128
 TI, TJ, TK, TL = 2, 16, 8, 16
 
-@task_kernel(external_path="aie1/adf/kernel_mttkrp/aie_fp32", para = [TI, TJ, TK, TL])
-def kernel_mttkrp(TileA: float32[TI, TK, TL],
-                  TileB: float32[TK, TJ],
-                  TileC: float32[TL, TJ],
-                  TileD: float32[TI, TJ]):
+@task_kernel(external_path="aie1/adf/kernel_mttkrp/aie_int32", para = [TI, TJ, TK, TL])
+def kernel_mttkrp(TileA: int32[TI, TK, TL],
+                  TileB: int32[TK, TJ],
+                  TileC: int32[TL, TJ],
+                  TileD: int32[TI, TJ]):
     for i0 in range(0, TI):
         for j0 in range(0, TJ):
-            TileD[i0, j0] = float32(0)
+            TileD[i0, j0] = int32(0)
             for k0 in range(0, TK):
                 for l0 in range(0, TL):
                     TileD[i0, j0] += TileA[i0, k0, l0] * TileB[k0, j0] * TileC[l0, j0]
 
 @task_tile()
-def mttkrp(A: float32[I, K, L], B: float32[K, J], 
-           C: float32[L, J],    D: float32[I, J], **kwargs):
+def mttkrp(A: int32[I, K, L], B: int32[K, J], 
+           C: int32[L, J],    D: int32[I, J], **kwargs):
     i, j, k, l = aries.tile_ranks(**kwargs)
 
     # Compute tile slices for multiple dimensions
@@ -32,10 +32,10 @@ def mttkrp(A: float32[I, K, L], B: float32[K, J],
     tk = aries.arange(k*TK, (k+1)*TK)  # K tile range
     tl = aries.arange(l*TL, (l+1)*TL)  # L tile range
     
-    L1_A = aries.buffer((TI, TK, TL), "float32")
-    L1_B = aries.buffer((TK, TJ), "float32")
-    L1_C = aries.buffer((TL, TJ), "float32")
-    L1_D = aries.accbuffer((TI, TJ), "float32")
+    L1_A = aries.buffer((TI, TK, TL), "int32")
+    L1_B = aries.buffer((TK, TJ), "int32")
+    L1_C = aries.buffer((TL, TJ), "int32")
+    L1_D = aries.accbuffer((TI, TJ), "int32")
     
     L1_A = aries.load(A, (ti, tk, tl))
     L1_B = aries.load(B, (tk, tj))
@@ -44,14 +44,14 @@ def mttkrp(A: float32[I, K, L], B: float32[K, J],
     aries.accstore(L1_D, D, (ti, tj))
 
 @task_top()
-def top(A: float32[I, K, L], B: float32[K, J], 
-        C: float32[L, J],    D: float32[I, J]):
+def top(A: int32[I, K, L], B: int32[K, J], 
+        C: int32[L, J],    D: int32[I, J]):
     grid, size = (I//TI, J//TJ, K//TK, L//TL), (TI, TJ, TK, TL)
     mttkrp_task = mttkrp[grid, size](A, B, C, D)
     return mttkrp_task
 
-def mttkrp_sw(A: float32[I, K, L], B: float32[K, J], C: float32[L, J]):
-    D = np.zeros((I, J)).astype(np.float32)
+def mttkrp_sw(A: int32[I, K, L], B: int32[K, J], C: int32[L, J]):
+    D = np.zeros((I, J)).astype(np.int32)
     for i0 in range(0, I):
         for j0 in range(0, J):
             for k0 in range(0, K):
@@ -66,10 +66,10 @@ module = sys.modules[__name__]
     
 # Initialize the buffers
 np.random.seed(0)
-A = np.random.rand(I, K, L).astype(np.float32)
-B = np.random.rand(K, J).astype(np.float32)
-C = np.random.rand(L, J).astype(np.float32)
-D = np.zeros((I, J)).astype(np.float32)
+A = np.random.randint(-5, 6, size=(I, K, L), dtype=np.int32)
+B = np.random.randint(-5, 6, size=(K, J), dtype=np.int32)
+C = np.random.randint(-5, 6, size=(L, J), dtype=np.int32)
+D = np.zeros((I, J)).astype(np.int32)
 
 # Execute on CPU
 mttkrp_task = top(A, B, C, D)
