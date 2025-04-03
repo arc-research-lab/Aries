@@ -118,6 +118,25 @@ private:
         liveins.push_back(livein);
       }
     }
+
+    // Sort the order or liveins to make the order fixed
+    llvm::sort(liveins, [](Value a, Value b) {
+      // Case 1: Both are block arguments: Sort by function argument index
+      if (isa<BlockArgument>(a) && isa<BlockArgument>(b)) {
+        return dyn_cast<BlockArgument>(a).getArgNumber() < 
+               dyn_cast<BlockArgument>(b).getArgNumber();
+      }
+      // Case 2: One is a block argument, the other is a defining operation
+      if (isa<BlockArgument>(a)) return true;  // Block arguments come first
+      if (isa<BlockArgument>(b)) return false;
+      // Case 3: Both have defining operations: Sort by op order in block
+      Operation *opA = a.getDefiningOp();
+      Operation *opB = b.getDefiningOp();
+      if (opA && opB)
+        return opA->isBeforeInBlock(opB);
+      // Fallback: Compare raw pointers for deterministic tie-breaking
+      return a.getAsOpaquePointer() < b.getAsOpaquePointer();
+    });
     
     //reorder inputs to be correspond with the adfFunc arguments
     SmallVector<Value, 6> inputs;
@@ -128,24 +147,29 @@ private:
     }
     SmallVector<Attribute, 4> newMetaArray;
     addMetaData(builder, adfFunc, inputs, newMetaArray);
-
-    SmallVector<Value> definedLiveins;
     for(auto livein : liveins){
       auto it = llvm::find(inputs, livein);
       if(it == inputs.end())
-        definedLiveins.push_back(livein);
+        inputs.push_back(livein);
     }
-    
-    llvm::sort(definedLiveins, [](Value a, Value b) {
-      Operation *opA = a.getDefiningOp();
-      Operation *opB = b.getDefiningOp();
-      if (!opA || !opB) return opA != nullptr;
-      return opA->isBeforeInBlock(opB);
-    });
 
-    for(auto livein : definedLiveins){
-      inputs.push_back(livein);
-    }
+    // SmallVector<Value> definedLiveins;
+    // for(auto livein : liveins){
+    //   auto it = llvm::find(inputs, livein);
+    //   if(it == inputs.end())
+    //     definedLiveins.push_back(livein);
+    // }
+    
+    // llvm::sort(definedLiveins, [](Value a, Value b) {
+    //   Operation *opA = a.getDefiningOp();
+    //   Operation *opB = b.getDefiningOp();
+    //   if (!opA || !opB) return opA != nullptr;
+    //   return opA->isBeforeInBlock(opB);
+    // });
+
+    // for(auto livein : definedLiveins){
+    //   inputs.push_back(livein);
+    // }
 
     // Define the dma function with the detected inputs as arguments
     builder.setInsertionPoint(adfFunc);
