@@ -927,38 +927,6 @@ void mttkrp_pl(
   hls::stream< ap_int<128> > v453 /* v453[1] */;	// L832
   hls::stream< ap_int<128> > v454 /* v454[1] */;	// L833
   hls::stream< ap_int<128> > v455 /* v455[1] */;	// L834
-  ap_int<128> v456[4][8];	// L835
-  #pragma HLS bind_storage variable=v456 type=ram_s2p impl=bram
-  for (int v457 = 0; v457 < 4; v457++) {	// L836
-    for (int v458 = 0; v458 < 8; v458++) {	// L837
-    #pragma HLS pipeline II=1
-      v456[v457][v458] = 0;	// L838
-    }
-  }
-  ap_int<128> v459[4][8];	// L841
-  #pragma HLS bind_storage variable=v459 type=ram_s2p impl=bram
-  for (int v460 = 0; v460 < 4; v460++) {	// L842
-    for (int v461 = 0; v461 < 8; v461++) {	// L843
-    #pragma HLS pipeline II=1
-      v459[v460][v461] = 0;	// L844
-    }
-  }
-  ap_int<128> v462[4][8];	// L847
-  #pragma HLS bind_storage variable=v462 type=ram_s2p impl=bram
-  for (int v463 = 0; v463 < 4; v463++) {	// L848
-    for (int v464 = 0; v464 < 8; v464++) {	// L849
-    #pragma HLS pipeline II=1
-      v462[v463][v464] = 0;	// L850
-    }
-  }
-  ap_int<128> v465[4][8];	// L853
-  #pragma HLS bind_storage variable=v465 type=ram_s2p impl=bram
-  for (int v466 = 0; v466 < 4; v466++) {	// L854
-    for (int v467 = 0; v467 < 8; v467++) {	// L855
-    #pragma HLS pipeline II=1
-      v465[v466][v467] = 0;	// L856
-    }
-  }
   hls::stream< ap_int<512> > v468 /* v468[1] */;	// L859
   #pragma HLS stream variable=v468 depth=1
   hls::stream< ap_int<512> > v469 /* v469[1] */;	// L860

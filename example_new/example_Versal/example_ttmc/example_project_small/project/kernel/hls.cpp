@@ -945,46 +945,6 @@ void ttmc_pl(
   hls::stream< ap_int<128> > v459 /* v459[1] */;	// L866
   hls::stream< ap_int<128> > v460 /* v460[1] */;	// L867
   hls::stream< ap_int<128> > v461 /* v461[1] */;	// L868
-  ap_int<128> v462[2][32][8];	// L869
-  #pragma HLS bind_storage variable=v462 type=ram_s2p impl=bram
-  for (int v463 = 0; v463 < 2; v463++) {	// L870
-    for (int v464 = 0; v464 < 32; v464++) {	// L871
-      for (int v465 = 0; v465 < 8; v465++) {	// L872
-      #pragma HLS pipeline II=1
-        v462[v463][v464][v465] = 0;	// L873
-      }
-    }
-  }
-  ap_int<128> v466[2][32][8];	// L877
-  #pragma HLS bind_storage variable=v466 type=ram_s2p impl=bram
-  for (int v467 = 0; v467 < 2; v467++) {	// L878
-    for (int v468 = 0; v468 < 32; v468++) {	// L879
-      for (int v469 = 0; v469 < 8; v469++) {	// L880
-      #pragma HLS pipeline II=1
-        v466[v467][v468][v469] = 0;	// L881
-      }
-    }
-  }
-  ap_int<128> v470[2][32][8];	// L885
-  #pragma HLS bind_storage variable=v470 type=ram_s2p impl=bram
-  for (int v471 = 0; v471 < 2; v471++) {	// L886
-    for (int v472 = 0; v472 < 32; v472++) {	// L887
-      for (int v473 = 0; v473 < 8; v473++) {	// L888
-      #pragma HLS pipeline II=1
-        v470[v471][v472][v473] = 0;	// L889
-      }
-    }
-  }
-  ap_int<128> v474[2][32][8];	// L893
-  #pragma HLS bind_storage variable=v474 type=ram_s2p impl=bram
-  for (int v475 = 0; v475 < 2; v475++) {	// L894
-    for (int v476 = 0; v476 < 32; v476++) {	// L895
-      for (int v477 = 0; v477 < 8; v477++) {	// L896
-      #pragma HLS pipeline II=1
-        v474[v475][v476][v477] = 0;	// L897
-      }
-    }
-  }
   hls::stream< ap_int<512> > v478 /* v478[1] */;	// L901
   #pragma HLS stream variable=v478 depth=1
   hls::stream< ap_int<512> > v479 /* v479[1] */;	// L902

@@ -94,6 +94,7 @@ private:
   // them into new functions marked by adf.pl
   void PLFuncSplit(OpBuilder builder, FuncOp plFunc){
     auto loc = builder.getUnknownLoc();
+    SmallVector<Operation*, 4> eraseOps;
     for (auto forOp: llvm::make_early_inc_range(plFunc.getOps<AffineForOp>())){
       SmallVector<Operation*, 4> Ops;
       SmallVector<Value> liveins(forOp.getOperands());
@@ -119,6 +120,26 @@ private:
           liveins.push_back(livein);
         }
       }
+
+      // Sort the order or liveins to make the order fixed
+      llvm::sort(liveins, [](Value a, Value b) {
+        // Case 1: Both are block arguments: Sort by function argument index
+        if (isa<BlockArgument>(a) && isa<BlockArgument>(b)) {
+          return dyn_cast<BlockArgument>(a).getArgNumber() < 
+                 dyn_cast<BlockArgument>(b).getArgNumber();
+        }
+        // Case 2: One is a block argument, the other is a defining operation
+        if (isa<BlockArgument>(a)) return true;  // Block arguments come first
+        if (isa<BlockArgument>(b)) return false;
+        // Case 3: Both have defining operations: Sort by op order in block
+        Operation *opA = a.getDefiningOp();
+        Operation *opB = b.getDefiningOp();
+        if (opA && opB)
+          return opA->isBeforeInBlock(opB);
+        // Fallback: Compare raw pointers for deterministic tie-breaking
+        return a.getAsOpaquePointer() < b.getAsOpaquePointer();
+      });
+
       // Reorder the input arguments to be aligned with the previous function
       SmallVector<Value, 6> inputs;
       for(auto arg : plFunc.getArguments()){
@@ -183,12 +204,17 @@ private:
       auto returnOp = builder.create<ReturnOp>(builder.getUnknownLoc());
 
       // Move L2 buffer/Constant definition inside each function
+      llvm::sort(Ops, [](Operation* a, Operation* b) {
+        return a->isBeforeInBlock(b);
+      });
       builder.setInsertionPointToStart(destBlock);
       SmallVector<Operation*, 4> newOps;
       for(auto *op : Ops){
         auto newOp = op->clone();
         builder.insert(newOp);
         newOps.push_back(newOp);
+        if(dyn_cast<AllocOp>(op))
+          eraseOps.push_back(op);
       }
 
       // Move the entire block of outerPointLoop before the returnOp
@@ -220,6 +246,8 @@ private:
       // Replace upperbound of the for loops in each pl function
       simplifyUb(builder, newfunc);
     }
+    for (auto op: llvm::make_early_inc_range(eraseOps))
+      op->erase();
   }
 
   // This function annotate the original types of the memref arguments to each
