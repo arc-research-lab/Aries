@@ -5,7 +5,6 @@ PROJECT_PATH=./project
 PROJECT_AIE_PATH=${PROJECT_PATH}/aie
 PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
-TEMPLATE_PATH = /home/arclab/research/local_Aries/Aries/example_new/example_Versal/example_mttkrp/../../..//templates
 
 ColNum = 50
 RowNum = 8

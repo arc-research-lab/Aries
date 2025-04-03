@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
   auto top_0= xrt::kernel(device, uuid, "top:{top_0}");
 
   // Define arguments
-  std::vector<float> srcVec0;
+  std::vector<int32_t> srcVec0;
   std::ifstream ifile0;
   if(verify){
     ifile0.open("data0.sim");
@@ -60,24 +60,24 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto in_bohdl0 = xrt::bo(device, 32768 * sizeof(float), top_0.group_id(0));
-  auto in_bomapped0 = in_bohdl0.map<float*>();
+  auto in_bohdl0 = xrt::bo(device, 32768 * sizeof(int32_t), top_0.group_id(0));
+  auto in_bomapped0 = in_bohdl0.map<int32_t*>();
   if(verify){
     for (unsigned i=0; i < 32768; i++){
-      float num;
+      int32_t num;
       ifile0>> num;
       srcVec0.push_back(num);
     }
   }
   else{
     for (unsigned i=0; i < 32768; i++){
-      float num = (float)(rand()%5);
+      int32_t num = (int32_t)(rand()%5);
       srcVec0.push_back(num);
     }
   }
-  memcpy(in_bomapped0, srcVec0.data(), srcVec0.size() * sizeof(float));  in_bohdl0.sync(XCL_BO_SYNC_BO_TO_DEVICE, 32768 * sizeof(float), 0);
+  memcpy(in_bomapped0, srcVec0.data(), srcVec0.size() * sizeof(int32_t));  in_bohdl0.sync(XCL_BO_SYNC_BO_TO_DEVICE, 32768 * sizeof(int32_t), 0);
 
-  std::vector<float> srcVec1;
+  std::vector<int32_t> srcVec1;
   std::ifstream ifile1;
   if(verify){
     ifile1.open("data1.sim");
@@ -86,24 +86,24 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto in_bohdl1 = xrt::bo(device, 4096 * sizeof(float), top_0.group_id(0));
-  auto in_bomapped1 = in_bohdl1.map<float*>();
+  auto in_bohdl1 = xrt::bo(device, 4096 * sizeof(int32_t), top_0.group_id(0));
+  auto in_bomapped1 = in_bohdl1.map<int32_t*>();
   if(verify){
     for (unsigned i=0; i < 4096; i++){
-      float num;
+      int32_t num;
       ifile1>> num;
       srcVec1.push_back(num);
     }
   }
   else{
     for (unsigned i=0; i < 4096; i++){
-      float num = (float)(rand()%5);
+      int32_t num = (int32_t)(rand()%5);
       srcVec1.push_back(num);
     }
   }
-  memcpy(in_bomapped1, srcVec1.data(), srcVec1.size() * sizeof(float));  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 4096 * sizeof(float), 0);
+  memcpy(in_bomapped1, srcVec1.data(), srcVec1.size() * sizeof(int32_t));  in_bohdl1.sync(XCL_BO_SYNC_BO_TO_DEVICE, 4096 * sizeof(int32_t), 0);
 
-  std::vector<float> srcVec2;
+  std::vector<int32_t> srcVec2;
   std::ifstream ifile2;
   if(verify){
     ifile2.open("data2.sim");
@@ -112,24 +112,24 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto in_bohdl2 = xrt::bo(device, 16384 * sizeof(float), top_0.group_id(0));
-  auto in_bomapped2 = in_bohdl2.map<float*>();
+  auto in_bohdl2 = xrt::bo(device, 16384 * sizeof(int32_t), top_0.group_id(0));
+  auto in_bomapped2 = in_bohdl2.map<int32_t*>();
   if(verify){
     for (unsigned i=0; i < 16384; i++){
-      float num;
+      int32_t num;
       ifile2>> num;
       srcVec2.push_back(num);
     }
   }
   else{
     for (unsigned i=0; i < 16384; i++){
-      float num = (float)(rand()%5);
+      int32_t num = (int32_t)(rand()%5);
       srcVec2.push_back(num);
     }
   }
-  memcpy(in_bomapped2, srcVec2.data(), srcVec2.size() * sizeof(float));  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 16384 * sizeof(float), 0);
+  memcpy(in_bomapped2, srcVec2.data(), srcVec2.size() * sizeof(int32_t));  in_bohdl2.sync(XCL_BO_SYNC_BO_TO_DEVICE, 16384 * sizeof(int32_t), 0);
 
-  std::vector<float> srcVec3;
+  std::vector<int32_t> srcVec3;
   std::ifstream ifile3;
   if(verify){
     ifile3.open("data3.sim");
@@ -138,18 +138,18 @@ int main(int argc, char **argv) {
       return 1;
     }
   }
-  auto out_bohdl0 = xrt::bo(device, 1024 * sizeof(float), top_0.group_id(0));
-  auto out_bomapped0 = out_bohdl0.map<float*>();
+  auto out_bohdl0 = xrt::bo(device, 1024 * sizeof(int32_t), top_0.group_id(0));
+  auto out_bomapped0 = out_bohdl0.map<int32_t*>();
   if(verify){
     for (unsigned i=0; i < 1024; i++){
-      float num;
+      int32_t num;
       ifile3>> num;
       srcVec3.push_back(num);
     }
   }
   else{
     for (unsigned i=0; i < 1024; i++){
-      float num = (float)(0);
+      int32_t num = (int32_t)(0);
       srcVec3.push_back(num);
     }
   }
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
   std::cout << "Kernel run finished!\n";
   std::cout << "Total time is: "<< kernel_time_in_sec<< "s" << std::endl;
   // Sync output buffer back to host
-  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 1024 * sizeof(float), 0);
+  out_bohdl0.sync(XCL_BO_SYNC_BO_FROM_DEVICE , 1024 * sizeof(int32_t), 0);
   std::cout << "Output buffer sync back finished\n";
 
   int errorCount = 0;
@@ -184,7 +184,7 @@ int main(int argc, char **argv) {
     std::cout << "Start results verification\n";
     for (unsigned i=0; i < 1024; i++){
       if(abs((float)(srcVec3[i]-out_bomapped0[i])>=1e-4)){
-        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %f!=%f \n", i, i, srcVec3[i], out_bomapped0[i]);
+        printf("Error found srcVec3[%d]!=out_bomapped0[%d], %d!=%d \n", i, i, srcVec3[i], out_bomapped0[i]);
         errorCount++;
       }
     }

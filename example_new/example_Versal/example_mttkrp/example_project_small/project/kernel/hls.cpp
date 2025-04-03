@@ -184,8 +184,8 @@ void load2_top(
 
 template<int NC>
 void load2_3(
-  hls::stream< ap_int<512> > &v122 /* v122[1] */,
-  hls::stream< ap_int<128> > &v123 /* v123[1] */
+  hls::stream< ap_int<128> > &v122 /* v122[1] */,
+  hls::stream< ap_int<512> > &v123 /* v123[1] */
 ){
   #pragma HLS inline OFF
   for (int v124 = 0; v124 < 1; v124++) {	// L316
@@ -197,13 +197,13 @@ void load2_3(
               for (int v130 = 0; v130 < 2; v130++) {	// L322
                 for (int v131 = 0; v131 < 1; v131++) {	// L323
                 #pragma HLS pipeline II=4
-                  ap_int<512> v132 = v122.read(); //v122                  v132 = v122;	// L324
+                  ap_int<512> v132 = v123.read(); //v123                  v132 = v123;	// L324
                   for (int v133 = 0; v133 < 4; v133++) {	// L325
                   #pragma HLS pipeline II=1
                     int v134 = ((v133 * 128) + 127);	// L326
                     int v135 = (v133 * 128);	// L327
                     ap_int<128> v136 = v132(v134, v135);	// L328
-                    v123.write(v136); //v123                    v123 = v136;	// L329
+                    v122.write(v136); //v122                    v122 = v136;	// L329
                   }
                 }
               }
@@ -216,14 +216,14 @@ void load2_3(
 }
 
 void load2_3_top(
-  hls::stream< ap_int<512> > &v137 /* v137[1] */,
-  hls::stream< ap_int<128> > &v138 /* v138[1] */,
-  hls::stream< ap_int<512> > &v139 /* v139[1] */,
-  hls::stream< ap_int<128> > &v140 /* v140[1] */,
-  hls::stream< ap_int<512> > &v141 /* v141[1] */,
-  hls::stream< ap_int<128> > &v142 /* v142[1] */,
-  hls::stream< ap_int<512> > &v143 /* v143[1] */,
-  hls::stream< ap_int<128> > &v144 /* v144[1] */
+  hls::stream< ap_int<128> > &v137 /* v137[1] */,
+  hls::stream< ap_int<512> > &v138 /* v138[1] */,
+  hls::stream< ap_int<128> > &v139 /* v139[1] */,
+  hls::stream< ap_int<512> > &v140 /* v140[1] */,
+  hls::stream< ap_int<128> > &v141 /* v141[1] */,
+  hls::stream< ap_int<512> > &v142 /* v142[1] */,
+  hls::stream< ap_int<128> > &v143 /* v143[1] */,
+  hls::stream< ap_int<512> > &v144 /* v144[1] */
 ){
   #pragma HLS inline OFF
   load2_3<0>(v137, v138);	// L342
@@ -362,70 +362,22 @@ void receive2(
                       ap_int<128> v203 = 0;
                       int32_t v204 = v201(31, 0);	// L453
                       int32_t v205 = v202(31, 0);	// L454
-                      float v206;
-                      union { int32_t from; float to;} _converter_v204_to_v206;
-                      _converter_v204_to_v206.from = v204;
-                      v206 = _converter_v204_to_v206.to;	// L455
-                      float v207;
-                      union { int32_t from; float to;} _converter_v205_to_v207;
-                      _converter_v205_to_v207.from = v205;
-                      v207 = _converter_v205_to_v207.to;	// L456
-                      float v208 = v206 + v207;	// L457
-                      int32_t v209;
-                      union { float from; int32_t to;} _converter_v208_to_v209;
-                      _converter_v208_to_v209.from = v208;
-                      v209 = _converter_v208_to_v209.to;	// L458
-                      v203(31, 0) = v209;	// L459
-                      int32_t v210 = v201(63, 32);	// L460
-                      int32_t v211 = v202(63, 32);	// L461
-                      float v212;
-                      union { int32_t from; float to;} _converter_v210_to_v212;
-                      _converter_v210_to_v212.from = v210;
-                      v212 = _converter_v210_to_v212.to;	// L462
-                      float v213;
-                      union { int32_t from; float to;} _converter_v211_to_v213;
-                      _converter_v211_to_v213.from = v211;
-                      v213 = _converter_v211_to_v213.to;	// L463
-                      float v214 = v212 + v213;	// L464
-                      int32_t v215;
-                      union { float from; int32_t to;} _converter_v214_to_v215;
-                      _converter_v214_to_v215.from = v214;
-                      v215 = _converter_v214_to_v215.to;	// L465
-                      v203(63, 32) = v215;	// L466
-                      int32_t v216 = v201(95, 64);	// L467
-                      int32_t v217 = v202(95, 64);	// L468
-                      float v218;
-                      union { int32_t from; float to;} _converter_v216_to_v218;
-                      _converter_v216_to_v218.from = v216;
-                      v218 = _converter_v216_to_v218.to;	// L469
-                      float v219;
-                      union { int32_t from; float to;} _converter_v217_to_v219;
-                      _converter_v217_to_v219.from = v217;
-                      v219 = _converter_v217_to_v219.to;	// L470
-                      float v220 = v218 + v219;	// L471
-                      int32_t v221;
-                      union { float from; int32_t to;} _converter_v220_to_v221;
-                      _converter_v220_to_v221.from = v220;
-                      v221 = _converter_v220_to_v221.to;	// L472
-                      v203(95, 64) = v221;	// L473
-                      int32_t v222 = v201(127, 96);	// L474
-                      int32_t v223 = v202(127, 96);	// L475
-                      float v224;
-                      union { int32_t from; float to;} _converter_v222_to_v224;
-                      _converter_v222_to_v224.from = v222;
-                      v224 = _converter_v222_to_v224.to;	// L476
-                      float v225;
-                      union { int32_t from; float to;} _converter_v223_to_v225;
-                      _converter_v223_to_v225.from = v223;
-                      v225 = _converter_v223_to_v225.to;	// L477
-                      float v226 = v224 + v225;	// L478
-                      int32_t v227;
-                      union { float from; int32_t to;} _converter_v226_to_v227;
-                      _converter_v226_to_v227.from = v226;
-                      v227 = _converter_v226_to_v227.to;	// L479
-                      v203(127, 96) = v227;	// L480
-                      ap_int<128> v228 = v203;
-                      v186[(v197 + (v193 * 2))][(v198 + (v194 * 4))] = v228;	// L482
+                      int32_t v206 = v204 + v205;	// L455
+                      v203(31, 0) = v206;	// L456
+                      int32_t v207 = v201(63, 32);	// L457
+                      int32_t v208 = v202(63, 32);	// L458
+                      int32_t v209 = v207 + v208;	// L459
+                      v203(63, 32) = v209;	// L460
+                      int32_t v210 = v201(95, 64);	// L461
+                      int32_t v211 = v202(95, 64);	// L462
+                      int32_t v212 = v210 + v211;	// L463
+                      v203(95, 64) = v212;	// L464
+                      int32_t v213 = v201(127, 96);	// L465
+                      int32_t v214 = v202(127, 96);	// L466
+                      int32_t v215 = v213 + v214;	// L467
+                      v203(127, 96) = v215;	// L468
+                      ap_int<128> v216 = v203;
+                      v186[(v197 + (v193 * 2))][(v198 + (v194 * 4))] = v216;	// L470
                     }
                   }
                 }
@@ -434,14 +386,14 @@ void receive2(
           }
         }
       }
-      for (int v229 = 0; v229 < 2; v229++) {	// L491
-        for (int v230 = 0; v230 < 2; v230++) {	// L492
-          for (int v231 = 0; v231 < 2; v231++) {	// L493
-            for (int v232 = 0; v232 < 4; v232++) {	// L494
+      for (int v217 = 0; v217 < 2; v217++) {	// L479
+        for (int v218 = 0; v218 < 2; v218++) {	// L480
+          for (int v219 = 0; v219 < 2; v219++) {	// L481
+            for (int v220 = 0; v220 < 4; v220++) {	// L482
             #pragma HLS pipeline II=1
-              ap_int<128> v233 = v186[(v230 + (v229 * 2))][(v232 + (v231 * 4))];	// L495
-              v185.write(v233); //v185              v185 = v233;	// L496
-              v186[(v230 + (v229 * 2))][(v232 + (v231 * 4))] = 0;	// L497
+              ap_int<128> v221 = v186[(v218 + (v217 * 2))][(v220 + (v219 * 4))];	// L483
+              v185.write(v221); //v185              v185 = v221;	// L484
+              v186[(v218 + (v217 * 2))][(v220 + (v219 * 4))] = 0;	// L485
             }
           }
         }
@@ -451,36 +403,36 @@ void receive2(
 }
 
 void receive2_top(
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v234 /* v234[1] */,
-  hls::stream< ap_int<128> > &v235 /* v235[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v236 /* v236[1] */,
-  hls::stream< ap_int<128> > &v237 /* v237[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v238 /* v238[1] */,
-  hls::stream< ap_int<128> > &v239 /* v239[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v240 /* v240[1] */,
-  hls::stream< ap_int<128> > &v241 /* v241[1] */
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v222 /* v222[1] */,
+  hls::stream< ap_int<128> > &v223 /* v223[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v224 /* v224[1] */,
+  hls::stream< ap_int<128> > &v225 /* v225[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v226 /* v226[1] */,
+  hls::stream< ap_int<128> > &v227 /* v227[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v228 /* v228[1] */,
+  hls::stream< ap_int<128> > &v229 /* v229[1] */
 ){
   #pragma HLS inline OFF
-  receive2<0>(v234, v235);	// L507
-  receive2<1>(v236, v237);	// L508
-  receive2<2>(v238, v239);	// L509
-  receive2<3>(v240, v241);	// L510
+  receive2<0>(v222, v223);	// L495
+  receive2<1>(v224, v225);	// L496
+  receive2<2>(v226, v227);	// L497
+  receive2<3>(v228, v229);	// L498
 }
 
 void send6_0(
-  hls::stream< ap_int<128> > &v242 /* v242[1] */,
-  ap_int<128> v243[32][8],
-  bool v244
+  hls::stream< ap_int<128> > &v230 /* v230[1] */,
+  ap_int<128> v231[32][8],
+  bool v232
 ){
   #pragma HLS inline OFF
-  if (v244) {	// L514
-    for (int v245 = 0; v245 < 2; v245++) {	// L515
-      for (int v246 = 0; v246 < 16; v246++) {	// L516
-        for (int v247 = 0; v247 < 2; v247++) {	// L517
-          for (int v248 = 0; v248 < 4; v248++) {	// L518
+  if (v232) {	// L502
+    for (int v233 = 0; v233 < 2; v233++) {	// L503
+      for (int v234 = 0; v234 < 16; v234++) {	// L504
+        for (int v235 = 0; v235 < 2; v235++) {	// L505
+          for (int v236 = 0; v236 < 4; v236++) {	// L506
           #pragma HLS pipeline II=1
-            ap_int<128> v249 = v242.read(); //v242            v249 = v242;	// L519
-            v243[(v246 + (v245 * 16))][(v248 + (v247 * 4))] = v249;	// L520
+            ap_int<128> v237 = v230.read(); //v230            v237 = v230;	// L507
+            v231[(v234 + (v233 * 16))][(v236 + (v235 * 4))] = v237;	// L508
           }
         }
       }
@@ -489,24 +441,24 @@ void send6_0(
 }
 
 void send6_1(
-  ap_int<128> v250[32][8],
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v251 /* v251[1] */,
-  bool v252
+  ap_int<128> v238[32][8],
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v239 /* v239[1] */,
+  bool v240
 ){
   #pragma HLS inline OFF
-  if (v252) {	// L529
-    for (int v253 = 0; v253 < 2; v253++) {	// L530
-      for (int v254 = 0; v254 < 2; v254++) {	// L531
-        for (int v255 = 0; v255 < 2; v255++) {	// L532
-          for (int v256 = 0; v256 < 2; v256++) {	// L533
-            for (int v257 = 0; v257 < 16; v257++) {	// L534
-              for (int v258 = 0; v258 < 4; v258++) {	// L535
+  if (v240) {	// L517
+    for (int v241 = 0; v241 < 2; v241++) {	// L518
+      for (int v242 = 0; v242 < 2; v242++) {	// L519
+        for (int v243 = 0; v243 < 2; v243++) {	// L520
+          for (int v244 = 0; v244 < 2; v244++) {	// L521
+            for (int v245 = 0; v245 < 16; v245++) {	// L522
+              for (int v246 = 0; v246 < 4; v246++) {	// L523
               #pragma HLS pipeline II=1
-                ap_int<128> v259 = v250[(v257 + (v256 * 16))][(v258 + (v254 * 4))];	// L536
-                ap_axiu<128, 0 ,0 ,0> v251_axiu;
-                v251_axiu.data = v259;
-                v251_axiu.keep = -1;
-                v251.write(v251_axiu); //v251                v251 = v259;	// L537
+                ap_int<128> v247 = v238[(v245 + (v244 * 16))][(v246 + (v242 * 4))];	// L524
+                ap_axiu<128, 0 ,0 ,0> v239_axiu;
+                v239_axiu.data = v247;
+                v239_axiu.keep = -1;
+                v239.write(v239_axiu); //v239                v239 = v247;	// L525
               }
             }
           }
@@ -518,80 +470,80 @@ void send6_1(
 
 template<int NC>
 void send6(
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v260 /* v260[1] */,
-  hls::stream< ap_int<128> > &v261 /* v261[1] */
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v248 /* v248[1] */,
+  hls::stream< ap_int<128> > &v249 /* v249[1] */
 ){
   #pragma HLS inline OFF
-  ap_int<128> v262[32][8];	// L553
-  #pragma HLS bind_storage variable=v262 type=ram_t2p impl=uram
-  ap_int<128> v263[32][8];	// L554
-  #pragma HLS bind_storage variable=v263 type=ram_t2p impl=uram
-  for (int v264 = 0; v264 < 1; v264++) {	// L555
-    for (int v265 = 0; v265 < 2; v265++) {	// L556
-      for (int v266 = 0; v266 < 2; v266++) {	// L557
-        for (int v267 = 0; v267 < 2; v267++) {	// L558
-          int v268 = v266 * 2;	// L559
-          int v269 = v267 + v268;	// L560
-          int v270 = v265 * 4;	// L561
-          int v271 = v269 + v270;	// L562
-          int v272 = v264 * 8;	// L563
-          int v273 = v271 + v272;	// L564
-          int v274 = v273 % 2;	// L565
-          bool v275 = v274 == 0;	// L566
-          bool v276 = v273 != 0;	// L567
-          if (v275) {	// L568
-            send6_0(v261, v262, 1);	// L569
-            send6_1(v263, v260, v276);	// L570
+  ap_int<128> v250[32][8];	// L541
+  #pragma HLS bind_storage variable=v250 type=ram_t2p impl=uram
+  ap_int<128> v251[32][8];	// L542
+  #pragma HLS bind_storage variable=v251 type=ram_t2p impl=uram
+  for (int v252 = 0; v252 < 1; v252++) {	// L543
+    for (int v253 = 0; v253 < 2; v253++) {	// L544
+      for (int v254 = 0; v254 < 2; v254++) {	// L545
+        for (int v255 = 0; v255 < 2; v255++) {	// L546
+          int v256 = v254 * 2;	// L547
+          int v257 = v255 + v256;	// L548
+          int v258 = v253 * 4;	// L549
+          int v259 = v257 + v258;	// L550
+          int v260 = v252 * 8;	// L551
+          int v261 = v259 + v260;	// L552
+          int v262 = v261 % 2;	// L553
+          bool v263 = v262 == 0;	// L554
+          bool v264 = v261 != 0;	// L555
+          if (v263) {	// L556
+            send6_0(v249, v250, 1);	// L557
+            send6_1(v251, v248, v264);	// L558
           } else {
-            send6_0(v261, v263, 1);	// L572
-            send6_1(v262, v260, v276);	// L573
+            send6_0(v249, v251, 1);	// L560
+            send6_1(v250, v248, v264);	// L561
           }
         }
       }
     }
   }
-  send6_1(v263, v260, 1);	// L579
+  send6_1(v251, v248, 1);	// L567
 }
 
 void send6_top(
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v277 /* v277[1] */,
-  hls::stream< ap_int<128> > &v278 /* v278[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v279 /* v279[1] */,
-  hls::stream< ap_int<128> > &v280 /* v280[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v281 /* v281[1] */,
-  hls::stream< ap_int<128> > &v282 /* v282[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v283 /* v283[1] */,
-  hls::stream< ap_int<128> > &v284 /* v284[1] */
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v265 /* v265[1] */,
+  hls::stream< ap_int<128> > &v266 /* v266[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v267 /* v267[1] */,
+  hls::stream< ap_int<128> > &v268 /* v268[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v269 /* v269[1] */,
+  hls::stream< ap_int<128> > &v270 /* v270[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v271 /* v271[1] */,
+  hls::stream< ap_int<128> > &v272 /* v272[1] */
 ){
   #pragma HLS inline OFF
-  send6<0>(v277, v278);	// L583
-  send6<1>(v279, v280);	// L584
-  send6<2>(v281, v282);	// L585
-  send6<3>(v283, v284);	// L586
+  send6<0>(v265, v266);	// L571
+  send6<1>(v267, v268);	// L572
+  send6<2>(v269, v270);	// L573
+  send6<3>(v271, v272);	// L574
 }
 
 template<int NC>
 void store0_0(
-  hls::stream< ap_int<128> > &v285 /* v285[1] */,
-  hls::stream< ap_int<512> > &v286 /* v286[1] */
+  hls::stream< ap_int<128> > &v273 /* v273[1] */,
+  hls::stream< ap_int<512> > &v274 /* v274[1] */
 ){
   #pragma HLS inline OFF
-  for (int v287 = 0; v287 < 1; v287++) {	// L591
-    for (int v288 = 0; v288 < 2; v288++) {	// L592
-      for (int v289 = 0; v289 < 2; v289++) {	// L593
-        for (int v290 = 0; v290 < 2; v290++) {	// L594
-          for (int v291 = 0; v291 < 2; v291++) {	// L595
-            for (int v292 = 0; v292 < 1; v292++) {	// L596
+  for (int v275 = 0; v275 < 1; v275++) {	// L579
+    for (int v276 = 0; v276 < 2; v276++) {	// L580
+      for (int v277 = 0; v277 < 2; v277++) {	// L581
+        for (int v278 = 0; v278 < 2; v278++) {	// L582
+          for (int v279 = 0; v279 < 2; v279++) {	// L583
+            for (int v280 = 0; v280 < 1; v280++) {	// L584
             #pragma HLS pipeline II=4
-              ap_int<512> v293 = 0;
-              for (int v294 = 0; v294 < 4; v294++) {	// L598
+              ap_int<512> v281 = 0;
+              for (int v282 = 0; v282 < 4; v282++) {	// L586
               #pragma HLS pipeline II=1
-                ap_int<128> v295 = v285.read(); //v285                v295 = v285;	// L599
-                int v296 = ((v294 * 128) + 127);	// L600
-                int v297 = (v294 * 128);	// L601
-                v293(v296, v297) = v295;	// L602
+                ap_int<128> v283 = v273.read(); //v273                v283 = v273;	// L587
+                int v284 = ((v282 * 128) + 127);	// L588
+                int v285 = (v282 * 128);	// L589
+                v281(v284, v285) = v283;	// L590
               }
-              v286.write(v293); //v286              v286 = v293;	// L604
+              v274.write(v281); //v274              v274 = v281;	// L592
             }
           }
         }
@@ -601,67 +553,67 @@ void store0_0(
 }
 
 void store0_0_top(
-  hls::stream< ap_int<128> > &v298 /* v298[1] */,
-  hls::stream< ap_int<512> > &v299 /* v299[1] */,
-  hls::stream< ap_int<128> > &v300 /* v300[1] */,
-  hls::stream< ap_int<512> > &v301 /* v301[1] */,
-  hls::stream< ap_int<128> > &v302 /* v302[1] */,
-  hls::stream< ap_int<512> > &v303 /* v303[1] */,
-  hls::stream< ap_int<128> > &v304 /* v304[1] */,
-  hls::stream< ap_int<512> > &v305 /* v305[1] */
+  hls::stream< ap_int<128> > &v286 /* v286[1] */,
+  hls::stream< ap_int<512> > &v287 /* v287[1] */,
+  hls::stream< ap_int<128> > &v288 /* v288[1] */,
+  hls::stream< ap_int<512> > &v289 /* v289[1] */,
+  hls::stream< ap_int<128> > &v290 /* v290[1] */,
+  hls::stream< ap_int<512> > &v291 /* v291[1] */,
+  hls::stream< ap_int<128> > &v292 /* v292[1] */,
+  hls::stream< ap_int<512> > &v293 /* v293[1] */
 ){
   #pragma HLS inline OFF
-  store0_0<0>(v298, v299);	// L614
-  store0_0<1>(v300, v301);	// L615
-  store0_0<2>(v302, v303);	// L616
-  store0_0<3>(v304, v305);	// L617
+  store0_0<0>(v286, v287);	// L602
+  store0_0<1>(v288, v289);	// L603
+  store0_0<2>(v290, v291);	// L604
+  store0_0<3>(v292, v293);	// L605
 }
 
 template<int NC>
 void store0(
-  ap_int<512> v306[8][8],
-  hls::stream< ap_int<512> > &v307 /* v307[1] */,
-  hls::stream< ap_int<512> > &v308 /* v308[1] */,
-  hls::stream< ap_int<512> > &v309 /* v309[1] */,
-  hls::stream< ap_int<512> > &v310 /* v310[1] */
+  ap_int<512> v294[8][8],
+  hls::stream< ap_int<512> > &v295 /* v295[1] */,
+  hls::stream< ap_int<512> > &v296 /* v296[1] */,
+  hls::stream< ap_int<512> > &v297 /* v297[1] */,
+  hls::stream< ap_int<512> > &v298 /* v298[1] */
 ){
   #pragma HLS inline OFF
-  for (int v311 = 0; v311 < 1; v311++) {	// L622
-    for (int v312 = 0; v312 < 2; v312++) {	// L623
-      for (int v313 = 0; v313 < 2; v313++) {	// L624
-        for (int v314 = 0; v314 < 2; v314++) {	// L625
-          for (int v315 = 0; v315 < 2; v315++) {	// L626
-            for (int v316 = 0; v316 < 2; v316++) {	// L627
+  for (int v299 = 0; v299 < 1; v299++) {	// L610
+    for (int v300 = 0; v300 < 2; v300++) {	// L611
+      for (int v301 = 0; v301 < 2; v301++) {	// L612
+        for (int v302 = 0; v302 < 2; v302++) {	// L613
+          for (int v303 = 0; v303 < 2; v303++) {	// L614
+            for (int v304 = 0; v304 < 2; v304++) {	// L615
             #pragma HLS pipeline II=1
-              bool v317 = v316 < 1;	// L628
-              ap_int<512> v318;
-              if (v317) {	// L629
-                ap_int<512> v319 = v307.read(); //v307                v319 = v307;	// L630
-                v318 = v319;	// L631
+              bool v305 = v304 < 1;	// L616
+              ap_int<512> v306;
+              if (v305) {	// L617
+                ap_int<512> v307 = v298.read(); //v298                v307 = v298;	// L618
+                v306 = v307;	// L619
               } else {
-                ap_int<512> v320 = v309.read(); //v309                v320 = v309;	// L633
-                v318 = v320;	// L634
+                ap_int<512> v308 = v297.read(); //v297                v308 = v297;	// L621
+                v306 = v308;	// L622
               }
-              v306[((v314 + (v313 * 4)) + (v311 * 8))][((v316 + (v315 * 2)) + (v312 * 4))] = v318;	// L636
+              v294[((v302 + (v301 * 4)) + (v299 * 8))][((v304 + (v303 * 2)) + (v300 * 4))] = v306;	// L624
             }
           }
         }
       }
-      for (int v321 = 0; v321 < 2; v321++) {	// L641
-        for (int v322 = 0; v322 < 2; v322++) {	// L642
-          for (int v323 = 0; v323 < 2; v323++) {	// L643
-            for (int v324 = 0; v324 < 2; v324++) {	// L644
+      for (int v309 = 0; v309 < 2; v309++) {	// L629
+        for (int v310 = 0; v310 < 2; v310++) {	// L630
+          for (int v311 = 0; v311 < 2; v311++) {	// L631
+            for (int v312 = 0; v312 < 2; v312++) {	// L632
             #pragma HLS pipeline II=1
-              bool v325 = v324 < 1;	// L645
-              ap_int<512> v326;
-              if (v325) {	// L646
-                ap_int<512> v327 = v308.read(); //v308                v327 = v308;	// L647
-                v326 = v327;	// L648
+              bool v313 = v312 < 1;	// L633
+              ap_int<512> v314;
+              if (v313) {	// L634
+                ap_int<512> v315 = v296.read(); //v296                v315 = v296;	// L635
+                v314 = v315;	// L636
               } else {
-                ap_int<512> v328 = v310.read(); //v310                v328 = v310;	// L650
-                v326 = v328;	// L651
+                ap_int<512> v316 = v295.read(); //v295                v316 = v295;	// L638
+                v314 = v316;	// L639
               }
-              v306[(((v322 + (v321 * 4)) + (v311 * 8)) + 2)][((v324 + (v323 * 2)) + (v312 * 4))] = v326;	// L653
+              v294[(((v310 + (v309 * 4)) + (v299 * 8)) + 2)][((v312 + (v311 * 2)) + (v300 * 4))] = v314;	// L641
             }
           }
         }
@@ -671,42 +623,42 @@ void store0(
 }
 
 void store0_top(
-  ap_int<512> v329[8][8],
-  hls::stream< ap_int<512> > &v330 /* v330[1] */,
-  hls::stream< ap_int<512> > &v331 /* v331[1] */,
-  hls::stream< ap_int<512> > &v332 /* v332[1] */,
-  hls::stream< ap_int<512> > &v333 /* v333[1] */
+  ap_int<512> v317[8][8],
+  hls::stream< ap_int<512> > &v318 /* v318[1] */,
+  hls::stream< ap_int<512> > &v319 /* v319[1] */,
+  hls::stream< ap_int<512> > &v320 /* v320[1] */,
+  hls::stream< ap_int<512> > &v321 /* v321[1] */
 ){
   #pragma HLS inline OFF
-  store0<0>(v329, v330, v331, v332, v333);	// L663
+  store0<0>(v317, v318, v319, v320, v321);	// L651
 }
 
 template<int NC>
 void load0(
-  ap_int<512> v334[8][32][8],
-  hls::stream< ap_int<512> > &v335 /* v335[1] */,
-  hls::stream< ap_int<512> > &v336 /* v336[1] */,
-  hls::stream< ap_int<512> > &v337 /* v337[1] */,
-  hls::stream< ap_int<512> > &v338 /* v338[1] */
+  ap_int<512> v322[8][32][8],
+  hls::stream< ap_int<512> > &v323 /* v323[1] */,
+  hls::stream< ap_int<512> > &v324 /* v324[1] */,
+  hls::stream< ap_int<512> > &v325 /* v325[1] */,
+  hls::stream< ap_int<512> > &v326 /* v326[1] */
 ){
   #pragma HLS inline OFF
-  for (int v339 = 0; v339 < 1; v339++) {	// L668
-    for (int v340 = 0; v340 < 2; v340++) {	// L669
-      for (int v341 = 0; v341 < 2; v341++) {	// L670
-        for (int v342 = 0; v342 < 2; v342++) {	// L671
-          for (int v343 = 0; v343 < 2; v343++) {	// L672
-            for (int v344 = 0; v344 < 2; v344++) {	// L673
-              for (int v345 = 0; v345 < 2; v345++) {	// L674
-                for (int v346 = 0; v346 < 8; v346++) {	// L675
-                  for (int v347 = 0; v347 < 2; v347++) {	// L676
-                    for (int v348 = 0; v348 < 2; v348++) {	// L677
+  for (int v327 = 0; v327 < 1; v327++) {	// L656
+    for (int v328 = 0; v328 < 2; v328++) {	// L657
+      for (int v329 = 0; v329 < 2; v329++) {	// L658
+        for (int v330 = 0; v330 < 2; v330++) {	// L659
+          for (int v331 = 0; v331 < 2; v331++) {	// L660
+            for (int v332 = 0; v332 < 2; v332++) {	// L661
+              for (int v333 = 0; v333 < 2; v333++) {	// L662
+                for (int v334 = 0; v334 < 8; v334++) {	// L663
+                  for (int v335 = 0; v335 < 2; v335++) {	// L664
+                    for (int v336 = 0; v336 < 2; v336++) {	// L665
                     #pragma HLS pipeline II=1
-                      ap_int<512> v349 = v334[((v345 + (v343 * 4)) + (v339 * 8))][((v346 + (v344 * 8)) + (v341 * 16))][((v348 + (v347 * 2)) + (v342 * 4))];	// L678
-                      bool v350 = v348 < 1;	// L679
-                      if (v350) {	// L680
-                        v336.write(v349); //v336                        v336 = v349;	// L681
+                      ap_int<512> v337 = v322[((v333 + (v331 * 4)) + (v327 * 8))][((v334 + (v332 * 8)) + (v329 * 16))][((v336 + (v335 * 2)) + (v330 * 4))];	// L666
+                      bool v338 = v336 < 1;	// L667
+                      if (v338) {	// L668
+                        v326.write(v337); //v326                        v326 = v337;	// L669
                       } else {
-                        v337.write(v349); //v337                        v337 = v349;	// L683
+                        v325.write(v337); //v325                        v325 = v337;	// L671
                       }
                     }
                   }
@@ -714,19 +666,19 @@ void load0(
               }
             }
           }
-          for (int v351 = 0; v351 < 2; v351++) {	// L691
-            for (int v352 = 0; v352 < 2; v352++) {	// L692
-              for (int v353 = 0; v353 < 2; v353++) {	// L693
-                for (int v354 = 0; v354 < 8; v354++) {	// L694
-                  for (int v355 = 0; v355 < 2; v355++) {	// L695
-                    for (int v356 = 0; v356 < 2; v356++) {	// L696
+          for (int v339 = 0; v339 < 2; v339++) {	// L679
+            for (int v340 = 0; v340 < 2; v340++) {	// L680
+              for (int v341 = 0; v341 < 2; v341++) {	// L681
+                for (int v342 = 0; v342 < 8; v342++) {	// L682
+                  for (int v343 = 0; v343 < 2; v343++) {	// L683
+                    for (int v344 = 0; v344 < 2; v344++) {	// L684
                     #pragma HLS pipeline II=1
-                      ap_int<512> v357 = v334[(((v353 + (v351 * 4)) + (v339 * 8)) + 2)][((v354 + (v352 * 8)) + (v341 * 16))][((v356 + (v355 * 2)) + (v342 * 4))];	// L697
-                      bool v358 = v356 < 1;	// L698
-                      if (v358) {	// L699
-                        v338.write(v357); //v338                        v338 = v357;	// L700
+                      ap_int<512> v345 = v322[(((v341 + (v339 * 4)) + (v327 * 8)) + 2)][((v342 + (v340 * 8)) + (v329 * 16))][((v344 + (v343 * 2)) + (v330 * 4))];	// L685
+                      bool v346 = v344 < 1;	// L686
+                      if (v346) {	// L687
+                        v324.write(v345); //v324                        v324 = v345;	// L688
                       } else {
-                        v335.write(v357); //v335                        v335 = v357;	// L702
+                        v323.write(v345); //v323                        v323 = v345;	// L690
                       }
                     }
                   }
@@ -741,40 +693,40 @@ void load0(
 }
 
 void load0_top(
-  ap_int<512> v359[8][32][8],
-  hls::stream< ap_int<512> > &v360 /* v360[1] */,
-  hls::stream< ap_int<512> > &v361 /* v361[1] */,
-  hls::stream< ap_int<512> > &v362 /* v362[1] */,
-  hls::stream< ap_int<512> > &v363 /* v363[1] */
+  ap_int<512> v347[8][32][8],
+  hls::stream< ap_int<512> > &v348 /* v348[1] */,
+  hls::stream< ap_int<512> > &v349 /* v349[1] */,
+  hls::stream< ap_int<512> > &v350 /* v350[1] */,
+  hls::stream< ap_int<512> > &v351 /* v351[1] */
 ){
   #pragma HLS inline OFF
-  load0<0>(v359, v360, v361, v362, v363);	// L717
+  load0<0>(v347, v348, v349, v350, v351);	// L705
 }
 
 template<int NC>
 void load0_3(
-  hls::stream< ap_int<512> > &v364 /* v364[1] */,
-  hls::stream< ap_int<128> > &v365 /* v365[1] */
+  hls::stream< ap_int<128> > &v352 /* v352[1] */,
+  hls::stream< ap_int<512> > &v353 /* v353[1] */
 ){
   #pragma HLS inline OFF
-  for (int v366 = 0; v366 < 1; v366++) {	// L721
-    for (int v367 = 0; v367 < 2; v367++) {	// L722
-      for (int v368 = 0; v368 < 2; v368++) {	// L723
-        for (int v369 = 0; v369 < 2; v369++) {	// L724
-          for (int v370 = 0; v370 < 2; v370++) {	// L725
-            for (int v371 = 0; v371 < 2; v371++) {	// L726
-              for (int v372 = 0; v372 < 2; v372++) {	// L727
-                for (int v373 = 0; v373 < 8; v373++) {	// L728
-                  for (int v374 = 0; v374 < 2; v374++) {	// L729
-                    for (int v375 = 0; v375 < 1; v375++) {	// L730
+  for (int v354 = 0; v354 < 1; v354++) {	// L709
+    for (int v355 = 0; v355 < 2; v355++) {	// L710
+      for (int v356 = 0; v356 < 2; v356++) {	// L711
+        for (int v357 = 0; v357 < 2; v357++) {	// L712
+          for (int v358 = 0; v358 < 2; v358++) {	// L713
+            for (int v359 = 0; v359 < 2; v359++) {	// L714
+              for (int v360 = 0; v360 < 2; v360++) {	// L715
+                for (int v361 = 0; v361 < 8; v361++) {	// L716
+                  for (int v362 = 0; v362 < 2; v362++) {	// L717
+                    for (int v363 = 0; v363 < 1; v363++) {	// L718
                     #pragma HLS pipeline II=4
-                      ap_int<512> v376 = v364.read(); //v364                      v376 = v364;	// L731
-                      for (int v377 = 0; v377 < 4; v377++) {	// L732
+                      ap_int<512> v364 = v353.read(); //v353                      v364 = v353;	// L719
+                      for (int v365 = 0; v365 < 4; v365++) {	// L720
                       #pragma HLS pipeline II=1
-                        int v378 = ((v377 * 128) + 127);	// L733
-                        int v379 = (v377 * 128);	// L734
-                        ap_int<128> v380 = v376(v378, v379);	// L735
-                        v365.write(v380); //v365                        v365 = v380;	// L736
+                        int v366 = ((v365 * 128) + 127);	// L721
+                        int v367 = (v365 * 128);	// L722
+                        ap_int<128> v368 = v364(v366, v367);	// L723
+                        v352.write(v368); //v352                        v352 = v368;	// L724
                       }
                     }
                   }
@@ -789,44 +741,44 @@ void load0_3(
 }
 
 void load0_3_top(
-  hls::stream< ap_int<512> > &v381 /* v381[1] */,
-  hls::stream< ap_int<128> > &v382 /* v382[1] */,
-  hls::stream< ap_int<512> > &v383 /* v383[1] */,
-  hls::stream< ap_int<128> > &v384 /* v384[1] */,
-  hls::stream< ap_int<512> > &v385 /* v385[1] */,
-  hls::stream< ap_int<128> > &v386 /* v386[1] */,
-  hls::stream< ap_int<512> > &v387 /* v387[1] */,
-  hls::stream< ap_int<128> > &v388 /* v388[1] */
+  hls::stream< ap_int<128> > &v369 /* v369[1] */,
+  hls::stream< ap_int<512> > &v370 /* v370[1] */,
+  hls::stream< ap_int<128> > &v371 /* v371[1] */,
+  hls::stream< ap_int<512> > &v372 /* v372[1] */,
+  hls::stream< ap_int<128> > &v373 /* v373[1] */,
+  hls::stream< ap_int<512> > &v374 /* v374[1] */,
+  hls::stream< ap_int<128> > &v375 /* v375[1] */,
+  hls::stream< ap_int<512> > &v376 /* v376[1] */
 ){
   #pragma HLS inline OFF
-  load0_3<0>(v381, v382);	// L751
-  load0_3<1>(v383, v384);	// L752
-  load0_3<2>(v385, v386);	// L753
-  load0_3<3>(v387, v388);	// L754
+  load0_3<0>(v369, v370);	// L739
+  load0_3<1>(v371, v372);	// L740
+  load0_3<2>(v373, v374);	// L741
+  load0_3<3>(v375, v376);	// L742
 }
 
 template<int NC>
 void load1(
-  ap_int<512> v389[32][8],
-  hls::stream< ap_int<512> > &v390 /* v390[1] */,
-  hls::stream< ap_int<512> > &v391 /* v391[1] */
+  ap_int<512> v377[32][8],
+  hls::stream< ap_int<512> > &v378 /* v378[1] */,
+  hls::stream< ap_int<512> > &v379 /* v379[1] */
 ){
   #pragma HLS inline OFF
-  for (int v392 = 0; v392 < 1; v392++) {	// L759
-    for (int v393 = 0; v393 < 2; v393++) {	// L760
-      for (int v394 = 0; v394 < 2; v394++) {	// L761
-        for (int v395 = 0; v395 < 2; v395++) {	// L762
-          for (int v396 = 0; v396 < 2; v396++) {	// L763
-            for (int v397 = 0; v397 < 8; v397++) {	// L764
-              for (int v398 = 0; v398 < 2; v398++) {	// L765
-                for (int v399 = 0; v399 < 2; v399++) {	// L766
+  for (int v380 = 0; v380 < 1; v380++) {	// L747
+    for (int v381 = 0; v381 < 2; v381++) {	// L748
+      for (int v382 = 0; v382 < 2; v382++) {	// L749
+        for (int v383 = 0; v383 < 2; v383++) {	// L750
+          for (int v384 = 0; v384 < 2; v384++) {	// L751
+            for (int v385 = 0; v385 < 8; v385++) {	// L752
+              for (int v386 = 0; v386 < 2; v386++) {	// L753
+                for (int v387 = 0; v387 < 2; v387++) {	// L754
                 #pragma HLS pipeline II=1
-                  ap_int<512> v400 = v389[((v397 + (v396 * 8)) + (v394 * 16))][((v399 + (v398 * 2)) + (v393 * 4))];	// L767
-                  bool v401 = v399 < 1;	// L768
-                  if (v401) {	// L769
-                    v391.write(v400); //v391                    v391 = v400;	// L770
+                  ap_int<512> v388 = v377[((v385 + (v384 * 8)) + (v382 * 16))][((v387 + (v386 * 2)) + (v381 * 4))];	// L755
+                  bool v389 = v387 < 1;	// L756
+                  if (v389) {	// L757
+                    v379.write(v388); //v379                    v379 = v388;	// L758
                   } else {
-                    v390.write(v400); //v390                    v390 = v400;	// L772
+                    v378.write(v388); //v378                    v378 = v388;	// L760
                   }
                 }
               }
@@ -839,36 +791,36 @@ void load1(
 }
 
 void load1_top(
-  ap_int<512> v402[32][8],
-  hls::stream< ap_int<512> > &v403 /* v403[1] */,
-  hls::stream< ap_int<512> > &v404 /* v404[1] */
+  ap_int<512> v390[32][8],
+  hls::stream< ap_int<512> > &v391 /* v391[1] */,
+  hls::stream< ap_int<512> > &v392 /* v392[1] */
 ){
   #pragma HLS inline OFF
-  load1<0>(v402, v403, v404);	// L785
+  load1<0>(v390, v391, v392);	// L773
 }
 
 template<int NC>
 void load1_1(
-  hls::stream< ap_int<512> > &v405 /* v405[1] */,
-  hls::stream< ap_int<128> > &v406 /* v406[1] */
+  hls::stream< ap_int<128> > &v393 /* v393[1] */,
+  hls::stream< ap_int<512> > &v394 /* v394[1] */
 ){
   #pragma HLS inline OFF
-  for (int v407 = 0; v407 < 1; v407++) {	// L789
-    for (int v408 = 0; v408 < 2; v408++) {	// L790
-      for (int v409 = 0; v409 < 2; v409++) {	// L791
-        for (int v410 = 0; v410 < 2; v410++) {	// L792
-          for (int v411 = 0; v411 < 2; v411++) {	// L793
-            for (int v412 = 0; v412 < 8; v412++) {	// L794
-              for (int v413 = 0; v413 < 2; v413++) {	// L795
-                for (int v414 = 0; v414 < 1; v414++) {	// L796
+  for (int v395 = 0; v395 < 1; v395++) {	// L777
+    for (int v396 = 0; v396 < 2; v396++) {	// L778
+      for (int v397 = 0; v397 < 2; v397++) {	// L779
+        for (int v398 = 0; v398 < 2; v398++) {	// L780
+          for (int v399 = 0; v399 < 2; v399++) {	// L781
+            for (int v400 = 0; v400 < 8; v400++) {	// L782
+              for (int v401 = 0; v401 < 2; v401++) {	// L783
+                for (int v402 = 0; v402 < 1; v402++) {	// L784
                 #pragma HLS pipeline II=4
-                  ap_int<512> v415 = v405.read(); //v405                  v415 = v405;	// L797
-                  for (int v416 = 0; v416 < 4; v416++) {	// L798
+                  ap_int<512> v403 = v394.read(); //v394                  v403 = v394;	// L785
+                  for (int v404 = 0; v404 < 4; v404++) {	// L786
                   #pragma HLS pipeline II=1
-                    int v417 = ((v416 * 128) + 127);	// L799
-                    int v418 = (v416 * 128);	// L800
-                    ap_int<128> v419 = v415(v417, v418);	// L801
-                    v406.write(v419); //v406                    v406 = v419;	// L802
+                    int v405 = ((v404 * 128) + 127);	// L787
+                    int v406 = (v404 * 128);	// L788
+                    ap_int<128> v407 = v403(v405, v406);	// L789
+                    v393.write(v407); //v393                    v393 = v407;	// L790
                   }
                 }
               }
@@ -881,139 +833,139 @@ void load1_1(
 }
 
 void load1_1_top(
-  hls::stream< ap_int<512> > &v420 /* v420[1] */,
-  hls::stream< ap_int<128> > &v421 /* v421[1] */,
-  hls::stream< ap_int<512> > &v422 /* v422[1] */,
-  hls::stream< ap_int<128> > &v423 /* v423[1] */
+  hls::stream< ap_int<128> > &v408 /* v408[1] */,
+  hls::stream< ap_int<512> > &v409 /* v409[1] */,
+  hls::stream< ap_int<128> > &v410 /* v410[1] */,
+  hls::stream< ap_int<512> > &v411 /* v411[1] */
 ){
   #pragma HLS inline OFF
-  load1_1<0>(v420, v421);	// L815
-  load1_1<1>(v422, v423);	// L816
+  load1_1<0>(v408, v409);	// L803
+  load1_1<1>(v410, v411);	// L804
 }
 
 void mttkrp_pl(
-  ap_int<512> v424[8][32][8],
-  ap_int<512> v425[32][8],
-  ap_int<512> v426[128][8],
-  ap_int<512> v427[8][8],
+  ap_int<512> v412[8][32][8],
+  ap_int<512> v413[32][8],
+  ap_int<512> v414[128][8],
+  ap_int<512> v415[8][8],
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v416 /* v416[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v417 /* v417[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v418 /* v418[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v419 /* v419[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v420 /* v420[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v421 /* v421[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v422 /* v422[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v423 /* v423[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v424 /* v424[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v425 /* v425[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v426 /* v426[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v427 /* v427[1] */,
   hls::stream< ap_axiu<128, 0 ,0 ,0> > &v428 /* v428[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v429 /* v429[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v430 /* v430[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v431 /* v431[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v432 /* v432[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v433 /* v433[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v434 /* v434[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v435 /* v435[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v436 /* v436[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v437 /* v437[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v438 /* v438[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v439 /* v439[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v440 /* v440[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v441 /* v441[1] */
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v429 /* v429[1] */
 ){
   #pragma HLS dataflow
   #pragma HLS inline OFF
-  hls::stream< ap_int<128> > v442 /* v442[1] */;	// L821
-  hls::stream< ap_int<128> > v443 /* v443[1] */;	// L822
-  hls::stream< ap_int<128> > v444 /* v444[1] */;	// L823
-  hls::stream< ap_int<128> > v445 /* v445[1] */;	// L824
-  hls::stream< ap_int<128> > v446 /* v446[1] */;	// L825
-  hls::stream< ap_int<128> > v447 /* v447[1] */;	// L826
-  hls::stream< ap_int<128> > v448 /* v448[1] */;	// L827
-  hls::stream< ap_int<128> > v449 /* v449[1] */;	// L828
-  hls::stream< ap_int<128> > v450 /* v450[1] */;	// L829
-  hls::stream< ap_int<128> > v451 /* v451[1] */;	// L830
-  hls::stream< ap_int<128> > v452 /* v452[1] */;	// L831
-  hls::stream< ap_int<128> > v453 /* v453[1] */;	// L832
-  hls::stream< ap_int<128> > v454 /* v454[1] */;	// L833
-  hls::stream< ap_int<128> > v455 /* v455[1] */;	// L834
-  hls::stream< ap_int<512> > v468 /* v468[1] */;	// L859
-  #pragma HLS stream variable=v468 depth=1
-  hls::stream< ap_int<512> > v469 /* v469[1] */;	// L860
-  #pragma HLS stream variable=v469 depth=1
-  hls::stream< ap_int<512> > v470 /* v470[1] */;	// L861
-  #pragma HLS stream variable=v470 depth=1
-  hls::stream< ap_int<512> > v471 /* v471[1] */;	// L862
-  #pragma HLS stream variable=v471 depth=1
-  hls::stream< ap_int<512> > v472 /* v472[1] */;	// L863
-  #pragma HLS stream variable=v472 depth=1
-  hls::stream< ap_int<512> > v473 /* v473[1] */;	// L864
-  #pragma HLS stream variable=v473 depth=1
-  hls::stream< ap_int<512> > v474 /* v474[1] */;	// L865
-  #pragma HLS stream variable=v474 depth=1
-  hls::stream< ap_int<512> > v475 /* v475[1] */;	// L866
-  #pragma HLS stream variable=v475 depth=1
-  hls::stream< ap_int<512> > v476 /* v476[1] */;	// L867
-  #pragma HLS stream variable=v476 depth=1
-  hls::stream< ap_int<512> > v477 /* v477[1] */;	// L868
-  #pragma HLS stream variable=v477 depth=1
-  hls::stream< ap_int<512> > v478 /* v478[1] */;	// L869
-  #pragma HLS stream variable=v478 depth=1
-  hls::stream< ap_int<512> > v479 /* v479[1] */;	// L870
-  #pragma HLS stream variable=v479 depth=1
-  hls::stream< ap_int<512> > v480 /* v480[1] */;	// L871
-  #pragma HLS stream variable=v480 depth=1
-  hls::stream< ap_int<512> > v481 /* v481[1] */;	// L872
-  #pragma HLS stream variable=v481 depth=1
-  send3_top(v435, v452, v434, v447, v428, v446, v429, v455);	// L873
-  load2_top(v426, v468, v469, v470, v471);	// L874
-  load2_3_top(v471, v453, v470, v451, v469, v449, v468, v448);	// L875
-  send5_top(v439, v450, v440, v454);	// L876
-  receive2_top(v430, v444, v438, v442, v431, v445, v441, v443);	// L877
-  send6_top(v436, v449, v437, v451, v433, v448, v432, v453);	// L878
-  store0_0_top(v445, v472, v444, v473, v443, v474, v442, v475);	// L879
-  store0_top(v427, v475, v473, v474, v472);	// L880
-  load0_top(v424, v476, v479, v478, v477);	// L881
-  load0_3_top(v479, v455, v478, v452, v477, v447, v476, v446);	// L882
-  load1_top(v425, v480, v481);	// L883
-  load1_1_top(v481, v454, v480, v450);	// L884
+  hls::stream< ap_int<128> > v430 /* v430[1] */;	// L808
+  hls::stream< ap_int<128> > v431 /* v431[1] */;	// L809
+  hls::stream< ap_int<128> > v432 /* v432[1] */;	// L810
+  hls::stream< ap_int<128> > v433 /* v433[1] */;	// L811
+  hls::stream< ap_int<128> > v434 /* v434[1] */;	// L812
+  hls::stream< ap_int<128> > v435 /* v435[1] */;	// L813
+  hls::stream< ap_int<128> > v436 /* v436[1] */;	// L814
+  hls::stream< ap_int<128> > v437 /* v437[1] */;	// L815
+  hls::stream< ap_int<128> > v438 /* v438[1] */;	// L816
+  hls::stream< ap_int<128> > v439 /* v439[1] */;	// L817
+  hls::stream< ap_int<128> > v440 /* v440[1] */;	// L818
+  hls::stream< ap_int<128> > v441 /* v441[1] */;	// L819
+  hls::stream< ap_int<128> > v442 /* v442[1] */;	// L820
+  hls::stream< ap_int<128> > v443 /* v443[1] */;	// L821
+  hls::stream< ap_int<512> > v444 /* v444[1] */;	// L822
+  #pragma HLS stream variable=v444 depth=1
+  hls::stream< ap_int<512> > v445 /* v445[1] */;	// L823
+  #pragma HLS stream variable=v445 depth=1
+  hls::stream< ap_int<512> > v446 /* v446[1] */;	// L824
+  #pragma HLS stream variable=v446 depth=1
+  hls::stream< ap_int<512> > v447 /* v447[1] */;	// L825
+  #pragma HLS stream variable=v447 depth=1
+  hls::stream< ap_int<512> > v448 /* v448[1] */;	// L826
+  #pragma HLS stream variable=v448 depth=1
+  hls::stream< ap_int<512> > v449 /* v449[1] */;	// L827
+  #pragma HLS stream variable=v449 depth=1
+  hls::stream< ap_int<512> > v450 /* v450[1] */;	// L828
+  #pragma HLS stream variable=v450 depth=1
+  hls::stream< ap_int<512> > v451 /* v451[1] */;	// L829
+  #pragma HLS stream variable=v451 depth=1
+  hls::stream< ap_int<512> > v452 /* v452[1] */;	// L830
+  #pragma HLS stream variable=v452 depth=1
+  hls::stream< ap_int<512> > v453 /* v453[1] */;	// L831
+  #pragma HLS stream variable=v453 depth=1
+  hls::stream< ap_int<512> > v454 /* v454[1] */;	// L832
+  #pragma HLS stream variable=v454 depth=1
+  hls::stream< ap_int<512> > v455 /* v455[1] */;	// L833
+  #pragma HLS stream variable=v455 depth=1
+  hls::stream< ap_int<512> > v456 /* v456[1] */;	// L834
+  #pragma HLS stream variable=v456 depth=1
+  hls::stream< ap_int<512> > v457 /* v457[1] */;	// L835
+  #pragma HLS stream variable=v457 depth=1
+  send3_top(v426, v440, v419, v435, v418, v434, v429, v443);	// L836
+  load2_top(v414, v444, v445, v446, v447);	// L837
+  load2_3_top(v441, v447, v439, v446, v437, v445, v436, v444);	// L838
+  send5_top(v423, v438, v428, v442);	// L839
+  receive2_top(v417, v432, v424, v430, v416, v433, v420, v431);	// L840
+  send6_top(v422, v437, v425, v439, v421, v436, v427, v441);	// L841
+  store0_0_top(v433, v448, v432, v449, v431, v450, v430, v451);	// L842
+  store0_top(v415, v448, v449, v450, v451);	// L843
+  load0_top(v412, v452, v453, v454, v455);	// L844
+  load0_3_top(v443, v455, v440, v454, v435, v453, v434, v452);	// L845
+  load1_top(v413, v456, v457);	// L846
+  load1_1_top(v442, v457, v438, v456);	// L847
 }
 
 void top(
-  ap_int<512> v482[8][32][8],
-  ap_int<512> v483[32][8],
-  ap_int<512> v484[128][8],
-  ap_int<512> v485[8][8],
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v486 /* v486[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v487 /* v487[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v488 /* v488[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v489 /* v489[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v490 /* v490[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v491 /* v491[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v492 /* v492[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v493 /* v493[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v494 /* v494[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v495 /* v495[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v496 /* v496[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v497 /* v497[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v498 /* v498[1] */,
-  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v499 /* v499[1] */
+  ap_int<512> v458[8][32][8],
+  ap_int<512> v459[32][8],
+  ap_int<512> v460[128][8],
+  ap_int<512> v461[8][8],
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v462 /* v462[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v463 /* v463[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v464 /* v464[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v465 /* v465[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v466 /* v466[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v467 /* v467[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v468 /* v468[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v469 /* v469[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v470 /* v470[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v471 /* v471[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v472 /* v472[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v473 /* v473[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v474 /* v474[1] */,
+  hls::stream< ap_axiu<128, 0 ,0 ,0> > &v475 /* v475[1] */
 ){
   #pragma HLS interface s_axilite port=return bundle=control
-  #pragma HLS interface m_axi offset=slave bundle=gmem0 port=v482
-  #pragma HLS interface s_axilite bundle=control port=v482
-  #pragma HLS interface m_axi offset=slave bundle=gmem1 port=v483
-  #pragma HLS interface s_axilite bundle=control port=v483
-  #pragma HLS interface m_axi offset=slave bundle=gmem2 port=v484
-  #pragma HLS interface s_axilite bundle=control port=v484
-  #pragma HLS interface m_axi offset=slave bundle=gmem3 port=v485
-  #pragma HLS interface s_axilite bundle=control port=v485
-  #pragma HLS interface axis port=v486
-  #pragma HLS interface axis port=v487
-  #pragma HLS interface axis port=v488
-  #pragma HLS interface axis port=v489
-  #pragma HLS interface axis port=v490
-  #pragma HLS interface axis port=v491
-  #pragma HLS interface axis port=v492
-  #pragma HLS interface axis port=v493
-  #pragma HLS interface axis port=v494
-  #pragma HLS interface axis port=v495
-  #pragma HLS interface axis port=v496
-  #pragma HLS interface axis port=v497
-  #pragma HLS interface axis port=v498
-  #pragma HLS interface axis port=v499
+  #pragma HLS interface m_axi offset=slave bundle=gmem0 port=v458
+  #pragma HLS interface s_axilite bundle=control port=v458
+  #pragma HLS interface m_axi offset=slave bundle=gmem1 port=v459
+  #pragma HLS interface s_axilite bundle=control port=v459
+  #pragma HLS interface m_axi offset=slave bundle=gmem2 port=v460
+  #pragma HLS interface s_axilite bundle=control port=v460
+  #pragma HLS interface m_axi offset=slave bundle=gmem3 port=v461
+  #pragma HLS interface s_axilite bundle=control port=v461
+  #pragma HLS interface axis port=v462
+  #pragma HLS interface axis port=v463
+  #pragma HLS interface axis port=v464
+  #pragma HLS interface axis port=v465
+  #pragma HLS interface axis port=v466
+  #pragma HLS interface axis port=v467
+  #pragma HLS interface axis port=v468
+  #pragma HLS interface axis port=v469
+  #pragma HLS interface axis port=v470
+  #pragma HLS interface axis port=v471
+  #pragma HLS interface axis port=v472
+  #pragma HLS interface axis port=v473
+  #pragma HLS interface axis port=v474
+  #pragma HLS interface axis port=v475
 
-  mttkrp_pl(v482, v483, v484, v485, v486, v487, v488, v489, v490, v491, v492, v493, v494, v495, v496, v497, v498, v499);	// L927
+  mttkrp_pl(v458, v459, v460, v461, v462, v463, v464, v465, v466, v467, v468, v469, v470, v471, v472, v473, v474, v475);	// L890
 }
 
 

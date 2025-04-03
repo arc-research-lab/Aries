@@ -9,22 +9,22 @@ from frontend import *
 I, J, K, L, M = 2, 64, 64, 32, 128
 TI, TJ, TK, TL, TM = 2, 16, 16, 8, 32
 
-@task_kernel(external_path="aie1/adf/kernel_ttmc/aie_fp32", para = [TI, TJ, TK, TL, TM])
-def kernel_ttmc(TileA: float32[TI, TL, TM],
-                TileB: float32[TL, TJ],
-                TileC: float32[TM, TK],
-                TileD: float32[TI, TJ, TK]):
+@task_kernel(external_path="aie1/adf/kernel_ttmc/aie_int32", para = [TI, TJ, TK, TL, TM])
+def kernel_ttmc(TileA: int32[TI, TL, TM],
+                TileB: int32[TL, TJ],
+                TileC: int32[TM, TK],
+                TileD: int32[TI, TJ, TK]):
     for i0 in range(0, TI):
         for j0 in range(0, TJ):
             for k0 in range(0, TK):
-                TileD[i0, j0, k0] = float32(0)
+                TileD[i0, j0, k0] = int32(0)
                 for l0 in range(0, TL):
                     for m0 in range(0, TM):
                         TileD[i0, j0, k0] += TileA[i0, l0, m0] * TileB[l0, j0] * TileC[m0, k0]
 
 @task_tile()
-def ttmc(A: float32[I, L, M], B: float32[L, J], 
-         C: float32[M, K],    D: float32[I, J, K], **kwargs):
+def ttmc(A: int32[I, L, M], B: int32[L, J], 
+         C: int32[M, K],    D: int32[I, J, K], **kwargs):
     i, j, k, l, m = aries.tile_ranks(**kwargs)
 
     # Compute tile slices for multiple dimensions
@@ -34,10 +34,10 @@ def ttmc(A: float32[I, L, M], B: float32[L, J],
     tl = aries.arange(l*TL, (l+1)*TL)  # L tile range
     tm = aries.arange(m*TM, (m+1)*TM)  # M tile range
     
-    L1_A = aries.buffer((TI, TL, TM), "float32")
-    L1_B = aries.buffer((TL, TJ), "float32")
-    L1_C = aries.buffer((TM, TK), "float32")
-    L1_D = aries.accbuffer((TI, TJ, TK), "float32")
+    L1_A = aries.buffer((TI, TL, TM), "int32")
+    L1_B = aries.buffer((TL, TJ), "int32")
+    L1_C = aries.buffer((TM, TK), "int32")
+    L1_D = aries.accbuffer((TI, TJ, TK), "int32")
     
     L1_A = aries.load(A, (ti, tl, tm))
     L1_B = aries.load(B, (tl, tj))
@@ -46,14 +46,14 @@ def ttmc(A: float32[I, L, M], B: float32[L, J],
     aries.accstore(L1_D, D, (ti, tj, tk))
 
 @task_top()
-def top(A: float32[I, L, M], B: float32[L, J], 
-        C: float32[M, K],    D: float32[I, J, K]):
+def top(A: int32[I, L, M], B: int32[L, J], 
+        C: int32[M, K],    D: int32[I, J, K]):
     grid, size = (I//TI, J//TJ, K//TK, L//TL, M//TM), (TI, TJ, TK, TL, TM)
     ttmc_task = ttmc[grid, size](A, B, C, D)
     return ttmc_task
 
-def ttmc_sw(A: float32[I, L, M], B: float32[L, J], C: float32[M, K]):
-    D = np.zeros((I, J, K)).astype(np.float32)
+def ttmc_sw(A: int32[I, L, M], B: int32[L, J], C: int32[M, K]):
+    D = np.zeros((I, J, K)).astype(np.int32)
     for i0 in range(0, I):
         for j0 in range(0, J):
             for k0 in range(0, K):
@@ -69,10 +69,10 @@ module = sys.modules[__name__]
     
 # Initialize the buffers
 np.random.seed(0)
-A = np.random.rand(I, L, M).astype(np.float32)
-B = np.random.rand(L, J).astype(np.float32)
-C = np.random.rand(M, K).astype(np.float32)
-D = np.zeros((I, J, K)).astype(np.float32)
+A = np.random.randint(-5, 6, size=(I, L, M), dtype=np.int32)
+B = np.random.randint(-5, 6, size=(L, J), dtype=np.int32)
+C = np.random.randint(-5, 6, size=(M, K), dtype=np.int32)
+D = np.zeros((I, J, K)).astype(np.int32)
 
 # Execute on CPU
 ttmc_task = top(A, B, C, D)
