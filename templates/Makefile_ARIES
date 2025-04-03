@@ -5,7 +5,6 @@ PROJECT_PATH=./project
 PROJECT_AIE_PATH=${PROJECT_PATH}/aie
 PROJECT_PL_PATH=${PROJECT_PATH}/kernel
 PROJECT_Host_PATH=${PROJECT_PATH}/host
-TEMPLATE_PATH = {{template_dir}}
 
 ColNum = {{placement[0]}}
 RowNum = {{placement[1]}}
