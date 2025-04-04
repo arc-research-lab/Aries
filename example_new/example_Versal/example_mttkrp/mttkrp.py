@@ -8,6 +8,7 @@ from frontend import *
 # MTTKRP: D[i0, j0] += A[i0, k0, l0] * B[k0, j0] * C[l0, j0]
 I, J, K, L = 8, 128, 32, 128
 TI, TJ, TK, TL = 2, 16, 8, 16
+grid = (I//TI, J//TJ, K//TK, L//TL) # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_mttkrp/aie_int32", para = [TI, TJ, TK, TL])
 def kernel_mttkrp(TileA: int32[TI, TK, TL],
@@ -46,8 +47,7 @@ def mttkrp(A: int32[I, K, L], B: int32[K, J],
 @task_top()
 def top(A: int32[I, K, L], B: int32[K, J], 
         C: int32[L, J],    D: int32[I, J]):
-    grid, size = (I//TI, J//TJ, K//TK, L//TL), (TI, TJ, TK, TL)
-    mttkrp_task = mttkrp[grid, size](A, B, C, D)
+    mttkrp_task = mttkrp[grid](A, B, C, D)
     return mttkrp_task
 
 def mttkrp_sw(A: int32[I, K, L], B: int32[K, J], C: int32[L, J]):

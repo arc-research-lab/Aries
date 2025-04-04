@@ -8,6 +8,7 @@ from frontend import *
 # TTMc: D[i0, j0, k0] += A[i0, l0, m0] * B[l0, j0] * C[m0, k0]
 I, J, K, L, M = 2, 64, 64, 32, 128
 TI, TJ, TK, TL, TM = 2, 16, 16, 8, 32
+grid = (I//TI, J//TJ, K//TK, L//TL, M//TM) # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_ttmc/aie_int32", para = [TI, TJ, TK, TL, TM])
 def kernel_ttmc(TileA: int32[TI, TL, TM],
@@ -48,8 +49,7 @@ def ttmc(A: int32[I, L, M], B: int32[L, J],
 @task_top()
 def top(A: int32[I, L, M], B: int32[L, J], 
         C: int32[M, K],    D: int32[I, J, K]):
-    grid, size = (I//TI, J//TJ, K//TK, L//TL, M//TM), (TI, TJ, TK, TL, TM)
-    ttmc_task = ttmc[grid, size](A, B, C, D)
+    ttmc_task = ttmc[grid](A, B, C, D)
     return ttmc_task
 
 def ttmc_sw(A: int32[I, L, M], B: int32[L, J], C: int32[M, K]):

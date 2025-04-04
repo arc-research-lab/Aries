@@ -8,6 +8,7 @@ from frontend import *
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, J, K = 256, 256, 256
 TI, TJ, TK = 32, 32, 32
+grid = (I // TI, J // TJ, K // TK)  # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_mm/aie_fp32_v0", para = [TI, TJ, TK])
 def kernel_gemm(TileA: float32[TI, TK], 
@@ -40,9 +41,7 @@ def gemm(A: float32[I, K], B: float32[K, J],
 
 @task_top()
 def top(A: float32[I, K], B: float32[K, J], C: float32[I, J]):
-    grid = (I // TI, J // TJ, K // TK)  # 2D grid
-    tile_size = (TI, TJ, TK)  # 2D tile size
-    gemm_task = gemm[grid, tile_size](A, B, C)
+    gemm_task = gemm[grid](A, B, C)
     return gemm_task
  
 # Set the project dir and template dir

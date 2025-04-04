@@ -39,19 +39,41 @@ class Tensor(np.ndarray, Generic[Shape]):
     def get_dtype(self) -> str:
         return self.dtype_str
 
+class TensorAnnotation:
+    def __init__(self, dtype: str, shape: Tuple[int, ...]):
+        self.dtype_str = dtype
+        self.shape = shape
+
+    def __repr__(self):
+        return f"{self.dtype_str}[{', '.join(map(str, self.shape))}]"
+
+    def get_shape(self):
+        return self.shape
+
+    def get_dtype(self):
+        return self.dtype_str
+
 # Dynamic Tensor Factory
 class int8(NumericType):
     def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
+        if any(dim == -1 for dim in shape):
+            return TensorAnnotation("int8", shape)
         return Tensor(shape, "int8")
 
 class int16(NumericType):
     def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
+        if any(dim == -1 for dim in shape):
+            return TensorAnnotation("int16", shape)
         return Tensor(shape, "int16")
 
 class int32(NumericType):
     def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
+        if any(dim == -1 for dim in shape):
+            return TensorAnnotation("int32", shape)
         return Tensor(shape, "int32")
 
 class float32(FloatingType):
     def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
+        if any(dim == -1 for dim in shape):
+            return TensorAnnotation("float32", shape)
         return Tensor(shape, "float32")
