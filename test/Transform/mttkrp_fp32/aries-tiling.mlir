@@ -52,8 +52,7 @@
 // CHECK:     }
 // CHECK:     return
 // CHECK:   }
-// CHECK:   func.func private @top(memref<8x32x128xf32>, memref<32x128xf32>, memref<128x128xf32>, memref<8x128xf32>) attributes {outArgs = [], top_func}
-// CHECK:   func.func private @top_host(memref<8x32x128xf32>, memref<32x128xf32>, memref<128x128xf32>, memref<8x128xf32>) attributes {origin_func = "top", outArgs = [], top_host}
+// CHECK:   func.func private @top(memref<8x32x128xf32>, memref<32x128xf32>, memref<128x128xf32>, memref<8x128xf32>) attributes {top_func}
 // CHECK: }
 
 #map = affine_map<(d0) -> (d0 * 2)>

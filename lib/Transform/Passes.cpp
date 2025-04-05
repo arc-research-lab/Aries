@@ -18,6 +18,7 @@ void mlir::aries::registerAriesPassPipeline() {
   [](OpPassManager &pm, const AriesOptions &opts) {
 
     // Perform multi-level tiling
+    pm.addPass(createAriesPreprocessPass());
     pm.addPass(createAriesTilingPass(opts));
 
     if(!opts.OptEnableNewTiling){
@@ -73,6 +74,7 @@ void mlir::aries::registerAriesOptPipeline() {
   PassPipelineRegistration<AriesOptions>(
   "aries-pipeline-versal", "Compile to Versal Devices",
   [](OpPassManager &pm, const AriesOptions &opts) {
+    pm.addPass(createAriesPreprocessPass());
     pm.addPass(createAriesTilingPass(opts));
     pm.addPass(createAriesAffineUnrollPass());
     pm.addPass(createAriesParallelReductionPass());

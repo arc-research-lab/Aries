@@ -83,9 +83,8 @@ private:
     return true;
   }
   
-  // Annotate the output arguments
-  void outAnnotate(OpBuilder builder, FuncOp topFunc, FuncOp func){
-    SmallVector<Attribute, 4> attrs;
+  // Mark reading output arg as initialize (only for NPU)
+  void outAnnotate(OpBuilder builder, FuncOp func){
     SmallVector<int64_t, 4> ids;
     func.walk([&](DmaOp op){
       auto dst = op.getDst();
@@ -101,7 +100,6 @@ private:
         index++;
       }
     });
-    // Mark reading output arg as initialize
     for (auto id : ids){
       auto arg = func.getArgument(id);
       for (auto use : arg.getUsers()){
@@ -112,35 +110,6 @@ private:
         }
       }
     }
-    // Record the output arguments at the top
-    for (auto call: topFunc.getOps<CallOp>()){
-      if(call.getCallee() != func.getName())
-        continue;
-      for(auto id: ids){
-        unsigned idx = 0;
-        auto dst = call.getOperand(id);
-        auto defineOp = dst.getDefiningOp();
-        Value operand;
-        //TODO::Handle more defining operations
-        if(!defineOp){
-          operand= dst;
-        }else if(auto castOp = dyn_cast<memref::CastOp>(defineOp)){
-          operand = castOp.getSource();
-        }
-        for(auto arg : topFunc.getArguments()){
-          if(arg == operand){
-            auto intAttr = builder.getI32IntegerAttr(idx);
-            if(!llvm::is_contained(attrs, intAttr)){
-              attrs.push_back(intAttr);
-              break;
-            }
-          }
-          idx++;
-        }
-      }
-    }
-    auto outAttrs = builder.getArrayAttr(attrs);
-    topFunc->setAttr("outArgs",outAttrs);
   }
 
   // This is a helper function to add or update attribute to an operation
@@ -308,9 +277,10 @@ private:
   bool applyLoopTiling(ModuleOp mod, unsigned defaultTileSizes){
     auto builder = OpBuilder(mod);
     auto loc = builder.getUnknownLoc();
-    FuncOp topFunc, func;
-    if(!topFind(mod, topFunc, "top_func"))
-      return true;
+    // FuncOp topFunc, func;
+    // if(!topFind(mod, topFunc, "top_func"))
+    //   return true;
+    FuncOp func;
     for(auto tileFunc: mod.getOps<FuncOp>()){
       if(tileFunc.getName() == TileFuncName){
         func = tileFunc;
@@ -319,8 +289,8 @@ private:
     }
     if(!func)
       return true;
-    outAnnotate(builder, topFunc, func);
-    preprocess(mod, builder, topFunc);
+    outAnnotate(builder, func);
+    // preprocess(mod, builder, topFunc);
     
     // Tile the functions specified in the command line.
     SmallVector<AffineForOp, 6> band;
