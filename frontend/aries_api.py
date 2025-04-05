@@ -70,6 +70,27 @@ class aries:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
     
     @staticmethod
+    def cast(tensor, new_shape):
+        """
+        Simulates a memref.cast operation for backend lowering.
+        Args:
+            tensor (array-like): The original tensor (e.g., NumPy array).
+            new_shape (list): The new shape, where -1 represents unknown dimensions.
+
+        Returns:
+            The same tensor, but marked for backend lowering with the new shape.
+        """
+        if not isinstance(tensor, (np.ndarray, list)):
+            raise TypeError("aries.cast expects a NumPy array or list.")
+
+        original_rank = len(tensor.shape)
+        new_rank = len(new_shape)
+
+        if original_rank != new_rank:
+            raise ValueError(f"Rank mismatch: Tensor has rank {original_rank}, but new shape is rank {new_rank}.")
+        return tensor
+    
+    @staticmethod
     def tile_ranks(**kwargs):
         ivs = kwargs.get('IVs')
         if len(ivs) == 1:
