@@ -8,6 +8,7 @@ install
 Aries
 .vscode
 externals
-aries
+aries/bin
+aries/lib
 project
 my_project

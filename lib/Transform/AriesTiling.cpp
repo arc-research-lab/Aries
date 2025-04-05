@@ -200,11 +200,15 @@ private:
         auto applyOp = dyn_cast<AffineApplyOp>(defineOp);
         for(auto operand: applyOp.getOperands()){
           auto loop = getForInductionVarOwner(operand);
-          if(!loop)
+          if(!loop){
             llvm::errs() << "Find offset not defined by loop ivs\n";
+            signalPassFailure();
+          }
           auto itLoop = llvm::find(band, loop);
-          if(itLoop==band.end())
+          if(itLoop==band.end()){
             llvm::errs() << "Find reduction loop not in the band\n";
+            signalPassFailure();
+          }
           auto pos = std::distance(band.begin(), itLoop); 
           if(ivIds.contains(pos))
             continue;
@@ -279,8 +283,12 @@ private:
       auto newAttr = builder.getStringAttr(funcName.str());
       auto newName = funcName.str() + "_host";
       auto it = llvm::find(strList, newName);
-      if(it != strList.end())
+      if(it != strList.end()){
+        caller.setCallee(newName);
+        caller->setAttr("origin_func", newAttr);
+        caller->removeAttr("adf.func");
         continue;
+      }
       strList.push_back(newName);
       auto inTypes =SmallVector<Type,8>(func.getArgumentTypes().begin(),
                                         func.getArgumentTypes().end());

@@ -57,6 +57,7 @@ private:
         unsigned numDim = ubMap.getNumDims();
         if (ubMap.getNumResults() != 1){
           llvm::errs() << "Doesn't support affineMap with multi results\n";
+          signalPassFailure();
           return;
         }
         auto SymExpr = dyn_cast<AffineSymbolExpr>(ubMap.getResult(0));

@@ -70,14 +70,17 @@ private:
       if (auto arg = dyn_cast<BlockArgument>(operand)) {
         unsigned argIdx = arg.getArgNumber();
         auto it = llvm::find(memIdxs, argIdx);
-        if(it==memIdxs.end())
+        if(it==memIdxs.end()){
           llvm::errs() << "PLfunc has argument not marked in the adfFunc\n";
+          signalPassFailure();
+        }
         auto pos = std::distance(memIdxs.begin(), it);
         auto typeAttr = memTypeAttr[pos];
         idxAttrs.push_back(builder.getI32IntegerAttr(i));
         argAttrs.push_back(typeAttr);
       }else{
         llvm::errs() << "Found pl call operands not in the adfFunc args\n";
+        signalPassFailure();
       }
     }
     auto arrayAttr = builder.getArrayAttr(idxAttrs);
