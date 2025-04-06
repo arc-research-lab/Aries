@@ -143,6 +143,8 @@ private:
       auto newFunc = builder.create<FuncOp>(loc, newName, funcType);
       newFunc.setVisibility(SymbolTable::Visibility::Private);
       newFunc->setAttr("origin_func", newAttr);
+      if(auto attr = func->getAttr("meta_data"))
+        newFunc->setAttr("meta_data", attr);
       caller.setCallee(newName);
       caller->setAttr("origin_func", newAttr);
       caller->removeAttr("adf.func");

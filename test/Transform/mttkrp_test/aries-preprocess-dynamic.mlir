@@ -47,7 +47,9 @@
 // CHECK:     call @mttkrp(%cast, %cast_0, %cast_1, %cast_2, %c4, %c8, %c4, %c8, %c32, %c128, %c128, %c128, %c128) : (memref<?x?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, index, index, index, index, index, index, index, index, index) -> ()
 // CHECK:     return
 // CHECK:   }
-// CHECK:   func.func private @mttkrp_host(memref<?x?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, index, index, index, index, index, index, index, index, index) attributes {origin_func = "mttkrp"}
+// CHECK:   func.func private @mttkrp_host(memref<?x?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, memref<?x?xi32>, index, index, index, index, index, index, index, index, index) 
+// CHECK-SAME:  attributes {meta_data = [
+// CHECK-SAME:  [0, 8, 9], [1, 10], [2, 11], [3, 12]], origin_func = "mttkrp"}
 // CHECK:   func.func @top_host(%arg0: memref<8x32x128xi32>, %arg1: memref<32x128xi32>, %arg2: memref<128x128xi32>, %arg3: memref<8x128xi32>) attributes {origin_func = "top", outArgs = [3 : i32], top_host} {
 // CHECK:     %c128 = arith.constant 128 : index
 // CHECK:     %c32 = arith.constant 32 : index
