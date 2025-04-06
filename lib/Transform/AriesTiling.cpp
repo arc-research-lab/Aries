@@ -82,35 +82,6 @@ private:
     }
     return true;
   }
-  
-  // Mark reading output arg as initialize (only for NPU)
-  void outAnnotate(OpBuilder builder, FuncOp func){
-    SmallVector<int64_t, 4> ids;
-    func.walk([&](DmaOp op){
-      auto dst = op.getDst();
-      unsigned index = 0;
-      for(auto arg : func.getArguments()){
-        if(arg == dst){
-          auto it = llvm::find(ids, index);
-          if(it == ids.end()){
-            ids.push_back(index);
-            break;
-          }
-        }
-        index++;
-      }
-    });
-    for (auto id : ids){
-      auto arg = func.getArgument(id);
-      for (auto use : arg.getUsers()){
-        if(auto dmaOp = dyn_cast<DmaOp>(use)){
-          auto src = dmaOp.getSrc();
-          if(src == arg)
-            dmaOp->setAttr("initialize", builder.getUnitAttr());
-        }
-      }
-    }
-  }
 
   // This is a helper function to add or update attribute to an operation
   void addUpdateAtr(Operation *op, StringRef attrName, int64_t newValue){
@@ -277,9 +248,6 @@ private:
   bool applyLoopTiling(ModuleOp mod, unsigned defaultTileSizes){
     auto builder = OpBuilder(mod);
     auto loc = builder.getUnknownLoc();
-    // FuncOp topFunc, func;
-    // if(!topFind(mod, topFunc, "top_func"))
-    //   return true;
     FuncOp func;
     for(auto tileFunc: mod.getOps<FuncOp>()){
       if(tileFunc.getName() == TileFuncName){
@@ -289,8 +257,6 @@ private:
     }
     if(!func)
       return true;
-    outAnnotate(builder, func);
-    // preprocess(mod, builder, topFunc);
     
     // Tile the functions specified in the command line.
     SmallVector<AffineForOp, 6> band;

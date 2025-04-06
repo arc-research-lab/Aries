@@ -156,24 +156,6 @@ private:
         inputs.push_back(livein);
     }
 
-    // SmallVector<Value> definedLiveins;
-    // for(auto livein : liveins){
-    //   auto it = llvm::find(inputs, livein);
-    //   if(it == inputs.end())
-    //     definedLiveins.push_back(livein);
-    // }
-    
-    // llvm::sort(definedLiveins, [](Value a, Value b) {
-    //   Operation *opA = a.getDefiningOp();
-    //   Operation *opB = b.getDefiningOp();
-    //   if (!opA || !opB) return opA != nullptr;
-    //   return opA->isBeforeInBlock(opB);
-    // });
-
-    // for(auto livein : definedLiveins){
-    //   inputs.push_back(livein);
-    // }
-
     // Define the dma function with the detected inputs as arguments
     builder.setInsertionPoint(adfFunc);
     auto funcName = adfFunc.getName().str() + "_pl";
