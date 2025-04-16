@@ -71,7 +71,7 @@ B = np.random.randint(-5, 6, size=(K, J), dtype=np.int32)
 C = np.random.randint(-5, 6, size=(L, J), dtype=np.int32)
 D = np.zeros((I, J)).astype(np.int32)
 
-# Execute on CPU
+# Execute ARIES on CPU
 mttkrp_task = top(A, B, C, D)
 
 # Golden file generation
@@ -87,7 +87,7 @@ sch.l2buffer(mttkrp_task, [2, 2, 2, 2]) # L2 buffer data reuse
 sch.bufsel(mttkrp_task, [0, 1, 0, 1]) # Select the type of buffer of A, B, C, 1:BRAM; 0:URAM
 sch.to("VCK190")
 
-# Generate files for harware test
+# Generate files for on-board test
 aries.gen_sim([A, B, C, E])
 
 sch.build(module, prj_dir, temp_dir)

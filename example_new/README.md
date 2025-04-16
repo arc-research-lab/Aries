@@ -26,14 +26,14 @@ cd my_project
 make all
 ```
 
-### Compile the generated project (Around 5 hours)
+### Compile the generated project (Around 1-5 hours according to design complexity and the performance of the build machine)
 ```sh
 cd project
 make package EDGE_COMMON_SW_PATH=${PATH_Include_xilinx-versal-common-v2023.2}
 ```
 
 ### On-board execution (After booting the device in petalinux)
-#### Run: [executable] [xclbin] [device] [verify] (device is 0, Enable verify result or not by setting it to 1 or 0)
+#### Run: [executable] [xclbin] [device] [verify] (device is 0, enable verify result or not by setting it to 1 or 0)
 ```sh
 sudo su
 cd /run/media/mmcblk0p1
