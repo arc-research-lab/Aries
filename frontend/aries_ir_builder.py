@@ -1331,7 +1331,7 @@ class Schedule:
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
-        self.AIEUnroll = 8
+        self.AIEUnroll = 1
         self.ioWidth = 128
         self.en_pl = "true"
         self.en_aie2 = "false"
@@ -1360,9 +1360,13 @@ class Schedule:
     def preprocess(self, module):
         """Propagate the global constant to the function_wappers and get the
         function wappers"""
-        # self.collect_constant(module) # Collect the constants
         # Perform constant folding
-        source_code = inspect.getsource(module)
+        if isinstance(module, types.ModuleType):
+            source_code = inspect.getsource(module)
+        elif isinstance(module, str):
+            source_code = module
+        else:
+            raise TypeError("Expected a module or source code string")
         parsed_ast = ast.parse(source_code)
         ins_propagate = ConstantPropagation()
         tree = ins_propagate.visit(parsed_ast)
@@ -1500,6 +1504,9 @@ class Schedule:
     def genKernel(self, sub_dir, temp_dir):
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
+    
+    def aieUnrollRed(self, factor = 8):
+        self.AIEUnroll = factor
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor

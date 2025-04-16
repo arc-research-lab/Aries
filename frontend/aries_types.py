@@ -4,14 +4,6 @@ from typing import Tuple, Generic, TypeVar, Tuple, Union
 # =================== Types ====================
 Shape = TypeVar("Shape", bound=Tuple[int, ...])
 
-class NumericType(int):  # Base class for int-like types
-    def __new__(cls, value: int):
-        return super().__new__(cls, value)
-
-class FloatingType(float):  # Base class for float-like types
-    def __new__(cls, value: float):
-        return super().__new__(cls, value)
-
 # Define a generic Tensor type as a wrapper around ndarray
 class Tensor(np.ndarray, Generic[Shape]):
     def __new__(cls, shape: Tuple[int, ...], dtype: str):
@@ -54,26 +46,30 @@ class TensorAnnotation:
         return self.dtype_str
 
 # Dynamic Tensor Factory
-class int8(NumericType):
-    def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
-        if any(dim == -1 for dim in shape):
-            return TensorAnnotation("int8", shape)
-        return Tensor(shape, "int8")
+class TensorType:
+    dtype: str = ""
+    @classmethod
+    def __class_getitem__(cls, shape) -> "Tensor":
+        # Normalize shape
+        if isinstance(shape, int):
+            shape = (shape,)
+        elif not isinstance(shape, tuple):
+            raise TypeError(f"Expected int or tuple of ints, got {type(shape)}")
 
-class int16(NumericType):
-    def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
+        # Construct tensor or annotation
         if any(dim == -1 for dim in shape):
-            return TensorAnnotation("int16", shape)
-        return Tensor(shape, "int16")
+            return TensorAnnotation(cls.dtype, shape)
+        return Tensor(shape, cls.dtype)
 
-class int32(NumericType):
-    def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
-        if any(dim == -1 for dim in shape):
-            return TensorAnnotation("int32", shape)
-        return Tensor(shape, "int32")
+class NumericTensor(int, TensorType):
+    def __new__(cls, value=0):
+        return super().__new__(cls, value)
 
-class float32(FloatingType):
-    def __class_getitem__(cls, shape: Tuple[int, ...]) -> Tensor:
-        if any(dim == -1 for dim in shape):
-            return TensorAnnotation("float32", shape)
-        return Tensor(shape, "float32")
+class FloatingTensor(float, TensorType):
+    def __new__(cls, value=0.0):
+        return super().__new__(cls, value)
+
+class int8(NumericTensor): dtype = "int8"
+class int16(NumericTensor): dtype = "int16"
+class int32(NumericTensor): dtype = "int32"
+class float32(FloatingTensor): dtype = "float32"
