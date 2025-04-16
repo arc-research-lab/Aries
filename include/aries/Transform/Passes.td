@@ -289,14 +289,6 @@ def AriesPLDoubleBuffer : Pass<"aries-pl-double-buffer"> {
   let dependentDialects = ["mlir::scf::SCFDialect"];
 }
 
-def AriesPLSerialize : Pass<"aries-pl-serialize"> {
-  let summary = "Serialize the DDR access in the PL";
-  let description = [{
-    This pass seralizes the DDR access in the PL side. 
-  }];
-  let constructor = "mlir::aries::createAriesPLSerializePass()";
-}
-
 // Below are helper functions before translation
 // and may need to be moved to other places
 def AriesKernelSplit : Pass<"aries-kernel-split"> {
@@ -318,6 +310,15 @@ def AriesFileSplit : Pass<"aries-file-split"> {
 //----------------------------------------------------------------------------//
 // Passes for new release
 //----------------------------------------------------------------------------//
+
+def AriesPreprocess : Pass<"aries-preprocess"> {
+  let summary = "Preprocess the input IR after IR builder";
+  let description = [{
+    This pass mainly 1) Preserves the original func info; 2) Anotates the output
+    arguments; 3) Adds the info for memref with dynamic size.
+  }];
+  let constructor = "mlir::aries::createAriesPreprocessPass()";
+}
 
 def AriesAffineUnroll : Pass<"aries-affine-unroll"> {
   let summary = "Unroll all the block loops as seperated function calls";
@@ -402,6 +403,14 @@ def AriesIOPacking : Pass<"aries-io-packing"> {
     Option<"PortWidth", "plio-width", "int64_t", /*default=*/"32",
            "Specify the plio width of a port in bits (32,64,128)">
   ];
+}
+
+def AriesPLSerialize : Pass<"aries-pl-serialize"> {
+  let summary = "Serialize the DDR access in the PL";
+  let description = [{
+    This pass seralizes the DDR access in the PL side. 
+  }];
+  let constructor = "mlir::aries::createAriesPLSerializePass()";
 }
 
 #endif  // ARIES_TRANSFORM_PASSES_TD

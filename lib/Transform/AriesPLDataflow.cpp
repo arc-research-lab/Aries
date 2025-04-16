@@ -49,11 +49,13 @@ private:
         unsigned numSym = ubMap.getNumSymbols();
         if (ubMap.getNumResults() != 1){
           llvm::errs() << "Doesn't support affineMap with multi results\n";
+          signalPassFailure();
           return;
         }
         auto expr = dyn_cast<AffineBinaryOpExpr>(ubMap.getResult(0));
         if (!expr || expr.getKind() != AffineExprKind::CeilDiv){
           llvm::errs() << "Besides constant upperbound, only support ceildiv\n";
+          signalPassFailure();
           return;
         }
         // Extract the divisor and symbol

@@ -102,8 +102,10 @@ private:
           auto intVal = attr.getInt();
           return intVal == 0;
         });
-        if (itFirst == dmaOps.end())
+        if (itFirst == dmaOps.end()){
           llvm::errs() << "First reduction in the chain hasn't been found\n";
+          signalPassFailure();
+        }
         auto firstDmaOp = *itFirst;
         for(unsigned i=1; i<numDma; i++){
           auto it = llvm::find_if(dmaOps, [&](const DmaOp &op) {
@@ -111,8 +113,10 @@ private:
             auto intVal = attr.getInt();
             return intVal == i;
           });
-          if(it == dmaOps.end())
+          if(it == dmaOps.end()){
             llvm::errs() << "Reduction in the chain hasn't been found\n";
+            signalPassFailure();
+          }
           auto curDmaOp = firstDmaOp;
           auto nxtDmaOp = *it;
           builder.setInsertionPoint(curDmaOp);

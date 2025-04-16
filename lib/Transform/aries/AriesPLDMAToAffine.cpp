@@ -222,6 +222,7 @@ private:
       dmaLoad = true;
     }else{
       llvm::errs() << "No L2 buffer found in src or dst\n";
+      signalPassFailure();
     }
   }
 
@@ -358,8 +359,10 @@ private:
         foundCall++;
         return WalkResult::interrupt();
       });
-      if(foundCall>1)
+      if(foundCall>1){
         llvm::errs() << "Found multiple adf.func that calls the adf.pl func\n";
+        signalPassFailure();
+      }
     }
     // Get the caller of adfFunc in topFunc
     for (auto call : topFunc.getOps<CallOp>()) {
@@ -523,15 +526,19 @@ private:
           auto eleType = src.getType();
           if(!elementType)
             elementType = eleType;
-          else if(elementType != eleType)
+          else if(elementType != eleType){
             llvm::errs() << "Find src with different types write to io\n";
+            signalPassFailure();
+          }  
         }else if(auto ioRead = dyn_cast<IOReadOp>(user)){
           auto dst = ioRead.getResult();
           auto eleType = dst.getType();
           if(!elementType)
             elementType = eleType;
-          else if(elementType != eleType)
+          else if(elementType != eleType){
             llvm::errs() << "Find dst with different types read from io\n";
+            signalPassFailure();
+          }
         }
       }
       writeFlags.push_back(write_flag);
@@ -549,8 +556,10 @@ private:
       if(!dyn_cast<PLIOType>(type))
         continue;
       auto it = llvm::find(argIds, i);
-      if(it==argIds.end())
+      if(it==argIds.end()){
         llvm::errs() << "Arg of PLIO type didn't collect correctly\n";
+        signalPassFailure();
+      }
       auto pos = std::distance(argIds.begin(), it); 
       auto newType=newTypes[pos];
       inTypes[i] = newType;
@@ -591,8 +600,10 @@ private:
       auto argId = argIds[i];
       auto operand = caller.getOperand(argId);
       auto defineOp = operand.getDefiningOp();
-      if(!defineOp || !dyn_cast<CreateGraphIOOp>(defineOp))
+      if(!defineOp || !dyn_cast<CreateGraphIOOp>(defineOp)){
         llvm::errs() << "Find PLIO Type Operands not defined by GraphIOOp\n";
+        signalPassFailure();
+      }
       // Add argument to adfFunc and topFunc
       auto newType = newTypes[i];
       adfInTypes.push_back(newType);
@@ -712,8 +723,10 @@ private:
         builder.setInsertionPoint(newStore);
         builder.create<AffineStoreOp>(loc, newVal, allocOp, zeroValues);
         auto defineOp = newVal.getDefiningOp();
-        if(!defineOp || !dyn_cast<AffineLoadOp>(defineOp))
+        if(!defineOp || !dyn_cast<AffineLoadOp>(defineOp)){
           llvm::errs() << "newVal defined by AffineLoadOp\n";
+          signalPassFailure();
+        }
         auto clonedLoad = dyn_cast<AffineLoadOp>(defineOp);
         auto clonedMem = clonedLoad.getMemRef();
         auto clonedIndices = clonedLoad.getIndices();

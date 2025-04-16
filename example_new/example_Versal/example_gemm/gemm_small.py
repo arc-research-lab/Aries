@@ -8,6 +8,7 @@ from frontend import *
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, J, K = 256, 256, 256
 TI, TJ, TK = 32, 32, 32
+grid = (I // TI, J // TJ, K // TK)  # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_mm/aie_fp32_v0", para = [TI, TJ, TK])
 def kernel_gemm(TileA: float32[TI, TK], 
@@ -40,9 +41,7 @@ def gemm(A: float32[I, K], B: float32[K, J],
 
 @task_top()
 def top(A: float32[I, K], B: float32[K, J], C: float32[I, J]):
-    grid = (I // TI, J // TJ, K // TK)  # 2D grid
-    tile_size = (TI, TJ, TK)  # 2D tile size
-    gemm_task = gemm[grid, tile_size](A, B, C)
+    gemm_task = gemm[grid](A, B, C)
     return gemm_task
  
 # Set the project dir and template dir
@@ -56,13 +55,18 @@ A = np.random.rand(I, K).astype(np.float32)
 B = np.random.rand(K, J).astype(np.float32)
 C = np.zeros((I, J)).astype(np.float32)
 
-# Execute on CPU
+# Execute ARIES on CPU
+print(f"Run ARIES GEMM with size {I} * {K} * {J} on CPU")
 gemm_task = top(A, B, C)
+print(f"Run ARIES GEMM finished!")
 
 # Golden file generation
+print(f"Run Numpy GEMM with size {I} * {K} * {J} on CPU")
 D = np.matmul(A, B)
+print(f"Run Numpy GEMM finished!")
 
 # Compare the program with golden file
+print(f"Compare ARIES CPU result with Numpy result")
 print(np.allclose(C, D))
 
 # Applying schedulings
@@ -72,9 +76,9 @@ sch.l2buffer(gemm_task, [2, 2, 2]) # L2 buffer data reuse
 sch.bufsel(gemm_task, [1, 1, 0]) # Select the type of buffer of A, B, C, 1:BRAM; 0:URAM
 sch.to("VCK190")
 
-# Generate files for harware test
+# Generate files for on-board test
 aries.gen_sim([A, B, D])
 
-# Generate hardware design
+# Generate Initial MLIR and ARIES Opts
 sch.build(module, prj_dir, temp_dir)
 

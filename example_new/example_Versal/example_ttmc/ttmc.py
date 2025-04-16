@@ -8,6 +8,7 @@ from frontend import *
 # TTMc: D[i0, j0, k0] += A[i0, l0, m0] * B[l0, j0] * C[m0, k0]
 I, J, K, L, M = 2, 64, 64, 32, 128
 TI, TJ, TK, TL, TM = 2, 16, 16, 8, 32
+grid = (I//TI, J//TJ, K//TK, L//TL, M//TM) # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_ttmc/aie_int32", para = [TI, TJ, TK, TL, TM])
 def kernel_ttmc(TileA: int32[TI, TL, TM],
@@ -48,8 +49,7 @@ def ttmc(A: int32[I, L, M], B: int32[L, J],
 @task_top()
 def top(A: int32[I, L, M], B: int32[L, J], 
         C: int32[M, K],    D: int32[I, J, K]):
-    grid, size = (I//TI, J//TJ, K//TK, L//TL, M//TM), (TI, TJ, TK, TL, TM)
-    ttmc_task = ttmc[grid, size](A, B, C, D)
+    ttmc_task = ttmc[grid](A, B, C, D)
     return ttmc_task
 
 def ttmc_sw(A: int32[I, L, M], B: int32[L, J], C: int32[M, K]):
@@ -74,7 +74,7 @@ B = np.random.randint(-5, 6, size=(L, J), dtype=np.int32)
 C = np.random.randint(-5, 6, size=(M, K), dtype=np.int32)
 D = np.zeros((I, J, K)).astype(np.int32)
 
-# Execute on CPU
+# Execute ARIES on CPU
 ttmc_task = top(A, B, C, D)
 
 # Golden file generation
@@ -90,7 +90,7 @@ sch.l2buffer(ttmc_task, [1, 2, 2, 2, 1]) # L2 buffer data reuse
 sch.bufsel(ttmc_task, [0, 1, 0, 1]) # Select the type of buffer of A, B, C, 1:BRAM; 0:URAM
 sch.to("VCK190")
 
-# Generate files for harware test
+# Generate files for on-board test
 aries.gen_sim([A, B, C, E])
 
 sch.build(module, prj_dir, temp_dir)

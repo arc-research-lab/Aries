@@ -8,6 +8,7 @@ from frontend import *
 # MTTKRP: D[i0, j0] += A[i0, k0, l0] * B[k0, j0] * C[l0, j0]
 I, J, K, L = 8, 128, 32, 128
 TI, TJ, TK, TL = 2, 16, 8, 16
+grid = (I//TI, J//TJ, K//TK, L//TL) # grid must be a tuple
 
 @task_kernel(external_path="aie1/adf/kernel_mttkrp/aie_int32", para = [TI, TJ, TK, TL])
 def kernel_mttkrp(TileA: int32[TI, TK, TL],
@@ -46,8 +47,7 @@ def mttkrp(A: int32[I, K, L], B: int32[K, J],
 @task_top()
 def top(A: int32[I, K, L], B: int32[K, J], 
         C: int32[L, J],    D: int32[I, J]):
-    grid, size = (I//TI, J//TJ, K//TK, L//TL), (TI, TJ, TK, TL)
-    mttkrp_task = mttkrp[grid, size](A, B, C, D)
+    mttkrp_task = mttkrp[grid](A, B, C, D)
     return mttkrp_task
 
 def mttkrp_sw(A: int32[I, K, L], B: int32[K, J], C: int32[L, J]):
@@ -71,7 +71,7 @@ B = np.random.randint(-5, 6, size=(K, J), dtype=np.int32)
 C = np.random.randint(-5, 6, size=(L, J), dtype=np.int32)
 D = np.zeros((I, J)).astype(np.int32)
 
-# Execute on CPU
+# Execute ARIES on CPU
 mttkrp_task = top(A, B, C, D)
 
 # Golden file generation
@@ -87,7 +87,7 @@ sch.l2buffer(mttkrp_task, [2, 2, 2, 2]) # L2 buffer data reuse
 sch.bufsel(mttkrp_task, [0, 1, 0, 1]) # Select the type of buffer of A, B, C, 1:BRAM; 0:URAM
 sch.to("VCK190")
 
-# Generate files for harware test
+# Generate files for on-board test
 aries.gen_sim([A, B, C, E])
 
 sch.build(module, prj_dir, temp_dir)

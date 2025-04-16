@@ -518,6 +518,7 @@ private:
         if(auto castOp = dyn_cast<CastOp>(op)){
           if(idx<0){
             llvm::errs() << "Source of castOp is not in the arg list\n";
+            signalPassFailure();
             return;
           }
           auto arg = func.getArgument(idx); 

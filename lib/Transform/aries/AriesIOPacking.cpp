@@ -368,8 +368,13 @@ private:
           auto newType = newMemRefType.getElementType();
           SmallVector<int64_t> sizesInt(shape.begin(),shape.end());
           // Deal with dynmic shape
-          if (sizesInt[rank-1]>0)
+          if (sizesInt[rank-1]>0){
+            if(sizesInt[rank-1] % (widthNew/width)!=0){
+              llvm::errs() << "Undiviable width for dynamic size packing\n";
+              signalPassFailure();
+            }
             sizesInt[rank-1] = sizesInt[rank-1] / (widthNew/width);
+          }
           auto newMemType = MemRefType::get(sizesInt, newType);
           Value arg;
           updateTop(src, arg, topFunc, newMemType, 

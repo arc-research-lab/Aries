@@ -21,30 +21,33 @@ class TaskTileWrapper:
         self.instanceIdx = 0
         self.run = run
 
-    def __getitem__(self, args: Tuple[Any, ...]):
-        assert len(args) >=2
-        self.grid_dims = args[0]  # Grid dimensions (e.g., (4, 4) for 2D tiling)
-        self.tile_sizes = args[1]  # Tile sizes (e.g., (32, 32))
+    def __getitem__(self, args):
+        if isinstance(args, tuple) and all(not isinstance(x, tuple) for x in args):
+            args = (args,)
+        if len(args) >= 1:
+            self.grid_dims = args[0]  # Grid dimensions (e.g., (4, 4) for 2D tiling)
+        if len(args) >= 2:
+            self.tile_sizes = args[1]  # Tile sizes (e.g., (32, 32))
         if len(args) == 3:
             self.instanceIdx = args[2] # Mark the number of instance
         return self
 
     def __call__(self, *call_args, **call_kwargs):
-        if not self.grid_dims or not self.tile_sizes:
-            raise ValueError(
-                "Grid dimensions and tile sizes must be specified")
-        
+        instance = TaskInstance(self.func, self.grid_dims, self.tile_sizes, 
+                                self.instanceIdx, False, call_args, call_kwargs)
+        if not self.grid_dims:
+            if self.run:
+                self.func(*call_args)
+            return instance
         if isinstance(self.grid_dims, int):
             self.grid_dims = (self.grid_dims,)
-        
+        if self.tile_sizes:
+            call_kwargs['TSizes'] = self.tile_sizes  # Add tuple of sizes
         # Generate all tile index combinations (e.g., (i, j) for a 2D grid)
-        call_kwargs['TSizes'] = self.tile_sizes  # Add tuple of sizes
         if self.run:
             for idx in itertools.product(*(range(g) for g in self.grid_dims)):
                 call_kwargs['IVs'] = idx  # Add tuple of indices
                 self.func(*call_args, **call_kwargs)
-        instance = TaskInstance(self.func, self.grid_dims, self.tile_sizes, 
-                                self.instanceIdx, False, call_args, call_kwargs)
         return instance
 
 def task_tile(run_flag=True):  

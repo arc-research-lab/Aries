@@ -22,12 +22,12 @@ add_mlir_library(MLIRAriesPasses
     AriesBurstDetection.cpp
     AriesFuncEliminate.cpp
     AriesPLDoubleBuffer.cpp
-    AriesPLSerialize.cpp
     AriesFileSplit.cpp
     AriesKernelSplit.cpp
     Passes.cpp
     Utils.cpp
 
+    aries/AriesPreprocess.cpp
     aries/AriesAffineUnroll.cpp
     aries/AriesParallelReduction.cpp
     aries/AriesLowerDMAToIO.cpp
@@ -35,6 +35,7 @@ add_mlir_library(MLIRAriesPasses
     aries/AriesPLBufferExtract.cpp
     aries/AriesPLDMAToAffine.cpp
     aries/AriesIOPacking.cpp
+    aries/AriesPLSerialize.cpp
 
     ADDITIONAL_HEADER_DIRS
     ${PROJECT_SOURCE_DIR}/include/aries

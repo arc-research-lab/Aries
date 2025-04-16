@@ -178,6 +178,7 @@ std::unique_ptr<Pass> createAriesFileSplitPass();
 std::unique_ptr<Pass> createAriesFileSplitPass(const AriesOptions &opts);
 
 // Passes for new release
+std::unique_ptr<Pass> createAriesPreprocessPass();
 std::unique_ptr<Pass> createAriesAffineUnrollPass();
 std::unique_ptr<Pass> createAriesParallelReductionPass();
 std::unique_ptr<Pass> createAriesLowerDMAToIOPass();

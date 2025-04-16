@@ -82,66 +82,6 @@ private:
     }
     return true;
   }
-  
-  // Annotate the output arguments
-  void outAnnotate(OpBuilder builder, FuncOp topFunc, FuncOp func){
-    SmallVector<Attribute, 4> attrs;
-    SmallVector<int64_t, 4> ids;
-    func.walk([&](DmaOp op){
-      auto dst = op.getDst();
-      unsigned index = 0;
-      for(auto arg : func.getArguments()){
-        if(arg == dst){
-          auto it = llvm::find(ids, index);
-          if(it == ids.end()){
-            ids.push_back(index);
-            break;
-          }
-        }
-        index++;
-      }
-    });
-    // Mark reading output arg as initialize
-    for (auto id : ids){
-      auto arg = func.getArgument(id);
-      for (auto use : arg.getUsers()){
-        if(auto dmaOp = dyn_cast<DmaOp>(use)){
-          auto src = dmaOp.getSrc();
-          if(src == arg)
-            dmaOp->setAttr("initialize", builder.getUnitAttr());
-        }
-      }
-    }
-    // Record the output arguments at the top
-    for (auto call: topFunc.getOps<CallOp>()){
-      if(call.getCallee() != func.getName())
-        continue;
-      for(auto id: ids){
-        unsigned idx = 0;
-        auto dst = call.getOperand(id);
-        auto defineOp = dst.getDefiningOp();
-        Value operand;
-        //TODO::Handle more defining operations
-        if(!defineOp){
-          operand= dst;
-        }else if(auto castOp = dyn_cast<memref::CastOp>(defineOp)){
-          operand = castOp.getSource();
-        }
-        for(auto arg : topFunc.getArguments()){
-          if(arg == operand){
-            auto intAttr = builder.getI32IntegerAttr(idx);
-            if(!llvm::is_contained(attrs, intAttr)){
-              attrs.push_back(intAttr);
-              break;
-            }
-          }
-          idx++;
-        }
-      }
-    }
-    auto outAttrs = builder.getArrayAttr(attrs);
-    topFunc->setAttr("outArgs",outAttrs);
-  }
 
   // This is a helper function to add or update attribute to an operation
   void addUpdateAtr(Operation *op, StringRef attrName, int64_t newValue){
@@ -200,11 +140,15 @@ private:
         auto applyOp = dyn_cast<AffineApplyOp>(defineOp);
         for(auto operand: applyOp.getOperands()){
           auto loop = getForInductionVarOwner(operand);
-          if(!loop)
+          if(!loop){
             llvm::errs() << "Find offset not defined by loop ivs\n";
+            signalPassFailure();
+          }
           auto itLoop = llvm::find(band, loop);
-          if(itLoop==band.end())
+          if(itLoop==band.end()){
             llvm::errs() << "Find reduction loop not in the band\n";
+            signalPassFailure();
+          }
           auto pos = std::distance(band.begin(), itLoop); 
           if(ivIds.contains(pos))
             continue;
@@ -279,8 +223,12 @@ private:
       auto newAttr = builder.getStringAttr(funcName.str());
       auto newName = funcName.str() + "_host";
       auto it = llvm::find(strList, newName);
-      if(it != strList.end())
+      if(it != strList.end()){
+        caller.setCallee(newName);
+        caller->setAttr("origin_func", newAttr);
+        caller->removeAttr("adf.func");
         continue;
+      }
       strList.push_back(newName);
       auto inTypes =SmallVector<Type,8>(func.getArgumentTypes().begin(),
                                         func.getArgumentTypes().end());
@@ -300,9 +248,7 @@ private:
   bool applyLoopTiling(ModuleOp mod, unsigned defaultTileSizes){
     auto builder = OpBuilder(mod);
     auto loc = builder.getUnknownLoc();
-    FuncOp topFunc, func;
-    if(!topFind(mod, topFunc, "top_func"))
-      return true;
+    FuncOp func;
     for(auto tileFunc: mod.getOps<FuncOp>()){
       if(tileFunc.getName() == TileFuncName){
         func = tileFunc;
@@ -311,8 +257,6 @@ private:
     }
     if(!func)
       return true;
-    outAnnotate(builder, topFunc, func);
-    preprocess(mod, builder, topFunc);
     
     // Tile the functions specified in the command line.
     SmallVector<AffineForOp, 6> band;

@@ -64,25 +64,26 @@ class MLIRGenerator(ast.NodeVisitor):
         return dtype
         
     def get_eletype_name(self, arg):
+        type_map = {
+            "float32": "f32",
+            "float": "f32",
+            "double": "f64",
+            "int32": "i32",
+            "int": "i32",
+            "int16": "i16",
+            "int8": "i8",
+            "index": "index",
+            "f32": "f32",
+            "f64": "f64",
+            "i32": "i32",
+            "i16": "i16",
+            "i8": "i8",
+        }
         ty = self.valType[arg][0]
-        if(ty == "float32"):
-          return "f32"
-        elif(ty == "int32"):
-          return "i32"
-        elif(ty == "double"):
-          return "f64"
-        elif(ty == "float"):
-          return "f32"
-        elif(ty == "int"):
-          return "i32"
-        elif(ty == "int16"):
-          return "i16"
-        elif(ty == "int8"):
-          return "i8"
-        elif(ty == "index"):
-          return "index"
+        if ty in type_map:
+            return type_map[ty]
         else:
-          raise TypeError(f"Type {ty} not supported.")
+            raise TypeError(f"Unsupported type: {ty}")
     
     def addMemSpace(self, type_name, memSpace):
         if memSpace == "L1":
@@ -95,7 +96,7 @@ class MLIRGenerator(ast.NodeVisitor):
     
     def get_MemRefType_name(self, arg):
       _, shape, memSpace = self.valType[arg]
-      shape_name = "x".join([str(s) for s in shape])
+      shape_name = "x".join(["?" if s == -1 else str(s) for s in shape])
       type_name = self.get_eletype_name(arg)
       type_name = self.addMemSpace(type_name, memSpace)
       memrefType_name = f"memref<{shape_name}x{type_name}>"
@@ -125,6 +126,17 @@ class MLIRGenerator(ast.NodeVisitor):
         else:
             return True       
     
+    # Handle uniary op
+    def extract_constant(self, expr):
+      if isinstance(expr, ast.Constant):
+          return expr.value
+      elif isinstance(expr, ast.UnaryOp) and isinstance(expr.op, ast.USub):
+          return -self.extract_constant(expr.operand)
+      elif isinstance(expr, ast.UnaryOp) and isinstance(expr.op, ast.UAdd):
+          return +self.extract_constant(expr.operand)
+      else:
+          raise ValueError(f"Unsupported expression in shape: {ast.dump(expr)}")
+    
     def addArgType(self, node, memSpace = ""):
         # Record the type of arguments in the function
         for arg in node.args.args:
@@ -134,12 +146,15 @@ class MLIRGenerator(ast.NodeVisitor):
                 if isinstance(ty, ast.Subscript):
                     # Extract shape
                     if isinstance(ty.slice, ast.Tuple):
-                        shape = tuple(constant.value for constant in ty.slice.elts)
+                        shape = tuple(self.extract_constant(e) for e in ty.slice.elts)
                     else:
-                        shape = [ty.slice.value]
+                        shape = [self.extract_constant(ty.slice)]
                     self.add_type_name(arg.arg, ty.value.id, shape, memSpace)
                 else:
-                    assert False, "Unspported argument type found!"
+                    self.add_type_name(arg.arg, ty.id)
+            else: # If not anntation then the default type is index
+                self.add_type_name(arg.arg, "index")
+                    
         return
     
     ## -- Core AST Processing -- ##
@@ -174,12 +189,28 @@ class MLIRGenerator(ast.NodeVisitor):
         loop_var = node.target.id  # e.g., i0, j0, k0
         loop_Name = self.add_var_name(loop_var, loop_var)
         loop_call = node.iter.func
-        if len(node.iter.args) == 1 :
+        if len(node.iter.args) == 1:
           loop_lb = 0
-          loop_ub = node.iter.args[0].value
+          if isinstance(node.iter.args[0], ast.Constant):
+              loop_ub = node.iter.args[0].value
+          elif isinstance(node.iter.args[0], ast.Name):
+              loop_ub = self.get_var_name(node.iter.args[0].id)  # get variable name
+          else:
+              raise TypeError("Unsupported upper loop bound")
         else:
-          loop_lb = node.iter.args[0].value
-          loop_ub = node.iter.args[1].value
+          if isinstance(node.iter.args[0], ast.Constant):
+              loop_lb = node.iter.args[0].value
+          elif isinstance(node.iter.args[0], ast.Name):
+              loop_lb = self.get_var_name(node.iter.args[0].id)
+          else:
+              raise TypeError("Unsupported lower loop  bound")
+
+          if isinstance(node.iter.args[1], ast.Constant):
+              loop_ub = node.iter.args[1].value
+          elif isinstance(node.iter.args[1], ast.Name):
+              loop_ub = self.get_var_name(node.iter.args[0].id) 
+          else:
+              raise TypeError("Unsupported upper loop bound")
         self.emit(f"affine.for {loop_Name} = {loop_lb} to {loop_ub} {{")
 
         self.indent += 2
@@ -381,27 +412,29 @@ class TileMLIRGenerator(MLIRGenerator):
             
             elif node.value.func.attr == 'buffer':
                 buffer = target.id
-                self.add_var_name(buffer, buffer)
+                bufferName = self.add_var_name(buffer, buffer)
                 shape_node = node.value.args[0]
                 type_node = node.value.args[1]
                 shape = tuple(constant.value for constant in shape_node.elts)
                 type = type_node.value
                 typeName = self.add_type_name(buffer, type, shape, "L1")
-                bufferName = self.get_var_name(buffer)
                 self.emit(f"{bufferName} = adf.buffer.create @L1_{buffer}() : {typeName}")
                 return
             
             elif node.value.func.attr == "accbuffer":
                 buffer = target.id
-                self.add_var_name(buffer, buffer)
+                bufferName = self.add_var_name(buffer, buffer)
                 shape_node = node.value.args[0]
                 type_node = node.value.args[1]
                 shape = tuple(constant.value for constant in shape_node.elts)
                 type = type_node.value
                 typeName = self.add_type_name(buffer, type, shape, "L1")
-                bufferName = self.get_var_name(buffer)
                 self.emit(f"{bufferName} = adf.buffer.create @L1_{buffer}() {{accumulator}} : {typeName} ")
                 return
+            elif node.value.func.attr == "arange":
+                return
+            else:
+                raise TypeError(f"Unsupported API call in @task_tile(): {node.value.func.attr}.")
     
     def visit_Expr(self, node):
         if isinstance(node.value, ast.Call):
@@ -626,53 +659,55 @@ class KernelMLIRGenerator(MLIRGenerator):
 class TopMLIRGenerator(MLIRGenerator):
     def __init__(self, dmaInfo, map_cnt=0):
         super().__init__(dmaInfo, map_cnt, "top_func")
-        self.is_assign = False
+    
+    def emit_call(self, node):
+        if isinstance(node.func, ast.Name):
+            calleeName = node.func.id
+        elif isinstance(node.func, ast.Subscript):
+            calleeName = node.func.value.id
+        args = node.args
+        argNames = []
+        argTypes = []
+        for arg in args:
+            if isinstance(arg, ast.Name):
+                argNames.append(self.get_var_name(arg.id))
+                argTypes.append(self.get_type_name(arg.id))
+            elif isinstance(arg, ast.Constant):
+                result = self.emit_cons(arg.value, "index")
+                argNames.append(result)
+                argTypes.append("index")
+        self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
+        self.emit(f"{', '.join(argTypes)}) -> ()", True)
     
     def visit_Expr(self, node):
         if isinstance(node.value, ast.Call):
-            if isinstance(node.value.func, ast.Name):
-                calleeName = node.value.func.id
-                args = node.value.args
-                argNames = []
-                argTypes = []
-                for arg in args:
-                    argNames.append(self.get_var_name(arg.id))
-                    argTypes.append(self.get_type_name(arg.id))
-                self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
-                self.emit(f"{', '.join(argTypes)}) -> ()", True)
-            elif isinstance(node.value.func, ast.Subscript):
-                calleeName = node.value.func.value.id
-                args = node.value.args
-                argNames = []
-                argTypes = []
-                for arg in args:
-                    argNames.append(self.get_var_name(arg.id))
-                    argTypes.append(self.get_type_name(arg.id))
-                self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
-                self.emit(f"{', '.join(argTypes)}) -> ()", True)
+            self.emit_call(node.value)
     
     def visit_Assign(self, node):
+        assert len(node.targets) == 1
+        target = node.targets[0]
         if isinstance(node.value, ast.Call):
-            if isinstance(node.value.func, ast.Name):
-                calleeName = node.value.func.id
-                args = node.value.args
-                argNames = []
-                argTypes = []
-                for arg in args:
-                    argNames.append(self.get_var_name(arg.id))
-                    argTypes.append(self.get_type_name(arg.id))
-                self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
-                self.emit(f"{', '.join(argTypes)}) -> ()", True)
-            elif isinstance(node.value.func, ast.Subscript):
-                calleeName = node.value.func.value.id
-                args = node.value.args
-                argNames = []
-                argTypes = []
-                for arg in args:
-                    argNames.append(self.get_var_name(arg.id))
-                    argTypes.append(self.get_type_name(arg.id))
-                self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
-                self.emit(f"{', '.join(argTypes)}) -> ()", True)     
+            if isinstance(node.value.func, ast.Attribute):
+                assert node.value.func.value.id == 'aries'
+                if node.value.func.attr == 'cast':
+                    targetName = target.id
+                    varName = self.add_var_name(targetName, targetName)
+                    args = node.value.args
+                    srcMem = args[0].id
+                    srcName = self.get_var_name(srcMem)
+                    srcType = self.get_type_name(srcMem)
+                    eleType = self.get_eletype_name(srcMem)
+                    shapeTuple = args[1]
+                    if isinstance(shapeTuple, ast.Tuple):
+                        shape = tuple(self.extract_constant(e) for e in shapeTuple.elts)
+                    else:
+                        shape = [self.extract_constant(shapeTuple)]
+                    dstType = self.add_type_name(targetName, eleType, shape)
+                    self.emit(f"{varName} = memref.cast {srcName} : {srcType} to {dstType}")
+                else:
+                    raise TypeError(f"Unsupported API call in @task_top(): {node.value.func.attr}.")
+            else:      
+              self.emit_call(node.value)
 
 class HostArgCollect(ast.NodeVisitor):
     def __init__(self):
@@ -971,16 +1006,6 @@ class ConstantPropagation(ast.NodeTransformer):
         self.worklist = []
         self.funcs = []
         self.topFunc = None
-        
-    # def visit_FunctionDef(self, node):
-    #     # Assume there's only one decorator for each func
-    #     if node.decorator_list:
-    #         decorator_id = node.decorator_list[0].func.id
-    #         if decorator_id in ('task_kernel', 'task_top', 'task_tile'):
-    #             self.funcs.append(node)
-    #             self.generic_visit(node) 
-    #             if decorator_id == 'task_top':
-    #                 self.topFunc = node
     
     def _clear_targets(self, targets):
       """Clear constants for modified targets."""
@@ -1303,11 +1328,10 @@ class Schedule:
         self.paraSize = {} # paraSize[task] = factor[]
         self.l2Size = {} # l2Size[task] = factor[]
         self.bufSel = {} # bufsel[task] = factor[] # 1:BRAM, 0: URAM
-        self.taskIdxMap = {} #Saves the reduction loops ids of a given task taskIdxMap[task] = ids
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
-        self.AIEUnroll = 8
+        self.AIEUnroll = 1
         self.ioWidth = 128
         self.en_pl = "true"
         self.en_aie2 = "false"
@@ -1318,17 +1342,6 @@ class Schedule:
         self.topFunc = []
         self.funName = ""
         self.device = ""
-    
-    # # A helper function to collect constant values given module
-    # def collect_constant(self, module):
-    #     for name, value in vars(module).items():
-    #         if callable(value) and isinstance(value, (TaskKernelWrapper, TaskTileWrapper, TaskTopWrapper)):
-    #             break  # Stop once encountering a decorated function
-              
-    #         if (not callable(value)  # Exclude functions and methods
-    #             and not isinstance(value, (types.ModuleType, type))  # Exclude modules and classes
-    #             and isinstance(value, (int, float))):  # Include only primitive constants
-    #             self.constants[name] = value
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -1347,9 +1360,13 @@ class Schedule:
     def preprocess(self, module):
         """Propagate the global constant to the function_wappers and get the
         function wappers"""
-        # self.collect_constant(module) # Collect the constants
         # Perform constant folding
-        source_code = inspect.getsource(module)
+        if isinstance(module, types.ModuleType):
+            source_code = inspect.getsource(module)
+        elif isinstance(module, str):
+            source_code = module
+        else:
+            raise TypeError("Expected a module or source code string")
         parsed_ast = ast.parse(source_code)
         ins_propagate = ConstantPropagation()
         tree = ins_propagate.visit(parsed_ast)
@@ -1372,10 +1389,12 @@ class Schedule:
             if task_temp.func.__name__ == func_name:
                 task = task_temp
                 break
-        ids = self.taskIdxMap.get(task, None)
         # Transform the tile ranks to index
-        tileTrans = TileToLoop(task.grid_dims, ids)
-        tree = tileTrans.visit(parsed_ast)
+        if task.grid_dims:
+          tileTrans = TileToLoop(task.grid_dims)
+          tree = tileTrans.visit(parsed_ast)
+        else:
+          tree = parsed_ast
         ast.fix_missing_locations(tree)
         # print("Parsed New AST 0", ast.dump(tree, indent=4))
         # print("\n\n\n=== Python AST 0 code ===")
@@ -1420,8 +1439,8 @@ class Schedule:
         host_file = sub_dir / "host/host.cpp" 
         with open(host_file, "w") as file:
             print(host_code, file=file)
-        
-    def code_emit(self, prj_dir):
+    
+    def code_gen(self):
         for parsed_ast in self.funcs:
             decorator_id = None
             func_name = None
@@ -1448,6 +1467,10 @@ class Schedule:
                 raise ValueError(f"Unsupported decorator: {decorator_id}")
         final_map_code = "\n".join(filter(None, self.mlir_map_code))
         final_func_code = "\n".join(filter(None, self.mlir_func_code))
+        return final_map_code, final_func_code
+        
+    def code_emit(self, prj_dir):
+        final_map_code, final_func_code = self.code_gen()
         mlir_file = prj_dir / "aries.mlir" 
         with open(mlir_file, "w") as file:
             print(final_map_code, file=file)
@@ -1459,13 +1482,10 @@ class Schedule:
     def genAriesMake(self, prj_dir, temp_dir):
         task = self.tasks[0]
         func = task.func.__name__
-        paraSize = self.paraSize.get(task, [1] * len(task.grid_dims))
-        l2Size = self.l2Size.get(task, [1] * len(task.grid_dims))
+        length = len(task.grid_dims) if task.grid_dims else len(task.call_args)
+        paraSize = self.paraSize.get(task, [1] * length)
+        l2Size = self.l2Size.get(task, [1] * length)
         bufSel = self.bufSel.get(task, [0] * len(task.call_args))
-        if task in self.taskIdxMap: # If has reduction loop then unroll by 8
-          self.AIEUnroll = 8
-        else:
-          self.AIEUnroll = 1
         pipeline_op = "aries-pipeline-versal"
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
@@ -1485,6 +1505,9 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
+    def aieUnrollRed(self, factor = 8):
+        self.AIEUnroll = factor
+    
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor
     
@@ -1493,9 +1516,6 @@ class Schedule:
     
     def bufsel(self, task, factor=[]):
         self.bufSel[task] = factor
-      
-    def redLoop(self, task, idx=[]):
-        self.taskIdxMap[task] = idx
     
     def to(self, device):
         if device == "VCK190" or device == "vck190":
@@ -1540,6 +1560,11 @@ class Schedule:
                 print(f"Warning: {makeDst} already exists!")
             else:
                 self.genNPUMake(sub_dir, temp_dir)
+    
+    def test_mlir(self, module):
+        self.preprocess(module)
+        final_map_code, final_func_code = self.code_gen()
+        return final_map_code, final_func_code
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
         prj_dir = Path(prj_dir)
