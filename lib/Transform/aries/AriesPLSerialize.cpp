@@ -277,10 +277,10 @@ private:
       // In top_func, it needs to change to dynamic size
       if(memType.hasStaticShape()){
         auto numElem = memType.getNumElements();
-        if(func->hasAttr("top_func"))
-          inTypes[i] = newType;
-        else
+        if(func->hasAttr("origin_func"))
           inTypes[i] = MemRefType::get({numElem},eleType);
+        else
+          inTypes[i] = newType;
       }else{
         inTypes[i] = newType;
       }
