@@ -1,10 +1,12 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/Builders.h"
+#include "mlir/IR/OperationSupport.h"
 #include "mlir/Dialect/Arith/IR/Arith.h"
 #include "llvm/Support/Debug.h"
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
 #include "aries/Dialect/ADF/ADFDialect.h"
+#define DEBUG_TYPE "aries-func-eliminate"
 
 using namespace mlir;
 using namespace aries;
@@ -22,135 +24,10 @@ public:
   }
 
 private:
-  bool compareAttributes(Operation *op0, Operation *op1) {
-    for (auto attr0 : op0->getAttrs()) {
-      auto attr1 = op1->getAttr(attr0.getName());
-      if(attr1 && attr0.getName() == "sym_name")
-        continue;
-      if (!attr1 || attr0.getValue() != attr1) {
-        return false;
-      }
-    }
-    return true;
-  }
-  bool generalCompareOp(Operation *op0, Operation *op1) {
-    if (op0->getName() != op1->getName())
-      return false;
-    if (op0->getNumOperands() != op1->getNumOperands())
-      return false;
-    if (op0->getNumResults() != op1->getNumResults())
-      return false;
-    for (unsigned i = 0; i < op0->getNumOperands(); ++i)
-      if (op0->getOperand(i).getType() != op1->getOperand(i).getType())
-        return false;
-    for (unsigned i = 0; i < op0->getNumResults(); ++i)
-      if (op0->getResult(i).getType() != op1->getResult(i).getType())
-        return false;
-    if (!compareAttributes(op0, op1))
-      return false;
-    return true;
-  }
-
-  void getMem(Operation* op, Value& memref, AffineMap& map, 
-              SmallVector<Value, 4>& operands){
-    if (auto read = dyn_cast<AffineLoadOp>(op)) {
-      memref = read.getMemRef();
-      map = read.getAffineMap();
-      operands = read.getMapOperands();
-    }else if(auto write = dyn_cast<AffineStoreOp>(op)){
-      memref = write.getMemRef();
-      map = write.getAffineMap();
-      operands = write.getMapOperands();
-    }
-  }
-
-  bool compareLoadStore(Operation *op0, Operation *op1){
-    SmallVector<AffineForOp, 6> srcBand;
-    SmallVector<AffineForOp, 6> dstBand;
-    getSurroundingLoops(*op0, srcBand);
-    getSurroundingLoops(*op1, dstBand);
-    auto srcSize = srcBand.size();
-    auto dstSize = dstBand.size();
-    if (srcSize != dstSize)
-      return false;
-    // Check if all the loops share the same lbs, ubs and steps
-    for(unsigned i = 0; i < srcSize; i++){
-      auto srcForOp = srcBand[i];
-      auto dstForOp = dstBand[i];
-      if(!srcForOp.hasConstantUpperBound()){
-        if(srcForOp.getUpperBoundMap()!=dstForOp.getUpperBoundMap())
-          return false;
-      }
-      else if(srcForOp.getConstantLowerBound()!=dstForOp.getConstantLowerBound()
-          || srcForOp.getConstantUpperBound()!=dstForOp.getConstantUpperBound() 
-          || srcForOp.getStepAsInt()!=dstForOp.getStepAsInt()){
-         return false;
-      }
-    }
-    // Check if the access the memory with the same type and access pattern
-    Value srcMemref, dstMemref;
-    AffineMap srcMap, dstMap;
-    SmallVector<Value, 4> srcOperands, dstOperands;
-    getMem(op0, srcMemref, srcMap, srcOperands);
-    getMem(op1, dstMemref, dstMap, dstOperands);
-    auto srcMemrefType = dyn_cast<MemRefType>(srcMemref.getType());
-    auto dstMemrefType = dyn_cast<MemRefType>(dstMemref.getType());
-    // 1. Check if memref has same type
-    if(srcMemrefType.getRank() != dstMemrefType.getRank() ||
-       srcMemrefType.getElementType() != dstMemrefType.getElementType() ||
-       srcMemrefType.getShape() != dstMemrefType.getShape())
-       return false;
-    // 2. Check if Map access is the same
-    if(srcMap.getNumResults() != dstMap.getNumResults())
-      return false;
-    for (unsigned i = 0; i< srcMap.getNumResults(); i++) {
-      auto srcExpr = srcMap.getResult(i);
-      auto dstExpr = dstMap.getResult(i);
-      if(srcExpr != dstExpr)
-        return false;
-      if(srcMap.getNumDims() !=dstMap.getNumDims())
-        return false;
-      for (unsigned i = 0; i < srcMap.getNumDims(); ++i) {
-        auto srcLoop = getForInductionVarOwner(srcOperands[i]);
-        auto dstLoop = getForInductionVarOwner(dstOperands[i]);
-        auto srcIt = llvm::find(srcBand, srcLoop);
-        auto dstIt = llvm::find(dstBand, dstLoop);
-        if(srcIt!=srcBand.end() && dstIt!=dstBand.end()){
-          auto srcDepth = srcIt - srcBand.begin();
-          auto dstDepth = dstIt - dstBand.begin();
-          if(srcDepth != dstDepth)
-            return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  bool compareOperations(Operation *op0, Operation *op1) {
-    if(!generalCompareOp(op0, op1))
-      return false;
-    if(dyn_cast<AffineLoadOp>(op0) || dyn_cast<AffineStoreOp>(op0))
-      if(!compareLoadStore(op0, op1))
-        return false;
-    return true;
-  }
-  bool compareFunctions(FuncOp func0, FuncOp func1) {
-    if (func0.getFunctionType() != func1.getFunctionType())
-      return false;
-    SmallVector<Operation *> opsFunc0, opsFunc1;
-    func0.walk([&](Operation *op) { opsFunc0.push_back(op); });
-    func1.walk([&](Operation *op) { opsFunc1.push_back(op); });
-    
-    if (opsFunc0.size() != opsFunc1.size())
-      return false;
-    for (auto [op0, op1] : llvm::zip(opsFunc0, opsFunc1)) {
-      if(dyn_cast<arith::ConstantOp>(op0) && dyn_cast<arith::ConstantOp>(op1)){
-        continue;
-      }
-      if (!compareOperations(op0, op1))
-        return false;
-    }
-    return true;
+  bool compareFunctions(FuncOp funcA, FuncOp funcB) {
+    return OperationEquivalence::isRegionEquivalentTo(
+        &funcA.getRegion(), &funcB.getRegion(),
+        OperationEquivalence::Flags::IgnoreLocations);
   }
   void funcGroup(SmallVector<FuncOp, 4> funcs,
         SmallVector<SmallVector<FuncOp, 4>>& groups){
@@ -176,41 +53,6 @@ private:
         SmallVector<FuncOp, 4> newGroup;
         newGroup.push_back(func);
         groups.push_back(newGroup);
-      }
-    }
-  }
-
-  // Currently unused func, without collect the newfuncs into a single func
-  void funcMerge0(OpBuilder builder, FuncOp topPLFunc, 
-                 SmallVector<SmallVector<FuncOp, 4>>& groups){
-    auto indexType = builder.getIndexType();
-    for(auto group : groups){
-      auto firstFunc = group[0];
-      firstFunc->setAttr("template", builder.getUnitAttr());
-      auto firstName = firstFunc.getName();
-      // Set the first func as the first instance
-      unsigned index = 0;
-      topPLFunc.walk([&](CallOp call){
-        auto callName = call.getCallee();
-        if(callName != firstName)
-          return WalkResult::advance();
-        auto attr = builder.getIntegerAttr(indexType, index++);
-        call->setAttr("template", attr);
-        return WalkResult::interrupt();
-      });
-      for(auto func : group){
-        if(func == firstFunc)
-          continue;
-        auto funcName = func.getName();
-        topPLFunc.walk([&](CallOp call){
-          auto callName = call.getCallee();
-          if(callName != funcName)
-            return WalkResult::advance();
-          auto attr = builder.getIntegerAttr(indexType, index++);
-          call->setAttr("template", attr);
-          call.setCallee(firstName);
-          return WalkResult::interrupt();
-        });
       }
     }
   }

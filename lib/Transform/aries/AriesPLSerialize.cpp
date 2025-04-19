@@ -136,7 +136,13 @@ private:
           }
         }
         builder.setInsertionPoint(newOp);
+        // Handle constant in map
+        auto consInt = flatExpr.back();
         Value addL0; //Left op to add one memory dim
+        if(consInt != 0){
+          auto consAttr = builder.getIndexAttr(consInt);
+          addL0 = builder.create<arith::ConstantOp>(loc, consAttr);
+        }
         for(unsigned dim = 0; dim < numDim; dim++){
           auto stride = flatExpr[dim];
           auto operand = operands[dim];
@@ -277,10 +283,10 @@ private:
       // In top_func, it needs to change to dynamic size
       if(memType.hasStaticShape()){
         auto numElem = memType.getNumElements();
-        if(func->hasAttr("top_func"))
-          inTypes[i] = newType;
-        else
+        if(func->hasAttr("origin_func"))
           inTypes[i] = MemRefType::get({numElem},eleType);
+        else
+          inTypes[i] = newType;
       }else{
         inTypes[i] = newType;
       }
