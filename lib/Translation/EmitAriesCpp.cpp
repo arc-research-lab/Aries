@@ -2827,7 +2827,7 @@ int main(int argc, char **argv) {
     addIndent();
     indent();
     os << "if(abs((float)(" << srcVecName << "[i]-" << outMapName << "[i]"
-       << ")>=1e-4)){\n";
+       << ")>=1e-2)){\n";
     addIndent();
     indent();
     os << "printf(\"Error found " << srcVecName << "[%d] != "

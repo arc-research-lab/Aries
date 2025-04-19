@@ -136,7 +136,13 @@ private:
           }
         }
         builder.setInsertionPoint(newOp);
+        // Handle constant in map
+        auto consInt = flatExpr.back();
         Value addL0; //Left op to add one memory dim
+        if(consInt != 0){
+          auto consAttr = builder.getIndexAttr(consInt);
+          addL0 = builder.create<arith::ConstantOp>(loc, consAttr);
+        }
         for(unsigned dim = 0; dim < numDim; dim++){
           auto stride = flatExpr[dim];
           auto operand = operands[dim];

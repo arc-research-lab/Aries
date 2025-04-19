@@ -92,6 +92,7 @@
 // CHECK:     %c4 = arith.constant 4 : index
 // CHECK:     %c2 = arith.constant 2 : index
 // CHECK:     %c8 = arith.constant 8 : index
+// CHECK:     %c16 = arith.constant 16 : index
 // CHECK:     %c1 = arith.constant 1 : index
 // CHECK:     affine.for %arg5 = 0 to 1 {
 // CHECK:       affine.for %arg6 = 0 to 2 {
@@ -130,18 +131,19 @@
 // CHECK:                     %1 = arith.addi %arg12, %0 : index
 // CHECK:                     %2 = arith.muli %arg6, %c4 : index
 // CHECK:                     %3 = arith.addi %1, %2 : index
-// CHECK:                     %4 = arith.muli %arg9, %c32 : index
-// CHECK:                     %5 = arith.addi %arg10, %4 : index
-// CHECK:                     %6 = arith.muli %arg8, %c64 : index
-// CHECK:                     %7 = arith.addi %5, %6 : index
-// CHECK:                     %8 = arith.muli %7, %c8 : index
-// CHECK:                     %9 = arith.addi %3, %8 : index
-// CHECK:                     %10 = memref.load %arg0[%9] : memref<?xi512>
-// CHECK:                     %11 = arith.cmpi slt, %arg12, %c1 : index
-// CHECK:                     scf.if %11 {
-// CHECK:                       affine.store %10, %arg3[0] : memref<1xi512, "stream1">
+// CHECK:                     %4 = arith.addi %arg10, %c16 : index
+// CHECK:                     %5 = arith.muli %arg9, %c32 : index
+// CHECK:                     %6 = arith.addi %4, %5 : index
+// CHECK:                     %7 = arith.muli %arg8, %c64 : index
+// CHECK:                     %8 = arith.addi %6, %7 : index
+// CHECK:                     %9 = arith.muli %8, %c8 : index
+// CHECK:                     %10 = arith.addi %3, %9 : index
+// CHECK:                     %11 = memref.load %arg0[%10] : memref<?xi512>
+// CHECK:                     %12 = arith.cmpi slt, %arg12, %c1 : index
+// CHECK:                     scf.if %12 {
+// CHECK:                       affine.store %11, %arg3[0] : memref<1xi512, "stream1">
 // CHECK:                     } else {
-// CHECK:                       affine.store %10, %arg1[0] : memref<1xi512, "stream1">
+// CHECK:                       affine.store %11, %arg1[0] : memref<1xi512, "stream1">
 // CHECK:                     }
 // CHECK:                   } {pipeline_ii = 1 : index}
 // CHECK:                 }
@@ -502,23 +504,24 @@
 // CHECK:               affine.for %arg10 = 0 to 2 {
 // CHECK:                 %0 = arith.cmpi slt, %arg10, %c1 : index
 // CHECK:                 %1 = scf.if %0 -> (i512) {
-// CHECK:                   %12 = affine.load %arg2[0] : memref<1xi512, "stream1">
-// CHECK:                   scf.yield %12 : i512
+// CHECK:                   %13 = affine.load %arg2[0] : memref<1xi512, "stream1">
+// CHECK:                   scf.yield %13 : i512
 // CHECK:                 } else {
-// CHECK:                   %12 = affine.load %arg1[0] : memref<1xi512, "stream1">
-// CHECK:                   scf.yield %12 : i512
+// CHECK:                   %13 = affine.load %arg1[0] : memref<1xi512, "stream1">
+// CHECK:                   scf.yield %13 : i512
 // CHECK:                 }
 // CHECK:                 %2 = arith.muli %arg9, %c2 : index
 // CHECK:                 %3 = arith.addi %arg10, %2 : index
 // CHECK:                 %4 = arith.muli %arg6, %c4 : index
 // CHECK:                 %5 = arith.addi %3, %4 : index
-// CHECK:                 %6 = arith.muli %arg7, %c4 : index
-// CHECK:                 %7 = arith.addi %arg8, %6 : index
-// CHECK:                 %8 = arith.muli %arg5, %c8 : index
-// CHECK:                 %9 = arith.addi %7, %8 : index
-// CHECK:                 %10 = arith.muli %9, %c8 : index
-// CHECK:                 %11 = arith.addi %5, %10 : index
-// CHECK:                 memref.store %1, %arg0[%11] : memref<?xi512>
+// CHECK:                 %6 = arith.addi %arg8, %c2 : index
+// CHECK:                 %7 = arith.muli %arg7, %c4 : index
+// CHECK:                 %8 = arith.addi %6, %7 : index
+// CHECK:                 %9 = arith.muli %arg5, %c8 : index
+// CHECK:                 %10 = arith.addi %8, %9 : index
+// CHECK:                 %11 = arith.muli %10, %c8 : index
+// CHECK:                 %12 = arith.addi %5, %11 : index
+// CHECK:                 memref.store %1, %arg0[%12] : memref<?xi512>
 // CHECK:               } {pipeline_ii = 1 : index}
 // CHECK:             }
 // CHECK:           }
@@ -593,18 +596,19 @@
 // CHECK:                         %7 = arith.addi %5, %6 : index
 // CHECK:                         %8 = arith.muli %7, %c8 : index
 // CHECK:                         %9 = arith.addi %3, %8 : index
-// CHECK:                         %10 = arith.muli %arg9, %c4 : index
-// CHECK:                         %11 = arith.addi %arg11, %10 : index
-// CHECK:                         %12 = arith.muli %arg5, %c8 : index
-// CHECK:                         %13 = arith.addi %11, %12 : index
-// CHECK:                         %14 = arith.muli %13, %c256 : index
-// CHECK:                         %15 = arith.addi %9, %14 : index
-// CHECK:                         %16 = memref.load %arg0[%15] : memref<?xi512>
-// CHECK:                         %17 = arith.cmpi slt, %arg14, %c1 : index
-// CHECK:                         scf.if %17 {
-// CHECK:                           affine.store %16, %arg2[0] : memref<1xi512, "stream1">
+// CHECK:                         %10 = arith.addi %arg11, %c2 : index
+// CHECK:                         %11 = arith.muli %arg9, %c4 : index
+// CHECK:                         %12 = arith.addi %10, %11 : index
+// CHECK:                         %13 = arith.muli %arg5, %c8 : index
+// CHECK:                         %14 = arith.addi %12, %13 : index
+// CHECK:                         %15 = arith.muli %14, %c256 : index
+// CHECK:                         %16 = arith.addi %9, %15 : index
+// CHECK:                         %17 = memref.load %arg0[%16] : memref<?xi512>
+// CHECK:                         %18 = arith.cmpi slt, %arg14, %c1 : index
+// CHECK:                         scf.if %18 {
+// CHECK:                           affine.store %17, %arg2[0] : memref<1xi512, "stream1">
 // CHECK:                         } else {
-// CHECK:                           affine.store %16, %arg1[0] : memref<1xi512, "stream1">
+// CHECK:                           affine.store %17, %arg1[0] : memref<1xi512, "stream1">
 // CHECK:                         }
 // CHECK:                       } {pipeline_ii = 1 : index}
 // CHECK:                     }
