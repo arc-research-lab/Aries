@@ -20,7 +20,6 @@ add_mlir_library(MLIRAriesPasses
     AriesAXIPacking.cpp
     AriesPLDataflow.cpp
     AriesBurstDetection.cpp
-    AriesFuncEliminate.cpp
     AriesPLDoubleBuffer.cpp
     AriesFileSplit.cpp
     AriesKernelSplit.cpp
@@ -35,6 +34,7 @@ add_mlir_library(MLIRAriesPasses
     aries/AriesPLBufferExtract.cpp
     aries/AriesPLDMAToAffine.cpp
     aries/AriesIOPacking.cpp
+    aries/AriesFuncEliminate.cpp
     aries/AriesPLSerialize.cpp
 
     ADDITIONAL_HEADER_DIRS
