@@ -20,6 +20,7 @@ CoreAlgo = {{placeAlgo[0]}}
 EnableIOCons = "{{placeAlgo[1]}}"
 EN_Link = "{{linkFile}}"
 AIEUnroll = {{aieUnroll}}
+AIEUnrollOpt = {{aieUnrollOpt}}
 {% for i in range(dim) -%}
 {% set paraSize = parallel[i] -%}
 {% set l2Size = l2buffer[i] -%}
@@ -36,7 +37,7 @@ BUFF_{{i}} = {{sel}}
 # 1:BRAM, 0:URAM
 buf_sel = {% for i in range(numBuf) -%}${BUFF_{{i}}}{% if not loop.last %},{% endif %}{% endfor %}
 PLIOWidth = {{ioWidth}}
-AXIWidth = 512
+AXIWidth = {{axiWidth}}
 EN_PL = "{{en_pl}}"
 EN_AIE2 = "{{en_aie2}}"
 EN_SERIAL = "true"
@@ -108,6 +109,12 @@ ${PROJECT_PATH}/${KERNEL_NAME}.mlir: ${PROJECT_PATH}/${FUNC}.adf.mlir
 	aries-opt -o $@ $< \
 		-aries-kernel-split
 
+ifeq ($(AIEUnrollOpt), 0)
+UNROLL_FLAG=--affine-loop-unroll="unroll-factor=$(AIEUnroll)" 
+else
+UNROLL_FLAG=--affine-loop-unroll="unroll-full unroll-full-threshold=$(AIEUnroll)"
+endif
+
 kernel_vec: ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir
 	aries-opt -o $@ $< \
@@ -120,7 +127,7 @@ ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_unrol
 		--canonicalize
 ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 	aries-opt -o $@ $< \
-		--affine-loop-unroll="unroll-factor=${AIEUnroll}" \
+		${UNROLL_FLAG} \
 		--canonicalize
 
 kernel_file_split: kernel_cc
@@ -133,7 +140,7 @@ ${PROJECT_AIE_PATH}/temp.cc: ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 		-emit-kenrel-func
 
 clean_kernel_vec:
-	rm -r ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir ${PROJECT_PATH}/${KERNEL_NAME}.mlir
+	rm -r ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir ${PROJECT_PATH}/${KERNEL_NAME}.mlir ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 
 clean_temp:
 	rm -r ${PROJECT_AIE_PATH}/temp.cpp
