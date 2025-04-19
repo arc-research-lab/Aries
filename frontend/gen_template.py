@@ -3,8 +3,8 @@ from pathlib import Path
 import re
 
 def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size, 
-                   placement, placeAlgo, linkFile, aieUnroll, bufSel,
-                   ioWidth, en_pl, en_aie2, pipeline_op):
+                   placement, placeAlgo, linkFile, aieUnroll, aieUnrollOpt, 
+                   bufSel, ioWidth, axiWidth, en_pl, en_aie2, pipeline_op):
     environment = Environment(loader=FileSystemLoader(template_dir))
     file_name = 'Makefile_ARIES'
     template = environment.get_template(file_name)
@@ -23,9 +23,11 @@ def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size,
         placeAlgo = placeAlgo,
         linkFile = linkFile,
         aieUnroll = aieUnroll,
+        aieUnrollOpt = aieUnrollOpt,
         numBuf = numBuf,
         bufSel = bufSel,
         ioWidth = ioWidth,
+        axiWidth = axiWidth,
         en_pl = en_pl,
         en_aie2 = en_aie2,
         pipeline_op = pipeline_op,

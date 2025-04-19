@@ -603,6 +603,27 @@ class KernelMLIRGenerator(MLIRGenerator):
 
         return result
 
+    def get_binop_symbol(self, op):
+        """Maps AST binary operator nodes to string symbols."""
+        if isinstance(op, ast.Add): return "+"
+        if isinstance(op, ast.Sub): return "-"
+        if isinstance(op, ast.Mult): return "*"
+        raise NotImplementedError(f"Unsupported binary operator: {type(op).__name__}")
+    
+    def index_expr(self, node):
+        """Recursively reconstruct the index expression with renamed variables."""
+        if isinstance(node, ast.Name):
+            return self.get_var_name(node.id)
+        elif isinstance(node, ast.Constant):
+            return str(node.value)
+        elif isinstance(node, ast.BinOp):
+          left = self.index_expr(node.left)
+          right = self.index_expr(node.right)
+          op = self.get_binop_symbol(node.op)
+          return f"{left} {op} {right}"
+        else:
+          raise NotImplementedError(f"Unsupported index expression: {ast.dump(node)}")
+        
     def visit_Subscript(self, node):
         if self.is_assign == False:
             return
@@ -611,9 +632,9 @@ class KernelMLIRGenerator(MLIRGenerator):
         memType = self.get_type_name(memref)
         memName = self.get_var_name(memref)
         if isinstance(node.slice, ast.Tuple):
-            indices = [self.get_var_name(idx.id) for idx in node.slice.elts]
+            indices = [self.index_expr(expr) for expr in node.slice.elts]
         else:
-            indices = [self.get_var_name(node.slice.id)]
+            indices = [self.index_expr(node.slice)]
         
         if isinstance(node.ctx, ast.Store):
             return memref, indices
@@ -1332,7 +1353,9 @@ class Schedule:
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
         self.AIEUnroll = 1
+        self.AIEUnrollOption = 0  # 0:unroll-factor; 1:unroll-full-threshold
         self.ioWidth = 128
+        self.axiWidth = 512
         self.en_pl = "true"
         self.en_aie2 = "false"
         self.linkPath = ""
@@ -1491,8 +1514,9 @@ class Schedule:
           pipeline_op = "aries-pipeline"
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
                        self.placement, self.placeAlgo, self.linkFile, 
-                       self.AIEUnroll, bufSel, self.ioWidth, self.en_pl,
-                       self.en_aie2, pipeline_op)
+                       self.AIEUnroll, self.AIEUnrollOption, bufSel, 
+                       self.ioWidth, self.axiWidth, self.en_pl, self.en_aie2, 
+                       pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
         task = self.tasks[0]
@@ -1505,8 +1529,15 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
-    def aieUnrollRed(self, factor = 8):
+    def ioWdith(self, width = 128):
+        self.ioWidth = width
+        
+    def axiWdith(self, width = 512):
+        self.axiWidth = width
+    
+    def aieUnroll(self, factor = 8, option = 0):
         self.AIEUnroll = factor
+        self.AIEUnrollOption = option
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor

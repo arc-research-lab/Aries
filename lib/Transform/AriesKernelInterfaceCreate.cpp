@@ -143,39 +143,32 @@ private:
     for (auto i : moveArgs)
       bv.set(i);
     newBlock.eraseArguments(bv);
-    // Init the W&R buffers
-    // For edge kernels, initialize with zero
-    // For other kernels, initialize with its corresponding input buffer
+    // TODO:: For non-edge kernels, now assume need to add the input buffer with 
+    // the output buffer. This part need to be updated
     for (unsigned i =0; i < initBuffers.size(); i++){
       auto memref = initBuffers[i];
       auto src = loadBuffers[i];
       auto type = dyn_cast<MemRefType>(memref.getType());
-      //Create nested for loops
-      builder.setInsertionPointAfter(memref.getDefiningOp());
-      SmallVector<Value, 4> ivs;
-      for (int i = 0, e = type.getRank(); i < e; ++i) {
-        auto ub = type.getDimSize(i);
-        auto loop = builder.create<AffineForOp>(loc, 0, ub);
-        ivs.push_back(loop.getInductionVar());
-        builder.setInsertionPointToStart(loop.getBody());
-      }
-      // Load from source and store to destination
-      Value value;
-      if(edgeKernel){
-        auto eleType = type.getElementType();
-        if (isa<IntegerType>(eleType)) {
-          auto zeroAttr = builder.getIntegerAttr(eleType, 0);
-          value = builder.create<arith::ConstantOp>(loc, eleType, zeroAttr);
-        }else{
-          auto floatType = builder.getF32Type();
-          auto floatAttr = builder.getF32FloatAttr(0.0);
-          value = builder.create<arith::ConstantOp>(loc, floatType, floatAttr);
+      if(!edgeKernel){
+        //Create nested for loops
+        builder.setInsertionPoint(newReturn);
+        SmallVector<Value, 4> ivs;
+        for (int i = 0, e = type.getRank(); i < e; ++i) {
+          auto ub = type.getDimSize(i);
+          auto loop = builder.create<AffineForOp>(loc, 0, ub);
+          ivs.push_back(loop.getInductionVar());
+          builder.setInsertionPointToStart(loop.getBody());
         }
-      }else{
-        value = builder.create<AffineLoadOp>(loc, src, ivs);
+        auto valL = builder.create<AffineLoadOp>(loc, src, ivs);
+        auto valR = builder.create<AffineLoadOp>(loc, memref, ivs);
+        Value addOp;
+        if (isa<FloatType>(type.getElementType()))
+          addOp = builder.create<arith::AddFOp>(loc, valL, valR);
+        else
+          addOp = builder.create<arith::AddIOp>(loc, valL, valR);
+        builder.setInsertionPointAfter(addOp.getDefiningOp());
+        builder.create<AffineStoreOp>(loc, addOp, memref, ivs);
       }
-      builder.setInsertionPointAfter(value.getDefiningOp());
-      builder.create<AffineStoreOp>(loc, value, memref, ivs);
     }
     // Create returned value
     builder.setInsertionPoint(newReturn);
@@ -226,7 +219,8 @@ private:
   };
 
   // This is an experimental pass to create the output buffer
-  // TODO: Tensor may be a proper representation for the arguments in adf.kernel
+  // TODO:: Need to be updated to tranverse the caller instead of the callee.
+  // Need to tranverse DMAOp to inference the direction of the L1 memory 
   bool KernelInterfaceCreate (ModuleOp mod) {
     auto builder = OpBuilder(mod);
     PassManager pm(&getContext());
