@@ -6,7 +6,7 @@
 
 ### Setup Vitis environment
 ```sh 
-source /opt/tools/xilinx/Vitis/2023.2/settings64.sh
+source /tools/Xilinx/Vitis/2023.2/settings64.sh
 source /opt/xilinx/xrt/setup.sh
 unset LD_LIBRARY_PATH (If needed)
 source /opt/petalinux/2023.2/environment-setup-cortexa72-cortexa53-xilinx-linux
