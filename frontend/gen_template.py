@@ -37,6 +37,19 @@ def gen_make_aries(prj_dir, template_dir, subName, func, paraSize, l2Size,
         message.write(content)
         print(f"... wrote {filename}")
 
+def gen_make_versal(sub_dir, template_dir, freq):
+    environment = Environment(loader=FileSystemLoader(template_dir))
+    file_name = 'Makefile_VCK190'
+    template = environment.get_template(file_name)
+    file_dst = "Makefile"
+    dstName = sub_dir / file_dst
+    content = template.render(
+        freq = freq
+    )
+    with open(dstName, mode="w", encoding="utf-8") as message:
+        message.write(content)
+        print(f"... wrote {dstName}")
+
 def gen_make_npu(sub_dir, template_dir, func, krlName):
     environment = Environment(loader=FileSystemLoader(template_dir))
     file_name = 'Makefile_NPU'

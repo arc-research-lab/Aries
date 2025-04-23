@@ -386,9 +386,10 @@ private:
       SmallVector<std::pair<AffineForOp, int64_t>, 4> loopList;
       SmallVector<std::pair<Operation*, AffineMap>, 4> packlist;
       size_t numUser = 0;
-      if(!getPackList(arg, packNum, numUser, loopList, packlist))
-        continue;
-      
+      if(!getPackList(arg, packNum, numUser, loopList, packlist)){
+        llvm::errs() << "Invalid AXI packing, please check packing factor\n";
+        signalPassFailure();
+      }
       if(loopList.size()!=packlist.size() || loopList.size()!= numUser)
         continue;
       applyPacking(builder, arg, i, type, packNum, inTypes, loopList, packlist, 

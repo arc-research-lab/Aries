@@ -1,15 +1,10 @@
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-mkfile_dir := $(dir $(mkfile_path))
-TARGET   = hw
-MODE	 = linux
-HOST_ARCH = aarch64
+TARGET = hw
 EN_PL = 1
 PLATFORM_REPO_PATHS = /tools/Xilinx/Vitis/2023.2/base_platforms/
 PLATFORM = ${PLATFORM_REPO_PATHS}/xilinx_vck190_base_202320_1/xilinx_vck190_base_202320_1.xpfm
 XCLBIN   = vck190_aie_base_graph_${TARGET}.xclbin
 XSA	 = vck190_aie_base_graph_${TARGET}.xsa
 XPFM	 = vck190_xpfm
-HOST_EXE = hostexe
 HOST_SRCS := ./host/host.cpp
 SYSROOT_PATH = /opt/petalinux/2023.2
 SYSROOT = ${SYSROOT_PATH}/sysroots/cortexa72-cortexa53-xilinx-linux
@@ -20,63 +15,85 @@ ROOTFS=${EDGE_COMMON_SW}/rootfs.ext4
 IMAGE=${EDGE_COMMON_SW}/Image
 TEMP_DIR := ./_x.$(TARGET).xilinx_vck190_base_202320_1
 BUILD_DIR := ./build_dir.$(TARGET).xilinx_vck190_base_202320_1
-KERNEL_XO :=$(TEMP_DIR)/top.xo
 GRAPH   := aie/adf_graph.cpp
 LIBADF  = libadf.a
-AIE_CMPL_CMD = aiecompiler -platform=${PLATFORM} --target=hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie" -include="./aie/layer0" --disable-transform-broadcast-split=false -workdir=./Work ${GRAPH}
-AIE_SIM_CMD = aiesimulator --pkg-dir=./Work --dump-vcd foo --profile --output-time-stamp=no --end-wait-time=30
-AIE_O = aie_control_xrt.o
-GRAPH_O = adf_graph.o
-EMU_CMD = ./launch_hw_emu.sh
+KERNEL_XO := $(TEMP_DIR)/top.xo
 PACKAGE_OUT = ./package.$(TARGET)
 RM = rm -f
 RMDIR = rm -rf
+ifeq ($(TARGET),sw_emu)
+HOST_EXE = host_ps_on_x86
+else
+HOST_EXE = hostexe
+endif
+Freq={{freq}}000000
 ##########################################################################################################################################################
 ### DO NOT MODIFY BELOW THIS LINE UNLESS NECESSARY
 ################################################################################################################################################
+VCC := v++
+AIECC := v++ -c --mode aie
+AIESIM := aiesimulator
+X86SIM := x86simulator
 
-CUR_DIR := $(patsubst %/,%,$(dir $(MK_PATH)))
+ifeq ($(TARGET),sw_emu)
+AIE_CMPL_CMD += $(AIECC) --platform=${PLATFORM}  --target x86sim --include "./aie" --include "./" --work_dir ./Work ${GRAPH}
+else
+AIE_CMPL_CMD += aiecompiler --platform=${PLATFORM} --target hw --stacksize=1024 --pl-register-threshold=250 --pl-freq=230  -include="./aie" --include="./" --disable-transform-broadcast-split=false -workdir=./Work ${GRAPH}
+endif
 
-VCC      = v++
+ifeq ($(TARGET),sw_emu)
+AIE_SIM_CMD = $(X86SIM) --pkg-dir=./Work
+else
+AIE_SIM_CMD = $(AIESIM) --pkg-dir=./Work --dump-vcd foo --profile --output-time-stamp=no --end-wait-time=30
+endif
+
 VPP_SPEC = system.cfg
-VPP_XO_FLAGS += -c --platform $(PLATFORM) --save-temps --optimize 2 -g
-VPP_XO_FLAGS += --hls.jobs 8
-VPP_XO_FLAGS += -I$(CUR_DIR)/kernel
+VPP_XO_FLAGS := -c --platform $(PLATFORM) -t $(TARGET) --save-temps --optimize 2 -g --hls.jobs 8
 
+VPP_LINK_FLAGS := -t $(TARGET) --platform $(PLATFORM) --save-temps --optimize 2
+ifneq ($(TARGET), hw)
+VPP_LINK_FLAGS += -g
+endif
+ifeq ($(EN_PL),1)
+VPP_LINK_FLAGS += --config $(VPP_SPEC)
+endif
+VPP_LINK_FLAGS += --clock.default_freqhz ${Freq}
+ifneq ($(TARGET),sw_emu)
+VPP_LINK_FLAGS += --vivado.synth.jobs 8 --vivado.impl.jobs 8
+endif
 
 GCC_FLAGS := -Wall -c \
-			 -std=c++14 \
-			 -Wno-int-to-pointer-cast \
-			 --sysroot=$(SYSROOT) \
+			 			 -std=c++17
 
-GCC_INCLUDES := -I$(SYSROOT)/usr/include/xrt \
-				-I./  \
-				-I${XILINX_VITIS}/aietools/include \
-				-I${XILINX_VITIS}/include \
-				-I./aie
+ifeq ($(TARGET),sw_emu)
+GCC_FLAGS += -I${XILINX_XRT}/include
+else
+GCC_FLAGS += --sysroot=$(SYSROOT)
+endif
 
+GCC_INCLUDES := -I./  \
+								-I${XILINX_VITIS}/aietools/include \
+								-I${XILINX_VITIS}/include \
+								-I./aie
 
-GCC_LIB := -ladf_api_xrt -lgcc -lc -lxrt_coreutil \
-					 -lxilinxopencl -lpthread -lrt -ldl -lcrypt -lstdc++ \
-		   		 -L$(SYSROOT)/usr/lib \
-		   		 --sysroot=$(SYSROOT) \
-		   		 -L${XILINX_VITIS}/aietools/lib/aarch64.o
+ifeq ($(TARGET),sw_emu)
+GCC_INCLUDES += -I${XILINX_XRT}/include 
+else
+GCC_INCLUDES += -I$(SYSROOT)/usr/include/xrt
+endif
 
+GCC_LIB := -lxrt_coreutil
+ifeq ($(TARGET),sw_emu)
+GCC_LIB += -L${XILINX_XRT}/lib
+else
+GCC_LIB += -ladf_api_xrt -lgcc -lc -lxilinxopencl -lpthread -lrt -ldl -lcrypt -lstdc++ -L$(SYSROOT)/usr/lib --sysroot=$(SYSROOT) -L${XILINX_VITIS}/aietools/lib/aarch64.o
+endif
 
+ifeq ($(TARGET),sw_emu)
+CXX := g++
+else
 CXX := $(XILINX_VITIS)/gnu/aarch64/lin/aarch64-linux/bin/aarch64-linux-gnu-g++
-
-
-CLFLAGS += -t $(TARGET) --platform $(PLATFORM) --save-temps --optimize 2
-ifneq ($(TARGET), hw)
-	CLFLAGS += -g
 endif
-CLFLAGS += --hls.jobs 8
-ifeq ($(EN_PL),1)
-CLFLAGS += --config $(VPP_SPEC)
-endif
-CLFLAGS += --clock.defaultFreqHz 220000000
-
-LDCLFLAGS := --vivado.synth.jobs 8 --vivado.impl.jobs 8
 
 .PHONY: clean
 
@@ -130,34 +147,33 @@ $(KERNEL_XO): kernel/hls.cpp
 	@echo "### ***** top compilation done! *****"
 $(XSA): ${KERNEL_XO} ${LIBADF}
 	mkdir -p $(BUILD_DIR)
-	$(VCC) -l $(CLFLAGS) --temp_dir $(BUILD_DIR) $(LDCLFLAGS) -o'$@' $(+) | tee $(BUILD_DIR)/hpc_xclbin.log
+	$(VCC) -l $(VPP_LINK_FLAGS) --temp_dir $(BUILD_DIR) -o'$@' $(+) | tee $(BUILD_DIR)/hpc_xclbin.log
 else
 ${XSA}: ${LIBADF}
-	${VCC} -g -l $(CLFLAGS) $< -o $@
+	${VCC} -l $(VPP_LINK_FLAGS) $< -o $@
 endif
 
-
-$(AIE_O): ./Work/ps/c_rts/aie_control_xrt.cpp
-	$(CXX) $(GCC_FLAGS) $(GCC_INCLUDES) $@ $<
-$(GRAPH_O): $(GRAPH) 
-	$(CXX) $(GCC_FLAGS) $(GCC_INCLUDES) $@ $<
-
-host: guard-CXX guard-SDKTARGETSYSROOT ${HOST_EXE}
-ifeq ($(EN_PL),1)
-${HOST_EXE}: ${AIE_O} $(GRAPH_O)
-	$(CXX) $(HOST_SRCS) $(GCC_FLAGS) $(GCC_INCLUDES) -o main.o
-	$(CXX) $(AIE_O) $(GRAPH_O) main.o $(GCC_LIB) -o $(HOST_EXE)
+host: guard-CXX guard-SDKTARGETSYSROOT
+	$(CXX) $(GCC_FLAGS) $(GCC_INCLUDES) -o host.o ${HOST_SRCS} 
+	$(CXX) *.o $(GCC_LIB) -std=c++17 -o ${HOST_EXE}
 	@echo "COMPLETE: Host application created."
-else
-${HOST_EXE}: ${AIE_O} $(GRAPH_O)
-	$(CXX) -o $@ $^ ${GCC_LIB}
-endif
 
 SIM_FILES := $(wildcard *.sim)
 SIM_FLAGS := $(foreach file, $(SIM_FILES), --package.sd_file $(file))
 
+ifeq ($(TARGET),sw_emu)
+package: guard-PLATFORM_REPO_PATHS guard-IMAGE guard-ROOTFS package_${TARGET} 
+package_${TARGET}: ${XSA} ${LIBADF} host
+	emconfigutil --platform $(PLATFORM) --nd 1;\
+	v++ -p -t ${TARGET} \
+		--package.defer_aie_run \
+		--platform ${PLATFORM} \
+		--package.out_dir $(PACKAGE_OUT) \
+		${XSA} ${LIBADF} -o ${XCLBIN}
+	@echo "COMPLETE: sw_emu package created."
+else
 package: guard-ROOTFS guard-IMAGE guard-PLATFORM_REPO_PATHS package_${TARGET} 
-package_${TARGET}: ${LIBADF} ${XSA} ${HOST_EXE}
+package_${TARGET}: ${LIBADF} ${XSA} host
 	${VCC} -p -t ${TARGET} -f ${PLATFORM} \
 		--package.out_dir $(PACKAGE_OUT) \
 		--package.rootfs ${ROOTFS} \
@@ -167,12 +183,23 @@ package_${TARGET}: ${LIBADF} ${XSA} ${HOST_EXE}
 		--package.defer_aie_run \
 		${SIM_FLAGS} \
 		--package.sd_file ${HOST_EXE} ${LIBADF} ${XSA} -o ${XCLBIN}
-
 	@echo "COMPLETE: Package created."
+endif
 
-run_hw_emu: launch_hw_emu.sh
-launch_hw_emu.sh: package_hw_emu
-	$(EMU_CMD)
+run_emu: 
+# If the target is for SW_EMU, launch the emulator
+ifeq (${TARGET},sw_emu)
+	export XCL_EMULATION_MODE=$(TARGET) 
+	./host_ps_on_x86 ../${XCLBIN} 0 1
+else
+# If the target is for HW_EMU, launch the emulator
+ifeq (${TARGET},hw_emu)
+	cd ./package.hw_emu
+	./launch_hw_emu.sh
+else
+	@echo "Hardware build, no emulation executed."
+endif
+endif
 
 clean:
 	-$(RMDIR) $(HOST_EXE) $(XCLBIN)/{*sw_emu*,*hw_emu*} 
@@ -185,7 +212,7 @@ cleansim:
 cleantemp:
 	-$(RMDIR) ${TEMP_DIR}
 cleanhost:
-	-$(RMDIR) ${HOST_EXE} ${AIE_O} $(GRAPH_O) main.o
+	-$(RMDIR) ${HOST_EXE} ${AIE_O} $(GRAPH_O) main.o host.o
 cleanpac:
 	-$(RMDIR) mm_${TARGET}.xclbin.package_summary package.${TARGET}
 cleanall: clean cleantemp cleansim cleanaie cleanhost cleanpac

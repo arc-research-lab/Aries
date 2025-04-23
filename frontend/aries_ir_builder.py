@@ -1359,6 +1359,7 @@ class Schedule:
         self.en_pl = "true"
         self.en_aie2 = "false"
         self.linkPath = ""
+        self.freqPL = 250  #Set the PL frequency
         self.paraList = []
         self.funcs= []
         self.krlName = "" 
@@ -1525,6 +1526,10 @@ class Schedule:
         krlName = self.krlName
         gen_make_npu(sub_dir, temp_dir, func, krlName)
     
+    def genVersalMake(self, sub_dir, temp_dir):
+        temp_dir = Path(temp_dir)
+        gen_make_versal(sub_dir, temp_dir, self.freqPL)
+    
     def genKernel(self, sub_dir, temp_dir):
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
@@ -1547,6 +1552,9 @@ class Schedule:
     
     def bufsel(self, task, factor=[]):
         self.bufSel[task] = factor
+        
+    def freqpl(self, freq):
+        self.freqPL = freq
     
     def to(self, device):
         if device == "VCK190" or device == "vck190":
@@ -1581,8 +1589,9 @@ class Schedule:
             if os.path.exists(makeDst):
                 print(f"Warning: {makeDst} already exists!")
             else:
-              command = f"cp -r {temp_dir}/Makefile_VCK190 {makeDst}"
-              subprocess.run(command, shell=True, check=True)
+                self.genVersalMake(sub_dir, temp_dir)
+                #command = f"cp -r {temp_dir}/Makefile_VCK190 {makeDst}"
+                #subprocess.run(command, shell=True, check=True)
         elif self.device == "npu":
             # Generate the NPU Makefile and Host Code here
             command = f"cp -r {temp_dir}/CMake/CMakeLists.txt {sub_dir}"
@@ -1592,10 +1601,90 @@ class Schedule:
             else:
                 self.genNPUMake(sub_dir, temp_dir)
     
-    def test_mlir(self, module):
+    def print_mlir(self, module):
         self.preprocess(module)
         final_map_code, final_func_code = self.code_gen()
+        print(final_map_code)
+        print("module {")
+        print(final_func_code)
+        print("}")
         return final_map_code, final_func_code
+    
+    def check_vitis_env(self, version="2023.2"):
+      cmd = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && source /opt/xilinx/xrt/setup.sh && echo 'Vitis environment loaded successfully'"
+      try:
+          result = subprocess.run(
+              ["bash", "-c", cmd],
+              check=True,
+              stdout=subprocess.PIPE,
+              stderr=subprocess.PIPE,
+              text=True
+          )
+          print("✅ Vitis environment loaded.")
+          print("Output:", result.stdout.strip())
+          return True
+      except subprocess.CalledProcessError as e:
+          print("❌ Failed to source Vitis environment.")
+          print("Error:", e.stderr.strip())
+          return False
+    
+    def run_make(self, aries_dir, prj_dir, edge_image_dir, target):
+        # Add aries-opt to the PATH
+        aries_opt_dir = os.path.join(aries_dir, "build/bin")
+        env = os.environ.copy()
+        env["PATH"] = aries_opt_dir + ":" + env["PATH"]
+        prj_dir = os.path.abspath(prj_dir)
+        
+        # Step 1: Run make all in prj_dir
+        try:
+            subprocess.run(
+                ["make", "all"],
+                cwd=prj_dir,
+                env=env,
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            print(f"✅ make all in {prj_dir} succeeded")
+        except subprocess.CalledProcessError as e:
+            print(f"❌ make all in {prj_dir} failed")
+            print(e.stderr)
+            return
+          
+        # Step 2: If target is specified, run Vitis backend
+        if target:
+            if not edge_image_dir:
+                raise EnvironmentError("❌ Versal image not properly set up.")
+            version="2023.2"
+            if not self.check_vitis_env(version):
+                raise EnvironmentError("❌ Vitis environment is not properly set up.")
+            assert target in {"sw_emu", "hw_emu", "hw"}, f"Invalid target: {target}"
+            project_dir = os.path.join(prj_dir, "project")
+            cmd = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && source /opt/xilinx/xrt/setup.sh && make all TARGET={target} EDGE_COMMON_SW_PATH={edge_image_dir}"
+            try:
+                process = subprocess.Popen(
+                    cmd,
+                    shell=True,
+                    executable="/bin/bash",
+                    cwd=project_dir,
+                    env=env,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    bufsize=1,
+                    universal_newlines=True,
+                )
+                for line in process.stdout:
+                    print(line, end="")
+                process.wait()
+                if process.returncode == 0:
+                    print(f"✅ make all TARGET={target} in {project_dir} succeeded")
+                else:
+                    print(f"❌ make all TARGET={target} in {project_dir} failed with code {process.returncode}")
+            except Exception as e:
+                print(f"❌ make all TARGET={target} in {project_dir} failed with exception")
+                print(e)
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
         prj_dir = Path(prj_dir)
@@ -1607,3 +1696,6 @@ class Schedule:
         self.genAriesMake(prj_dir, temp_dir)
         self.genPrjMake(sub_dir, temp_dir)
         self.genKernel(sub_dir, temp_dir)
+    
+    def compile(self, aries_dir, prj_dir, edge_image_dir=None, target=None):
+        self.run_make(aries_dir, prj_dir, edge_image_dir, target)

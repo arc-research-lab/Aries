@@ -2076,7 +2076,7 @@ void ModuleEmitter::emitADFMain(FuncOp func){
 )XXX";
 
   std::string adf_main_plio_head = R"XXX(
-#ifdef __AIESIM__
+#if defined(__AIESIM__) || defined(__X86SIM__)
 int main(int argc, char ** argv) {
 )XXX";
 
