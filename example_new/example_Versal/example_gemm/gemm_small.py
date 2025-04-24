@@ -32,7 +32,7 @@ def gemm(A: float32[I, K], B: float32[K, J],
     
     L1_A = aries.buffer((TI, TK), "float32")
     L1_B = aries.buffer((TK, TJ), "float32")
-    L1_C = aries.accbuffer((TI, TJ), "float32")
+    L1_C = aries.buffer((TI, TJ), "float32")
     
     L1_A = aries.load(A, (ti, tk))
     L1_B = aries.load(B, (tk, tj))

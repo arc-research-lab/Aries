@@ -36,7 +36,7 @@ def mttkrp(A: int32[I, K, L], B: int32[K, J],
     L1_A = aries.buffer((TI, TK, TL), "int32")
     L1_B = aries.buffer((TK, TJ), "int32")
     L1_C = aries.buffer((TL, TJ), "int32")
-    L1_D = aries.accbuffer((TI, TJ), "int32")
+    L1_D = aries.buffer((TI, TJ), "int32")
     
     L1_A = aries.load(A, (ti, tk, tl))
     L1_B = aries.load(B, (tk, tj))
