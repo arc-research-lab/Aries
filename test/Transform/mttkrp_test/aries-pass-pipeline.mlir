@@ -87,28 +87,28 @@
 // CHECK:     %3 = adf.buffer.create @L1_L1_A_1() : memref<2x8x16xf32, 2>
 // CHECK:     %4 = adf.buffer.create @L1_L1_B_1() : memref<8x16xf32, 2>
 // CHECK:     %5 = adf.buffer.create @L1_L1_C_1() : memref<16x16xf32, 2>
-// CHECK:     %6 = adf.buffer.create @L1_L1_D_1() {accumulator} : memref<2x16xf32, 2>
+// CHECK:     %6 = adf.buffer.create @L1_L1_D_1() : memref<2x16xf32, 2>
 // CHECK:     %7 = adf.buffer.create @L1_L1_A_2() : memref<2x8x16xf32, 2>
 // CHECK:     %8 = adf.buffer.create @L1_L1_B_2() : memref<8x16xf32, 2>
 // CHECK:     %9 = adf.buffer.create @L1_L1_C_2() : memref<16x16xf32, 2>
 // CHECK:     %10 = adf.buffer.create @L1_L1_A_3() : memref<2x8x16xf32, 2>
 // CHECK:     %11 = adf.buffer.create @L1_L1_B_3() : memref<8x16xf32, 2>
 // CHECK:     %12 = adf.buffer.create @L1_L1_C_3() : memref<16x16xf32, 2>
-// CHECK:     %13 = adf.buffer.create @L1_L1_D_3() {accumulator} : memref<2x16xf32, 2>
+// CHECK:     %13 = adf.buffer.create @L1_L1_D_3() : memref<2x16xf32, 2>
 // CHECK:     %14 = adf.buffer.create @L1_L1_A_4() : memref<2x8x16xf32, 2>
 // CHECK:     %15 = adf.buffer.create @L1_L1_B_4() : memref<8x16xf32, 2>
 // CHECK:     %16 = adf.buffer.create @L1_L1_C_4() : memref<16x16xf32, 2>
 // CHECK:     %17 = adf.buffer.create @L1_L1_A_5() : memref<2x8x16xf32, 2>
 // CHECK:     %18 = adf.buffer.create @L1_L1_B_5() : memref<8x16xf32, 2>
 // CHECK:     %19 = adf.buffer.create @L1_L1_C_5() : memref<16x16xf32, 2>
-// CHECK:     %20 = adf.buffer.create @L1_L1_D_5() {accumulator} : memref<2x16xf32, 2>
+// CHECK:     %20 = adf.buffer.create @L1_L1_D_5() : memref<2x16xf32, 2>
 // CHECK:     %21 = adf.buffer.create @L1_L1_A_6() : memref<2x8x16xf32, 2>
 // CHECK:     %22 = adf.buffer.create @L1_L1_B_6() : memref<8x16xf32, 2>
 // CHECK:     %23 = adf.buffer.create @L1_L1_C_6() : memref<16x16xf32, 2>
 // CHECK:     %24 = adf.buffer.create @L1_L1_A_7() : memref<2x8x16xf32, 2>
 // CHECK:     %25 = adf.buffer.create @L1_L1_B_7() : memref<8x16xf32, 2>
 // CHECK:     %26 = adf.buffer.create @L1_L1_C_7() : memref<16x16xf32, 2>
-// CHECK:     %27 = adf.buffer.create @L1_L1_D_7() {accumulator} : memref<2x16xf32, 2>
+// CHECK:     %27 = adf.buffer.create @L1_L1_D_7() : memref<2x16xf32, 2>
 // CHECK:     adf.connect(%arg0, %0) : (!adf.plio<In, 128>, memref<2x8x16xf32, 2>)
 // CHECK:     adf.connect(%arg0, %7) : (!adf.plio<In, 128>, memref<2x8x16xf32, 2>)
 // CHECK:     adf.connect(%arg1, %1) : (!adf.plio<In, 128>, memref<8x16xf32, 2>)
@@ -945,7 +945,7 @@ module {
             %0 = adf.buffer.create @L1_L1_A() : memref<2x8x16xf32, 2>
             %1 = adf.buffer.create @L1_L1_B() : memref<8x16xf32, 2>
             %2 = adf.buffer.create @L1_L1_C() : memref<16x16xf32, 2>
-            %3 = adf.buffer.create @L1_L1_D() {accumulator} : memref<2x16xf32, 2>
+            %3 = adf.buffer.create @L1_L1_D() : memref<2x16xf32, 2>
             %4 = affine.apply #map(%arg4)
             %5 = affine.apply #map1(%arg6)
             %6 = affine.apply #map2(%arg7)

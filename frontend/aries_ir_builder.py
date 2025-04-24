@@ -1352,6 +1352,7 @@ class Schedule:
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
+        self.AIEVectorize = 8
         self.AIEUnroll = 1
         self.AIEUnrollOption = 0  # 0:unroll-factor; 1:unroll-full-threshold
         self.ioWidth = 128
@@ -1514,10 +1515,10 @@ class Schedule:
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
-                       self.placement, self.placeAlgo, self.linkFile, 
-                       self.AIEUnroll, self.AIEUnrollOption, bufSel, 
-                       self.ioWidth, self.axiWidth, self.en_pl, self.en_aie2, 
-                       pipeline_op)
+                       self.placement, self.placeAlgo, self.linkFile,
+                       self.AIEVectorize, self.AIEUnroll, self.AIEUnrollOption, 
+                       bufSel, self.ioWidth, self.axiWidth, self.en_pl, 
+                       self.en_aie2, pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
         task = self.tasks[0]
@@ -1539,6 +1540,9 @@ class Schedule:
         
     def axiWdith(self, width = 512):
         self.axiWidth = width
+    
+    def aieVector(self, factor = 8):
+        self.AIEVectorize = factor
     
     def aieUnroll(self, factor = 8, option = 0):
         self.AIEUnroll = factor
@@ -1638,7 +1642,7 @@ class Schedule:
         # Step 1: Run make all in prj_dir
         try:
             subprocess.run(
-                ["make", "all"],
+                ["bash", "-c", "make clean || true && make all"],
                 cwd=prj_dir,
                 env=env,
                 check=True,

@@ -38,7 +38,7 @@ def ttmc(A: int32[I, L, M], B: int32[L, J],
     L1_A = aries.buffer((TI, TL, TM), "int32")
     L1_B = aries.buffer((TL, TJ), "int32")
     L1_C = aries.buffer((TM, TK), "int32")
-    L1_D = aries.accbuffer((TI, TJ, TK), "int32")
+    L1_D = aries.buffer((TI, TJ, TK), "int32")
     
     L1_A = aries.load(A, (ti, tl, tm))
     L1_B = aries.load(B, (tl, tj))

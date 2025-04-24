@@ -19,6 +19,7 @@ ChalOut = {{placement[9]}}
 CoreAlgo = {{placeAlgo[0]}}
 EnableIOCons = "{{placeAlgo[1]}}"
 EN_Link = "{{linkFile}}"
+AIEVector = {{aieVector}}
 AIEUnroll = {{aieUnroll}}
 AIEUnrollOpt = {{aieUnrollOpt}}
 {% for i in range(dim) -%}
@@ -123,7 +124,7 @@ ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_vec
 		-canonicalize -cse
 ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir
 	aries-opt -o $@ $< \
-		--affine-super-vectorize="virtual-vector-size=8 vectorize-reductions" \
+		--affine-super-vectorize="virtual-vector-size=${AIEVector} vectorize-reductions" \
 		--canonicalize
 ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir: ${PROJECT_PATH}/${KERNEL_NAME}.mlir
 	aries-opt -o $@ $< \
