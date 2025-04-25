@@ -4,7 +4,7 @@
 **Time:** 9:00 AM – 12:00 PM  
 **Venue:** 📍 *Presented at FCCM 2025 in Fayetteville, Arkansas*  
 **GitHub Repository:** *https://github.com/arc-research-lab/Aries*  
-**Reference Paper:** [ARIES ACM Digital Library](https://dl.acm.org/doi/10.1145/3706628.3708870)
+**ARIES Publication:** [ARIES ACM Digital Library](https://dl.acm.org/doi/10.1145/3706628.3708870)
 
 
 ## Introduction & Presentation Session
