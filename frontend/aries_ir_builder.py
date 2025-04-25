@@ -1535,10 +1535,10 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
-    def ioWdith(self, width = 128):
+    def ioWidth(self, width = 128):
         self.ioWidth = width
         
-    def axiWdith(self, width = 512):
+    def axiWidth(self, width = 512):
         self.axiWidth = width
     
     def aieVector(self, factor = 8):
