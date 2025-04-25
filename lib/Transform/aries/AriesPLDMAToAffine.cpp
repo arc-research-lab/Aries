@@ -138,7 +138,16 @@ private:
     // Replace IOPush/Pop Ops with affine.load and affine.store
     if(iopush){
       auto loadOp = builder.create<AffineLoadOp>(loc, src, newApplyopIOs);
-      builder.create<IOWriteOp>(loc, loadOp, dst);
+      auto loadType = loadOp.getType();
+      Value tempVal;
+      if (auto floatType = dyn_cast<FloatType>(loadType)){
+        auto intType = builder.getIntegerType(width);
+        auto castOp = builder.create<BitcastOp>(loc, intType, loadOp);
+        tempVal = castOp.getResult();
+      }else{
+        tempVal = loadOp;
+      }
+      builder.create<IOWriteOp>(loc, tempVal, dst);
     }else{
       auto intType = builder.getIntegerType(width);
       auto result = builder.create<IOReadOp>(loc, intType, src);
