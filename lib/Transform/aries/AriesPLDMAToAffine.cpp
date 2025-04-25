@@ -89,6 +89,7 @@ private:
     getIOInfo(op, iopushOp, iopopOp, src, dst, offsets, sizes, strides, tiles,
               dims, steps, wraps, type, iopush);
     auto elementType = type.getElementType();
+    auto width = type.getElementTypeBitWidth();
     auto rank = type.getRank();
     auto idxType = builder.getIndexType();
     builder.setInsertionPoint(op);
@@ -137,9 +138,19 @@ private:
     // Replace IOPush/Pop Ops with affine.load and affine.store
     if(iopush){
       auto loadOp = builder.create<AffineLoadOp>(loc, src, newApplyopIOs);
-      builder.create<IOWriteOp>(loc, loadOp, dst);
+      auto loadType = loadOp.getType();
+      Value tempVal;
+      if (auto floatType = dyn_cast<FloatType>(loadType)){
+        auto intType = builder.getIntegerType(width);
+        auto castOp = builder.create<BitcastOp>(loc, intType, loadOp);
+        tempVal = castOp.getResult();
+      }else{
+        tempVal = loadOp;
+      }
+      builder.create<IOWriteOp>(loc, tempVal, dst);
     }else{
-      auto result = builder.create<IOReadOp>(loc, elementType, src);
+      auto intType = builder.getIntegerType(width);
+      auto result = builder.create<IOReadOp>(loc, intType, src);
       // Need to do reduction meaning load data from IO sum and store back to L2
       if(op->hasAttr("accumulator")){
         // Check the original type and handle reduction properly
@@ -148,14 +159,15 @@ private:
         auto originType = typeAttr.getValue();
         auto originWidth = originType.getIntOrFloatBitWidth();
         auto newType = builder.getIntegerType(originWidth);
-        auto width = type.getElementTypeBitWidth();
         auto splitNum = (unsigned)(width/originWidth);
         if(splitNum==1){
           Value addOp;
-          if (isa<FloatType>(elementType))
-            addOp = builder.create<arith::AddFOp>(loc, loadOp, result);
-          else
+          if (auto floatType = dyn_cast<FloatType>(elementType)){
+            auto castFloat = builder.create<BitcastOp>(loc, floatType, result);
+            addOp = builder.create<arith::AddFOp>(loc, loadOp, castFloat);
+          }else{
             addOp = builder.create<arith::AddIOp>(loc, loadOp, result);
+          }
           builder.create<AffineStoreOp>(loc, addOp, dst, newApplyopIOs);
         }else{
           auto castL = builder.create<IntToAPInt>(loc, elementType, result);
@@ -191,7 +203,14 @@ private:
           builder.create<AffineStoreOp>(loc, castO, dst, newApplyopIOs);
         }
       }else{
-        builder.create<AffineStoreOp>(loc, result, dst, newApplyopIOs);
+        Value tempVal;
+        if (auto floatType = dyn_cast<FloatType>(elementType)){
+          auto castFloat = builder.create<BitcastOp>(loc, floatType, result);
+          tempVal = castFloat.getResult();
+        }else{
+          tempVal = result;
+        }
+        builder.create<AffineStoreOp>(loc, tempVal, dst, newApplyopIOs);
       }
     }
     return WalkResult::advance();

@@ -1454,8 +1454,42 @@ void ModuleEmitter::emitAffineStore(AffineStoreOp op) {
       auto axiuName = getName(memref).str().str() + "_axiu";
       indent();
       os << getTypeName(memref) << " " << axiuName <<";\n";
+      // This section is commented out due to instability when adding a value
+      // not present in the IR.
+      // // Need to convert float type to ap_uint
+      // auto valTemp = op.getValueToStore();
+      // auto valName = getName(valTemp);
+      // auto memType = dyn_cast<MemRefType>(memref.getType());
+      // auto eleType = memType.getElementType();
+      // auto width = memType.getElementTypeBitWidth();
+      // auto finalName = valName;
+      // if(isa<FloatType>(eleType)){
+      //   auto newName = valName.str().str() + "_new";
+      //   indent();
+      //   os << "ap_int<" << width << "> " << newName << ";\n";
+      //   indent();
+      //   os << "union { ";
+      //   os << getTypeName(valTemp);
+      //   os << " from; ";
+      //   os << "ap_int<" << width << ">";
+      //   os << " to;} ";
+      //   auto name = SmallString<32>("_converter_") + valName +
+      //         SmallString<32>("_to_") + newName;
+      //   os << name << ";\n";
+      //   indent();
+      //   os << name << ".from";
+      //   os << " = ";
+      //   emitValue(valTemp);
+      //   os << ";\n";
+      //   indent();
+      //   os << newName;
+      //   os << " = ";
+      //   os << name << ".to;\n";
+      //   finalName = newName;
+      // }
       indent();
       os << axiuName << ".data = ";
+      // os << finalName;
       emitValue(op.getValueToStore());
       os << ";\n";
       indent();

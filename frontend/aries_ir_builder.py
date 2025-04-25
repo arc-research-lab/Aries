@@ -1355,8 +1355,8 @@ class Schedule:
         self.AIEVectorize = 8
         self.AIEUnroll = 1
         self.AIEUnrollOption = 0  # 0:unroll-factor; 1:unroll-full-threshold
-        self.ioWidth = 128
-        self.axiWidth = 512
+        self.IOWidth = 128
+        self.AXIWidth = 512
         self.en_pl = "true"
         self.en_aie2 = "false"
         self.linkPath = ""
@@ -1517,7 +1517,7 @@ class Schedule:
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
                        self.placement, self.placeAlgo, self.linkFile,
                        self.AIEVectorize, self.AIEUnroll, self.AIEUnrollOption, 
-                       bufSel, self.ioWidth, self.axiWidth, self.en_pl, 
+                       bufSel, self.IOWidth, self.AXIWidth, self.en_pl, 
                        self.en_aie2, pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
@@ -1535,11 +1535,11 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
-    def ioWdith(self, width = 128):
-        self.ioWidth = width
+    def ioWidth(self, width = 128):
+        self.IOWidth = width
         
-    def axiWdith(self, width = 512):
-        self.axiWidth = width
+    def axiWidth(self, width = 512):
+        self.AXIWidth = width
     
     def aieVector(self, factor = 8):
         self.AIEVectorize = factor
@@ -1568,7 +1568,7 @@ class Schedule:
         elif device == "NPU" or device == "npu":
             self.device = "npu"
             self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
-            self.ioWidth = 32
+            self.IOWidth = 32
             self.en_pl = "false"
             self.en_aie2 = "true"
     
