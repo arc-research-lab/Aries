@@ -1,4 +1,5 @@
 # 🌟 ARIES Tutorial @ FCCM 2025  
+**Organizers:**  **Prof. Peipei Zhou**; **Jinming Zhuang**; **Zhuoping Yang**; (All from Brown University)  
 **Date:** Wednesday, May 7, 2025  
 **Time:** 9:00 AM – 12:00 PM  
 **Venue:** 📍 *Presented at FCCM 2025 in Fayetteville, Arkansas*  
@@ -14,7 +15,6 @@
 | 9:10 – 9:50  | ARIES Compilation Flow and Grammar Overview      | Jinming Zhuang         |
 | 9:50 – 10:00 | Break & Programming Environment Setup            | —                      |
 
----
 
 ## Hands-on Programming Session
 
@@ -26,7 +26,6 @@
 | 11:10 – 11:25| Constructing Multi-Layer Overlays in ARIES       | Jinming Zhuang         |
 | 11:25 – 11:40| Combining Programmable Logic and AIE with ARIES  | Jinming Zhuang         |
 
----
 
 ## Closing Session
 
@@ -34,5 +33,3 @@
 |--------------|--------------------------------------------------|------------------------|
 | 11:40 – 11:50| Future Work & Open Discussion on AIE Devices     | —                      |
 | 11:50 – 12:00| Wrap-Up                                          | Prof. Peipei Zhou      |
-
----
