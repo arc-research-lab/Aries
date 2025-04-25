@@ -6,6 +6,10 @@
 #include "mlir/Dialect/Affine/Utils.h"
 #include "mlir/Dialect/Affine/LoopUtils.h"
 #include "mlir/Dialect/Affine/Analysis/LoopAnalysis.h"
+#include "mlir/Pass/Pass.h"
+#include "mlir/Pass/PassManager.h"
+#include "mlir/Dialect/Affine/Passes.h"
+#include "mlir/Transforms/Passes.h"
 #include "llvm/Support/Debug.h"
 #include "aries/Transform/Passes.h"
 #include "aries/Transform/Utils.h"
@@ -389,6 +393,141 @@ private:
     }
   }
 
+  // This func is a workaround to fusion the loops inside the Array_Partition
+  // loop of send and receive
+  // It will extract the logic inside the Array_Partition loop into a 
+  // new function and call fuse then put the fused logic back and try
+  // to eliminate the buffers
+  void loopFusion(OpBuilder builder, FuncOp func){
+    if(!func->hasAttr("send") && !func->hasAttr("receive"))
+      return;
+    auto rootLoop = getFirstOpOfType<AffineForOp>(func.getBody());
+    if(!rootLoop)
+      return;
+    SmallVector<AffineForOp, 6> tileBand;
+    getPerfectlyNestedLoops(tileBand, rootLoop);
+    auto innerloop = tileBand[tileBand.size()-1];
+    auto yield = dyn_cast<AffineYieldOp>(innerloop.getBody()->getTerminator());
+    if(!innerloop->hasAttr("Array_Partition"))
+      return;
+    
+    // Clone func
+    auto clonedFunc = func.clone();
+    clonedFunc.setName(func.getName().str() + "_clone");
+    builder.setInsertionPoint(func);
+    builder.insert(clonedFunc);
+
+    // The Arguments in the specified block is not a live-in variable
+    SmallVector<Value, 6> liveins(innerloop.getBody()->getArguments());
+    auto liveness = Liveness(innerloop);
+    for (auto livein: liveness.getLiveIn(innerloop.getBody()))
+      if (!innerloop->isProperAncestor(livein.getParentBlock()->getParentOp()))
+        liveins.push_back(livein);
+    
+    builder.setInsertionPoint(func);
+    auto funcName = "temp_func" + func.getName().str();
+    auto funcType = builder.getFunctionType(ValueRange(liveins), TypeRange({}));
+    auto newfunc = builder.create<FuncOp>(
+                                  builder.getUnknownLoc(), funcName, funcType);
+    auto destBlock = newfunc.addEntryBlock();
+    builder.setInsertionPointToEnd(destBlock);
+    auto returnOp = builder.create<ReturnOp>(builder.getUnknownLoc());
+    builder.setInsertionPointToEnd(destBlock);
+    for(auto& op: llvm::make_early_inc_range(innerloop.getOps())){
+      if(dyn_cast<AffineYieldOp>(op))
+        continue;
+      op.moveBefore(returnOp);
+    }
+    // Update the references in the newfunc after move
+    auto argNum = destBlock->getNumArguments();
+    for (unsigned i = 0; i < argNum; ++i) {
+      auto sourceArg = liveins[i];
+      auto destArg = destBlock->getArgument(i);
+      sourceArg.replaceUsesWithIf(destArg,[&](OpOperand &use){
+          return newfunc->isProperAncestor(use.getOwner());
+      });
+    }
+    PassManager pm(&getContext());
+    pm.addPass(createLoopFusionPass());
+    if(failed(pm.run(newfunc)))
+      return;
+    
+    // Make sure if the module has be fused or not
+    unsigned cnt = 0;
+    newfunc.walk([&](AffineForOp forOp){
+      if(forOp->hasAttr("module"))
+        cnt++;
+    });
+
+    // If not fused then directly use the previous cloned func
+    if(cnt>=2){
+      clonedFunc.setName(func.getName().str());
+      func.erase();
+      newfunc.erase();
+      return;
+    }
+
+    // Else modules are fused, no need to do double buffer.
+    // Remove the module attribute and optimize the loops
+    newfunc.walk([&](AffineForOp forOp){
+      forOp->removeAttr("module");
+    });
+    // Unroll the loops with tripCount = 1
+    newfunc.walk([&](AffineForOp forOp){
+      auto tripCount = getConstantTripCount(forOp);
+      if(tripCount.has_value() && tripCount == 1)
+        if (failed(loopUnrollFull(forOp)))
+          return WalkResult::interrupt();
+      return WalkResult::advance();
+    });
+    PassManager pm0(&getContext());
+    pm0.addPass(createCSEPass());
+    pm0.addPass(createCanonicalizerPass());
+    pm0.addPass(createAffineScalarReplacementPass());
+    if(failed(pm0.run(newfunc)))
+      return;
+    // Move the fused operations back to the Array_Partition loop
+    for(auto& op: llvm::make_early_inc_range(newfunc.getOps())){
+      if(dyn_cast<ReturnOp>(op))
+        continue;
+      op.moveBefore(yield);
+    }
+    for (unsigned i = 0; i < argNum; ++i) {
+      auto src = destBlock->getArgument(i);
+      auto dest = liveins[i];
+      src.replaceUsesWithIf(dest,[&](OpOperand &use){
+          return innerloop->isProperAncestor(use.getOwner());
+      });
+    }
+    // Traverse the L2 buffer in the func
+    // If there's only write to the buffer then delete the buffer and the users
+    for(auto alloc : llvm::make_early_inc_range(func.getOps<AllocOp>())){
+      auto memType = alloc.getType();
+      auto memSpace = memType.getMemorySpace();
+      if(!memSpace || !dyn_cast<IntegerAttr>(memSpace))
+        continue;
+      auto intAttr = dyn_cast<IntegerAttr>(memSpace);
+      auto memSpaceInt = intAttr.getInt();
+      if(memSpaceInt != (int)MemorySpace::L2)
+        continue;
+      // If there is not write to the L2 buffer then delete the users and buffer
+      bool flag = true;
+      SmallVector<Operation *, 4> toErase;
+      for (auto user : alloc.getResult().getUsers()){
+        if(!dyn_cast<AffineStoreOp>(user))
+          flag = false;
+        toErase.push_back(user);
+      }
+      if(flag){
+        for (auto user : toErase)
+          user->erase();
+        alloc.erase();
+      }
+    }
+    newfunc.erase();
+    clonedFunc.erase();
+  }
+
   bool PLDataflow (ModuleOp mod) {
     auto builder = OpBuilder(mod);
 
@@ -411,6 +550,7 @@ private:
         return WalkResult::advance();
       hoistBufferStore(func);
       initBuffer(builder, func);
+      loopFusion(builder, func);
       return WalkResult::advance();
     });
     return true;
