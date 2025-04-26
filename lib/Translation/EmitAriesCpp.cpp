@@ -1397,7 +1397,7 @@ void ModuleEmitter::emitAffineLoad(AffineLoadOp op) {
     auto stringAttr =  dyn_cast<StringAttr>(attr).getValue().str();
     if(stringAttr.substr(0, 6) == "stream"){
       indent();
-      emitValue(result);
+      emitValue(result, 0, false, true);
       os << " = ";
       emitValue(memref);
       os << ".read(); //";
@@ -1410,7 +1410,7 @@ void ModuleEmitter::emitAffineLoad(AffineLoadOp op) {
       emitValue(memref);
       os << ".read();\n";
       indent();
-      emitValue(result);
+      emitValue(result, 0, false, true);
       os << " = " << axiuName << ".data; //";
       emitValue(memref, 0, false); // comment
     }
