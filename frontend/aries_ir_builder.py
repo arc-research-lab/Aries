@@ -1477,7 +1477,7 @@ class Schedule:
         # print(func_code)
     
     def task_kernel_emit(self, parsed_ast):
-        print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
+        # print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
         self.link_kernel_info(parsed_ast)
         func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.device, self.linkFile).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
