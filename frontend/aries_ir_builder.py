@@ -15,6 +15,7 @@ from .aries_decorators import TaskTileWrapper, TaskKernelWrapper, TaskTopWrapper
 class MLIRGenerator(ast.NodeVisitor):
     def __init__(self, mapInfo, map_cnt=0, func_attr=None):
         self.mlir_func_code = [] # Store the code within func
+        self.mlir_pl_code = [] # Store the pl libaray code
         self.mlir_map_code = [] # Store the AffineMap code
         self.indent = 2
         self.var_count = 0
@@ -24,6 +25,7 @@ class MLIRGenerator(ast.NodeVisitor):
         self.valType = {} # E.g., valType["A"] = (T, [32, 32])
         self.valNameCnt = {} # valNameCnt["%A"] = cnt, to avoid name conflict
         self.map = {} # map["ti"] = # map, dims  now only record the offset map
+        self.castMap = {} # This records the original mem before cast: castMap["cast"] = real_mem
         self.mapInfo = mapInfo # dic["ti"] = (32*i), stores key and expression
         self.in_assign  = False # Track whether inside an Assign node
         self.func_attr = func_attr
@@ -93,6 +95,17 @@ class MLIRGenerator(ast.NodeVisitor):
         elif memSpace == "L3":
             type_name += ", " + str(0)
         return type_name
+    
+    def get_shape_from_memref_type(self, memrefType_name):
+      # Regular expression to match "memref<shape>", including element type
+      match = re.match(r"memref<([^x]+(?:x[^>]+)*)x(\w+)>", memrefType_name)
+      if match:
+          shape_str = match.group(1)
+          # Split shape by 'x' and convert to list of integers, replacing '?' with -1
+          shape = [int(dim) if dim != '?' else -1 for dim in shape_str.split('x')]
+          return shape
+      else:
+          raise ValueError(f"Invalid memref type string: {memrefType_name}")
     
     def get_MemRefType_name(self, arg):
       _, shape, memSpace = self.valType[arg]
@@ -301,8 +314,10 @@ class MLIRGenerator(ast.NodeVisitor):
         # Parse the input Python code and visit nodes
         self.visit(tree)
         func_code = "\n".join(self.mlir_func_code)
+        func_lib_code = "\n".join(self.mlir_pl_code)
+        combined_code = func_lib_code + "\n" + func_code
         map_code = "\n".join(self.mlir_map_code)
-        return func_code, map_code, self.map_cnt
+        return combined_code, map_code, self.map_cnt
 
 
 # =========== Emitter for task tile ===========
@@ -678,8 +693,9 @@ class KernelMLIRGenerator(MLIRGenerator):
         return
 
 class TopMLIRGenerator(MLIRGenerator):
-    def __init__(self, dmaInfo, map_cnt=0):
+    def __init__(self, dmaInfo, temp_dir= ".", map_cnt=0):
         super().__init__(dmaInfo, map_cnt, "top_func")
+        self.pl_dir = Path(temp_dir) / "pl_mlir"
     
     def emit_call(self, node):
         if isinstance(node.func, ast.Name):
@@ -699,6 +715,24 @@ class TopMLIRGenerator(MLIRGenerator):
                 argTypes.append("index")
         self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
         self.emit(f"{', '.join(argTypes)}) -> ()", True)
+        
+        if(calleeName == "softmax"):
+            input = args[0].id
+            inTypeNew = self.get_type_name(input)
+            if input in self.castMap:
+                input = self.castMap[input]
+            inType = self.get_type_name(input)
+            inShape = self.get_shape_from_memref_type(inType)
+            output = args[1].id
+            if output in self.castMap:
+                output = self.castMap[output]
+            outType = self.get_type_name(output)
+            outShape = self.get_shape_from_memref_type(outType)
+            if inShape != outShape:
+                assert False, f"Error: inShape {inShape} does not match outShape {outShape} in Softmax"
+            code_temp = gen_softmax(self.pl_dir, inShape, inTypeNew)
+            self.mlir_pl_code = code_temp.splitlines()
+            
     
     def visit_Expr(self, node):
         if isinstance(node.value, ast.Call):
@@ -725,6 +759,8 @@ class TopMLIRGenerator(MLIRGenerator):
                         shape = [self.extract_constant(shapeTuple)]
                     dstType = self.add_type_name(targetName, eleType, shape)
                     self.emit(f"{varName} = memref.cast {srcName} : {srcType} to {dstType}")
+                    # Record the cast map
+                    self.castMap[targetName] = srcMem
                 else:
                     raise TypeError(f"Unsupported API call in @task_top(): {node.value.func.attr}.")
             else:      
@@ -1344,13 +1380,14 @@ class Schedule:
         self.constants = {}
         self.subName = "project"
         self.mlir_func_code = []
+        self.mlir_pl_code = []
         self.mlir_map_code = [] # AffineMap should be defined outside of Module
         self.map_cnt = 0
         self.paraSize = {} # paraSize[task] = factor[]
         self.l2Size = {} # l2Size[task] = factor[]
         self.bufSel = {} # bufsel[task] = factor[] # 1:BRAM, 0: URAM
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
-        self.placeAlgo = [] # CoreAlgo, EnableIOCons
+        self.placeAlgo = [2, "true"] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
         self.AIEVectorize = 8
         self.AIEUnroll = 1
@@ -1367,6 +1404,7 @@ class Schedule:
         self.topFunc = []
         self.funName = ""
         self.device = ""
+        temp_dir = None
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -1439,7 +1477,7 @@ class Schedule:
         # print(func_code)
     
     def task_kernel_emit(self, parsed_ast):
-        # print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
+        print("Parsed AIE Kernel AST", ast.dump(parsed_ast, indent=4))
         self.link_kernel_info(parsed_ast)
         func_code, map_code, self.map_cnt = KernelMLIRGenerator(None, self.map_cnt, self.device, self.linkFile).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
@@ -1448,7 +1486,7 @@ class Schedule:
     
     def task_top_emit(self, parsed_ast):
         # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
-        func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
+        func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.temp_dir, self.map_cnt).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
@@ -1491,26 +1529,32 @@ class Schedule:
             else:
                 raise ValueError(f"Unsupported decorator: {decorator_id}")
         final_map_code = "\n".join(filter(None, self.mlir_map_code))
+        final_lib_code = "\n".join(filter(None, self.mlir_pl_code))
         final_func_code = "\n".join(filter(None, self.mlir_func_code))
-        return final_map_code, final_func_code
+        return final_map_code, final_lib_code, final_func_code
         
     def code_emit(self, prj_dir):
-        final_map_code, final_func_code = self.code_gen()
+        final_map_code, final_lib_code, final_func_code = self.code_gen()
         mlir_file = prj_dir / "aries.mlir" 
         with open(mlir_file, "w") as file:
             print(final_map_code, file=file)
         with open(mlir_file, "a") as file:
             print("module {", file=file)
+            print(final_lib_code, file=file)
             print(final_func_code, file=file)
             print("}", file=file)
     
     def genAriesMake(self, prj_dir, temp_dir):
-        task = self.tasks[0]
-        func = task.func.__name__
-        length = len(task.grid_dims) if task.grid_dims else len(task.call_args)
-        paraSize = self.paraSize.get(task, [1] * length)
-        l2Size = self.l2Size.get(task, [1] * length)
-        bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+        if len(self.tasks)==0:
+            func = None
+            paraSize, l2Size, bufSel = [1], [1], [0]
+        else:
+            task = self.tasks[0]
+            func = task.func.__name__
+            length = len(task.grid_dims) if task.grid_dims else len(task.call_args)
+            paraSize = self.paraSize.get(task, [1] * length)
+            l2Size = self.l2Size.get(task, [1] * length)
+            bufSel = self.bufSel.get(task, [0] * len(task.call_args))
         pipeline_op = "aries-pipeline-versal"
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
@@ -1607,12 +1651,13 @@ class Schedule:
     
     def print_mlir(self, module):
         self.preprocess(module)
-        final_map_code, final_func_code = self.code_gen()
+        final_map_code, final_lib_code, final_func_code = self.code_gen()
         print(final_map_code)
         print("module {")
+        print(final_lib_code)
         print(final_func_code)
         print("}")
-        return final_map_code, final_func_code
+        return final_map_code, final_lib_code, final_func_code
     
     def check_vitis_env(self, version="2023.2"):
       cmd = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && source /opt/xilinx/xrt/setup.sh && echo 'Vitis environment loaded successfully'"
@@ -1693,6 +1738,7 @@ class Schedule:
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
+        self.temp_dir = temp_dir
         self.folder_create(sub_dir)
         self.preprocess(module)
         self.code_emit(prj_dir)
