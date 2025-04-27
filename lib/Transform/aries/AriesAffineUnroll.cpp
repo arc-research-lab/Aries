@@ -39,7 +39,7 @@ private:
       if(!cellOp)
         return true;
       SmallVector<AffineForOp, 6> band;
-      getPerfectNestedLoopBand(cellOp.getBody(), band, true);
+      getNestedLoopBand(cellOp.getBody(), band, true);
       SmallVector<Attribute, 3> tripCountList;
       SmallVector<unsigned, 3> indexList; //Record loop with tripcount>1
       auto indexType = builder.getIndexType();

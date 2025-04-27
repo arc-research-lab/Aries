@@ -38,11 +38,25 @@ private:
     // Traverse the adf.func op and collect the output arg
     DenseMap<FuncOp, SmallVector<int64_t, 4>> funcIds;
     for (auto func: mod.getOps<FuncOp>()){
-      if(!func->hasAttr("adf.func"))
+      if(!func->hasAttr("adf.func") && !func->hasAttr("adf.pl"))
         continue;
       SmallVector<int64_t, 4> ids;
       func.walk([&](DmaOp op){
         auto dst = op.getDst();
+        unsigned index = 0;
+        for(auto arg : func.getArguments()){
+          if(arg == dst){
+            auto it = llvm::find(ids, index);
+            if(it == ids.end()){
+              ids.push_back(index);
+              break;
+            }
+          }
+          index++;
+        }
+      });
+      func.walk([&](AffineStoreOp op){
+        auto dst = op.getMemRef();
         unsigned index = 0;
         for(auto arg : func.getArguments()){
           if(arg == dst){
@@ -75,8 +89,8 @@ private:
       auto func = mod.lookupSymbol<FuncOp>(call.getCallee());
       if(call.getCallee() != func.getName())
         continue;
-      if(!func->hasAttr("adf.func")){
-        llvm::errs() << "None adf.func is called in topFunc\n";
+      if(!func->hasAttr("adf.func") && !func->hasAttr("adf.pl")){
+        llvm::errs() << "None adf.func or adf.pl is called in topFunc\n";
         signalPassFailure();
       }
       auto ids = funcIds[func];
@@ -166,7 +180,7 @@ private:
     auto indexType = builder.getIndexType();
     // Add arguments and meta_data attributes to adf.func
     for (auto func: mod.getOps<FuncOp>()){
-      if(!func->hasAttr("adf.func"))
+      if(!func->hasAttr("adf.func") && !func->hasAttr("adf.pl"))
         continue;
       auto &entryBlock = func.getBody().front();
       auto inTypes =SmallVector<Type,8>(func.getArgumentTypes().begin(),
@@ -213,8 +227,8 @@ private:
       auto func = mod.lookupSymbol<FuncOp>(call.getCallee());
       if(call.getCallee() != func.getName())
         continue;
-      if(!func->hasAttr("adf.func")){
-        llvm::errs() << "None adf.func is called in topFunc\n";
+      if(!func->hasAttr("adf.func") && !func->hasAttr("adf.pl")){
+        llvm::errs() << "None adf.func or adf.pl is called in topFunc\n";
         signalPassFailure();
       }
       // Find the original memref and create constantOp as the new arguments

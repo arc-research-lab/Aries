@@ -134,6 +134,19 @@ private:
       llvm::DenseSet<unsigned> ivIds;
       auto offsets = dmaOp.getDstOffsets();
       for(auto offset: offsets){
+        // Check if the offset is a loop InductionVar
+        auto loop = getForInductionVarOwner(offset);
+        if(loop){
+          auto itLoop = llvm::find(band, loop);
+          if(itLoop==band.end()){
+            llvm::errs() << "Find reduction loop not in the band\n";
+            signalPassFailure();
+          }
+          auto pos = std::distance(band.begin(), itLoop); 
+          if(ivIds.contains(pos))
+            continue;
+          ivIds.insert(pos);
+        }
         auto defineOp = offset.getDefiningOp();
         if(!defineOp || !dyn_cast<AffineApplyOp>(defineOp))
           continue;
