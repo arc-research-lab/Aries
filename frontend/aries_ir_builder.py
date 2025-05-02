@@ -1389,11 +1389,11 @@ class Schedule:
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
         self.placeAlgo = [2, "true"] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
-        self.AIEVectorize = 8
-        self.AIEUnroll = 1
-        self.AIEUnrollOption = 0  # 0:unroll-factor; 1:unroll-full-threshold
-        self.IOWidth = 128
-        self.AXIWidth = 512
+        self.AIEVectorize = {} # AIEVectorize[task] = factor,  Default 8
+        self.AIEUnroll = {} # AIEUnroll[task] = factor,  Default 1
+        self.AIEUnrollOption = {}  # 0:unroll-factor; 1:unroll-full-threshold
+        self.IOWidth = {} # IOWidth[task]= width, Default 128
+        self.AXIWidth = {} # AXIWidth[task]= width, Default 512
         self.en_pl = "true"
         self.en_aie2 = "false"
         self.linkPath = ""
@@ -1404,7 +1404,7 @@ class Schedule:
         self.topFunc = []
         self.funName = ""
         self.device = ""
-        temp_dir = None
+        self.temp_dir = "./"
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -1548,6 +1548,11 @@ class Schedule:
         if len(self.tasks)==0:
             func = None
             paraSize, l2Size, bufSel = [1], [1], [0]
+            AIEVectorize = 8
+            AIEUnroll = 1
+            AIEUnrollOption = 0
+            AXIWidth = 512
+            IOWidth = 128
         else:
             task = self.tasks[0]
             func = task.func.__name__
@@ -1555,13 +1560,19 @@ class Schedule:
             paraSize = self.paraSize.get(task, [1] * length)
             l2Size = self.l2Size.get(task, [1] * length)
             bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+            AIEVectorize = self.AIEVectorize.get(task, 8)
+            AIEUnroll = self.AIEUnroll.get(task, 1)
+            AIEUnrollOption = self.AIEUnrollOption.get(task, 0)
+            AXIWidth = self.AXIWidth.get(task, 512)
+            IOWidth = self.IOWidth.get(task, 128)
         pipeline_op = "aries-pipeline-versal"
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
+          IOWidth = 32
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
                        self.placement, self.placeAlgo, self.linkFile,
-                       self.AIEVectorize, self.AIEUnroll, self.AIEUnrollOption, 
-                       bufSel, self.IOWidth, self.AXIWidth, self.en_pl, 
+                       AIEVectorize, AIEUnroll, AIEUnrollOption, 
+                       bufSel, IOWidth, AXIWidth, self.en_pl, 
                        self.en_aie2, pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
@@ -1579,18 +1590,18 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
-    def ioWidth(self, width = 128):
-        self.IOWidth = width
+    def ioWidth(self, task, width = 128):
+        self.IOWidth[task] = width
         
-    def axiWidth(self, width = 512):
-        self.AXIWidth = width
+    def axiWidth(self, task, width = 512):
+        self.AXIWidth[task] = width
     
-    def aieVector(self, factor = 8):
-        self.AIEVectorize = factor
+    def aieVector(self, task, factor = 8):
+        self.AIEVectorize[task] = factor
     
-    def aieUnroll(self, factor = 8, option = 0):
-        self.AIEUnroll = factor
-        self.AIEUnrollOption = option
+    def aieUnroll(self, task, factor = 8, option = 0):
+        self.AIEUnroll[task] = factor
+        self.AIEUnrollOption[task] = option
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor
@@ -1612,7 +1623,6 @@ class Schedule:
         elif device == "NPU" or device == "npu":
             self.device = "npu"
             self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
-            self.IOWidth = 32
             self.en_pl = "false"
             self.en_aie2 = "true"
     
