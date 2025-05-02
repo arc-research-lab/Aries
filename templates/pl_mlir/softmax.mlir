@@ -22,7 +22,7 @@
     affine.for %arg4 = 0 to {{last_dim}} {
       %0 = affine.load %arg0[{{joined_indices}}, %arg4] : {{shapeType}}
       affine.store %0, %buffer0[%arg4] : memref<{{last_dim}}xf32>
-    }
+    } {pipeline_ii = 1 : index}
 
     // Find the maximum of this row
     affine.store %cst_0, %max_val[0] : memref<1xf32>
@@ -31,7 +31,7 @@
       %1 = affine.load %max_val[0] : memref<1xf32>
       %2 = arith.maximumf %0, %1 : f32
       affine.store %2, %max_val[0] : memref<1xf32>
-    }
+    } {pipeline_ii = 1 : index}
 
     // Calculate sub and exp
     affine.for %arg4 = 0 to {{last_dim}} {
@@ -40,7 +40,7 @@
       %2 = arith.subf %0, %1 : f32
       %3 = math.exp %2 : f32
       affine.store %3, %buffer1[%arg4] : memref<{{last_dim}}xf32>
-    }
+    } {pipeline_ii = 1 : index}
 
     // Calculate exp sum
     affine.store %cst, %exp_sum[0] : memref<1xf32>
@@ -49,7 +49,7 @@
       %1 = affine.load %exp_sum[0] : memref<1xf32>
       %2 = arith.addf %0, %1 : f32
       affine.store %2, %exp_sum[0] : memref<1xf32>
-    }
+    } {pipeline_ii = 1 : index}
 
     // Calculate division
     affine.for %arg4 = 0 to {{last_dim}} {
@@ -57,7 +57,7 @@
       %1 = affine.load %exp_sum[0] : memref<1xf32>
       %2 = arith.divf %0, %1 : f32
       affine.store %2, %arg1[{{joined_indices}}, %arg4] : {{shapeType}}
-    }
+    } {pipeline_ii = 1 : index}
     {% for i in range(rank-1) -%}
     }
     {% endfor -%}
