@@ -104,3 +104,18 @@ def gen_kernel(sub_dir, template_dir, kernel_dir, paraList, func_name=""):
           print(f"... wrote {filename}")
     
     return
+  
+def gen_softmax(template_dir, shape, shapeType):
+    environment = Environment(loader=FileSystemLoader(template_dir), extensions=["jinja2.ext.do",])
+    file_name = 'softmax.mlir'
+    template = environment.get_template(file_name)
+    rank = len(shape)
+    last_dim = shape[-1]
+    content = template.render(
+        shape = shape,
+        rank = rank,
+        last_dim = last_dim,
+        shapeType = shapeType  
+    )
+    return content
+    

@@ -3,11 +3,11 @@ import astor
 import inspect
 import sympy as sp
 import numpy as np
-import subprocess, os
+import subprocess, os, glob
 import types
 from pathlib import Path
 from .gen_template import *
-from .aries_decorators import TaskTileWrapper, TaskKernelWrapper, TaskTopWrapper
+from .analytical_model import *
 
 # =========== Code Transformation and IR Builder ===========
 
@@ -15,6 +15,7 @@ from .aries_decorators import TaskTileWrapper, TaskKernelWrapper, TaskTopWrapper
 class MLIRGenerator(ast.NodeVisitor):
     def __init__(self, mapInfo, map_cnt=0, func_attr=None):
         self.mlir_func_code = [] # Store the code within func
+        self.mlir_pl_code = [] # Store the pl libaray code
         self.mlir_map_code = [] # Store the AffineMap code
         self.indent = 2
         self.var_count = 0
@@ -24,6 +25,7 @@ class MLIRGenerator(ast.NodeVisitor):
         self.valType = {} # E.g., valType["A"] = (T, [32, 32])
         self.valNameCnt = {} # valNameCnt["%A"] = cnt, to avoid name conflict
         self.map = {} # map["ti"] = # map, dims  now only record the offset map
+        self.castMap = {} # This records the original mem before cast: castMap["cast"] = real_mem
         self.mapInfo = mapInfo # dic["ti"] = (32*i), stores key and expression
         self.in_assign  = False # Track whether inside an Assign node
         self.func_attr = func_attr
@@ -93,6 +95,17 @@ class MLIRGenerator(ast.NodeVisitor):
         elif memSpace == "L3":
             type_name += ", " + str(0)
         return type_name
+    
+    def get_shape_from_memref_type(self, memrefType_name):
+      # Regular expression to match "memref<shape>", including element type
+      match = re.match(r"memref<([^x]+(?:x[^>]+)*)x(\w+)>", memrefType_name)
+      if match:
+          shape_str = match.group(1)
+          # Split shape by 'x' and convert to list of integers, replacing '?' with -1
+          shape = [int(dim) if dim != '?' else -1 for dim in shape_str.split('x')]
+          return shape
+      else:
+          raise ValueError(f"Invalid memref type string: {memrefType_name}")
     
     def get_MemRefType_name(self, arg):
       _, shape, memSpace = self.valType[arg]
@@ -301,8 +314,10 @@ class MLIRGenerator(ast.NodeVisitor):
         # Parse the input Python code and visit nodes
         self.visit(tree)
         func_code = "\n".join(self.mlir_func_code)
+        func_lib_code = "\n".join(self.mlir_pl_code)
+        combined_code = func_lib_code + "\n" + func_code
         map_code = "\n".join(self.mlir_map_code)
-        return func_code, map_code, self.map_cnt
+        return combined_code, map_code, self.map_cnt
 
 
 # =========== Emitter for task tile ===========
@@ -678,8 +693,9 @@ class KernelMLIRGenerator(MLIRGenerator):
         return
 
 class TopMLIRGenerator(MLIRGenerator):
-    def __init__(self, dmaInfo, map_cnt=0):
+    def __init__(self, dmaInfo, temp_dir= ".", map_cnt=0):
         super().__init__(dmaInfo, map_cnt, "top_func")
+        self.pl_dir = Path(temp_dir) / "pl_mlir"
     
     def emit_call(self, node):
         if isinstance(node.func, ast.Name):
@@ -699,6 +715,24 @@ class TopMLIRGenerator(MLIRGenerator):
                 argTypes.append("index")
         self.emit(f"func.call @{calleeName}({', '.join(argNames)}) : (")
         self.emit(f"{', '.join(argTypes)}) -> ()", True)
+        
+        if(calleeName == "softmax"):
+            input = args[0].id
+            inTypeNew = self.get_type_name(input)
+            if input in self.castMap:
+                input = self.castMap[input]
+            inType = self.get_type_name(input)
+            inShape = self.get_shape_from_memref_type(inType)
+            output = args[1].id
+            if output in self.castMap:
+                output = self.castMap[output]
+            outType = self.get_type_name(output)
+            outShape = self.get_shape_from_memref_type(outType)
+            if inShape != outShape:
+                assert False, f"Error: inShape {inShape} does not match outShape {outShape} in Softmax"
+            code_temp = gen_softmax(self.pl_dir, inShape, inTypeNew)
+            self.mlir_pl_code = code_temp.splitlines()
+            
     
     def visit_Expr(self, node):
         if isinstance(node.value, ast.Call):
@@ -725,6 +759,8 @@ class TopMLIRGenerator(MLIRGenerator):
                         shape = [self.extract_constant(shapeTuple)]
                     dstType = self.add_type_name(targetName, eleType, shape)
                     self.emit(f"{varName} = memref.cast {srcName} : {srcType} to {dstType}")
+                    # Record the cast map
+                    self.castMap[targetName] = srcMem
                 else:
                     raise TypeError(f"Unsupported API call in @task_top(): {node.value.func.attr}.")
             else:      
@@ -1344,19 +1380,20 @@ class Schedule:
         self.constants = {}
         self.subName = "project"
         self.mlir_func_code = []
+        self.mlir_pl_code = []
         self.mlir_map_code = [] # AffineMap should be defined outside of Module
         self.map_cnt = 0
         self.paraSize = {} # paraSize[task] = factor[]
         self.l2Size = {} # l2Size[task] = factor[]
         self.bufSel = {} # bufsel[task] = factor[] # 1:BRAM, 0: URAM
         self.placement = [] # ColNum, RowNum, ColOffset, RowOffset, ColGap, FirstCol, NumShim, MidLine, ChalIn, ChalOut
-        self.placeAlgo = [] # CoreAlgo, EnableIOCons
+        self.placeAlgo = [2, "true"] # CoreAlgo, EnableIOCons
         self.linkFile = "false"
-        self.AIEVectorize = 8
-        self.AIEUnroll = 1
-        self.AIEUnrollOption = 0  # 0:unroll-factor; 1:unroll-full-threshold
-        self.IOWidth = 128
-        self.AXIWidth = 512
+        self.AIEVectorize = {} # AIEVectorize[task] = factor,  Default 8
+        self.AIEUnroll = {} # AIEUnroll[task] = factor,  Default 1
+        self.AIEUnrollOption = {}  # 0:unroll-factor; 1:unroll-full-threshold
+        self.IOWidth = {} # IOWidth[task]= width, Default 128
+        self.AXIWidth = {} # AXIWidth[task]= width, Default 512
         self.en_pl = "true"
         self.en_aie2 = "false"
         self.linkPath = ""
@@ -1367,6 +1404,7 @@ class Schedule:
         self.topFunc = []
         self.funName = ""
         self.device = ""
+        self.temp_dir = "./"
     
     def link_kernel_info(self, parsed_ast):
         instance = preKernel()
@@ -1448,7 +1486,7 @@ class Schedule:
     
     def task_top_emit(self, parsed_ast):
         # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
-        func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.map_cnt).generate(parsed_ast)
+        func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.temp_dir, self.map_cnt).generate(parsed_ast)
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
@@ -1460,7 +1498,10 @@ class Schedule:
         instance.visit(self.topFunc)
         temp_code = HostCPPGenerator(self.device, instance.args,instance.dtypes,instance.outIdxs).build()
         host_code = "\n".join(filter(None, temp_code))
-        subprocess.run(f'mv *.sim {sub_dir}', shell=True)
+        sim_files = glob.glob("*.sim")
+        if sim_files:
+            cmd = ["mv"] + sim_files + [sub_dir]
+            subprocess.run(cmd)
         host_file = sub_dir / "host/host.cpp" 
         with open(host_file, "w") as file:
             print(host_code, file=file)
@@ -1491,33 +1532,50 @@ class Schedule:
             else:
                 raise ValueError(f"Unsupported decorator: {decorator_id}")
         final_map_code = "\n".join(filter(None, self.mlir_map_code))
+        final_lib_code = "\n".join(filter(None, self.mlir_pl_code))
         final_func_code = "\n".join(filter(None, self.mlir_func_code))
-        return final_map_code, final_func_code
+        return final_map_code, final_lib_code, final_func_code
         
     def code_emit(self, prj_dir):
-        final_map_code, final_func_code = self.code_gen()
+        final_map_code, final_lib_code, final_func_code = self.code_gen()
         mlir_file = prj_dir / "aries.mlir" 
         with open(mlir_file, "w") as file:
             print(final_map_code, file=file)
         with open(mlir_file, "a") as file:
             print("module {", file=file)
+            print(final_lib_code, file=file)
             print(final_func_code, file=file)
             print("}", file=file)
     
     def genAriesMake(self, prj_dir, temp_dir):
-        task = self.tasks[0]
-        func = task.func.__name__
-        length = len(task.grid_dims) if task.grid_dims else len(task.call_args)
-        paraSize = self.paraSize.get(task, [1] * length)
-        l2Size = self.l2Size.get(task, [1] * length)
-        bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+        if len(self.tasks)==0:
+            func = None
+            paraSize, l2Size, bufSel = [1], [1], [0]
+            AIEVectorize = 8
+            AIEUnroll = 1
+            AIEUnrollOption = 0
+            AXIWidth = 512
+            IOWidth = 128
+        else:
+            task = self.tasks[0]
+            func = task.func.__name__
+            length = len(task.grid_dims) if task.grid_dims else len(task.call_args)
+            paraSize = self.paraSize.get(task, [1] * length)
+            l2Size = self.l2Size.get(task, [1] * length)
+            bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+            AIEVectorize = self.AIEVectorize.get(task, 8)
+            AIEUnroll = self.AIEUnroll.get(task, 1)
+            AIEUnrollOption = self.AIEUnrollOption.get(task, 0)
+            AXIWidth = self.AXIWidth.get(task, 512)
+            IOWidth = self.IOWidth.get(task, 128)
         pipeline_op = "aries-pipeline-versal"
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
+          IOWidth = 32
         gen_make_aries(prj_dir, temp_dir, self.subName, func, paraSize, l2Size, 
                        self.placement, self.placeAlgo, self.linkFile,
-                       self.AIEVectorize, self.AIEUnroll, self.AIEUnrollOption, 
-                       bufSel, self.IOWidth, self.AXIWidth, self.en_pl, 
+                       AIEVectorize, AIEUnroll, AIEUnrollOption, 
+                       bufSel, IOWidth, AXIWidth, self.en_pl, 
                        self.en_aie2, pipeline_op)
     
     def genNPUMake(self, sub_dir, temp_dir):
@@ -1535,18 +1593,18 @@ class Schedule:
         if self.linkFile!="false":
             gen_kernel(sub_dir, temp_dir, self.linkPath, self.paraList, self.funName)
     
-    def ioWidth(self, width = 128):
-        self.IOWidth = width
+    def ioWidth(self, task, width = 128):
+        self.IOWidth[task] = width
         
-    def axiWidth(self, width = 512):
-        self.AXIWidth = width
+    def axiWidth(self, task, width = 512):
+        self.AXIWidth[task] = width
     
-    def aieVector(self, factor = 8):
-        self.AIEVectorize = factor
+    def aieVector(self, task, factor = 8):
+        self.AIEVectorize[task] = factor
     
-    def aieUnroll(self, factor = 8, option = 0):
-        self.AIEUnroll = factor
-        self.AIEUnrollOption = option
+    def aieUnroll(self, task, factor = 8, option = 0):
+        self.AIEUnroll[task] = factor
+        self.AIEUnrollOption[task] = option
     
     def parallel(self, task, factor=[]):
         self.paraSize[task] = factor
@@ -1568,9 +1626,33 @@ class Schedule:
         elif device == "NPU" or device == "npu":
             self.device = "npu"
             self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
-            self.IOWidth = 32
             self.en_pl = "false"
             self.en_aie2 = "true"
+    
+    def gemm_model(self, task, data_type):
+        if data_type in ["float32", "float", "fp32", "int", "int32"]:
+            BPE = 4
+        elif data_type in ["int16"]:
+            BPE = 2
+        elif data_type in ["int8"]:
+            BPE = 1
+        else:
+            raise ValueError(f"Unsupported data type: {data_type}")
+        
+        if not hasattr(task, 'grid_dims'):
+            raise AttributeError(f"Expected 'task' to have attribute 'grid_dims': {type(task)}")
+        if not hasattr(task, 'tile_sizes'):
+            raise AttributeError(f"Expected 'task' to have attribute 'tile_sizes': {type(task)}")
+        grids = task.grid_dims
+        tile_sizes = task.tile_sizes
+        array_sizes = np.array(grids) * np.array(tile_sizes)
+        length = len(task.grid_dims)
+        paraSize = self.paraSize.get(task, [1] * length)
+        l2Size = self.l2Size.get(task, [1] * length)
+        bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+        AXIWidth = self.AXIWidth.get(task, 512)
+        IOWidth = self.IOWidth.get(task, 128)
+        gemm_result(array_sizes, tile_sizes, paraSize, l2Size, BPE, AXIWidth, IOWidth, bufSel)
     
     def folder_create(self, sub_dir):
         if Path(sub_dir).exists():
@@ -1607,12 +1689,13 @@ class Schedule:
     
     def print_mlir(self, module):
         self.preprocess(module)
-        final_map_code, final_func_code = self.code_gen()
+        final_map_code, final_lib_code, final_func_code = self.code_gen()
         print(final_map_code)
         print("module {")
+        print(final_lib_code)
         print(final_func_code)
         print("}")
-        return final_map_code, final_func_code
+        return final_map_code, final_lib_code, final_func_code
     
     def check_vitis_env(self, version="2023.2"):
       cmd = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && source /opt/xilinx/xrt/setup.sh && echo 'Vitis environment loaded successfully'"
@@ -1655,9 +1738,31 @@ class Schedule:
             print(f"❌ make all in {prj_dir} failed")
             print(e.stderr)
             return
-          
+        
+        
+        
         # Step 2: If target is specified, run Vitis backend
         if target:
+            if target == "report":
+                project_dir = os.path.join(prj_dir, "project")
+                version = "2023.2"
+                if not self.check_vitis_env(version):
+                    raise EnvironmentError("❌ Vitis environment is not properly set up.")
+                try:
+                    # Run `make kernels`
+                    cmd_kernels = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && make kernels"
+                    subprocess.run(cmd_kernels, shell=True, check=True, cwd=project_dir, executable="/bin/bash")
+                    # Run `make aie`
+                    cmd_aie = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && make aie"
+                    subprocess.run(cmd_aie, shell=True, check=True, cwd=project_dir, executable="/bin/bash")
+                    print("✅ Report generation (make kernels & make aie) succeeded.")
+                except subprocess.CalledProcessError as e:
+                    raise RuntimeError(f"❌ Report generation failed: {e}")
+                return  # Exit early after report generation
+            
+            if target not in ["sw_emu", "hw_emu", "hw"]:
+                raise ValueError(f"❌ Invalid target '{target}'. Must be one of: sw_emu, hw_emu, hw.")
+            
             if not edge_image_dir:
                 raise EnvironmentError("❌ Versal image not properly set up.")
             version="2023.2"
@@ -1691,8 +1796,12 @@ class Schedule:
                 print(e)
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
+        self.mlir_func_code = []
+        self.mlir_pl_code = []
+        self.mlir_map_code = []
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
+        self.temp_dir = temp_dir
         self.folder_create(sub_dir)
         self.preprocess(module)
         self.code_emit(prj_dir)

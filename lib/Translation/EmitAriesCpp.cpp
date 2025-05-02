@@ -659,6 +659,9 @@ public:
     return emitter.emitUnary(op, "log10"), true;
   }
   bool visitOp(arith::NegFOp op) { return emitter.emitUnary(op, "-"), true; }
+  bool visitOp(arith::MaximumFOp op) {
+    return emitter.emitMaxMin(op, "fmax"), true;
+  }
 
   /// Special operations.
   bool visitOp(arith::SelectOp op) { return emitter.emitSelect(op), true; }
@@ -2764,7 +2767,7 @@ int main(int argc, char **argv) {
       os << "}\n";
       indent();
       os << "memcpy(" << inMapName << ", " << srcVecName << ".data(), "
-         << srcVecName << ".size() * sizeof(" << getTypeName(arg) << "));";
+         << srcVecName << ".size() * sizeof(" << getTypeName(arg) << "));\n";
       // Sync input from host to device
       indent();
       os << getName(arg) << ".sync(XCL_BO_SYNC_BO_TO_DEVICE, " << size

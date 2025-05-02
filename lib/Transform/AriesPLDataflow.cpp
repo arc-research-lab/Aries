@@ -57,7 +57,10 @@ private:
           return;
         }
         auto expr = dyn_cast<AffineBinaryOpExpr>(ubMap.getResult(0));
-        if (!expr || expr.getKind() != AffineExprKind::CeilDiv){
+        // Identity map
+        if(!expr)
+          continue;
+        if (expr.getKind() != AffineExprKind::CeilDiv){
           llvm::errs() << "Besides constant upperbound, only support ceildiv\n";
           signalPassFailure();
           return;
