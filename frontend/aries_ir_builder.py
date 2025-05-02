@@ -3,11 +3,11 @@ import astor
 import inspect
 import sympy as sp
 import numpy as np
-import subprocess, os
+import subprocess, os, glob
 import types
 from pathlib import Path
 from .gen_template import *
-from .aries_decorators import TaskTileWrapper, TaskKernelWrapper, TaskTopWrapper
+from .analytical_model import *
 
 # =========== Code Transformation and IR Builder ===========
 
@@ -1498,7 +1498,10 @@ class Schedule:
         instance.visit(self.topFunc)
         temp_code = HostCPPGenerator(self.device, instance.args,instance.dtypes,instance.outIdxs).build()
         host_code = "\n".join(filter(None, temp_code))
-        subprocess.run(f'mv *.sim {sub_dir}', shell=True)
+        sim_files = glob.glob("*.sim")
+        if sim_files:
+            cmd = ["mv"] + sim_files + [sub_dir]
+            subprocess.run(cmd)
         host_file = sub_dir / "host/host.cpp" 
         with open(host_file, "w") as file:
             print(host_code, file=file)
@@ -1626,6 +1629,31 @@ class Schedule:
             self.en_pl = "false"
             self.en_aie2 = "true"
     
+    def gemm_model(self, task, data_type):
+        if data_type in ["float32", "float", "fp32", "int", "int32"]:
+            BPE = 4
+        elif data_type in ["int16"]:
+            BPE = 2
+        elif data_type in ["int8"]:
+            BPE = 1
+        else:
+            raise ValueError(f"Unsupported data type: {data_type}")
+        
+        if not hasattr(task, 'grid_dims'):
+            raise AttributeError(f"Expected 'task' to have attribute 'grid_dims': {type(task)}")
+        if not hasattr(task, 'tile_sizes'):
+            raise AttributeError(f"Expected 'task' to have attribute 'tile_sizes': {type(task)}")
+        grids = task.grid_dims
+        tile_sizes = task.tile_sizes
+        array_sizes = np.array(grids) * np.array(tile_sizes)
+        length = len(task.grid_dims)
+        paraSize = self.paraSize.get(task, [1] * length)
+        l2Size = self.l2Size.get(task, [1] * length)
+        bufSel = self.bufSel.get(task, [0] * len(task.call_args))
+        AXIWidth = self.AXIWidth.get(task, 512)
+        IOWidth = self.IOWidth.get(task, 128)
+        gemm_result(array_sizes, tile_sizes, paraSize, l2Size, BPE, AXIWidth, IOWidth, bufSel)
+    
     def folder_create(self, sub_dir):
         if Path(sub_dir).exists():
             print(f"Directory '{sub_dir}' already exists, skipping creation.")
@@ -1710,9 +1738,31 @@ class Schedule:
             print(f"❌ make all in {prj_dir} failed")
             print(e.stderr)
             return
-          
+        
+        
+        
         # Step 2: If target is specified, run Vitis backend
         if target:
+            if target == "report":
+                project_dir = os.path.join(prj_dir, "project")
+                version = "2023.2"
+                if not self.check_vitis_env(version):
+                    raise EnvironmentError("❌ Vitis environment is not properly set up.")
+                try:
+                    # Run `make kernels`
+                    cmd_kernels = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && make kernels"
+                    subprocess.run(cmd_kernels, shell=True, check=True, cwd=project_dir, executable="/bin/bash")
+                    # Run `make aie`
+                    cmd_aie = f"source /tools/Xilinx/Vitis/{version}/settings64.sh && make aie"
+                    subprocess.run(cmd_aie, shell=True, check=True, cwd=project_dir, executable="/bin/bash")
+                    print("✅ Report generation (make kernels & make aie) succeeded.")
+                except subprocess.CalledProcessError as e:
+                    raise RuntimeError(f"❌ Report generation failed: {e}")
+                return  # Exit early after report generation
+            
+            if target not in ["sw_emu", "hw_emu", "hw"]:
+                raise ValueError(f"❌ Invalid target '{target}'. Must be one of: sw_emu, hw_emu, hw.")
+            
             if not edge_image_dir:
                 raise EnvironmentError("❌ Versal image not properly set up.")
             version="2023.2"
@@ -1746,6 +1796,9 @@ class Schedule:
                 print(e)
     
     def build(self, module, prj_dir="./my_project", temp_dir="./templates"):
+        self.mlir_func_code = []
+        self.mlir_pl_code = []
+        self.mlir_map_code = []
         prj_dir = Path(prj_dir)
         sub_dir = Path(prj_dir) / self.subName
         self.temp_dir = temp_dir
