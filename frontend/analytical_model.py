@@ -9,7 +9,9 @@ def DDR_GET_BW(DDR_HIGH, dim, BPE, AXI_WIDTH_Bytes):
   elif(burst >= 8):
     return DDR_HIGH * 0.8
   elif(burst >= 4):
-    return DDR_HIGH * 0.3
+    return DDR_HIGH * 0.4
+  elif(burst >= 2):
+    return DDR_HIGH * 0.2
   else:
     return DDR_HIGH * 0.1
 
@@ -45,8 +47,8 @@ def gemm_result(array_size, tile_l0, tile_l1, tile_l2, BPE, AXI_WIDTH, IO_WIDTH,
   buf_double = np.array([2, 2, 1])
   
   # Set DDR bandwidth (GB/s)
-  DDR_I = 8
-  DDR_O = 8
+  DDR_I = AXI_WIDTH_Bytes * 0.25 * 0.5
+  DDR_O = AXI_WIDTH_Bytes * 0.25 * 0.5
   DDR_LHS = DDR_GET_BW(DDR_I, tile_chip[2], BPE, AXI_WIDTH_Bytes)
   DDR_RHS = DDR_GET_BW(DDR_I, tile_chip[1], BPE, AXI_WIDTH_Bytes)
   DDR_OUT = DDR_GET_BW(DDR_O, tile_chip[1], BPE, AXI_WIDTH_Bytes)
