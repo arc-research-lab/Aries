@@ -455,22 +455,6 @@ private:
     if(failed(pm.run(newfunc)))
       return;
     
-    // Make sure if the module has be fused or not
-    unsigned cnt = 0;
-    newfunc.walk([&](AffineForOp forOp){
-      if(forOp->hasAttr("module"))
-        cnt++;
-    });
-
-    // If not fused then directly use the previous cloned func
-    if(cnt>=2){
-      clonedFunc.setName(func.getName().str());
-      func.erase();
-      newfunc.erase();
-      return;
-    }
-
-    // Else modules are fused, no need to do double buffer.
     // Remove the module attribute and optimize the loops
     newfunc.walk([&](AffineForOp forOp){
       forOp->removeAttr("module");
@@ -504,6 +488,7 @@ private:
     }
     // Traverse the L2 buffer in the func
     // If there's only write to the buffer then delete the buffer and the users
+    bool allL2_fused = true;
     for(auto alloc : llvm::make_early_inc_range(func.getOps<AllocOp>())){
       auto memType = alloc.getType();
       auto memSpace = memType.getMemorySpace();
@@ -525,10 +510,18 @@ private:
         for (auto user : toErase)
           user->erase();
         alloc.erase();
+      }else{ // If there's any of the L2 buffer not fused, don't take this opt
+        allL2_fused = false;
       }
     }
-    newfunc.erase();
-    clonedFunc.erase();
+    if(allL2_fused){
+      newfunc.erase();
+      clonedFunc.erase();
+    }else{ // If not all been fused then directly use the previous cloned func
+      clonedFunc.setName(func.getName().str());
+      func.erase();
+      newfunc.erase();
+    }
   }
 
   bool PLDataflow (ModuleOp mod) {
