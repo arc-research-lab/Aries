@@ -7,9 +7,11 @@ def DDR_GET_BW(DDR_HIGH, dim, BPE, AXI_WIDTH_Bytes):
   if(burst >= 16):
     return DDR_HIGH
   elif(burst >= 8):
-    return DDR_HIGH * 0.85
+    return DDR_HIGH * 0.8
   elif(burst >= 4):
-    return DDR_HIGH * 0.3
+    return DDR_HIGH * 0.4
+  elif(burst >= 2):
+    return DDR_HIGH * 0.2
   else:
     return DDR_HIGH * 0.1
 
@@ -45,8 +47,8 @@ def gemm_result(array_size, tile_l0, tile_l1, tile_l2, BPE, AXI_WIDTH, IO_WIDTH,
   buf_double = np.array([2, 2, 1])
   
   # Set DDR bandwidth (GB/s)
-  DDR_I = 7
-  DDR_O = 7
+  DDR_I = AXI_WIDTH_Bytes * 0.25 * 0.5
+  DDR_O = AXI_WIDTH_Bytes * 0.25 * 0.5
   DDR_LHS = DDR_GET_BW(DDR_I, tile_chip[2], BPE, AXI_WIDTH_Bytes)
   DDR_RHS = DDR_GET_BW(DDR_I, tile_chip[1], BPE, AXI_WIDTH_Bytes)
   DDR_OUT = DDR_GET_BW(DDR_O, tile_chip[1], BPE, AXI_WIDTH_Bytes)
@@ -105,24 +107,6 @@ def main():
     AXI_WIDTH = 512
     IO_WIDTH = 128
     
-    array_size = np.array([2816, 3072, 8192])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([11, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([4, 6, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([12, 8, 3])   # PI, PJ, PK
-    tile_l2 = np.array([4, 8, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([7, 11, 4])   # PI, PJ, PK
-    tile_l2 = np.array([7, 4, 2]) # BI, BJ, BK
-    buf_sel = np.array([0, 1, 0]) # 0:URAM, 1:BRAM
-    array_size = tile_l0 * tile_l1 * tile_l2 * np.array([2,2,64])
-    
     # Case AIE=2
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
@@ -134,88 +118,45 @@ def main():
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
     tile_l1 = np.array([1, 2, 2])   # PI, PJ, PK
-    tile_l2 = np.array([8, 8, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
+    tile_l2 = np.array([4, 4, 4]) # BI, BJ, BK
+    buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
     # Case AIE=8
     array_size = np.array([6144, 6144, 6144]) # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
     tile_l1 = np.array([1, 4, 2]) # PI, PJ, PK
-    tile_l2 = np.array([8, 4, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
+    tile_l2 = np.array([4, 4, 4]) # BI, BJ, BK
+    buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
     # Case AIE=16
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
     tile_l1 = np.array([2, 4, 2])   # PI, PJ, PK
-    tile_l2 = np.array([3, 3, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 1]) # 0:URAM, 1:BRAM
+    tile_l2 = np.array([4, 4, 4]) # BI, BJ, BK
+    buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
     # Case AIE=32
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([2, 8, 2])   # PI, PJ, PK
-    tile_l2 = np.array([4, 2, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 1]) # 0:URAM, 1:BRAM
+    tile_l1 = np.array([2, 4, 4])   # PI, PJ, PK
+    tile_l2 = np.array([8, 4, 4]) # BI, BJ, BK
+    buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
     # Case AIE=64
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([4, 8, 2])   # PI, PJ, PK
-    tile_l2 = np.array([3, 3, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 1]) # 0:URAM, 1:BRAM
+    tile_l1 = np.array([4, 4, 4])   # PI, PJ, PK
+    tile_l2 = np.array([4, 4, 4]) # BI, BJ, BK
+    buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
     # Case AIE=128
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([8, 8, 2])   # PI, PJ, PK
-    tile_l2 = np.array([3, 6, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=256
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([8, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([6, 6, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=288
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([12, 6, 4])   # PI, PJ, PK
+    tile_l1 = np.array([8, 4, 4])   # PI, PJ, PK
     tile_l2 = np.array([4, 8, 2]) # BI, BJ, BK
     buf_sel = np.array([1, 0, 0]) # 0:URAM, 1:BRAM
     
-    
-    # Case AIE=32_1
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([1, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([8, 4, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 1]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=64_1
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([2, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([8, 4, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=128_1
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([4, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([8, 4, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=256_1
-    array_size = np.array([6144, 6144, 6144])  # I, J, K
-    tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
-    tile_l1 = np.array([8, 8, 4])   # PI, PJ, PK
-    tile_l2 = np.array([4, 8, 1]) # BI, BJ, BK
-    buf_sel = np.array([1, 1, 0]) # 0:URAM, 1:BRAM
-    
-    # Case AIE=256_2
+    # Case AIE=256
     array_size = np.array([6144, 6144, 6144])  # I, J, K
     tile_l0 = np.array([32, 32, 32]) # TI, TJ, TK
     tile_l1 = np.array([8, 8, 4])   # PI, PJ, PK
