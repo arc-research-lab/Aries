@@ -1,4 +1,4 @@
-  func.func @softmax(%arg0: {{shapeType}}, %arg1: {{shapeType}}) attributes {adf.pl} {
+  func.func @softmax(%arg0: {{shapeType}}, %arg1: {{shapeType}}) attributes {adf.pl, adf.pl.lib} {
     %cst = arith.constant 0.000000e+00 : f32
     %cst_0 = arith.constant 0xFF800000 : f32   // Smallest number of fp32
     %buffer0 = memref.alloc() : memref<{{last_dim}}xf32> // Store one row of input

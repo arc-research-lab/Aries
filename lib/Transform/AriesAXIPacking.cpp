@@ -304,12 +304,205 @@ private:
     write.setOperand(0, newResult);
   }
 
+  // Convert packed data to original data type
+  void pack_pl_load(OpBuilder builder, AffineLoadOp read, MemRefType type, 
+                    unsigned packNum){
+    auto loc = builder.getUnknownLoc();
+    auto &context = getContext();
+    auto elemType = type.getElementType();
+    auto typeWidth = type.getElementTypeBitWidth();
+    auto result = read.getResult();
+    auto indexType = builder.getIndexType();
+    auto oneAttr = builder.getIntegerAttr(indexType, 1);
+    auto packAttr = builder.getIntegerAttr(indexType, packNum);
+    
+    // Set the II of the previous innermost loop to packNum
+    SmallVector<AffineForOp, 6> band;
+    getSurroundingLoops(*read, band);
+    auto innerLoop = band[band.size()-1];
+    //innerLoop->setAttr("pipeline_ii", packAttr);
+    builder.setInsertionPointAfter(read);
+    auto forOp = builder.create<AffineForOp>(loc, 0, packNum);
+    forOp->setAttr("pipeline_ii", oneAttr);
+    auto entryBlock = forOp.getBody();
+    auto forYiledOp = dyn_cast<AffineYieldOp>(entryBlock->getTerminator());
+    builder.setInsertionPoint(forYiledOp);
+    // Insert GetIntSliceOp to transfer data from newType to oldType 
+    // Create the ub for slicing
+    auto hiExpr = builder.getAffineDimExpr(0) * typeWidth + typeWidth-1;
+    auto hiMap = AffineMap::get(1, 0, hiExpr);
+    SmallVector<Value, 1> hiOperands = {forOp.getInductionVar()};
+    auto hiVal = builder.create<AffineApplyOp>(loc, hiMap, hiOperands);
+    // Create the lb for slicing
+    auto loExpr = builder.getAffineDimExpr(0) * typeWidth;
+    auto loMap = AffineMap::get(1, 0, loExpr);
+    SmallVector<Value, 1> loOperands = {forOp.getInductionVar()};
+    auto loVal = builder.create<AffineApplyOp>(loc, loMap, loOperands);
+    GetIntSliceOp slice;
+    Value valToGet;
+    if(auto floatType = dyn_cast<FloatType>(elemType)){
+      auto intType = IntegerType::get(builder.getContext(), typeWidth);
+      slice = builder.create<GetIntSliceOp>(loc, intType, result, 
+                                            hiVal, loVal);
+      valToGet = builder.create<arith::BitcastOp>(loc, elemType, slice);
+    }else{
+      slice = builder.create<GetIntSliceOp>(loc, elemType, result,
+                                               hiVal, loVal);
+      valToGet = slice.getResult();
+    }
+    for(auto use : result.getUsers()){
+      if(use != slice)
+        use->moveBefore(forYiledOp);
+    }
+    result.replaceUsesWithIf(valToGet, [&](OpOperand &use) {
+      return use.getOwner() != slice;
+    });
+    // Update the access
+    auto innerVar = innerLoop.getInductionVar();
+    auto newVar = forOp.getInductionVar();
+    for(auto use: innerLoop.getInductionVar().getUsers()){
+      if(use->getParentOp() != forOp)
+        continue;
+      if(auto storeOp = dyn_cast<AffineStoreOp>(use)){
+        auto memref = storeOp.getMemRef();
+        auto val = storeOp.getValue();
+        auto oldMap = storeOp.getAffineMap();
+        SmallVector<Value> indeices = storeOp.getMapOperands();
+        auto mapSize = oldMap.getNumResults();
+        auto dimSize = oldMap.getNumDims();
+        auto symSize = oldMap.getNumSymbols();
+        auto lastDimExpr = oldMap.getResult(mapSize-1);
+        // flattened form [dims, symbols, locals, constant]
+        llvm::SmallVector<int64_t> flattenedExpr;
+        if (failed(getFlattenedAffineExpr(lastDimExpr, dimSize, symSize,
+                                          &flattenedExpr)))
+          signalPassFailure();
+        // Get new experssion change to innerLoop.Var * pack + d
+        auto it = llvm::find(indeices, innerVar);
+        if(it == indeices.end())
+          signalPassFailure();
+        auto pos = std::distance(indeices.begin(), it);
+        flattenedExpr[pos] = flattenedExpr[pos] * packNum;
+        flattenedExpr.insert(flattenedExpr.begin() + dimSize, 1);
+        auto newExpr = getAffineExprFromFlatForm(flattenedExpr, dimSize+1,
+                                                 symSize, {}, &context);
+        // Update affineMap
+        SmallVector<AffineExpr, 4> newExprs(oldMap.getResults().begin(), 
+                                            oldMap.getResults().end());
+        newExprs.back() = newExpr;
+        auto newMap = AffineMap::get(dimSize+1, symSize, newExprs, &context);
+        indeices.push_back(newVar);
+        builder.setInsertionPoint(storeOp);
+        builder.create<AffineStoreOp>(loc, val, memref, newMap, indeices);
+        storeOp.erase();
+      }
+    }
+  }
+
+  void pack_pl_store(OpBuilder builder, AffineStoreOp write, MemRefType type, 
+                     MemRefType newType, unsigned packNum){
+    auto loc = builder.getUnknownLoc();
+    auto& context = getContext();
+    auto typeWidth = type.getElementTypeBitWidth();
+    auto newElemType = newType.getElementType();
+    auto indexType = builder.getIndexType();
+    auto oneAttr = builder.getIntegerAttr(indexType, 1);
+    auto packAttr = builder.getIntegerAttr(indexType, packNum);
+    
+    // Set the II of the previous innermost loop to packNum
+    SmallVector<AffineForOp, 6> band;
+    getSurroundingLoops(*write, band);
+    auto innerLoop = band[band.size()-1];
+    //innerLoop->setAttr("pipeline_ii", packAttr);
+    
+    builder.setInsertionPoint(write);
+    auto forOp = builder.create<AffineForOp>(loc, 0, packNum);
+    forOp->setAttr("pipeline_ii", oneAttr);
+    auto entryBlock = forOp.getBody();
+    auto forYiledOp = dyn_cast<AffineYieldOp>(entryBlock->getTerminator());
+    
+    // Move operations other than write to inside forOp
+    auto val = write.getValueToStore();
+    auto valType = val.getType();
+    for (auto& op : llvm::make_early_inc_range(innerLoop.getOps())){
+      if(&op!=write && &op!=forOp && !dyn_cast<AffineYieldOp>(op)){
+        op.moveBefore(forYiledOp);
+      }
+    }
+    builder.setInsertionPoint(forOp);
+    auto intAttr = builder.getIntegerAttr(newElemType, 0);
+    auto zeroVal = builder.create<arith::ConstantOp>(loc, newElemType, intAttr);
+    auto temp = builder.create<IntToAPInt>(loc, newElemType, zeroVal);
+    builder.setInsertionPoint(forYiledOp);
+    // Create the ub for slicing
+    auto hiExpr = builder.getAffineDimExpr(0) * typeWidth + typeWidth-1;
+    auto hiMap = AffineMap::get(1, 0, hiExpr);
+    SmallVector<Value, 1> hiOperands = {forOp.getInductionVar()};
+    auto hiVal = builder.create<AffineApplyOp>(loc, hiMap, hiOperands);
+    // Create the lb for slicing
+    auto loExpr = builder.getAffineDimExpr(0) * typeWidth;
+    auto loMap = AffineMap::get(1, 0, loExpr);
+    SmallVector<Value, 1> loOperands = {forOp.getInductionVar()};
+    auto loVal = builder.create<AffineApplyOp>(loc, loMap, loOperands);
+    Value valToSet;
+    if(auto floatType = dyn_cast<FloatType>(valType)){ 
+      auto width = floatType.getWidth();
+      auto intType = IntegerType::get(builder.getContext(), width);                                      
+      valToSet = builder.create<arith::BitcastOp>(loc, intType, val);
+    }else{
+      valToSet = val;
+    }
+    builder.create<SetIntSliceOp>(loc, temp, hiVal, loVal, valToSet);
+    write.setOperand(0, temp);
+    // Update the access
+    auto innerVar = innerLoop.getInductionVar();
+    auto newVar = forOp.getInductionVar();
+    for(auto use: innerLoop.getInductionVar().getUsers()){
+      if(use->getParentOp() != forOp)
+        continue;
+      if(auto loadOp = dyn_cast<AffineLoadOp>(use)){
+        auto memref = loadOp.getMemRef();
+        auto oldMap = loadOp.getAffineMap();
+        SmallVector<Value> indeices = loadOp.getMapOperands();
+        auto mapSize = oldMap.getNumResults();
+        auto dimSize = oldMap.getNumDims();
+        auto symSize = oldMap.getNumSymbols();
+        auto lastDimExpr = oldMap.getResult(mapSize-1);
+        // flattened form [dims, symbols, locals, constant]
+        llvm::SmallVector<int64_t> flattenedExpr;
+        if (failed(getFlattenedAffineExpr(lastDimExpr, dimSize, symSize,
+                                          &flattenedExpr)))
+          signalPassFailure();
+        // Get new experssion change to innerLoop.Var * pack + d
+        auto it = llvm::find(indeices, innerVar);
+        if(it == indeices.end())
+          signalPassFailure();
+        auto pos = std::distance(indeices.begin(), it);
+        flattenedExpr[pos] = flattenedExpr[pos] * packNum;
+        flattenedExpr.insert(flattenedExpr.begin() + dimSize, 1);
+        auto newExpr = getAffineExprFromFlatForm(flattenedExpr, dimSize+1,
+                                                 symSize, {}, &context);
+        // Update affineMap
+        SmallVector<AffineExpr, 4> newExprs(oldMap.getResults().begin(), 
+                                            oldMap.getResults().end());
+        newExprs.back() = newExpr;
+        auto newMap = AffineMap::get(dimSize+1, symSize, newExprs, &context);
+        indeices.push_back(newVar);
+        builder.setInsertionPoint(loadOp);
+        auto newLoad = builder.create<AffineLoadOp>(loc, memref, 
+                                                    newMap, indeices);
+        loadOp.getResult().replaceAllUsesWith(newLoad.getResult());
+        loadOp.erase();
+      }
+    }
+  }
+
   void applyPacking(OpBuilder builder, BlockArgument arg, unsigned index,
                      MemRefType type, unsigned packNum,
                      SmallVector<Type,8>& inTypes,
                      SmallVector<std::pair<AffineForOp, int64_t>, 4>& loopList,
                      SmallVector<std::pair<Operation*, AffineMap>, 4>& packlist,
-                     SmallVector<AffineLoadOp, 4>& eliminateOps){
+                     SmallVector<AffineLoadOp, 4>& eliminateOps, bool pl_lib){
     auto loc = builder.getUnknownLoc();
     auto shape = type.getShape();
     auto rank = type.getRank();
@@ -349,11 +542,17 @@ private:
         auto newResult = newRead.getResult();
         result.replaceAllUsesWith(newResult);
         eliminateOps.push_back(read);
-        loadMerge(builder, newRead, type, newMemRefType, packNum, cnt);
+        if(!pl_lib)
+          loadMerge(builder, newRead, type, newMemRefType, packNum, cnt);
+        else
+          pack_pl_load(builder, newRead, type, packNum);
       }else if(auto write = dyn_cast<AffineStoreOp>(op)){
         // Update the access map
         write.setMap(map);
-        storeSplit(builder, write, type, newMemRefType, packNum, cnt);
+        if(!pl_lib)
+          storeSplit(builder, write, type, newMemRefType, packNum, cnt);
+        else
+          pack_pl_store(builder, write, type, newMemRefType, packNum);
       }
     }             
   }
@@ -367,6 +566,7 @@ private:
     auto inTypes = SmallVector<Type,8>(plFunc.getArgumentTypes().begin(),
                                        plFunc.getArgumentTypes().end());
     auto outTypes = plFunc.getResultTypes();
+    bool pl_lib = plFunc->hasAttr("adf.pl.lib");
     SmallVector<AffineLoadOp, 4> eliminateOps;
     auto argNum= plFunc.getNumArguments();
     for(unsigned i = 0; i < argNum; i++){
@@ -393,7 +593,7 @@ private:
       if(loopList.size()!=packlist.size() || loopList.size()!= numUser)
         continue;
       applyPacking(builder, arg, i, type, packNum, inTypes, loopList, packlist, 
-                   eliminateOps);
+                   eliminateOps, pl_lib);
       argList.push_back(i);
 
     }

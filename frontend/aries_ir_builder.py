@@ -696,6 +696,7 @@ class TopMLIRGenerator(MLIRGenerator):
     def __init__(self, dmaInfo, temp_dir= ".", map_cnt=0):
         super().__init__(dmaInfo, map_cnt, "top_func")
         self.pl_dir = Path(temp_dir) / "pl_mlir"
+        self.ioHarden = False
     
     def emit_call(self, node):
         if isinstance(node.func, ast.Name):
@@ -732,6 +733,7 @@ class TopMLIRGenerator(MLIRGenerator):
                 assert False, f"Error: inShape {inShape} does not match outShape {outShape} in Softmax"
             code_temp = gen_softmax(self.pl_dir, inShape, inTypeNew)
             self.mlir_pl_code = code_temp.splitlines()
+            self.ioHarden = True
             
     
     def visit_Expr(self, node):
@@ -1393,6 +1395,7 @@ class Schedule:
         self.AIEUnroll = {} # AIEUnroll[task] = factor,  Default 1
         self.AIEUnrollOption = {}  # 0:unroll-factor; 1:unroll-full-threshold
         self.IOWidth = {} # IOWidth[task]= width, Default 128
+        self.HardenIO = False
         self.AXIWidth = {} # AXIWidth[task]= width, Default 512
         self.en_pl = "true"
         self.en_aie2 = "false"
@@ -1486,7 +1489,9 @@ class Schedule:
     
     def task_top_emit(self, parsed_ast):
         # print("Parsed Top AST", ast.dump(parsed_ast, indent=4))
-        func_code, map_code, self.map_cnt = TopMLIRGenerator(None, self.temp_dir, self.map_cnt).generate(parsed_ast)
+        generator = TopMLIRGenerator(None, self.temp_dir, self.map_cnt)
+        func_code, map_code, self.map_cnt = generator.generate(parsed_ast)
+        self.HardenIO = generator.ioHarden
         self.mlir_func_code.append(func_code)
         self.mlir_map_code.append(map_code)
         # print(func_code)
@@ -1567,7 +1572,10 @@ class Schedule:
             AIEUnroll = self.AIEUnroll.get(task, 1)
             AIEUnrollOption = self.AIEUnrollOption.get(task, 0)
             AXIWidth = self.AXIWidth.get(task, 512)
-            IOWidth = self.IOWidth.get(task, 128)
+            if self.HardenIO:
+              IOWidth = 32
+            else:
+              IOWidth = self.IOWidth.get(task, 128)
         pipeline_op = "aries-pipeline-versal"
         if self.device == "npu":
           pipeline_op = "aries-pipeline"
