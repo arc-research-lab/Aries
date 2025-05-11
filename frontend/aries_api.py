@@ -41,10 +41,12 @@ class aries:
     
     @staticmethod
     def load(array, slices, tile_shape=[], transpose_params=[]):
+        sliced_array = array[slices]
         if not tile_shape and not transpose_params:
-            return AriesWrapper(array[slices]).array
+            return AriesWrapper(sliced_array).array  # AriesWrapper should preserve dtype
         elif tile_shape and transpose_params:
-            return aries.transpose(array[slices], tile_shape, transpose_params)
+            transposed = aries.transpose(sliced_array, tile_shape, transpose_params)
+            return transposed.astype(array.dtype)  # Ensure same dtype as input
         else:
             raise ValueError("Invalid input: tile_shape or transpose_params cannot be empty.")
     
@@ -247,7 +249,7 @@ class AriesWrapper:
             wraps.append(wrap)
         
         # dim 0 need to be traversed first, where the order is different when tranversing wraps
-        merged_array = []
+        merged_array = np.array([], dtype=self.array.dtype)
         reversed_wraps = wraps[::-1]
         sorted_strides = [0] * num_dims
         for idx, dim in enumerate(dims):
