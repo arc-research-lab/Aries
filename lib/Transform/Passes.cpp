@@ -20,53 +20,22 @@ void mlir::aries::registerAriesPassPipeline() {
     // Perform multi-level tiling
     pm.addPass(createAriesPreprocessPass());
     pm.addPass(createAriesTilingPass(opts));
-
-    if(!opts.OptEnableNewTiling){
-      // Extract the single kernel design
-      pm.addPass(createAriesFuncExtractPass());
-      pm.addPass(createAriesLoopSimplifyPass());
-      pm.addPass(createAriesMemSubviewPass());
-      pm.addPass(createAriesMemHoistPass());
-      pm.addPass(createAriesMemCopyPass());
-      // Convert to ADF dialect
-      pm.addPass(createAriesLowerToADFPass());
-      pm.addPass(mlir::createCanonicalizerPass());
-    }
     
     // Perform global optimizations
-    pm.addPass(createAriesDependencyExtractPass());
-    pm.addPass(createAriesFuncUnrollPass());
-    pm.addPass(createAriesLocalDataForwardPass());
-    pm.addPass(createAriesKernelInterfaceCreatePass(opts));
-    if(!opts.OptEnablePL){
-      pm.addPass(createAriesBroadcastDetectPass());
-      pm.addPass(createAriesL2BufferCreatePass(opts));
-    }
+    pm.addPass(createAriesAffineUnrollPass());
+    pm.addPass(createAriesParallelReductionPass());
+    pm.addPass(createAriesBroadcastDetectPass());
+    pm.addPass(createAriesMergeDetectPass());
+    pm.addPass(createAriesL2BufferCreatePass(opts));
     
     // Perform local optimizations
     pm.addPass(createAriesDMAToIOPass(opts));
     pm.addPass(createAriesADFCellCreatePass(opts));
     pm.addPass(createAriesCorePlacementPass(opts));
     pm.addPass(createAriesIOPlacementPass(opts));
-    if(opts.OptEnablePL){
-      pm.addPass(createAriesGMIOMaterializePass());
-      pm.addPass(createAriesPLIOMaterializePass(opts));
-      pm.addPass(createAriesAXIPackingPass(opts));
-      pm.addPass(createAriesPLDataflowPass());
-      pm.addPass(mlir::createCanonicalizerPass());
-      pm.addPass(createAriesBurstDetectionPass());
-      pm.addPass(createAriesFuncEliminatePass());
-      pm.addPass(createAriesPLDoubleBufferPass());
-      pm.addPass(mlir::createCanonicalizerPass());
-      if(opts.OptEnableSerial){
-        pm.addPass(createAriesPLSerializePass());
-        pm.addPass(mlir::createCanonicalizerPass());
-      }
-    }else{
-      pm.addPass(mlir::createCanonicalizerPass());
-      pm.addPass(mlir::createCSEPass());
-      pm.addPass(createADFConvertToAIEPass());
-    }
+    pm.addPass(mlir::createCanonicalizerPass());
+    pm.addPass(mlir::createCSEPass());
+    pm.addPass(createADFConvertToAIEPass());
   });
 }
 

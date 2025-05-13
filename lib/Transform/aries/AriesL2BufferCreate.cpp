@@ -42,6 +42,7 @@ private:
     auto loc = builder.getUnknownLoc();
     Value src, dst;
     MemRefType srcType, dstType;
+    SmallVector<Value, 3> srcs;
     SmallVector<Value, 3> dsts;
     SmallVector<Value, 3> srcOffsets;
     SmallVector<Value, 3> srcSizes;
@@ -98,6 +99,26 @@ private:
       srcType = dyn_cast<MemRefType>(src.getType());
       dstType = dyn_cast<MemRefType>(dst.getType());
       opType = 1;
+    }else if(auto mergeOp = dyn_cast<DmaMergeOp>(op)){
+      srcOffsets = mergeOp.getSrcOffsets();
+      srcSizes   = mergeOp.getSrcSizes();
+      srcStrides = mergeOp.getSrcStrides();
+      srcTiles   = mergeOp.getSrcTiles();
+      srcDims    = mergeOp.getSrcDims();
+      srcSteps   = mergeOp.getSrcSteps();
+      srcWraps   = mergeOp.getSrcWraps();
+      dstOffsets = mergeOp.getDstOffsets();
+      dstSizes   = mergeOp.getDstSizes();
+      dstStrides = mergeOp.getDstStrides();
+      dstTiles   = mergeOp.getDstTiles();
+      dstDims    = mergeOp.getDstDims();
+      dstSteps   = mergeOp.getDstSteps();
+      dstWraps   = mergeOp.getDstWraps();
+      srcs = mergeOp.getSrc();
+      dst = mergeOp.getDst();
+      srcType = dyn_cast<MemRefType>(srcs[0].getType());
+      dstType = dyn_cast<MemRefType>(dst.getType());
+      opType = 2;
     }
     SmallVector<Value, 3> offsets;
     SmallVector<Value, 3> sizes;
@@ -324,17 +345,25 @@ private:
         if(op->hasAttr("initialize"))
           newBroadCast->setAttr("initialize", builder.getUnitAttr());
       }else{
-        for(auto dst: dsts){
-          //auto defineOp = dst.getDefiningOp();
-          builder.setInsertionPointAfter(op);
-          auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
-                          allocRes, oriL2Applys, srcSizes, L2StridesL1,
-                          srcTiles, srcDims, srcSteps, srcWraps,
-                          dst, dstOffsets, dstSizes, dstStrides,
-                          dstTiles, dstDims, dstSteps, dstWraps);
-          if(op->hasAttr("initialize"))
-            newBroadCast->setAttr("initialize", builder.getUnitAttr());
-        }
+        // for(auto dst: dsts){
+        //   //auto defineOp = dst.getDefiningOp();
+        //   builder.setInsertionPointAfter(op);
+        //   auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
+        //                   allocRes, oriL2Applys, srcSizes, L2StridesL1,
+        //                   srcTiles, srcDims, srcSteps, srcWraps,
+        //                   dst, dstOffsets, dstSizes, dstStrides,
+        //                   dstTiles, dstDims, dstSteps, dstWraps);
+        //   if(op->hasAttr("initialize"))
+        //     newBroadCast->setAttr("initialize", builder.getUnitAttr());
+        // }
+        builder.setInsertionPointAfter(op);
+        auto newBroadCast = builder.create<DmaBroadcastOp>(loc,
+                        allocRes, oriL2Applys, srcSizes, L2StridesL1,
+                        srcTiles, srcDims, srcSteps, srcWraps,
+                        dsts, dstOffsets, dstSizes, dstStrides,
+                        dstTiles, dstDims, dstSteps, dstWraps);
+        if(op->hasAttr("initialize"))
+          newBroadCast->setAttr("initialize", builder.getUnitAttr());
       }
       auto loadAttr = builder.getIntegerAttr(indexType, loadIdx++);
       newOuterDMALoop->setAttr("load", loadAttr);
@@ -380,6 +409,37 @@ private:
         if(dmaOp->hasAttr("accumulator"))
           dma->setAttr("accumulator",builder.getUnitAttr());
       }
+    }else if(opType == 2){ //DmaMergeOp
+      builder.setInsertionPoint(newInnerDMAYiled);
+      builder.create<DmaOp>(loc, allocRes, newL2Applys, dstSizes, L2Strides,
+                      ValueRange(), ValueRange(), ValueRange(), ValueRange(),
+                      dst, dstOffsets, dstSizes, dstStrides,
+                      ValueRange(), ValueRange(), ValueRange(), ValueRange());
+      // unsigned seqCnt = 0;
+      // for(auto src: srcs){
+      //   builder.setInsertionPoint(op);
+      //   auto merge = builder.create<DmaMergeOp>(loc, src, srcOffsets, srcSizes, 
+      //                       srcStrides, srcTiles, srcDims, srcSteps, srcWraps,
+      //                       allocRes, oriL2Applys, dstSizes, L2StridesL1,
+      //                       dstTiles, dstDims, dstSteps, dstWraps);
+      //   if(op->hasAttr("accumulator"))
+      //     merge->setAttr("accumulator",builder.getUnitAttr());
+      //   if(auto attr = op->getAttr("reduction"))
+      //     merge->setAttr("reduction", attr);
+      //   auto indexAttr = builder.getIndexAttr(seqCnt++);
+      //   merge->setAttr("sequence", indexAttr);
+      // }
+      builder.setInsertionPoint(op);
+      auto merge = builder.create<DmaMergeOp>(loc, srcs, srcOffsets, srcSizes, 
+                          srcStrides, srcTiles, srcDims, srcSteps, srcWraps,
+                          allocRes, oriL2Applys, dstSizes, L2StridesL1,
+                          dstTiles, dstDims, dstSteps, dstWraps);
+      if(op->hasAttr("accumulator"))
+        merge->setAttr("accumulator", builder.getUnitAttr());
+      if(auto attr = op->getAttr("reduction"))
+        merge->setAttr("reduction", attr);
+      auto storeAttr = builder.getIntegerAttr(indexType, storeIdx++);
+      newOuterDMALoop->setAttr("store", storeAttr);
     }
     // Replace the loop variant in newInnerDMALoop
     for (unsigned i = 0; i < loopIndices.size(); i++) {
@@ -429,6 +489,18 @@ private:
     return true;
   }
 
+  // DMAMerge shares the same logic to extract L2 buffer and create 
+  // L2 -> L1 data movement via IOPush/IOPop
+  // One additional step is to split the source of merge while keep the
+  // operation still mergeOp. 
+  bool dmaMergeProcess(OpBuilder builder, DmaMergeOp merge,
+                      unsigned& loadIdx, unsigned& storeIdx, unsigned& cnt,
+                      SmallVector<AffineForOp, 6>& band){
+    if(!L2BuffExtract(builder, merge, loadIdx, storeIdx, cnt, band))
+      return false;
+    return true;
+  }
+
   // This pass infers the L2 buffer from the adf.dma op and the corresponding
   // array partitioning loops
   bool L2BufferCreate (ModuleOp mod) {
@@ -473,6 +545,10 @@ private:
                                   cnt, band))
             return WalkResult::interrupt();
           broadcast.erase();
+        }else if(auto merge = dyn_cast<DmaMergeOp>(op)){
+          if(!dmaMergeProcess(builder, merge, loadIdx, storeIdx, cnt, band))
+            return WalkResult::interrupt();
+          merge.erase();
         }
         return WalkResult::advance();
       });

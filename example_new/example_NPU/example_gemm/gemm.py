@@ -19,10 +19,11 @@ def kernel_gemm(TileA: int16[TI, TK],
     local_B = aries.detranspose(TileB, [ik,ij], [[1,ij,bj],[0,ik,bk]])
     for i0 in range(0, TI):
         for j0 in range(0, TJ):
+            TileC[i0, j0] = int16(0)
             for k0 in range(0, TK):
                 TileC[i0, j0] += local_A[i0, k0] * local_B[k0, j0]
-    tepmC = aries.transpose(TileC, [ii,ij], [[1,ij,bj],[0,ii,bi]])
-    np.copyto(TileC, tepmC)
+    tempC = aries.transpose(TileC, [ii,ij], [[1,ij,bj],[0,ii,bi]])
+    np.copyto(TileC, tempC)
 
 @task_tile(False)
 def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):
@@ -39,9 +40,8 @@ def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):
     
     L1_A = aries.load(A, (ti, tk),  [ii,ik], [[1,ik,bk],[0,ii,bi]])
     L1_B = aries.load(B, (tk, tj),  [ik,ij], [[1,ij,bj],[0,ik,bk]])
-    L1_C = aries.load(C, (ti, tj),  [ii,ij], [[1,ij,bj],[0,ii,bi]])
     kernel_gemm(L1_A, L1_B, L1_C)
-    aries.store(L1_C, C, (ti, tj),  [ii,ij], [[1,ij,bj],[0,ii,bi]])
+    aries.accstore(L1_C, C, (ti, tj),  [ii,ij], [[1,ij,bj],[0,ii,bi]])
 
 @task_top()
 def top(A: int16[I, K], B: int16[K, J], C: int16[I, J]):
@@ -62,11 +62,11 @@ B = np.random.randint(-3,3,(K, J)).astype(np.int16)
 C = np.zeros((I, J)).astype(np.int16)
 gemm_task, C = top(A, B, C)
 D = np.matmul(A, B)
+
 aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
 sch.parallel(gemm_task, [1, 1, 1])
 sch.l2buffer(gemm_task, [1, 1, 1])
-sch.bufsel(gemm_task, [1, 1, 0])
-sch.redLoop(gemm_task, [2])
 sch.to("NPU")
 sch.build(module, prj_dir, temp_dir)
+sch.compile(aries_path, prj_dir)

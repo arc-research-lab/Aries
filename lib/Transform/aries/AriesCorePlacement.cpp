@@ -1097,6 +1097,23 @@ private:
               finalCol = std::floor(finalCol/dstNum);
               createBufLoc(builder, buffer, finalCol, 1);
               break;
+            }else if(auto merge = dyn_cast<DmaMergeOp>(use)){
+              auto srcs = merge.getSrc();
+              auto srcNum = srcs.size();
+              unsigned finalCol = 0;
+              for(auto src : srcs){
+                for(auto useOp : src.getUsers()){
+                  if(auto call = dyn_cast<CallOp>(useOp)){
+                    auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
+                    unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
+                    finalCol += colInt;
+                    break;
+                  }
+                }
+              }
+              finalCol = std::floor(finalCol/srcNum);
+              createBufLoc(builder, buffer, finalCol, 1);
+              break;
             }
           }
         }else{

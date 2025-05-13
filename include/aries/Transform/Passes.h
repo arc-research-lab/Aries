@@ -155,6 +155,7 @@ std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass();
 std::unique_ptr<Pass> createAriesKernelInterfaceCreatePass(
                       const AriesOptions &opts);
 std::unique_ptr<Pass> createAriesBroadcastDetectPass();
+std::unique_ptr<Pass> createAriesMergeDetectPass();
 std::unique_ptr<Pass> createAriesDMAToIOPass();
 std::unique_ptr<Pass> createAriesDMAToIOPass(const AriesOptions &opts);
 std::unique_ptr<Pass> createAriesADFCellCreatePass();

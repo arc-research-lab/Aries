@@ -339,6 +339,15 @@ def AriesParallelReduction : Pass<"aries-parallel-reduction"> {
   let constructor = "mlir::aries::createAriesParallelReductionPass()";
 }
 
+def AriesMergeDetect : Pass<"aries-merge-detect"> {
+  let summary = "Detect merge opportunity from L1->L2 memory";
+  let description = [{
+    This pass tranverses the DmaOps inside the adf.cell and merge the ones that
+    could be received from multiple sources to a larger but consecutive dst.
+  }];
+  let constructor = "mlir::aries::createAriesMergeDetectPass()";
+}
+
 def AriesLowerDMAToIO : Pass<"aries-lower-dma-to-io"> {
   let summary = "Convert DmaOp to GraphIOs";
   let description = [{
