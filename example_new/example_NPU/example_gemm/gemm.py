@@ -6,7 +6,7 @@ sys.path.append(aries_path)
 from frontend import *
 
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
-I, J, K = 128, 128, 128
+I, J, K = 1024, 1024, 1024
 TI, TJ, TK = 64, 64, 64
 ii, ij, ik = 4, 4, 4
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
@@ -25,7 +25,7 @@ def kernel_gemm(TileA: int16[TI, TK],
     tempC = aries.transpose(TileC, [ii,ij], [[1,ij,bj],[0,ii,bi]])
     np.copyto(TileC, tempC)
 
-@task_tile()
+@task_tile(False)
 def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):
     i, j, k = aries.tile_ranks(**kwargs)
 
@@ -51,7 +51,7 @@ def top(A: int16[I, K], B: int16[K, J], C: int16[I, J]):
     return gemm_task, C
  
 # Set the project dir and template dir
-prj_dir= cur_dir + '/my_project_NPU'
+prj_dir= cur_dir + '/my_project'
 temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
@@ -62,7 +62,6 @@ B = np.random.randint(-3,3,(K, J)).astype(np.int16)
 C = np.zeros((I, J)).astype(np.int16)
 gemm_task, C = top(A, B, C)
 D = np.matmul(A, B)
-print(np.allclose(C, D))
 
 aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
@@ -70,3 +69,4 @@ sch.parallel(gemm_task, [1, 1, 1])
 sch.l2buffer(gemm_task, [1, 1, 1])
 sch.to("NPU")
 sch.build(module, prj_dir, temp_dir)
+sch.compile(aries_path, prj_dir)
