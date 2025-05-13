@@ -1055,7 +1055,45 @@ private:
     builder.create<BuffLocOp>(loc, buffer, colVal, rowVal, zeroVal, zeroVal);
   }
 
-  void NPUbufPlacement(OpBuilder builder, FuncOp func){
+  int getL2BufPos(unsigned startCol, bool inDir, bool& goLeftFirst,
+                std::vector<int>& L2BufCntIn, std::vector<int>& L2BufCntOut) {
+    std::vector<int>& bufCnt = inDir ? L2BufCntIn : L2BufCntOut;
+    int numCols = bufCnt.size();
+    // Try startCol first
+    if (bufCnt[startCol] >= 0) {
+      bufCnt[startCol]--;
+      goLeftFirst = !goLeftFirst;
+      return startCol;
+    }
+    // Lambda to search in a direction
+    auto trySearch = [&](int begin, int end, int step) -> int {
+      for (int i = begin; (step > 0 ? i < end : i >= 0); i += step) {
+        if (bufCnt[i] >= 0) {
+          bufCnt[i]--;
+          return i;
+        }
+      }
+      return -1;
+    };
+    int pos = -1;
+    if (goLeftFirst) {
+      if (startCol > 0)
+        pos = trySearch(startCol - 1, -1, -1);  // left
+      if (pos == -1)
+        pos = trySearch(startCol + 1, numCols, 1);  // right
+    } else {
+      pos = trySearch(startCol + 1, numCols, 1);  // right
+      if (pos == -1 && startCol > 0)
+        pos = trySearch(startCol - 1, -1, -1);  // left
+    }
+    goLeftFirst = !goLeftFirst;
+    return pos;
+  }
+
+  void NPUbufPlacement(OpBuilder builder, FuncOp func, 
+                       std::vector<int>& L2BufCntIn,
+                       std::vector<int>& L2BufCntOut){
+    bool goLeftFirst = false;
     func.walk([&](BufferOp buffer){
       auto buf = buffer.getResult();
       auto memType = dyn_cast<MemRefType>(buf.getType());
@@ -1067,15 +1105,23 @@ private:
             if(auto dmaOp = dyn_cast<DmaOp>(use)){
               auto src = dmaOp.getSrc();
               auto dst = dmaOp.getDst();
-              Value L1buf =src ;
-              if(src == buf){
+              Value L1buf =src;
+              bool inDir = false;
+              if(src == buf){ //src is L2 buffer in L2->L1, meaning L3->L2->L1
                 L1buf = dst;
+                inDir = true;
               }
               for(auto useOp : L1buf.getUsers()){
                 if(auto call = dyn_cast<CallOp>(useOp)){
                   auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
                   unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
-                  createBufLoc(builder, buffer, colInt, 1);
+                  auto finalCol = getL2BufPos(colInt, inDir, goLeftFirst, 
+                                              L2BufCntIn, L2BufCntOut);
+                  if(finalCol == -1){
+                    llvm::errs() << "L2 buff placement failed\n";
+                    signalPassFailure();
+                  }
+                  createBufLoc(builder, buffer, finalCol, 1);
                   break;
                 }
               }
@@ -1083,35 +1129,47 @@ private:
             }else if(auto broadcast = dyn_cast<DmaBroadcastOp>(use)){
               auto dsts = broadcast.getDst();
               auto dstNum = dsts.size();
-              unsigned finalCol = 0;
+              unsigned avgCol = 0;
               for(auto dst : dsts){
                 for(auto useOp : dst.getUsers()){
                   if(auto call = dyn_cast<CallOp>(useOp)){
                     auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
                     unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
-                    finalCol += colInt;
+                    avgCol += colInt;
                     break;
                   }
                 }
               }
-              finalCol = std::floor(finalCol/dstNum);
+              avgCol = std::floor(avgCol/dstNum);
+              auto finalCol = getL2BufPos(avgCol, true, goLeftFirst, 
+                                          L2BufCntIn, L2BufCntOut);
+              if(finalCol == -1){
+                llvm::errs() << "L2 buff placement failed\n";
+                signalPassFailure();
+              }
               createBufLoc(builder, buffer, finalCol, 1);
               break;
             }else if(auto merge = dyn_cast<DmaMergeOp>(use)){
               auto srcs = merge.getSrc();
               auto srcNum = srcs.size();
-              unsigned finalCol = 0;
+              unsigned avgCol = 0;
               for(auto src : srcs){
                 for(auto useOp : src.getUsers()){
                   if(auto call = dyn_cast<CallOp>(useOp)){
                     auto attr = dyn_cast<ArrayAttr>(call->getAttr("col, row"));
                     unsigned colInt = dyn_cast<IntegerAttr>(attr[0]).getInt();
-                    finalCol += colInt;
+                    avgCol += colInt;
                     break;
                   }
                 }
               }
-              finalCol = std::floor(finalCol/srcNum);
+              avgCol = std::floor(avgCol/srcNum);
+              auto finalCol = getL2BufPos(avgCol, false, goLeftFirst, 
+                                          L2BufCntIn, L2BufCntOut);
+              if(finalCol == -1){
+                llvm::errs() << "L2 buff placement failed\n";
+                signalPassFailure();
+              }
               createBufLoc(builder, buffer, finalCol, 1);
               break;
             }
@@ -1134,7 +1192,9 @@ private:
   bool NPUPlacement0(OpBuilder builder, FuncOp func, 
                      const unsigned colNum, const unsigned rowNum, 
                      unsigned colOffset, unsigned rowOffset,
-                     unsigned dim0, unsigned dim1){
+                     unsigned dim0, unsigned dim1, 
+                     std::vector<int>& L2BufCntIn,
+                     std::vector<int>& L2BufCntOut){
     auto indexType = builder.getIndexType();
     auto result = func.walk([&](CallOp call){
       if(!call->hasAttr("adf.kernel"))
@@ -1164,7 +1224,8 @@ private:
     });
     if (result == WalkResult::interrupt())
       return false;
-    NPUbufPlacement(builder, func);
+    
+    NPUbufPlacement(builder, func, L2BufCntIn, L2BufCntOut);
     return true;
   }
 
@@ -1174,6 +1235,9 @@ private:
     unsigned rowNum = RowNum;
     unsigned colOffset = ColOffset;
     unsigned rowOffset = RowOffset;
+    // Only allow 2 input and 2 output L2 buffers placed at the same mem-tile
+    std::vector<int> L2BufCntIn(colNum, 1);
+    std::vector<int> L2BufCntOut(colNum, 1);
     auto flag = mod.walk([&](FuncOp func){
       if(!func->hasAttr("adf.cell") || !func->hasAttr("tripCount"))
         return WalkResult::advance();
@@ -1201,7 +1265,7 @@ private:
         return WalkResult::interrupt();
       }
       if(!NPUPlacement0(builder, func, colNum, rowNum, colOffset, rowOffset,
-                        dim0, dim1)){
+                        dim0, dim1, L2BufCntIn, L2BufCntOut)){
         llvm::errs() << "NPUPlacement0 failed\n";
         return WalkResult::interrupt();
       }
