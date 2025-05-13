@@ -59,24 +59,48 @@ private:
       if(!defineOp){
         return false;
       }else if(auto buf = dyn_cast<BufferOp>(defineOp)){
+        // Assume src (L2 buffer) will only be used once
+        bool break_flag = false;
         for(auto useNew : src.getUsers()){
-          if(!dyn_cast<DmaOp>(useNew))
-            continue;
-          auto dmaOp = dyn_cast<DmaOp>(useNew);
-          auto srcDma = dmaOp.getSrc();
-          bool break_flag = false;
-          for(auto user : srcDma.getUsers()){
-            if(!dyn_cast<CallOp>(user)){
-              continue;
-            }else{
-              call = dyn_cast<CallOp>(user);
-              inDir = false;
-              break_flag = true;
-              break;
+          if(auto dmaOp = dyn_cast<DmaOp>(useNew)){
+            auto srcDma = dmaOp.getSrc();
+            for(auto user : srcDma.getUsers()){
+              if(!dyn_cast<CallOp>(user)){
+                continue;
+              }else{
+                call = dyn_cast<CallOp>(user);
+                inDir = false;
+                break_flag = true;
+                break;
+              }
             }
+            if(break_flag)
+              break;
+          }else if(auto merge = dyn_cast<DmaMergeOp>(useNew)){
+            auto mergeSrcs = merge.getSrc();
+            auto srcNum = mergeSrcs.size();
+            for (auto mergeSrc : mergeSrcs){
+              for(auto user : mergeSrc.getUsers()){
+                if(!dyn_cast<CallOp>(user)){
+                  continue;
+                }else{
+                  auto newCall = dyn_cast<CallOp>(user);
+                  auto corePlaceAttr = dyn_cast<ArrayAttr>(
+                                       newCall->getAttr("col, row"));
+                  auto colAttr = corePlaceAttr[0];
+                  auto intAttr = dyn_cast<IntegerAttr>(colAttr);
+                  auto colIntTemp = intAttr.getInt();
+                  finalCol += colIntTemp;
+                  inDir = false;
+                  break_flag = true;
+                  break;
+                }
+              }
+            }
+            finalCol = std::floor(finalCol/srcNum);
+            if(break_flag)
+              break;
           }
-          if(break_flag)
-            break;
         }
       }else if(dyn_cast<CallOp>(defineOp)){
         call = dyn_cast<CallOp>(defineOp);
