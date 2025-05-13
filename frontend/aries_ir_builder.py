@@ -1633,7 +1633,7 @@ class Schedule:
             self.placement= [50, 8, 0, 0, 0, 6, 39, 24, 3, 3]
         elif device == "NPU" or device == "npu":
             self.device = "npu"
-            self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 6, 6]
+            self.placement= [4, 6, 0, 2, 0, 0, 4, 1, 2, 2]
             self.en_pl = "false"
             self.en_aie2 = "true"
     
