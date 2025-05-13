@@ -320,7 +320,7 @@ private:
     SmallVector<AffineForOp, 6> band;
     getSurroundingLoops(*read, band);
     auto innerLoop = band[band.size()-1];
-    //innerLoop->setAttr("pipeline_ii", packAttr);
+    innerLoop->setAttr("pipeline_ii", packAttr);
     builder.setInsertionPointAfter(read);
     auto forOp = builder.create<AffineForOp>(loc, 0, packNum);
     forOp->setAttr("pipeline_ii", oneAttr);
@@ -413,7 +413,7 @@ private:
     SmallVector<AffineForOp, 6> band;
     getSurroundingLoops(*write, band);
     auto innerLoop = band[band.size()-1];
-    //innerLoop->setAttr("pipeline_ii", packAttr);
+    innerLoop->setAttr("pipeline_ii", packAttr);
     
     builder.setInsertionPoint(write);
     auto forOp = builder.create<AffineForOp>(loc, 0, packNum);
