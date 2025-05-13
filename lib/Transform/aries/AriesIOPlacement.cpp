@@ -252,6 +252,61 @@ private:
     return true;
   }
 
+  bool L2IOPlacement(Operation* use, Value io, 
+                     std::vector<int>& tileInChl,
+                     std::vector<int>& tileOutChl,
+                     int64_t& colInt,
+                     int64_t& chlInt){
+    auto connectOp = dyn_cast<ConnectOp>(use);
+    auto src = connectOp.getSrc();
+    auto dst = connectOp.getDst();
+    auto mem = src;
+    bool inDir = false;
+    if(src==io){ // src is IO, means send data in
+      mem = dst;
+      inDir = true;
+    }
+    auto memType = dyn_cast<MemRefType>(mem.getType());
+    if(!memType){
+      llvm::errs() << "Found IO connect to non-mem value\n";
+      signalPassFailure();
+    }
+    auto memSpace = memType.getMemorySpaceAsInt();
+    if(memSpace != (int)MemorySpace::L2)
+      return false;
+    BuffLocOp buffLoc;
+    for (auto use : mem.getUsers()) {
+      if (auto locOp = dyn_cast<BuffLocOp>(use)) {
+        buffLoc = locOp;
+        break;
+      }
+    }
+    if(!buffLoc){
+      llvm::errs() << "Found unplaced L2 buffer\n";
+      signalPassFailure();
+    }
+    auto col = buffLoc.getCol();
+    auto constantOp = col.getDefiningOp<arith::ConstantOp>();
+    auto intAttr = dyn_cast<mlir::IntegerAttr>(constantOp.getValue());
+    colInt = intAttr.getInt();
+    if(inDir){
+      chlInt = tileInChl[colInt];
+      tileInChl[colInt]--;
+      if(chlInt < 0){
+        llvm::errs() << "GMIO fails to place under L2 buffer\n";
+        signalPassFailure();
+      }
+    }else{
+      chlInt = tileOutChl[colInt];
+      tileOutChl[colInt]--;
+      if(chlInt < 0){
+        llvm::errs() << "GMIO fails to place under L2 buffer\n";
+        signalPassFailure();
+      }
+    }
+    return true;
+  }
+
   bool NPUIOPlacement (ModuleOp mod) {
     auto builder = OpBuilder(mod);
     auto indexType = builder.getIndexType();
@@ -272,9 +327,24 @@ private:
         int disToMid = 0;
         int cnt = 0;
         bool inDir;
+        // If IO connect to L2 buffer is placed, then place next IO
+        bool break_flag = false;
         for(auto use : gmio.getUsers()){
           if(!dyn_cast<ConnectOp>(use))
             continue;
+          // TODO:The code structure should be modified
+          // If the GMIO connect to L2 buffer then it should be placed the same
+          // col as the L2 buffer
+          int64_t colInt, chlInt;
+          // If true means already placed for gmio connected to L2 buffer
+          if(L2IOPlacement(use, gmio, tileInChl, tileOutChl, colInt, chlInt)){
+            auto colAttr = builder.getIntegerAttr(indexType, colInt);
+            auto chlAttr = builder.getIntegerAttr(indexType, chlInt);
+            auto arrayAttr = builder.getArrayAttr({colAttr, chlAttr});
+            configOp->setAttr("col, chl", arrayAttr);
+            break_flag = true;
+            break;
+          }
           int colCore;
           if(!findCorePlace(use, gmio, inDir, colCore))
             return WalkResult::interrupt();
@@ -282,6 +352,8 @@ private:
           disToMid += colCore-midLine;
           cnt++;
         }
+        if (break_flag)
+          continue;
         if(cnt == 0)
           return WalkResult::advance();
         unsigned col;

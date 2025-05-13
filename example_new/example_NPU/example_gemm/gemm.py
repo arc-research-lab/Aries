@@ -65,7 +65,7 @@ D = np.matmul(A, B)
 
 aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
-sch.parallel(gemm_task, [1, 1, 1])
+sch.parallel(gemm_task, [4, 4, 1])
 sch.l2buffer(gemm_task, [1, 1, 1])
 sch.to("NPU")
 sch.build(module, prj_dir, temp_dir)
