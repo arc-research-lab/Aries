@@ -7,6 +7,7 @@ add_mlir_library(MLIRAriesPasses
     aries/AriesFuncUnroll.cpp
     aries/AriesAffineUnroll.cpp
     aries/AriesBroadcastDetect.cpp
+    aries/AriesMergeDetect.cpp
     aries/AriesParallelReduction.cpp
     aries/AriesKernelInterfaceCreate.cpp
     aries/AriesLowerDMAToIO.cpp

@@ -22,10 +22,10 @@ void mlir::aries::registerAriesPassPipeline() {
     pm.addPass(createAriesTilingPass(opts));
     
     // Perform global optimizations
-    pm.addPass(createAriesDependencyExtractPass());
-    pm.addPass(createAriesFuncUnrollPass());
+    pm.addPass(createAriesAffineUnrollPass());
     pm.addPass(createAriesParallelReductionPass());
     pm.addPass(createAriesBroadcastDetectPass());
+    pm.addPass(createAriesMergeDetectPass());
     pm.addPass(createAriesL2BufferCreatePass(opts));
     
     // Perform local optimizations
