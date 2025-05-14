@@ -1,16 +1,16 @@
-Directory, NPU execution time
-gemm_i16_256x256x256_2x2, NPU execution time: 0.000255192s
-gemm_i16_256x256x256_2x4, NPU execution time: 0.000186764s
-gemm_i16_256x256x256_4x4, NPU execution time: 0.000165842s
-gemm_i16_512x512x512_2x2, NPU execution time: 0.000976169s
-gemm_i16_512x512x512_2x4, NPU execution time: 0.00103408s
-gemm_i16_512x512x512_4x4, NPU execution time: 0.000949135s
-gemm_i16_1024x1024x1024_2x2, NPU execution time: 0.00588435s
-gemm_i16_1024x1024x1024_2x4, NPU execution time: 0.00314529s
-gemm_i16_1024x1024x1024_4x4, NPU execution time: 0.00166404s
-gemm_i16_2048x2048x2048_2x2, NPU execution time: 0.0444337s
-gemm_i16_2048x2048x2048_2x4, NPU execution time: 0.0225811s
-gemm_i16_2048x2048x2048_4x4, NPU execution time: 0.0115021s
-gemm_i16_4096x4096x4096_2x2, NPU execution time: 0.35085s
-gemm_i16_4096x4096x4096_2x4, NPU execution time: 0.176106s
-gemm_i16_4096x4096x4096_4x4, NPU execution time: 0.0885636s
+Directory, Test Result, NPU Execution Time
+gemm_i16_256x256x256_2x2, "TEST PASSED", "NPU execution time: 0.000245715s"
+gemm_i16_256x256x256_2x4, "TEST PASSED", "NPU execution time: 0.000192388s"
+gemm_i16_256x256x256_4x4, "TEST PASSED", "NPU execution time: 0.000178082s"
+gemm_i16_512x512x512_2x2, "TEST PASSED", "NPU execution time: 0.000914098s"
+gemm_i16_512x512x512_2x4, "TEST PASSED", "NPU execution time: 0.000577588s"
+gemm_i16_512x512x512_4x4, "TEST PASSED", "NPU execution time: 0.000353349s"
+gemm_i16_1024x1024x1024_2x2, "TEST PASSED", "NPU execution time: 0.00588546s"
+gemm_i16_1024x1024x1024_2x4, "TEST PASSED", "NPU execution time: 0.00309852s"
+gemm_i16_1024x1024x1024_4x4, "TEST PASSED", "NPU execution time: 0.00163719s"
+gemm_i16_2048x2048x2048_2x2, "TEST PASSED", "NPU execution time: 0.044412s"
+gemm_i16_2048x2048x2048_2x4, "TEST PASSED", "NPU execution time: 0.0225722s"
+gemm_i16_2048x2048x2048_4x4, "TEST PASSED", "NPU execution time: 0.0115159s"
+gemm_i16_4096x4096x4096_2x2, "TEST PASSED", "NPU execution time: 0.350531s"
+gemm_i16_4096x4096x4096_2x4, "TEST PASSED", "NPU execution time: 0.175834s"
+gemm_i16_4096x4096x4096_4x4, "TEST PASSED", "NPU execution time: 0.0882415s"
