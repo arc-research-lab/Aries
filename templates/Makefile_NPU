@@ -38,7 +38,7 @@ copyhost:
 	cp -r _build/${host_target} ./
 
 run: all copyhost
-	./${host_target} -x build/${xclbin_target} -i build/insts.txt -k MLIR_AIE -v 2 --verify 1 --warmup 1 --iters 100
+	./${host_target} -x build/${xclbin_target} -i build/insts.txt -k MLIR_AIE -v 2 --verify 1 --warmup 10 --iters 20
 
 clean:
 	rm -r _build build ${host_target}
