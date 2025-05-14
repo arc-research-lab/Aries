@@ -180,6 +180,7 @@ static void getDmaInfo(Operation* op, bool& toStream,
   SmallVector<Value>  dstDims   ;
   SmallVector<Value>  dstSteps  ;
   SmallVector<Value>  dstWraps  ;
+  bool merge_flag = false;
   if(auto dmaOp = dyn_cast<DmaOp>(op)){
     src = dmaOp.getSrc();
     dst = dmaOp.getDst();
@@ -231,6 +232,7 @@ static void getDmaInfo(Operation* op, bool& toStream,
     dstDims    = merge.getDstDims();
     dstSteps   = merge.getDstSteps();
     dstWraps   = merge.getDstWraps();
+    merge_flag = true;
   }
   
   // Clarify the catagories based on slicing informations
@@ -279,6 +281,12 @@ static void getDmaInfo(Operation* op, bool& toStream,
       Shapes.push_back(shape);
     toStream = false;
   }
+  // For mergeOp, the dst shape is expanded thus need to use source shape
+  if(merge_flag){
+    Shapes.clear();
+    for (auto shape: srcShape)
+      Shapes.push_back(shape);
+  }
   // Only support Offset=0
   for(auto offset : Offsets){
     if(offset !=0){
@@ -291,18 +299,31 @@ static void getDmaInfo(Operation* op, bool& toStream,
     dmaSizes.push_back(1);
     dmaStrides.push_back(1);
   }
-  // For the pre part(Offsets, Sizes, Strides) only stride is utilized
+  // // For the pre part(Offsets, Sizes, Strides) only stride is utilized
+  // for (auto i=0; i < rank; i++){
+  //   dmaSizes[i] = Tiles[i];
+  //   dmaStrides[i] = Strides[i];
+  //   for(auto j=0; j < i; j++)
+  //     dmaStrides[i] = dmaStrides[i] * Shapes[rank-1-j];
+  //   auto dim = Dims[i];
+  //   dmaSizes[i+rank] = Wraps[dim];
+  //   dmaStrides[i+rank] = Steps[i];
+  //   for(auto j=0; j < (rank-1-dim); j++)
+  //     dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[rank-1-j];
+  // }
+  // For the pre part(Offsets, Sizes, Strides) none of them are utilized
   for (auto i=0; i < rank; i++){
-    dmaSizes[i] = Tiles[i];
-    dmaStrides[i] = Strides[i];
+    dmaSizes[i] = Tiles[rank-1-i];
     for(auto j=0; j < i; j++)
       dmaStrides[i] = dmaStrides[i] * Shapes[rank-1-j];
-    auto dim = Dims[i];
-    dmaSizes[i+rank] = Wraps[dim];
+    dmaSizes[i+rank] = Wraps[i];
     dmaStrides[i+rank] = Steps[i];
-    for(auto j=0; j < (rank-1-dim); j++)
-      dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[rank-1-j];
+    for(auto j=0; j < i; j++){
+      auto dim = Dims[i];
+      dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[dim];
+    }
   }
+
   // This part could be useful for L2->L3
   // else{
   //   // This part aims to detranspose the data from tile to orginal row-major
@@ -1328,6 +1349,16 @@ private:
         builder.setInsertionPoint(op);
         auto srcs = merge.getSrc();
         unsigned seqCnt = 0;
+        auto numSrcs = srcs.size();
+        SmallVector<Value> dstSizes = merge.getDstSizes();
+        if (auto cstOp = dstSizes[0].getDefiningOp<arith::ConstantOp>()) {
+          if (auto intAttr = dyn_cast<IntegerAttr>(cstOp.getValue())) {
+            int64_t divided = intAttr.getInt() / static_cast<int64_t>(numSrcs);
+            builder.setInsertionPoint(merge);
+            auto indexAttr = builder.getIndexAttr(divided);
+            dstSizes[0] = builder.create<arith::ConstantOp>(loc, indexAttr);
+          }
+        }
         for(auto src: srcs){
           builder.setInsertionPoint(op);
           auto newmerge 
@@ -1341,7 +1372,7 @@ private:
                                            merge.getSrcWraps(),
                                            merge.getDst(), 
                                            merge.getDstOffsets(),
-                                           merge.getDstSizes(),
+                                           dstSizes,
                                            merge.getDstStrides(),
                                            merge.getDstTiles(),
                                            merge.getDstDims(),
