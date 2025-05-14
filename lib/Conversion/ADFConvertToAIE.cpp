@@ -319,7 +319,7 @@ static void getDmaInfo(Operation* op, bool& toStream,
     dmaSizes[i+rank] = Wraps[i];
     dmaStrides[i+rank] = Steps[i];
     for(auto j=0; j < i; j++){
-      auto dim = Dims[i];
+      auto dim = Dims[j];
       dmaStrides[i+rank] = dmaStrides[i+rank] * Shapes[dim];
     }
   }

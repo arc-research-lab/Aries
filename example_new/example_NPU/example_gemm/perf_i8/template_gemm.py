@@ -14,7 +14,7 @@ args = parser.parse_args()
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, K, J = {{I}}, {{K}}, {{J}}
 PI, PJ = args.PI, args.PJ
-TI, TJ, TK = 64, 64, 64
+TI, TJ, TK = 64, 128, 64
 ii, ij, ik = 4, 8, 8
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
 
