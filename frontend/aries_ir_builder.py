@@ -948,6 +948,10 @@ class HostCPPGenerator:
                 self.emit(f"float temp;")
                 self.emit(f"ifile{i} >> temp;")
                 self.emit(f"{dtype} num = static_cast<{dtype}>(temp);")
+            elif dtype in ("int8_t"):
+                self.emit("int temp;")
+                self.emit(f"ifile{i} >> temp;")
+                self.emit(f"{dtype} num = static_cast<{dtype}>(temp);")
             else:
                 self.emit(f"{dtype} num;")
                 self.emit(f"ifile{i} >> num;")
@@ -1009,7 +1013,6 @@ class HostCPPGenerator:
             size = np.prod(shape)
             self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_FROM_DEVICE);")
             self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
-        
         if dtype.startswith("int"):
             fmt = "%d"
             cast_l = ""
