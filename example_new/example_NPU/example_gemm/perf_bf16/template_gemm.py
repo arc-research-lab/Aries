@@ -56,6 +56,14 @@ def top(A: bfloat16[I, K], B: bfloat16[K, J], C: bfloat16[I, J]):
     tile_size = (TI, TJ, TK)  # 2D tile size
     gemm_task = gemm[grid, tile_size](A, B, C)
     return gemm_task, C
+
+# First function is only for test with large matrix size
+def generate_eye_product(I, K, J, dtype):
+    D = np.zeros((I, J), dtype=dtype)
+    diag_len = min(I, K, J)
+    for i in range(diag_len):
+        D[i, i] = 1
+    return D
  
 # Set the project dir and template dir
 prj_dir = f"{cur_dir}/gemm_bf16_{I}x{K}x{J}_{PI}x{PJ}"
@@ -63,11 +71,11 @@ temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
 # For I >= 2048, it takes long time to be calculated in CPU, current use eye mat
-if I >= 2048:
+if I >= 2048 or K >= 2048 or J >= 2048:
     # Generate identity matrices
     A = np.eye(I, K, dtype=np.float32)
     B = np.eye(K, J, dtype=np.float32)
-    D = np.eye(I, J, dtype=np.float32)
+    D = generate_eye_product(I, K, J, dtype=np.float32)
 else:
     density = 0.1  # 10% non-zeros
     A = np.random.choice([-1.0, 0.0, 1.0], size=(I, K), p=[density/2, 1-density, density/2]).astype(np.float32)
