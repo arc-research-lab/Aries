@@ -7,7 +7,7 @@ from frontend import *
 
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, J, K = 1024, 1024, 1024
-TI, TJ, TK = 64, 64, 64
+TI, TJ, TK = 64, 128, 64
 ii, ij, ik = 4, 8, 8
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
 

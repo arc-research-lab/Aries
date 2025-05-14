@@ -1,3 +1,4 @@
+TILE SIZE: M=N=K=64
 Directory, Test Result, NPU Execution Time
 gemm_i8_256x256x256_2x2, "TEST PASSED", "NPU execution time: 0.00017399s"
 gemm_i8_256x256x256_2x4, "TEST PASSED", "NPU execution time: 0.00015524s"

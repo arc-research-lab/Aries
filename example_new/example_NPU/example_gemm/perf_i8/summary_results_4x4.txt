@@ -1,0 +1,7 @@
+TILE SIZE: M=64, K=64, N=128
+Directory, Test Result, NPU Execution Time
+gemm_i8_256x256x256_4x4, "TEST PASSED",    "NPU execution time: 0.000238996s"
+gemm_i8_512x512x512_4x4, "TEST PASSED",    "NPU execution time: 0.000195387s"
+gemm_i8_1024x1024x1024_4x4, "TEST PASSED", "NPU execution time: 0.00103631s"
+gemm_i8_2048x2048x2048_4x4, "TEST PASSED", "NPU execution time: 0.00399849s"
+gemm_i8_4096x4096x4096_4x4, "TEST PASSED", "NPU execution time: 0.0298957s"
