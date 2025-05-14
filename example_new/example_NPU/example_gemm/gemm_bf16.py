@@ -8,25 +8,25 @@ from frontend import *
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
 I, J, K = 1024, 1024, 1024
 TI, TJ, TK = 64, 64, 64
-ii, ij, ik = 4, 4, 4
+ii, ij, ik = 4, 4, 8
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
 
-@task_kernel(external_path="aie2/origin/kernel_mm/aie_int16", para = [TI, TJ, TK])
-def kernel_gemm(TileA: int16[TI, TK],
-                TileB: int16[TK, TJ], 
-                TileC: int16[TI, TJ]):
-    local_A = aries.detranspose(TileA, [ii,ik], [[1,ik,bk],[0,ii,bi]])
-    local_B = aries.detranspose(TileB, [ik,ij], [[1,ij,bj],[0,ik,bk]])
+@task_kernel(external_path="aie2/origin/kernel_mm/aie_bf16", para = [TI, TJ, TK])
+def kernel_gemm(TileA: bfloat16[TI, TK],
+                TileB: bfloat16[TK, TJ], 
+                TileC: bfloat16[TI, TJ]):
+    local_A = aries.detranspose(TileA, [ii,ik], [[1,ik,bk], [0,ii,bi]])
+    local_B = aries.detranspose(TileB, [ik,ij], [[1,ij,bj], [0,ik,bk]])
     for i0 in range(0, TI):
         for j0 in range(0, TJ):
-            TileC[i0, j0] = int16(0)
+            TileC[i0, j0] = bfloat16(0)
             for k0 in range(0, TK):
                 TileC[i0, j0] += local_A[i0, k0] * local_B[k0, j0]
-    tempC = aries.transpose(TileC, [ii,ij], [[1,ij,bj],[0,ii,bi]])
+    tempC = aries.transpose(TileC, [ii,ij], [[1,ij,bj], [0,ii,bi]])
     np.copyto(TileC, tempC)
 
 @task_tile(False)
-def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):
+def gemm(A: bfloat16[I, K], B: bfloat16[K, J], C: bfloat16[I, J], **kwargs):
     i, j, k = aries.tile_ranks(**kwargs)
 
     # Compute tile slices for multiple dimensions
@@ -34,32 +34,32 @@ def gemm(A: int16[I, K], B: int16[K, J], C: int16[I, J], **kwargs):
     tj = aries.arange(j*TJ, (j+1)*TJ)  # J tile range
     tk = aries.arange(k*TK, (k+1)*TK)  # K tile range
     
-    L1_A = aries.buffer((TI, TK), "int16")
-    L1_B = aries.buffer((TK, TJ), "int16")
-    L1_C = aries.buffer((TI, TJ), "int16")
+    L1_A = aries.buffer((TI, TK), "bfloat16")
+    L1_B = aries.buffer((TK, TJ), "bfloat16")
+    L1_C = aries.buffer((TI, TJ), "bfloat16")
     
-    L1_A = aries.load(A, (ti, tk),  [ii,ik], [[1,ik,bk],[0,ii,bi]])
-    L1_B = aries.load(B, (tk, tj),  [ik,ij], [[1,ij,bj],[0,ik,bk]])
+    L1_A = aries.load(A, (ti, tk),  [ii,ik], [[1,ik,bk], [0,ii,bi]])
+    L1_B = aries.load(B, (tk, tj),  [ik,ij], [[1,ij,bj], [0,ik,bk]])
     kernel_gemm(L1_A, L1_B, L1_C)
     aries.accstore(L1_C, C, (ti, tj),  [ii,ij], [[1,ij,bj],[0,ii,bi]])
 
 @task_top()
-def top(A: int16[I, K], B: int16[K, J], C: int16[I, J]):
+def top(A: bfloat16[I, K], B: bfloat16[K, J], C: bfloat16[I, J]):
     grid = (I // TI, J // TJ, K // TK)  # 2D grid
     tile_size = (TI, TJ, TK)  # 2D tile size
     gemm_task = gemm[grid, tile_size](A, B, C)
     return gemm_task, C
  
 # Set the project dir and template dir
-prj_dir= cur_dir + '/my_project_i16'
+prj_dir= cur_dir + '/my_project_bf16'
 temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
 # Test with 2D array
-np.random.seed(0)
-A = np.random.randint(-3,3,(I, K)).astype(np.int16)
-B = np.random.randint(-3,3,(K, J)).astype(np.int16)
-C = np.zeros((I, J)).astype(np.int16)
+density = 0.1  # 10% non-zeros
+A = np.random.choice([-1.0, 0.0, 1.0], size=(I, K), p=[density/2, 1-density, density/2]).astype(np.float32)
+B = np.random.choice([-1.0, 0.0, 1.0], size=(K, J), p=[density/2, 1-density, density/2]).astype(np.float32)
+C = np.zeros((I, J)).astype(np.float32)
 gemm_task, C = top(A, B, C)
 D = np.matmul(A, B)
 

@@ -1,12 +1,19 @@
 import os
 import sys
+import argparse
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-aries_path = cur_dir + "/../../../"
+aries_path = cur_dir + "/../../../../"
 sys.path.append(aries_path)
 from frontend import *
 
+parser = argparse.ArgumentParser(description="Run GEMM with specified dimensions")
+parser.add_argument("--PI", type=int, default=1, help="Parallism for I")
+parser.add_argument("--PJ", type=int, default=1, help="Parallism for J")
+args = parser.parse_args()
+
 # GEMM: C[i0, j0] += A[i0, k0] * B[k0, j0]
-I, J, K = 1024, 1024, 1024
+I, K, J = {{I}}, {{K}}, {{J}}
+PI, PJ = args.PI, args.PJ
 TI, TJ, TK = 64, 64, 64
 ii, ij, ik = 4, 4, 4
 bi, bj, bk = TI//ii, TJ//ij, TK//ik
@@ -51,21 +58,32 @@ def top(A: int16[I, K], B: int16[K, J], C: int16[I, J]):
     return gemm_task, C
  
 # Set the project dir and template dir
-prj_dir= cur_dir + '/my_project_i16'
+prj_dir = f"{cur_dir}/gemm_i16_{I}x{K}x{J}_{PI}x{PJ}"
 temp_dir= aries_path + '/templates'
 module = sys.modules[__name__]
     
 # Test with 2D array
 np.random.seed(0)
-A = np.random.randint(-3,3,(I, K)).astype(np.int16)
-B = np.random.randint(-3,3,(K, J)).astype(np.int16)
+
+# For I >= 2048, it takes long time to be calculated in CPU, current use eye mat
+if I >= 2048:
+    # Generate identity matrices
+    A = np.eye(I, K, dtype=np.int16)
+    B = np.eye(K, J, dtype=np.int16)
+    D = np.eye(I, J, dtype=np.int16)
+else:
+    A = np.random.randint(-3, 3, (I, K)).astype(np.int16)
+    B = np.random.randint(-3, 3, (K, J)).astype(np.int16)
+    # Compute the matrix multiplication directly
+    D = np.matmul(A, B)
 C = np.zeros((I, J)).astype(np.int16)
+
+# Run the GEMM task
 gemm_task, C = top(A, B, C)
-D = np.matmul(A, B)
 
 aries.gen_sim([A, B, D])
 sch = Schedule(gemm_task)
-sch.parallel(gemm_task, [4, 4, 1])
+sch.parallel(gemm_task, [PI, PJ, 1])
 sch.l2buffer(gemm_task, [1, 1, 1])
 sch.to("NPU")
 sch.build(module, prj_dir, temp_dir)

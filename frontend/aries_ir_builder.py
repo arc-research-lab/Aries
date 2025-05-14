@@ -69,6 +69,7 @@ class MLIRGenerator(ast.NodeVisitor):
         type_map = {
             "float32": "f32",
             "float": "f32",
+            "bfloat16": "bf16",
             "double": "f64",
             "int32": "i32",
             "int": "i32",
@@ -779,6 +780,8 @@ class HostArgCollect(ast.NodeVisitor):
             return "float"
         elif type == "float64":
             return "double"
+        elif type == "bfloat16":
+            return "std::bfloat16_t"
         elif type == "int32":
             return "int"
         elif type == "int16":
@@ -941,8 +944,17 @@ class HostCPPGenerator:
             self.emit(f"std::vector<{dtype}> srcVec{i};")
             self.emit(f"for (int i = 0; i < {size}; i++) {{")
             self.indent +=2
-            self.emit(f"{dtype} num;")
-            self.emit(f"ifile{i} >> num;")
+            if dtype == "std::bfloat16_t":
+                self.emit(f"float temp;")
+                self.emit(f"ifile{i} >> temp;")
+                self.emit(f"{dtype} num = static_cast<{dtype}>(temp);")
+            elif dtype in ("int8_t"):
+                self.emit("int temp;")
+                self.emit(f"ifile{i} >> temp;")
+                self.emit(f"{dtype} num = static_cast<{dtype}>(temp);")
+            else:
+                self.emit(f"{dtype} num;")
+                self.emit(f"ifile{i} >> num;")
             self.emit(f"srcVec{i}.push_back(num);")
             self.indent -=2
             self.emit("}")
@@ -1001,8 +1013,14 @@ class HostCPPGenerator:
             size = np.prod(shape)
             self.emit(f"bo_{arg}.sync(XCL_BO_SYNC_BO_FROM_DEVICE);")
             self.emit(f"{dtype} *buf{arg} = bo_{arg}.map<{dtype} *>();")
-        
-        fmt = '%d' if dtype.startswith("int") else '%f'
+        if dtype.startswith("int"):
+            fmt = "%d"
+            cast_l = ""
+            cast_r = ""
+        else:
+            fmt = "%f"
+            cast_l = "(float)"
+            cast_r = "(float)"
         self.emit(f"int errorCount = 0;")
         for i in range(num_arg):
             if i not in self.outIdxs:
@@ -1015,7 +1033,7 @@ class HostCPPGenerator:
             self.indent +=2
             self.emit(f"if(abs((float)(srcVec{i}[i])-buf{arg}[i])>=1e-4){{")
             self.indent +=2
-            self.emit(f'printf("Error found srcVec{i}[%d]!=buf{arg}[%d], {fmt}!={fmt} \\n", i, i, srcVec{i}[i], buf{arg}[i]);')
+            self.emit(f'printf("Error found srcVec{i}[%d]!=buf{arg}[%d], {fmt}!={fmt} \\n", i, i, {cast_l}srcVec{i}[i], {cast_r}buf{arg}[i]);')
             self.emit("errorCount++;")
             self.indent -=2
             self.emit("}")
@@ -1026,7 +1044,7 @@ class HostCPPGenerator:
         
         self.emit("if (errorCount)")
         self.indent +=2
-        self.emit("printf(\"Test failed with %d errors\\n\", errorCount);")
+        self.emit("printf(\"TEST failed with %d errors\\n\", errorCount);")
         self.indent -=2
         self.emit("else");
         self.indent +=2
