@@ -937,8 +937,8 @@ static bool getDMALayout(mlir::AffineMap map, MemRefType memType,
     offsets[dmaDim-1] += coeff;
   }
   // Post process only the last strides can be zero
-  unsigned cnt=0;
-  int zero_idx;
+  unsigned cnt = 0;
+  int zero_idx = 0;
   for (int i = dmaDim-1; i >=0; i--){
     auto stride = strides[i];
     auto size = sizes[i];
