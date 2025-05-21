@@ -34,8 +34,8 @@ sudo apt install python3.12-venv
 
 ### 1. Download Aries & Submodules
 ```sh
-$ git clone --recursive https://github.com/arc-research-lab/Aries.git
-$ cd Aries
+git clone --recursive https://github.com/arc-research-lab/Aries.git
+cd Aries
 ```
 
 ### 2. Setup Python Virtual Environment

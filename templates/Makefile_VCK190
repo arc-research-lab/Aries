@@ -1,6 +1,6 @@
 TARGET = hw
 EN_PL = 1
-PLATFORM_REPO_PATHS = /tools/Xilinx/Vitis/2023.2/base_platforms/
+PLATFORM_REPO_PATHS = /tools/Xilinx/Vitis/2023.2/base_platforms
 PLATFORM = ${PLATFORM_REPO_PATHS}/xilinx_vck190_base_202320_1/xilinx_vck190_base_202320_1.xpfm
 XCLBIN   = vck190_aie_base_graph_${TARGET}.xclbin
 XSA	 = vck190_aie_base_graph_${TARGET}.xsa
@@ -190,7 +190,7 @@ run_emu:
 # If the target is for SW_EMU, launch the emulator
 ifeq (${TARGET},sw_emu)
 	export XCL_EMULATION_MODE=$(TARGET) 
-	./host_ps_on_x86 ../${XCLBIN} 0 1
+	./host_ps_on_x86 ${XCLBIN} 0 1
 else
 # If the target is for HW_EMU, launch the emulator
 ifeq (${TARGET},hw_emu)
