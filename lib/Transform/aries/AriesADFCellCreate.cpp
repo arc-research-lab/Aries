@@ -110,7 +110,7 @@ private:
                                            loop.getLowerBoundMap(),
                                            loop.getUpperBoundOperands(),
                                            loop.getUpperBoundMap());
-        if(auto attr = loop->hasAttr("reduction"))
+        if(loop->hasAttr("reduction"))
           newDMAForOp->setAttr("reduction", builder.getUnitAttr());
         newLoops.push_back(newDMAForOp);
         builder.setInsertionPointToStart(newDMAForOp.getBody());
