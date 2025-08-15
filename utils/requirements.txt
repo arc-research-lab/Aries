@@ -1,11 +1,22 @@
+PyYAML>=5.3.1, <=6.0.1
+aiofiles
+cmake>=3.29
+dataclasses>=0.6, <=0.8
+filelock==3.13.1
+lit
+numpy>=1.19.5, <=1.26
+pandas
+psutil
+pybind11>=2.9.0, <=2.10.3
+rich
+setuptools
+wheel
+ml_dtypes
+matplotlib
+notebook
+nanobind
 joblib
 ipykernel
-psutil
-rich
-pybind11
-numpy
-cmake
-nanobind
 astor
 sympy
 jinja2

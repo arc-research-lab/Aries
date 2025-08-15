@@ -1,4 +1,4 @@
-MLIR_AIE_DIR = ${MLIR_AIE_INSTALL_DIR}/../../
+MLIR_AIE_DIR = ${MLIR_AIE_INSTALL_DIR}/../../externals/mlir-aie/
 FUNC={{func}}
 mlir_target=${FUNC}.adf.mlir
 kernel_obj = build/{{krlName}}.o
@@ -31,7 +31,7 @@ host:  ${host_target}
 ${host_target}: ${host_src}
 	rm -rf _build
 	mkdir -p _build
-	cd _build &&  cmake ../ -DMLIR_AIE_DIR=${MLIR_AIE_DIR} -D CMAKE_C_COMPILER=gcc-13 -D CMAKE_CXX_COMPILER=g++-13 -DTARGET_NAME=${host_target} -Dsubdir=host \
+	cd _build &&  cmake ../ -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DMLIR_AIE_DIR=${MLIR_AIE_DIR} -D CMAKE_C_COMPILER=gcc-13 -D CMAKE_CXX_COMPILER=g++-13 -DTARGET_NAME=${host_target} -Dsubdir=host \
 						&&  cmake --build . --config Release
 
 copyhost:
