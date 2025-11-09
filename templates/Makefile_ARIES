@@ -120,7 +120,7 @@ kernel_vec: ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir
 ${PROJECT_PATH}/auto_${KERNEL_NAME}_aie.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir
 	aries-opt -o $@ $< \
 		--aie-vectorize \
-		-unaligned-loads-check=false \
+		-unaligned-loads-check=true \
 		-canonicalize -cse
 ${PROJECT_PATH}/${KERNEL_NAME}_vector.mlir: ${PROJECT_PATH}/${KERNEL_NAME}_unroll.mlir
 	aries-opt -o $@ $< \
