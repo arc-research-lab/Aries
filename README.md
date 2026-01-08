@@ -99,6 +99,6 @@ series = {FPGA '25}
 
 ## 🚀 Thank You for Using ARIES! ! !
 ### Your support and growing engagement inspire us to continually improve and enhance ARIES project.
-+ Total Views since 02/22/2025: <!--VIEWS-->10360<!--/VIEWS-->
-+ Total Downloads since 02/22/2025: <!--CLONES-->769<!--/CLONES-->
++ Total Views since 02/22/2025: <!--VIEWS-->10391<!--/VIEWS-->
++ Total Downloads since 02/22/2025: <!--CLONES-->789<!--/CLONES-->
 <img src="./assets/Aries_traffic_plot.png" width="600" />
